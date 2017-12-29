@@ -1,0 +1,10 @@
+constraints: hs +development
+optimization: 2
+with-compiler: ghc-8.2.2
+tests: True
+benchmarks: True
+documentation: True
+haddock-hoogle: True
+haddock-internal: True
+extra-include-dirs: /usr/local/lib/ats2-postiats-0.3.8/ccomp/runtime
+                    /usr/local/lib/ats2-postiats-0.3.8

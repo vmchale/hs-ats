@@ -1,0 +1,8 @@
+tags
+*.c
+dist-newstyle
+dist
+.stack-work
+*.o
+*.so
+*.a

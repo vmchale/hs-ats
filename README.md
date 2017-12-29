@@ -1,0 +1,5 @@
+# fast-combinatorics
+
+## Installation
+
+## Configuration
