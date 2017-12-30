@@ -1,23 +1,23 @@
 module Main where
 
 import           Criterion.Main
-import           Numeric.Combinatorics
-import qualified Math.Combinatorics.Binomial as Ext
+-- import qualified Math.Combinatorics.Binomial  as Ext
 import qualified Math.Combinatorics.Factorial as Ext
+import           Numeric.Combinatorics
 
 hsIsPrime :: Int -> Bool
 hsIsPrime x = null [ y | y <- [2..m], x `mod` y == 0]
-    where m = floor (sqrt (fromIntegral x))
+    where m = floor (sqrt (fromIntegral x :: Float))
 
 main :: IO ()
 main =
     defaultMain [ bgroup "factorial"
                       [ bench "factorial" $ nf factorial 12
-                      , bench "Ext.factorial" $ nf factorial 12
+                      , bench "Ext.factorial" $ nf (Ext.factorial :: Int -> Int) 12
                       ]
                 , bgroup "choose"
                       [ bench "choose" $ nf (13 `choose`) 4
-                      , bench "Ext.choose" $ nf (13 `choose`) 4
+                      -- , bench "Ext.choose" $ nf (13 `Ext.choose`) 4
                       ]
                 , bgroup "isPrime"
                       [ bench "isPrime" $ nf isPrime 2017

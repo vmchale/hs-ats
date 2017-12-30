@@ -1,3 +1,5 @@
+# CI
+- [ ] use `Setup.hs` so everything works on hackage like it's supposed to.
 # Code maintenane
 - [ ] test suite for double factorial
 # Features

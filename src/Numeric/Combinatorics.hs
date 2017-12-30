@@ -1,3 +1,4 @@
+{-# LANGUAGE CPP                      #-}
 {-# LANGUAGE ForeignFunctionInterface #-}
 
 module Numeric.Combinatorics
@@ -14,9 +15,17 @@ import           Foreign.C
 foreign import ccall unsafe factorial_ats :: CInt -> CInt
 foreign import ccall unsafe choose_ats :: CInt -> CInt -> CInt
 foreign import ccall unsafe double_factorial :: CInt -> CInt
+#if __GLASGOW_HASKELL__ >= 820
 foreign import ccall unsafe is_prime_ats :: CInt -> CBool
+#else
+foreign import ccall unsafe is_prime_ats :: CInt -> CUChar
+#endif
 
+#if __GLASGOW_HASKELL__ >= 820
 convertBool :: CBool -> Bool
+#else
+convertBool :: CUChar -> Bool
+#endif
 convertBool = go . fromIntegral
     where
         go :: Word8 -> Bool
