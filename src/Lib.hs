@@ -7,9 +7,9 @@ module Lib
     , isPrime
     ) where
 
-import Control.Composition
+import           Control.Composition
+import           Data.Word
 import           Foreign.C
-import Data.Word
 
 foreign import ccall unsafe factorial_ats :: CInt -> CInt
 foreign import ccall unsafe choose_ats :: CInt -> CInt -> CInt
