@@ -22,7 +22,7 @@ main = shakeArgs shakeOptions { shakeFiles=".shake" } $ do
         cmd_ ["yamllint", ".travis.yml"]
         cmd_ ["yamllint", ".hlint.yaml"]
         cmd_ ["yamllint", ".stylish-haskell.yaml"]
-        cmd_ ["yamllint", "yamllint"]
+        cmd_ ["yamllint", ".yamllint"]
         cmd_ ["stack", "build", "--test", "--bench", "--no-run-tests", "--no-run-benchmarks"]
         cmd_ ["weeder"]
 

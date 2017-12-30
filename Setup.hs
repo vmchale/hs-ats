@@ -1,5 +1,10 @@
+{-# LANGUAGE CPP               #-}
 {-# LANGUAGE OverloadedStrings #-}
 
+
+#if __GLASGOW_HASKELL__ <= 784
+import           Control.Applicative
+#endif
 import qualified Codec.Archive.Tar                     as Tar
 import           Codec.Compression.GZip                (decompress)
 import           Distribution.Simple

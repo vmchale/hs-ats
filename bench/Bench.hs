@@ -1,7 +1,7 @@
 module Main where
 
 import           Criterion.Main
--- import qualified Math.Combinatorics.Binomial  as Ext
+import qualified Math.Combinatorics.Binomial  as Ext
 import qualified Math.Combinatorics.Factorial as Ext
 import           Numeric.Combinatorics
 
@@ -17,7 +17,7 @@ main =
                       ]
                 , bgroup "choose"
                       [ bench "choose" $ nf (13 `choose`) 4
-                      -- , bench "Ext.choose" $ nf (13 `Ext.choose`) 4
+                      , bench "Ext.choose" $ nf (Ext.choose 13 :: Int -> Int) 4
                       ]
                 , bgroup "isPrime"
                       [ bench "isPrime" $ nf isPrime 2017
