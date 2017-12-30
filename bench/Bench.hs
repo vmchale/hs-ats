@@ -5,7 +5,6 @@ import           Lib
 import qualified Math.Combinatorics.Binomial as MB
 import qualified Math.Combinatorics.Factorial as MB
 
-
 main :: IO ()
 main =
     defaultMain [ bgroup "factorial"
