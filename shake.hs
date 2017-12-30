@@ -31,6 +31,8 @@ main = shakeArgs shakeOptions { shakeFiles=".shake" } $ do
             then error "patscc failure"
             else pure ()
         cmd ["mv", "fast-combinatorics_dats.c", "cbits/fast-combinatorics.c"]
+        -- cmd_ ["sed", "-i", "263d", "cbits/fast-combinatorics.c"]
+        -- cmd ["sed", "-i", "262d", "cbits/fast-combinatorics.c"]
 
     "clean" ~> do
         cmd_ ["sn", "c"]
