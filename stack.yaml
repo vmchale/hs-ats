@@ -1,0 +1,5 @@
+---
+resolver: lts-10.0
+extra-deps:
+  - composition-prelude-0.1.1.3
+  - combinatorics-0.1.0

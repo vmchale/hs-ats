@@ -1,7 +1,9 @@
+ATS2-Postiats-include-0.3.8
 tags
 *.c
 dist-newstyle
 dist
+cbits
 .stack-work
 *.o
 *.so

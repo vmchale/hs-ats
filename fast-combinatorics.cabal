@@ -1,5 +1,5 @@
 name:                fast-combinatorics
-version:             0.1.0.2
+version:             0.1.0.3
 synopsis:            Fast combinatorics.
 description:         Fast combinatorics code with a high level of safety guaranteed by writing it in ATS.
 homepage:            https://github.com//fast-combinatorics#readme
@@ -9,10 +9,10 @@ author:              Vanessa McHale
 maintainer:          vamchale@gmail.com
 copyright:           Copyright: (c) 2017 Vanessa McHale
 category:            Numerics
-build-type:          Simple
+build-type:          Custom
 extra-source-files:  cbits/fast-combinatorics.c
 extra-doc-files:     README.md
-cabal-version:       >=1.18
+cabal-version:       >= 1.10
 
 Flag development {
   Description: Enable `-Werror`
@@ -20,12 +20,23 @@ Flag development {
   default: False
 }
 
+custom-setup
+  setup-depends:   base
+                 , Cabal >= 2.0
+                 , http-client
+                 , http-client-tls
+                 , tar
+                 , zlib
+                 , directory
+
 library
   c-sources:           cbits/fast-combinatorics.c
+  include-dirs:        ATS2-Postiats-include-0.3.8/ccomp/runtime/
+                     , ATS2-Postiats-include-0.3.8/
   hs-source-dirs:      src
   exposed-modules:     Numeric.Combinatorics
-  build-depends:       base >= 4.7 && < 5
-                     , composition-prelude
+  build-depends:       base >= 4.6 && < 5
+                     , composition-prelude >= 0.1.1.3
   default-language:    Haskell2010
   if flag(development)
     ghc-options:       -Werror
