@@ -1,4 +1,4 @@
-import           Lib
+import           Numeric.Combinatorics
 import           Test.Hspec
 import           Test.Hspec.QuickCheck
 import qualified Math.Combinatorics.Binomial as Ext

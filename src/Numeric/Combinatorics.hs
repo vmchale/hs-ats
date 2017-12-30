@@ -1,6 +1,6 @@
 {-# LANGUAGE ForeignFunctionInterface #-}
 
-module Lib
+module Numeric.Combinatorics
     ( factorial
     , choose
     , doubleFactorial

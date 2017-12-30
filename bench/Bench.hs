@@ -1,7 +1,7 @@
 module Main where
 
 import           Criterion.Main
-import           Lib
+import           Numeric.Combinatorics
 import qualified Math.Combinatorics.Binomial as Ext
 import qualified Math.Combinatorics.Factorial as Ext
 
