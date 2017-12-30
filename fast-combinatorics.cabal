@@ -1,14 +1,14 @@
 name:                fast-combinatorics
 version:             0.1.0.0
--- synopsis:
--- description:
+synopsis:            Fast combinatorics.
+description:         Fast combinatorics code with a high level of safety guaranteed by writing it in ATS.
 homepage:            https://github.com//fast-combinatorics#readme
 license:             BSD3
 license-file:        LICENSE
 author:              Vanessa McHale
 maintainer:          vamchale@gmail.com
 copyright:           Copyright: (c) 2017 Vanessa McHale
---category:            Web
+category:            Numerics
 build-type:          Simple
 extra-source-files:  cbits/fast-combinatorics.c
 extra-doc-files:     README.md

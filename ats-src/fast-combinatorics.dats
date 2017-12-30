@@ -5,8 +5,12 @@
 staload "contrib/atscntrb-hx-intinf/SATS/intinf_t.sats"
 staload "contrib/atscntrb-hx-intinf/SATS/intinf_vt.sats"
 
-fun bigfact{m:nat} .<m>. (k: intinf(m)) :<1> Intinf =
-  k
+fun bigfact{m:nat} (k: intinf(m)) :<1> Intinf =
+  if k = 0
+    then (intinf_free(k) ; intinf_make_int(1))
+    else bigfact(k)
+
+//bigfact(k - intinf_make_int(1) * k
 
 fun fact {n : nat} .<n>. (k : int(n)) :<> int =
   case+ k of
