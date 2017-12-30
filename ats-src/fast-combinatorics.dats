@@ -32,21 +32,28 @@ fn choose {n : nat}{ m : nat | m <= n } (n : int(n), k : int(m)) : int =
       | k =>> numerator_loop(k) / fact(k)
   end
 
+//var x: [ n : nat ] int(n) = g1ofg0(bound)
+// FIXME actually prove termination lol
 fun is_prime(k : intGt(0)) : bool =
-  let
-    var bound: int = g0float2int(sqrt_float(g0int2float_int_float(k)))
-    
-    fun loop {n : nat} (i : int(n), bound : int) : bool =
-      if i mod k = 0 then
-        false
-      else
-        if i < bound then
-          true && loop(i + 1, bound)
-        else
-          true
-  in
-    loop(1, bound)
-  end
+  case+ k of
+    | 1 => false
+    | k => 
+      begin
+        let
+          var bound: int = g0float2int(sqrt_float(g0int2float_int_float(k)))
+          
+          fun loop {n : nat} (i : int(n), bound : int) : bool =
+            if i <= bound then
+              if k mod i = 0 then
+                false
+              else
+                true && loop(i + 1, bound)
+            else
+              true
+        in
+          loop(2, bound)
+        end
+      end
 
 extern
 fun choose_ats {n : nat}{ m : nat | m <= n } : (int(n), int(m)) -> int =
@@ -65,6 +72,13 @@ implement double_factorial (m) =
 extern
 fun factorial_ats {n : nat} : int(n) -> int =
   "mac#"
+
+extern
+fun is_prime_ats { n : nat | n > 0 } : int(n) -> bool =
+  "mac#"
+
+implement is_prime_ats (n) =
+  is_prime(n)
 
 implement factorial_ats (m) =
   fact(m)
