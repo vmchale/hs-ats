@@ -12,6 +12,20 @@ main = shakeArgs shakeOptions { shakeFiles=".shake" } $ do
 
     want [ "cbits/fast-combinatorics.c" ]
 
+
+    "ci" ~> do
+        cmd_ ["cabal", "new-build"]
+        cmd_ ["cabal", "new-test"]
+        cmd_ ["cabal", "new-haddock"]
+        cmd_ ["hlint", "bench", "src", "test/", "Setup.hs"]
+        cmd_ ["tomlcheck", "--file", ".atsfmt.toml"]
+        cmd_ ["yamllint", ".travis.yml"]
+        cmd_ ["yamllint", ".hlint.yaml"]
+        cmd_ ["yamllint", ".stylish-haskell.yaml"]
+        cmd_ ["yamllint", "yamllint"]
+        cmd_ ["stack", "build", "--test", "--bench", "--no-run-tests", "--no-run-benchmarks"]
+        cmd_ ["weeder"]
+
     "build" %> \_ -> do
         need ["shake.hs"]
         cmd_ ["cp", "shake.hs", ".shake/shake.hs"]
@@ -31,10 +45,9 @@ main = shakeArgs shakeOptions { shakeFiles=".shake" } $ do
             then error "patscc failure"
             else pure ()
         cmd ["mv", "fast-combinatorics_dats.c", "cbits/fast-combinatorics.c"]
-        -- cmd_ ["sed", "-i", "263d", "cbits/fast-combinatorics.c"]
-        -- cmd ["sed", "-i", "262d", "cbits/fast-combinatorics.c"]
 
     "clean" ~> do
         cmd_ ["sn", "c"]
         removeFilesAfter "." ["//*.c", "//tags"]
         removeFilesAfter ".shake" ["//*"]
+        removeFilesAfter "ATS2-Postiats-include-0.3.8" ["//*"]

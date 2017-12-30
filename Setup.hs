@@ -20,12 +20,12 @@ cleanATS _ _ _ _ = removeDirectoryRecursive "ATS2-Postiats-include-0.3.8"
 buildScript :: Args -> BuildFlags -> IO HookedBuildInfo
 buildScript _ _ = do
 
-    putStrLn "fetching libraries..."
+    putStrLn "Fetching libraries..."
     manager <- newManager tlsManagerSettings
     initialRequest <- parseRequest "https://downloads.sourceforge.net/project/ats2-lang/ats2-lang/ats2-postiats-0.3.8/ATS2-Postiats-include-0.3.8.tgz"
     response <- responseBody <$> httpLbs (initialRequest { method = "GET" }) manager
 
-    putStrLn "unpacking libraries..."
+    putStrLn "Unpacking libraries..."
     Tar.unpack "." . Tar.read . decompress $ response
 
     pure emptyHookedBuildInfo
