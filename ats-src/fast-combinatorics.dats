@@ -1,28 +1,6 @@
 #define ATS_MAINATSFLAG 1
 
 #include "share/atspre_staload.hats"
-// #include "contrib/atscntrb-hx-intinf/DATS/intinf_t.dats"
-// #include "contrib/atscntrb-hx-intinf/DATS/intinf_vt.dats"
-
-%{^
-#include "contrib/atscntrb-libgmp/CATS/gmp.cats"
-%}
-
-staload "contrib/atscntrb-hx-intinf/SATS/intinf_t.sats"
-staload "contrib/atscntrb-hx-intinf/SATS/intinf_vt.sats"
-
-// fun fact_gmp{m:nat} .<m>. (k: !intinf(m)) : Intinf =
-//  if k = 0
-//    then (intinf_make_int(1))
-//    else let
-//      var y = k - 1
-//      var z = fact_gmp(y)
-//      var q = y * k
-//      val _ = intinf_free(y)
-//      val _ = intinf_free(z)
-//    in 
-//      q
-//    end
 
 fnx fact {n : nat} .<n>. (k : int(n)) :<> int =
   case+ k of
