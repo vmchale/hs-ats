@@ -5,19 +5,24 @@
 staload "contrib/atscntrb-hx-intinf/SATS/intinf_t.sats"
 staload "contrib/atscntrb-hx-intinf/SATS/intinf_vt.sats"
 
-fun bigfact{m:nat} (k: intinf(m)) :<1> Intinf =
-  if k = 0
-    then (intinf_free(k) ; intinf_make_int(1))
-    else bigfact(k)
+//fun fact_gmp{m:nat} .<m>. (k: !intinf(m)) : Intinf =
+//  if k = 0
+//    then (intinf_make_int(1))
+//    else let
+//      var y = k - 1
+//      var z = fact_gmp(y)
+//      var q = y * k
+//      val _ = intinf_free(y)
+//      val _ = intinf_free(z)
+//      in q
+//      end
 
-//bigfact(k - intinf_make_int(1) * k
-
-fun fact {n : nat} .<n>. (k : int(n)) :<> int =
+fnx fact {n : nat} .<n>. (k : int(n)) :<> int =
   case+ k of
     | 0 => 1
     | k =>> fact(k - 1) * k
 
-fun dfact {n : nat} .<n>. (k : int(n)) :<> int =
+fnx dfact {n : nat} .<n>. (k : int(n)) :<> int =
   case+ k of
     | 0 => 1
     | 1 => 1
