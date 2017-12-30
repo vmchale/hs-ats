@@ -13,7 +13,7 @@ fnx dfact {n : nat} .<n>. (k : int(n)) :<> int =
     | 1 => 1
     | k =>> k * dfact(k - 2)
 
-fn choose {n : nat}{m : nat} (n : int(n), k : int(m)) : int =
+fn choose {n : nat}{m : nat | m <= n} (n : int(n), k : int(m)) : int =
   let
     fun numerator_loop { m : nat | m > 1 } .<m>. (i : int(m)) : int =
       case+ i of
@@ -28,7 +28,7 @@ fn choose {n : nat}{m : nat} (n : int(n), k : int(m)) : int =
   end
 
 extern
-fun choose_ats {n : nat}{m : nat} : (int(n), int(m)) -> int =
+fun choose_ats {n : nat}{m : nat | m <= n} : (int(n), int(m)) -> int =
   "mac#"
 
 implement choose_ats (n, k) =
