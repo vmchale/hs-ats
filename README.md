@@ -20,3 +20,29 @@ source if you are hacking on the library. To that end, you can install
 ```bash
  $ ./shake.hs
 ```
+
+You will also likely want to install
+[GHC](https://www.haskell.org/ghc/download.html) as well as
+[cabal](https://www.haskell.org/cabal/).
+
+## Documentation
+
+### Using the ATS library
+
+One of the nice things about a Haskell wrapper is that some of Haskell's
+tooling/libraries may be used. In particular, you may like to interact with the
+library via a REPL, viz.
+
+```bash
+ $ cabal new-repl
+```
+
+### Using the Haskell library
+
+You may wish to read the ATS source code for an indication of what sorts of
+things ATS allows us to prove things about our programs, such as proofs of
+termination.
+
+There are also a few caveats: note that all results and arguments
+must be of the `Int` type. This unfortunate constraint will hopefully be fixed
+in the future, but right now it limits the usefulness of the library.

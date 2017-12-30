@@ -1,4 +1,4 @@
-constraints: hs +development
+constraints: fast-combinatorics +development
 optimization: 2
 with-compiler: ghc-8.2.2
 tests: True

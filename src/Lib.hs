@@ -16,15 +16,16 @@ foreign import ccall unsafe choose_ats :: CInt -> CInt -> CInt
 foreign import ccall unsafe double_factorial :: CInt -> CInt
 foreign import ccall unsafe is_prime_ats :: CInt -> CBool
 
--- conjugate :: (Integral a, Integral b) => 
-
-isPrime :: Int -> Bool
-isPrime i = go (fromIntegral $ is_prime_ats $ fromIntegral i)
+convertBool :: CBool -> Bool
+convertBool = go . fromIntegral
     where
         go :: Word8 -> Bool
         go 0 = False
         go 1 = True
         go _ = False
+
+isPrime :: Int -> Bool
+isPrime = convertBool . is_prime_ats . fromIntegral
 
 {-@ choose :: { n : Nat | n >= 0 } -> { k : Nat | k >= 0 && k <= n } -> Int @-}
 choose :: Int -> Int -> Int
