@@ -1,4 +1,5 @@
 ---
+
 rules:
   braces:
     min-spaces-inside: 0

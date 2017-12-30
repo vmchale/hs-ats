@@ -2,6 +2,10 @@
 
 #include "share/atspre_staload.hats"
 
+staload "libats/SATS/Number/real.sats"
+staload "libats/SATS/Number/float.sats"
+staload "libats/libc/SATS/math.sats"
+
 fnx fact {n : nat} .<n>. (k : int(n)) :<> int =
   case+ k of
     | 0 => 1
@@ -26,6 +30,23 @@ fn choose {n : nat}{ m : nat | m <= n } (n : int(n), k : int(m)) : int =
       | 0 => 1
       | 1 => n
       | k =>> numerator_loop(k) / fact(k)
+  end
+
+fun is_prime(k : intGt(0)) : bool =
+  let
+    var pre_bound: int = g0float2int(sqrt_float(g0int2float_int_float(k)))
+    var bound = g1ofg0(pre_bound) : [ n : nat ] int(n) 
+    
+    fun loop {n : nat}{ m : nat | m >= n } .<m - n>. (i : int(n), bound : int(m)) : bool =
+      if i mod k = 0 then
+        false
+      else
+        if i < bound then
+          true && loop(i + 1, bound)
+        else
+          true
+  in
+    loop(1, bound)
   end
 
 extern
