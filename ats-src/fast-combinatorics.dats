@@ -34,10 +34,9 @@ fn choose {n : nat}{ m : nat | m <= n } (n : int(n), k : int(m)) : int =
 
 fun is_prime(k : intGt(0)) : bool =
   let
-    var pre_bound: int = g0float2int(sqrt_float(g0int2float_int_float(k)))
-    var bound = g1ofg0(pre_bound) : [ n : nat ] int(n) 
+    var bound: int = g0float2int(sqrt_float(g0int2float_int_float(k)))
     
-    fun loop {n : nat}{ m : nat | m >= n } .<m - n>. (i : int(n), bound : int(m)) : bool =
+    fun loop {n : nat} (i : int(n), bound : int) : bool =
       if i mod k = 0 then
         false
       else
