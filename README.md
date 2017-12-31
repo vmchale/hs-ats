@@ -3,7 +3,8 @@
 [![Build Status](https://travis-ci.org/vmchale/fast-combinatorics.svg?branch=master)](https://travis-ci.org/vmchale/fast-combinatorics)
 
 This is a library for fast combinatorics using ATS. As such, make sure
-a C compiler is installed, however it may not work on windows.
+a C compiler is installed. It may not work on windows, so if you run into bugs
+building this please open an issue.
 
 Currently it is a work-in-progress, being somewhat constrained by the fact that I have
 yet to figure out how to share arbitrary-precision types between ATS and Haskell.

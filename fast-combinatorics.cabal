@@ -1,5 +1,5 @@
 name:                fast-combinatorics
-version:             0.1.0.4
+version:             0.1.0.5
 synopsis:            Fast combinatorics.
 description:         Fast combinatorics code with a high level of safety guaranteed by writing it in ATS.
 homepage:            https://github.com//fast-combinatorics#readme
@@ -13,6 +13,9 @@ build-type:          Custom
 extra-source-files:  cbits/combinatorics-ffi.c
                    , cbits/numerics-ffi.c
                    , ATS2-Postiats-include-0.3.8/ccomp/runtime/pats_ccomp_config.h
+                   , stack.yaml
+                   , ats-src/*.dats
+                   , cabal.project.local
 extra-doc-files:     README.md
 cabal-version:       >= 1.18
 

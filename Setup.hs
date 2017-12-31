@@ -27,7 +27,7 @@ cleanATS _ _ _ _ = removeDirectoryRecursive "ATS2-Postiats-include-0.3.8"
 buildScript :: Args -> ConfigFlags -> IO HookedBuildInfo
 buildScript _ _ = do
 
-    needsSetup <- not <$> doesDirectoryExist "ATS2-Postiats-include-0.3.8"
+    needsSetup <- not <$> doesDirectoryExist "ATS2-Postiats-include-0.3.8/prelude"
 
     when needsSetup $ do
 
