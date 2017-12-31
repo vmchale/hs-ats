@@ -2,6 +2,7 @@ module Main where
 
 import           Criterion.Main
 import           Numeric.Combinatorics
+import           Numeric.Integer
 import           Numeric.Pure.Combinatorics
 
 main :: IO ()
@@ -20,6 +21,6 @@ main =
                       ]
                 , bgroup "integerExp"
                       [ bench "integerExp" $ nf (integerExp 3) 7
-                      , bench "^" $ nf (3 ^) 7
+                      , bench "^" $ nf ((3 :: Int) ^) (7 :: Int)
                       ]
                 ]
