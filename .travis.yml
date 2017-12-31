@@ -19,6 +19,7 @@ matrix:
           packages:
             - cabal-install-head
             - ghc-8.2.2
+            - ghc-8.0.2
           sources:
             - hvr-ghc
 
@@ -35,6 +36,7 @@ install:
   - cd ../
   - rm -rf ATS2-Postiats-0.3.8
   - cabal new-build --dependencies-only
+  - cabal new-build --dependencies-only -w ghc-8.0.2
 
 script:
   - pip install yamllint
@@ -48,4 +50,5 @@ script:
   - mkdir cbits
   - mv fast-combinatorics_dats.c cbits/fast-combinatorics.c
   - cabal new-build
+  - cabal new-build -w ghc-8.0.2
   - cabal new-test
