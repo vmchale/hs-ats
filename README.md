@@ -21,7 +21,7 @@ yet to figure out how to share arbitrary-precision types between ATS and Haskell
 | ``13 `choose` 4`` | Haskell | 28.38 ns |
 | `isPrime 2017` | ATS | 118.9 ns |
 | `isPrime 2017` | Haskell | 497.3 ns |
-| `3 ^ 7` | ATS | 9.050 ns |
+| `3 ^ 7` | ATS | 8.735 ns |
 | `3 ^ 7` | Haskell | 37.02 ns |
 
 ## Building
