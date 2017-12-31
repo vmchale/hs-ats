@@ -4,7 +4,7 @@
 
 staload "libats/libc/SATS/math.sats"
 
-fun exp {n : nat} .<n>. (x : int, n : int(n)) : int =
+fun exp {n : nat} .<n>. (x : int, n : int(n)) :<> int =
   case+ x of
     | 0 => 0
     | x => 
@@ -34,7 +34,7 @@ fun sqrt_bad(k : intGt(0)) : [ m : nat ] int(m) =
     bound
   end
 
-fun is_prime(k : intGt(0)) : bool =
+fn is_prime(k : intGt(0)) : bool =
   case+ k of
     | 1 => false
     | k => 
@@ -45,7 +45,7 @@ fun is_prime(k : intGt(0)) : bool =
               if k % i = 0 then
                 false
               else
-                true && loop(i + 1, bound)
+                loop(i + 1, bound)
             else
               if i = bound then
                 if k % i = 0 then

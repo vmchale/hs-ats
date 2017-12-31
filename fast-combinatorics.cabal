@@ -1,5 +1,5 @@
 name:                fast-combinatorics
-version:             0.1.0.5
+version:             0.1.0.6
 synopsis:            Fast combinatorics.
 description:         Fast combinatorics code with a high level of safety guaranteed by writing it in ATS.
 homepage:            https://github.com//fast-combinatorics#readme
@@ -50,7 +50,7 @@ library
     ghc-options:       -Werror
   if impl(ghc >= 8.0)
     ghc-options:       -Wincomplete-uni-patterns -Wincomplete-record-updates -Wcompat 
-  ghc-options:         -Wall -optc-mtune=native -optc-flto -optc-O3
+  ghc-options:         -Wall -optc-mtune=native -optc-flto -optc-O2
 
 test-suite fast-combinatorics-test
   type:                exitcode-stdio-1.0
@@ -77,7 +77,7 @@ benchmark fast-combinatorics-bench
     ghc-options: -Werror
   if impl(ghc >= 8.0)
     ghc-options:       -Wincomplete-uni-patterns -Wincomplete-record-updates -Wcompat 
-  ghc-options:         -Wall -optc-mtune=native -optc-flto -optc-O3
+  ghc-options:         -Wall -optc-mtune=native -optc-flto -optc-O2
   default-language:    Haskell2010
 
 source-repository head

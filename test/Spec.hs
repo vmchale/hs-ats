@@ -15,6 +15,9 @@ main = hspec $ do
     parallel $ describe "factorial" $
         prop "should agree with the pure Haskell function" $
             \x -> x < 1 || x > 12 || factorial x == hsFactorial x
+    parallel $ describe "doubleFactorial" $
+        prop "should agree with the pure Haskell function" $
+            \x -> x < 0 || x > 19 || doubleFactorial x == hsDoubleFactorial x
     parallel $ describe "choose" $
         prop "should agree with the pure Haskell function" $
             \x y -> x < 0 || y < 0 || x > 13 || y > 11 || (x `choose` y) == (x `hsChoose` y)

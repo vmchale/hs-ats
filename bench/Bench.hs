@@ -15,6 +15,10 @@ main =
                       [ bench "choose" $ nf (13 `choose`) 4
                       , bench "hsChoose" $ nf (13 `hsChoose`) 4
                       ]
+                , bgroup "double factorial"
+                      [ bench "doubleFactorial" $ nf doubleFactorial 19
+                      , bench "hsDoubleFactorial" $ nf hsDoubleFactorial 19
+                      ]
                 , bgroup "primality check"
                       [ bench "isPrime" $ nf isPrime 2017
                       , bench "hsIsPrime" $ nf hsIsPrime 2017

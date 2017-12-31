@@ -16,9 +16,9 @@ fnx dfact {n : nat} .<n>. (k : int(n)) :<> int =
     | k =>> k * dfact(k - 2)
 
 // TODO make this more versatile?
-fn choose {n : nat}{ m : nat | m <= n } (n : int(n), k : int(m)) : int =
+fn choose {n : nat}{ m : nat | m <= n } (n : int(n), k : int(m)) :<> int =
   let
-    fun numerator_loop { m : nat | m > 1 } .<m>. (i : int(m)) : int =
+    fun numerator_loop { m : nat | m > 1 } .<m>. (i : int(m)) :<> int =
       case+ i of
         | 1 => n
         | 2 => (n - 1) * n

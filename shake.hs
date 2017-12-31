@@ -21,6 +21,7 @@ main = shakeArgs shakeOptions { shakeFiles = ".shake"
 
     want [ "cbits/combinatorics-ffi.c"
          , "cbits/numerics-ffi.c"
+         , "cbits/number-theory-ffi.c"
          ]
 
     "ci" ~> do
@@ -43,15 +44,12 @@ main = shakeArgs shakeOptions { shakeFiles = ".shake"
         cmd ["cp", ".shake/build", "."]
 
     "//*.c" %> \out -> do
-        dats <- getDirectoryFiles "" ["ats-src//*.dats"]
-        sats <- getDirectoryFiles "" ["ats-src//*.sats"]
-        hats <- getDirectoryFiles "" ["ats-src//*.hats"]
-        cats <- getDirectoryFiles "" ["ats-src//*.cats"]
-        need $ dats <> sats <> hats <> cats
         let patshome = "/usr/local/lib/ats2-postiats-0.3.8"
         let preSource = dropDirectory1 out
-        let sourcefile = preSource -<.> "dats"
-        (Exit c, Stderr err) <- command [EchoStderr False, AddEnv "PATSHOME" patshome] "patscc" ["-ccats", "ats-src/" ++ sourcefile]
+        let sourceFile = preSource -<.> "dats"
+        let sourcePlain = replace "-ffi" "" sourceFile
+        need (("ats-src/" ++) <$> [sourceFile, sourcePlain])
+        (Exit c, Stderr err) <- command [EchoStderr False, AddEnv "PATSHOME" patshome] "patscc" ["-ccats", "ats-src/" ++ sourceFile]
         cmd_ [Stdin err] Shell "pats-filter"
         if c /= ExitSuccess
             then error "patscc failure"
