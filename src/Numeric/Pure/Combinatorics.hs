@@ -5,7 +5,7 @@ module Numeric.Pure.Combinatorics ( hsIsPrime
 
 hsIsPrime :: Int -> Bool
 hsIsPrime 1 = False
-hsIsPrime x = null [ y | y <- [2..m], x `mod` y == 0]
+hsIsPrime x = all ((/=0) . (x `mod`)) [2..m]
     where m = floor (sqrt (fromIntegral x :: Float))
 
 hsFactorial :: Int -> Int

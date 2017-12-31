@@ -56,8 +56,6 @@ test-suite fast-combinatorics-test
   build-depends:       base
                      , fast-combinatorics
                      , hspec
-                     , combinatorics
-                     , arithmoi
   if flag(development)
     ghc-options: -Werror
   if impl(ghc >= 8.0)
@@ -72,7 +70,6 @@ benchmark fast-combinatorics-bench
   build-depends:       base
                      , fast-combinatorics
                      , criterion
-                     , combinatorics
   if flag(development)
     ghc-options: -Werror
   if impl(ghc >= 8.0)
