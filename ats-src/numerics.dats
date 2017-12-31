@@ -23,39 +23,16 @@ fun exp {n : nat} .<n>. (x : int, n : int(n)) : int =
           1
       end
 
-fun int_sqrt {n : nat} (n : int(n)) : int =
+fun sqrt_bad(k : intGt(0)) : [ m : nat ] int(m) =
   let
-    var mid = n / 2
-    var mid_sq = mid * mid
-    
-    fun loop(lower : int, upper : int, mid : int, mid_sq : int) : int =
-      if lower >= upper - 1 then
-        lower
-      else
-        if mid_sq = n then
-          mid_sq
-        else
-          if mid_sq < n then
-            let
-              var a = (mid + upper) / 2
-            in
-              loop(mid, upper, a, a * a)
-            end
-          else
-            let
-              var a = (lower + mid) / 2
-            in
-              loop(lower, mid, a, a * a)
-            end
+    var pre_bound: int = g0float2int(sqrt_float(g0int2float_int_float(k)))
+    var bad = fix@ f (n : int) : [ m : nat ] int(m) => case+ n of
+      | 0 => 0
+      | n => 1 + f(n - 1)
+    var bound: [ m : nat ] int(m) = bad(pre_bound)
   in
-    loop(0, n, mid, mid_sq)
+    bound
   end
-
-// FIXME wtf
-fun bad(n : int) : [ m : nat ] int(m) =
-  case+ n of
-    | 0 => 0
-    | n => 1 + bad(n - 1)
 
 fun is_prime(k : intGt(0)) : bool =
   case+ k of
@@ -63,9 +40,6 @@ fun is_prime(k : intGt(0)) : bool =
     | k => 
       begin
         let
-          var pre_bound: int = int_sqrt(k)
-          var bound: [ m : nat ] int(m) = bad(pre_bound)
-          
           fun loop {n : nat}{m : nat} .<max(0,m-n)>. (i : int(n), bound : int(m)) :<> bool =
             if i < bound then
               if k % i = 0 then
@@ -81,6 +55,6 @@ fun is_prime(k : intGt(0)) : bool =
               else
                 true
         in
-          loop(2, bound)
+          loop(2, sqrt_bad(k))
         end
       end

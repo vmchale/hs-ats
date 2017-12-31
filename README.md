@@ -3,10 +3,23 @@
 [![Build Status](https://travis-ci.org/vmchale/fast-combinatorics.svg?branch=master)](https://travis-ci.org/vmchale/fast-combinatorics)
 
 This is a library for fast combinatorics using ATS. As such, make sure
-a C compiler is installed. Build reports from Windows users are always welcome.
+a C compiler is installed, however it may not work on windows.
 
-Currently it is in-progress, being somewhat constrained by the fact that I have
+Currently it is a work-in-progress, being somewhat constrained by the fact that I have
 yet to figure out how to share arbitrary-precision types between ATS and Haskell.
+
+## Benchmarks
+
+| Computation | Version (ATS/Haskell) | Time |
+| ----------- | --------------------- | ---- |
+| `12!` | ATS | 9.301 ns |
+| `12!` | Haskell | 27.84 ns |
+| ``13 `choose` 4`` | ATS | 12.28 ns |
+| ``13 `choose` 4`` | Haskell | 28.38 ns |
+| `isPrime 2017` | ATS | 118.9 ns |
+| `isPrime 2017` | Haskell | 497.3 ns |
+| `3 ^ 7` | ATS | 9.050 ns |
+| `3 ^ 7` | Haskell | 37.02 ns |
 
 ## Building
 
@@ -28,8 +41,7 @@ You will also likely want to install
 ### Using the ATS library
 
 One of the nice things about a Haskell wrapper is that some of Haskell's
-tooling/libraries may be used. In particular, you may like to interact with the
-library via a REPL, viz.
+tooling/libraries may be used. You may want to try the REPL:
 
 ```bash
  $ cabal new-repl
@@ -38,7 +50,7 @@ library via a REPL, viz.
 ### Using the Haskell library
 
 You may wish to read the ATS source code for an indication of what sorts of
-things ATS allows us to prove things about our programs, such as proofs of
+things ATS allows us to prove things about our programs, particularly proofs of
 termination.
 
 There are also a few caveats: note that all results and arguments

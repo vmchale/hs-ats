@@ -5,6 +5,11 @@
 - [ ] test suite for double factorial
 # Features
 - [ ] Euclid's algorithm
+- [ ] quadratic residues
+- [ ] jacobi symbol
+- [ ] chinese remainder theorem
+- [ ] factor a number
+- [ ] elliptic curves
 - [ ] LCM
 - [ ] check coprimality
 - [ ] GCD
