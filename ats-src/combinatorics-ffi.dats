@@ -1,8 +1,7 @@
 #define ATS_MAINATSFLAG 1
 
 #include "share/atspre_staload.hats"
-
-staload "ats-src/combinatorics.dats"
+#include "ats-src/combinatorics.dats"
 
 extern
 fun choose_ats {n : nat}{ m : nat | m <= n } : (int(n), int(m)) -> int =

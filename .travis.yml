@@ -46,9 +46,9 @@ script:
   - yamllint .yamllint
   - curl -sL https://raw.githubusercontent.com/vmchale/tomlcheck/master/sh/check | sh -s .atsfmt.toml
   - curl -sL https://raw.github.com/ndmitchell/hlint/master/misc/travis.sh | sh -s shake.hs
-  - patscc -ccats ats-src/fast-combinatorics.dats
+  - patscc -ccats ats-src/ffi-combinatorics.dats
   - mkdir cbits
-  - mv fast-combinatorics_dats.c cbits/fast-combinatorics.c
+  - mv ffi-combinatorics_dats.c cbits/ffi-combinatorics.c
   - cabal new-build
   - cabal new-build -w ghc-8.0.2
   - cabal new-test

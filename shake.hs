@@ -1,6 +1,8 @@
 #!/usr/bin/env stack
--- stack runghc --resolver lts-10.0 --package shake --install-ghc
+-- stack runghc --resolver lts-10.0 --package shake --package split --install-ghc
 
+import           Data.List                  (intercalate)
+import           Data.List.Split            (splitOn)
 import           Data.Maybe                 (fromMaybe)
 import           Data.Monoid
 import           Development.Shake
@@ -9,10 +11,7 @@ import           System.Exit                (ExitCode (..))
 import           System.FilePath.Posix
 
 replace :: Eq a => [a] -> [a] -> [a] -> [a]
-replace [] _ _ = []
-replace s ndl hay
-    | take (length ndl) s == ndl = hay ++ replace (drop (length ndl) s) ndl hay
-    | otherwise = head s : replace (tail s) ndl hay
+replace old new = intercalate new . splitOn old
 
 main :: IO ()
 main = shakeArgs shakeOptions { shakeFiles = ".shake"
@@ -20,10 +19,8 @@ main = shakeArgs shakeOptions { shakeFiles = ".shake"
                               , shakeThreads = 4
                               } $ do
 
-    want [ "cbits/ats-ffi.c"
-         , "cbits/combinatorics.c"
+    want [ "cbits/combinatorics-ffi.c"
          ]
-
 
     "ci" ~> do
         cmd_ ["cabal", "new-build"]
@@ -58,7 +55,7 @@ main = shakeArgs shakeOptions { shakeFiles = ".shake"
         if c /= ExitSuccess
             then error "patscc failure"
             else pure ()
-        cmd ["mv", replace preSource ".c" "_dats.c", out]
+        cmd ["mv", replace ".c" "_dats.c" preSource, out]
 
     "clean" ~> do
         cmd_ ["sn", "c"]
