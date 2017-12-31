@@ -44,8 +44,10 @@ script:
   - yamllint .yamllint
   - curl -sL https://raw.githubusercontent.com/vmchale/tomlcheck/master/sh/check | sh -s .atsfmt.toml
   - curl -sL https://raw.github.com/ndmitchell/hlint/master/misc/travis.sh | sh -s shake.hs
-  - patscc -ccats ats-src/ffi-combinatorics.dats
+  - patscc -ccats ats-src/combinatorics-ffi.dats
+  - patscc -ccats ats-src/numerics-ffi.dats
   - mkdir cbits
-  - mv ffi-combinatorics_dats.c cbits/ffi-combinatorics.c
+  - mv combinatorics-ffi_dats.c cbits/combinatorics-ffi.c
+  - mv numerics-ffi_dats.c cbits/numerics-ffi.c
   - cabal new-build
   - cabal new-test
