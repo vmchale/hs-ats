@@ -10,7 +10,8 @@ maintainer:          vamchale@gmail.com
 copyright:           Copyright: (c) 2017 Vanessa McHale
 category:            Numerics
 build-type:          Custom
-extra-source-files:  cbits/combinatorics.c
+extra-source-files:  cbits/combinatorics-ffi.c
+                   , cbits/numerics-ffi.c
                    , ATS2-Postiats-include-0.3.8/ccomp/runtime/pats_ccomp_config.h
 extra-doc-files:     README.md
 cabal-version:       >= 1.18
@@ -32,10 +33,13 @@ custom-setup
 
 library
   c-sources:           cbits/combinatorics-ffi.c
+                     , cbits/numerics-ffi.c
   include-dirs:        ATS2-Postiats-include-0.3.8/ccomp/runtime/
                      , ATS2-Postiats-include-0.3.8/
   hs-source-dirs:      src
   exposed-modules:     Numeric.Combinatorics
+                     , Numeric.Pure.Combinatorics
+                     , Numeric.Integer
   build-depends:       base >= 4.7 && < 5
                      , composition-prelude >= 0.1.1.4
   default-language:    Haskell2010

@@ -20,6 +20,7 @@ main = shakeArgs shakeOptions { shakeFiles = ".shake"
                               } $ do
 
     want [ "cbits/combinatorics-ffi.c"
+         , "cbits/numerics-ffi.c"
          ]
 
     "ci" ~> do
