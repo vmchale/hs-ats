@@ -2,7 +2,7 @@
 
 #include "share/atspre_staload.hats"
 
-staload "ats-src/fast-combinatorics.dats"
+staload "ats-src/combinatorics.dats"
 
 extern
 fun choose_ats {n : nat}{ m : nat | m <= n } : (int(n), int(m)) -> int =

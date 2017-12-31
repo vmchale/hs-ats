@@ -1,16 +1,28 @@
 #!/usr/bin/env stack
 -- stack runghc --resolver lts-10.0 --package shake --install-ghc
 
-import           Data.Maybe            (fromMaybe)
+import           Data.Maybe                 (fromMaybe)
 import           Data.Monoid
 import           Development.Shake
-import           System.Exit           (ExitCode (..))
+import           Development.Shake.FilePath
+import           System.Exit                (ExitCode (..))
 import           System.FilePath.Posix
 
-main :: IO ()
-main = shakeArgs shakeOptions { shakeFiles=".shake" } $ do
+replace :: Eq a => [a] -> [a] -> [a] -> [a]
+replace [] _ _ = []
+replace s ndl hay
+    | take (length ndl) s == ndl = hay ++ replace (drop (length ndl) s) ndl hay
+    | otherwise = head s : replace (tail s) ndl hay
 
-    want [ "cbits/fast-combinatorics.c" ]
+main :: IO ()
+main = shakeArgs shakeOptions { shakeFiles = ".shake"
+                              , shakeProgress = progressSimple
+                              , shakeThreads = 4
+                              } $ do
+
+    want [ "cbits/ats-ffi.c"
+         , "cbits/combinatorics.c"
+         ]
 
 
     "ci" ~> do
@@ -29,22 +41,24 @@ main = shakeArgs shakeOptions { shakeFiles=".shake" } $ do
     "build" %> \_ -> do
         need ["shake.hs"]
         cmd_ ["cp", "shake.hs", ".shake/shake.hs"]
-        command_ [Cwd ".shake"] "ghc-8.2.2" ["-O", "shake.hs", "-o", "build"]
+        command_ [Cwd ".shake"] "ghc-8.2.2" ["-O", "shake.hs", "-o", "build", "-threaded", "-rtsopts", "-with-rtsopts=-I0 -qg -qb"]
         cmd ["cp", ".shake/build", "."]
 
-    "cbits/fast-combinatorics.c" %> \out -> do
+    "//*.c" %> \out -> do
         dats <- getDirectoryFiles "" ["ats-src//*.dats"]
         sats <- getDirectoryFiles "" ["ats-src//*.sats"]
         hats <- getDirectoryFiles "" ["ats-src//*.hats"]
         cats <- getDirectoryFiles "" ["ats-src//*.cats"]
         need $ dats <> sats <> hats <> cats
         let patshome = "/usr/local/lib/ats2-postiats-0.3.8"
-        (Exit c, Stderr err) <- command [EchoStderr False, AddEnv "PATSHOME" patshome] "patscc" ("-ccats" : dats)
+        let preSource = dropDirectory1 out
+        let sourcefile = preSource -<.> "dats"
+        (Exit c, Stderr err) <- command [EchoStderr False, AddEnv "PATSHOME" patshome] "patscc" ["-ccats", "ats-src/" ++ sourcefile]
         cmd_ [Stdin err] Shell "pats-filter"
         if c /= ExitSuccess
             then error "patscc failure"
             else pure ()
-        cmd ["mv", "fast-combinatorics_dats.c", "cbits/fast-combinatorics.c"]
+        cmd ["mv", replace preSource ".c" "_dats.c", out]
 
     "clean" ~> do
         cmd_ ["sn", "c"]

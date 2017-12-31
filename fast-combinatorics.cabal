@@ -10,7 +10,7 @@ maintainer:          vamchale@gmail.com
 copyright:           Copyright: (c) 2017 Vanessa McHale
 category:            Numerics
 build-type:          Custom
-extra-source-files:  cbits/fast-combinatorics.c
+extra-source-files:  cbits/ats-ffi.c
                    , ATS2-Postiats-include-0.3.8/ccomp/runtime/pats_ccomp_config.h
 extra-doc-files:     README.md
 cabal-version:       >= 1.18
@@ -31,7 +31,7 @@ custom-setup
                  , directory
 
 library
-  c-sources:           cbits/fast-combinatorics.c
+  c-sources:           cbits/ats-ffi.c
   include-dirs:        ATS2-Postiats-include-0.3.8/ccomp/runtime/
                      , ATS2-Postiats-include-0.3.8/
   hs-source-dirs:      src
