@@ -20,8 +20,11 @@ foreign import ccall unsafe factorial_ats :: CInt -> CInt
 foreign import ccall unsafe choose_ats :: CInt -> CInt -> CInt
 foreign import ccall unsafe double_factorial :: CInt -> CInt
 
--- | See [here](http://mathworld.wolfram.com/BinomialCoefficient.html).
-choose :: Int -> Int -> Int
+-- | Number of distinct sets of k objects drawn from a set of n distinct
+-- objects. See [here](http://mathworld.wolfram.com/BinomialCoefficient.html).
+choose :: Int -- ^ n
+       -> Int -- ^ k
+       -> Int
 choose = fromIntegral .* on choose_ats fromIntegral
 
 -- | See [here](http://mathworld.wolfram.com/DoubleFactorial.html).

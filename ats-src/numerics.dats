@@ -3,6 +3,7 @@
 #include "share/atspre_staload.hats"
 
 staload "libats/libc/SATS/math.sats"
+staload UN = "prelude/SATS/unsafe.sats"
 
 fun exp {n : nat} .<n>. (x : int, n : int(n)) :<> int =
   case+ x of
@@ -23,13 +24,13 @@ fun exp {n : nat} .<n>. (x : int, n : int(n)) :<> int =
           1
       end
 
+castfn lemma_bounded(i: int) : [n:nat] int(n)
+  = $UN.cast(i)
+
 fun sqrt_bad(k : intGt(0)) : [ m : nat ] int(m) =
   let
     var pre_bound: int = g0float2int(sqrt_float(g0int2float_int_float(k)))
-    var bad = fix@ f (n : int) : [ m : nat ] int(m) => case+ n of
-      | 0 => 0
-      | n => 1 + f(n - 1)
-    var bound: [ m : nat ] int(m) = bad(pre_bound)
+    var bound: [m:nat] int(m) = lemma_bounded(pre_bound)
   in
     bound
   end
