@@ -28,7 +28,7 @@ yet to figure out how to share arbitrary-precision types between ATS and Haskell
 
 The Haskell library comes with the C bundled, however you may wish to build from
 source if you are hacking on the library. To that end, you can install
-[stack](http://haskellstack.org/), [patscc](http://www.ats-lang.org/Downloads.html), and
+[stack](http://haskellstack.org/), [patsopt](http://www.ats-lang.org/Downloads.html), and
 [pats-filter](https://github.com/Hibou57/PostiATS-Utilities) and build with
 
 ```bash

@@ -24,13 +24,10 @@ fun exp {n : nat} .<n>. (x : int, n : int(n)) :<> int =
           1
       end
 
-castfn lemma_bounded(i: int) : [n:nat] int(n)
-  = $UN.cast(i)
-
-fun sqrt_bad(k : intGt(0)) : [ m : nat ] int(m) =
+fun sqrt_int(k : intGt(0)) : [ m : nat ] int(m) =
   let
     var pre_bound: int = g0float2int(sqrt_float(g0int2float_int_float(k)))
-    var bound: [m:nat] int(m) = lemma_bounded(pre_bound)
+    var bound: [ m : nat ] int(m) = $UN.cast(pre_bound)
   in
     bound
   end
@@ -56,6 +53,6 @@ fn is_prime(k : intGt(0)) : bool =
               else
                 true
         in
-          loop(2, sqrt_bad(k))
+          loop(2, sqrt_int(k))
         end
       end
