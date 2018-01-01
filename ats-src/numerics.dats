@@ -5,6 +5,7 @@
 staload "libats/libc/SATS/math.sats"
 staload UN = "prelude/SATS/unsafe.sats"
 
+// Fast integer exponentiation. Modified from an example in the manual.
 fun exp {n : nat} .<n>. (x : int, n : int(n)) :<> int =
   case+ x of
     | 0 => 0
@@ -24,7 +25,7 @@ fun exp {n : nat} .<n>. (x : int, n : int(n)) :<> int =
           1
       end
 
-fun sqrt_int(k : intGt(0)) : [ m : nat ] int(m) =
+fn sqrt_int(k : intGt(0)) :<> [ m : nat ] int(m) =
   let
     var pre_bound: int = g0float2int(sqrt_float(g0int2float_int_float(k)))
     var bound: [ m : nat ] int(m) = $UN.cast(pre_bound)
@@ -32,7 +33,8 @@ fun sqrt_int(k : intGt(0)) : [ m : nat ] int(m) =
     bound
   end
 
-fn is_prime(k : intGt(0)) : bool =
+// function to check primality
+fn is_prime(k : intGt(0)) :<> bool =
   case+ k of
     | 1 => false
     | k => 
