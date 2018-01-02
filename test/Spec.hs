@@ -30,7 +30,7 @@ main = hspec $ do
             \a k -> a < 0 || k < 0 || tooBig a k || (a == 0 && k == 0) || integerExp a k == a ^ k
     parallel $ describe "totient" $
         prop "should agree with the pure Haskell function" $
-            \m -> m < 0 || totient m == hsTotient m
+            \m -> m < 2 || totient m == hsTotient m
     parallel $ describe "totient" $
         prop "should be equal to m-1 for m prime" $
             \m -> m < 2 || not (isPrime m) || totient m == m - 1

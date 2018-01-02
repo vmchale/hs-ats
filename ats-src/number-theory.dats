@@ -12,6 +12,9 @@ typedef Even = [ n : nat ] int(2 * n)
 
 typedef Odd = [ n : nat ] int(2 * n+1)
 
+extern
+praxi int_not_gt {n : nat}{ m : nat | n <= m } (i : int(n), j : int(m)) : [ n + 1 <= m ] void
+
 // m | n
 fn divides(m : int, n : int) :<> bool =
   n % m = 0
@@ -42,10 +45,14 @@ fn totient { k : nat | k >= 2 } (n : int(k)) : int =
         else
           n
       else
-        if n % i = 0 && is_prime(i) && i != n then
-          (loop(i + 1, n) / i) * (i - 1)
-        else
-          loop(i + 1, n)
+        let
+          prval _ = int_not_gt(i, n)
+        in
+          if n % i = 0 && is_prime(i) && i != n then
+            (loop(i + 1, n) / i) * (i - 1)
+          else
+            loop(i + 1, n)
+        end
   in
     loop(1, n)
   end
