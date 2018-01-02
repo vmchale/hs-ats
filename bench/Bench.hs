@@ -32,4 +32,8 @@ main =
                       [ bench "totient" $ nf totient 2016
                       , bench "hsTotient" $ nf hsTotient 2016
                       ]
+                , bgroup "tau"
+                      [ bench "tau" $ nf tau 3018
+                      , bench "hsTau" $ nf hsTau 3018
+                      ]
                 ]

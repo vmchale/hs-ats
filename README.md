@@ -6,23 +6,16 @@ This is a library for fast combinatorics using ATS. As such, make sure
 a C compiler is installed. It may not work on windows, so if you run into bugs
 building this please open an issue.
 
-Currently it is a work-in-progress, being somewhat constrained by the fact that I have
-yet to figure out how to share arbitrary-precision types between ATS and Haskell. 
-
 ## Benchmarks
 
 | Computation | Version (ATS/Haskell) | Time |
 | ----------- | --------------------- | ---- |
-| `12!` | ATS | 9.301 ns |
-| `12!` | Haskell | 27.84 ns |
-| `19!!` | ATS | 10.07 ns |
-| `19!!` | Haskell | 20.82 ns |
-| ``13 `choose` 4`` | ATS | 12.28 ns |
-| ``13 `choose` 4`` | Haskell | 28.38 ns |
 | `isPrime 2017` | ATS | 118.9 ns |
 | `isPrime 2017` | Haskell | 497.3 ns |
-| `3 ^ 7` | ATS | 8.735 ns |
-| `3 ^ 7` | Haskell | 37.02 ns |
+| `φ(2016)` | ATS | 5.574 μs |
+| `φ(2016)` | Haskell | 177.3 μs |
+| `τ(3018)` | ATS | 7.962 μs |
+| `τ(3018)` | Haskell | 35.87 μs |
 
 ## Building
 
@@ -55,8 +48,3 @@ tooling/libraries may be used. You may want to try the REPL:
 You may wish to read the ATS source code for an indication of what sorts of
 things ATS allows us to prove things about our programs, particularly proofs of
 termination.
-
-There are also a few caveats: note that all results and arguments
-must be of the `Int` type. This unfortunate constraint will hopefully be fixed
-in the future, but right now it limits the usefulness of some the library
-functions.

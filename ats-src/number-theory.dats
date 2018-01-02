@@ -19,21 +19,18 @@ praxi int_not_gt {n : nat}{ m : nat | n <= m } (i : int(n), j : int(m)) : [ n + 
 fn divides(m : int, n : int) :<> bool =
   n % m = 0
 
-fn prime_divisors { k : nat | k >= 2 } (n : int(k)) :<> stream_vt(int) =
+fn count_divisors { k : nat | k >= 1 } (n : int(k)) :<> int =
   let
-    fun create_stream {k : nat}{ m : nat | m > 0 && k >= m } .<k-m>. (n : int(k), acc : int(m)) :<> stream_vt(int) =
-      if n % acc = 0 && is_prime(acc) then
-        if acc <= n then
-          $ldelay(stream_vt_nil)
-        else
-          $ldelay(stream_vt_cons(acc, create_stream(n, acc + 1)))
+    fun loop {k : nat}{ m : nat | m > 0 && k >= m } .<k-m>. (n : int(k), acc : int(m)) :<> int =
+      if acc >= n then
+        1
       else
-        if acc <= n then
-          $ldelay(stream_vt_nil)
+        if n % acc = 0 then
+          1 + loop(n, acc + 1)
         else
-          create_stream(n, acc + 1)
+          loop(n, acc + 1)
   in
-    create_stream(n, 2)
+    loop(n, 1)
   end
 
 fn totient { k : nat | k >= 2 } (n : int(k)) : int =
@@ -57,10 +54,6 @@ fn totient { k : nat | k >= 2 } (n : int(k)) : int =
     loop(1, n)
   end
 
-fn num_divisors { k : nat | k >= 2 } (n : int(k)) :<!wrt> int =
-  stream_vt_length(prime_divisors(n))
-
-// TODO tau function to count divisors?
 fn is_even(n : int) :<> bool =
   n % 2 = 0
 

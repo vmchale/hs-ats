@@ -3,7 +3,11 @@ module Numeric.Pure ( hsIsPrime
                                   , hsDoubleFactorial
                                   , hsChoose
                                   , hsTotient
+                                  , hsTau
                                   ) where
+
+hsTau :: Int -> Int
+hsTau n = length (filter ((== 0) . (n `mod`)) [1..n])
 
 hsTotient :: Int -> Int
 hsTotient n = (n * product [ p - 1 | p <- ps ]) `div` product ps

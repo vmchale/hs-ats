@@ -37,3 +37,6 @@ main = hspec $ do
     parallel $ describe "totient" $
         prop "should satisfy Fermat's little theorem" $
             \a m -> a < 1 || m < 2 || gcd a m /= 1 || tooBig a m || (a ^ (totient m)) `mod` m == 1
+    parallel $ describe "tau" $
+        prop "should agree with the pure Haskell function" $
+            \n -> n < 1 || tau n == hsTau n
