@@ -58,4 +58,5 @@ termination.
 
 There are also a few caveats: note that all results and arguments
 must be of the `Int` type. This unfortunate constraint will hopefully be fixed
-in the future, but right now it limits the usefulness of the library.
+in the future, but right now it limits the usefulness of some the library
+functions.

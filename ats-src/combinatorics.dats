@@ -9,6 +9,7 @@ fnx fact {n : nat} .<n>. (k : int(n)) :<> int =
     | 0 => 1
     | k =>> fact(k - 1) * k
 
+// double factorial http://mathworld.wolfram.com/DoubleFactorial.html
 fnx dfact {n : nat} .<n>. (k : int(n)) :<> int =
   case+ k of
     | 0 => 1

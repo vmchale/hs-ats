@@ -27,7 +27,7 @@ fun exp {n : nat} .<n>. (x : int, n : int(n)) :<> int =
 
 fn sqrt_int(k : intGt(0)) :<> [ m : nat ] int(m) =
   let
-    var pre_bound: int = g0float2int(sqrt_float(g0int2float_int_float(k)))
+    var pre_bound: int = g0float2int(sqrt_float(g0int2float(k)))
     var bound: [ m : nat ] int(m) = $UN.cast(pre_bound)
   in
     bound
@@ -40,7 +40,7 @@ fn is_prime(k : intGt(0)) :<> bool =
     | k => 
       begin
         let
-          fun loop {n : nat}{m : nat} .<max(0,m-n)>. (i : int(n), bound : int(m)) :<> bool =
+          fnx loop {n : nat}{m : nat} .<max(0,m-n)>. (i : int(n), bound : int(m)) :<> bool =
             if i < bound then
               if k % i = 0 then
                 false
