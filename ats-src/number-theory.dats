@@ -12,9 +12,6 @@ typedef Even = [ n : nat ] int(2 * n)
 
 typedef Odd = [ n : nat ] int(2 * n+1)
 
-extern
-praxi int_not_gt {n : nat}{ m : nat | n <= m } (i : int(n), j : int(m)) : [ n + 1 <= m ] void
-
 // m | n
 fn divides(m : int, n : int) :<> bool =
   n % m = 0
@@ -33,23 +30,20 @@ fn count_divisors { k : nat | k >= 1 } (n : int(k)) :<> int =
     loop(n, 1)
   end
 
+// Euler's totient function.
 fn totient { k : nat | k >= 2 } (n : int(k)) : int =
   let
     fnx loop { k : nat | k >= 2 }{ m : nat | m > 0 && k >= m } .<k-m>. (i : int(m), n : int(k)) : int =
-      if i > n then
+      if i >= n then
         if is_prime(n) then
           n - 1
         else
           n
       else
-        let
-          prval _ = int_not_gt(i, n)
-        in
-          if n % i = 0 && is_prime(i) && i != n then
-            (loop(i + 1, n) / i) * (i - 1)
-          else
-            loop(i + 1, n)
-        end
+        if n % i = 0 && is_prime(i) && i != n then
+          (loop(i + 1, n) / i) * (i - 1)
+        else
+          loop(i + 1, n)
   in
     loop(1, n)
   end
