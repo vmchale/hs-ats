@@ -35,7 +35,7 @@ fn prime_divisors { k : nat | k >= 2 } (n : int(k)) :<> stream_vt(int) =
 
 fn totient { k : nat | k >= 2 } (n : int(k)) : int =
   let
-    fn adjust(x : int, y : int) : int =
+    fn adjust(x : int, y : int) :<> int =
       x * (y - 1) / y
     
     val p1: stream_vt(int) = prime_divisors(n)

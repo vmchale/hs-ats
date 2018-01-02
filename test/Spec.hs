@@ -1,6 +1,7 @@
 import           Numeric.Combinatorics
 import           Numeric.Integer
-import           Numeric.Pure.Combinatorics
+import           Numeric.NumberTheory
+import           Numeric.Pure
 import           Test.Hspec
 import           Test.Hspec.QuickCheck
 
@@ -27,3 +28,6 @@ main = hspec $ do
     parallel $ describe "integerExp" $
         prop "should agree with the pure Haskell function" $
             \a k -> a < 0 || k < 0 || tooBig a k || (a == 0 && k == 0) || integerExp a k == a ^ k
+    parallel $ describe "totient" $
+        prop "should agree with the pure Haskell function" $
+            \m -> m < 0 || totient m == hsTotient m

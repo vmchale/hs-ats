@@ -35,16 +35,18 @@ custom-setup
                  , directory
 
 library
-  c-sources:           cbits/combinatorics-ffi.c
-                     , cbits/numerics-ffi.c
+  c-sources:           cbits/combinatorics.c
+                     , cbits/numerics.c
+                     , cbits/number-theory.c
   include-dirs:       /usr/local/lib/ats2-postiats-0.3.8/ccomp/runtime/
                     , /usr/local/lib/ats2-postiats-0.3.8/
   include-dirs:        ATS2-Postiats-include-0.3.8/ccomp/runtime/
                      , ATS2-Postiats-include-0.3.8/
   hs-source-dirs:      src
   exposed-modules:     Numeric.Combinatorics
-                     , Numeric.Pure.Combinatorics
+                     , Numeric.Pure
                      , Numeric.Integer
+                     , Numeric.NumberTheory
   build-depends:       base >= 4.7 && < 5
                      , composition-prelude >= 0.1.1.4
   default-language:    Haskell2010

@@ -3,7 +3,7 @@ module Main where
 import           Criterion.Main
 import           Numeric.Combinatorics
 import           Numeric.Integer
-import           Numeric.Pure.Combinatorics
+import           Numeric.Pure
 
 main :: IO ()
 main =

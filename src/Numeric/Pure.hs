@@ -1,8 +1,13 @@
-module Numeric.Pure.Combinatorics ( hsIsPrime
+module Numeric.Pure ( hsIsPrime
                                   , hsFactorial
                                   , hsDoubleFactorial
                                   , hsChoose
+                                  , hsTotient
                                   ) where
+
+hsTotient :: Int -> Int
+hsTotient n = (n * product [ p - 1 | p <- ps ]) `div` product ps
+    where ps = filter (\k -> hsIsPrime k && n `mod` k == 0) [2..n]
 
 hsIsPrime :: Int -> Bool
 hsIsPrime 1 = False

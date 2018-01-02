@@ -19,9 +19,9 @@ main = shakeArgs shakeOptions { shakeFiles = ".shake"
                               , shakeThreads = 4
                               } $ do
 
-    want [ "cbits/combinatorics-ffi.c"
-         , "cbits/numerics-ffi.c"
-         , "cbits/number-theory-ffi.c"
+    want [ "cbits/combinatorics.c"
+         , "cbits/numerics.c"
+         , "cbits/number-theory.c"
          ]
 
     "ci" ~> do
@@ -46,8 +46,8 @@ main = shakeArgs shakeOptions { shakeFiles = ".shake"
     "//*.c" %> \out -> do
         let patshome = "/usr/local/lib/ats2-postiats-0.3.8"
         let preSource = dropDirectory1 out
-        let sourceFile = preSource -<.> "dats"
-        let sourcePlain = replace "-ffi" "" sourceFile
+        let sourcePlain = preSource -<.> "dats"
+        let sourceFile = replace ".dats" "-ffi.dats" sourcePlain
         need (("ats-src/" ++) <$> [sourceFile, sourcePlain])
         (Exit c, Stderr err, Stdout output) <- command [EchoStderr False, AddEnv "PATSHOME" patshome] "patsopt" ["-dd", "ats-src/" ++ sourceFile, "-cc"]
         cmd_ [Stdin err] Shell "pats-filter"
