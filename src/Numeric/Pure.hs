@@ -4,10 +4,14 @@ module Numeric.Pure ( hsIsPrime
                                   , hsChoose
                                   , hsTotient
                                   , hsTau
+                                  , hsTotientSum
                                   ) where
 
 hsTau :: Int -> Int
 hsTau n = length (filter ((== 0) . (n `mod`)) [1..n])
+
+hsTotientSum :: Int -> Int
+hsTotientSum k = sum [ hsTotient n | n <- [1..k] ]
 
 hsTotient :: Int -> Int
 hsTotient n = (n * product [ p - 1 | p <- ps ]) `div` product ps

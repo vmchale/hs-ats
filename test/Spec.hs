@@ -30,13 +30,16 @@ main = hspec $ do
             \a k -> a < 0 || k < 0 || tooBig a k || (a == 0 && k == 0) || integerExp a k == a ^ k
     parallel $ describe "totient" $
         prop "should agree with the pure Haskell function" $
-            \m -> m < 2 || totient m == hsTotient m
+            \m -> m < 1 || totient m == hsTotient m
     parallel $ describe "totient" $
         prop "should be equal to m-1 for m prime" $
-            \m -> m < 2 || not (isPrime m) || totient m == m - 1
+            \m -> m < 1 || not (isPrime m) || totient m == m - 1
     parallel $ describe "totient" $
         prop "should satisfy Fermat's little theorem" $
-            \a m -> a < 1 || m < 2 || gcd a m /= 1 || tooBig a m || (a ^ (totient m)) `mod` m == 1
+            \a m -> a < 1 || m < 2 || gcd a m /= 1 || tooBig a m || (a ^ totient m) `mod` m == 1
     parallel $ describe "tau" $
         prop "should agree with the pure Haskell function" $
             \n -> n < 1 || tau n == hsTau n
+    parallel $ describe "totientSum" $
+        prop "should agree with the pure Haskell function" $
+            \n -> n < 1 || totientSum n == hsTotientSum n

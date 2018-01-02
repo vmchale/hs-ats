@@ -16,6 +16,8 @@ typedef Odd = [ n : nat ] int(2 * n+1)
 fn divides(m : int, n : int) :<> bool =
   n % m = 0
 
+// totien sum http://mathworld.wolfram.com/TotientSummatoryFunction.html
+// fn totient_sum(n: int) : int =
 fn count_divisors { k : nat | k >= 1 } (n : int(k)) :<> int =
   let
     fun loop {k : nat}{ m : nat | m > 0 && k >= m } .<k-m>. (n : int(k), acc : int(m)) :<> int =
@@ -31,19 +33,36 @@ fn count_divisors { k : nat | k >= 1 } (n : int(k)) :<> int =
   end
 
 // Euler's totient function.
-fn totient { k : nat | k >= 2 } (n : int(k)) : int =
+fn totient { k : nat | k >= 1 } (n : int(k)) : int =
+  case+ n of
+    | 1 => 1
+    | n =>> 
+      begin
+        let
+          fnx loop { k : nat | k >= 2 }{ m : nat | m > 0 && k >= m } .<k-m>. (i : int(m), n : int(k)) : int =
+            if i >= n then
+              if is_prime(n) then
+                n - 1
+              else
+                n
+            else
+              if n % i = 0 && is_prime(i) && i != n then
+                (loop(i + 1, n) / i) * (i - 1)
+              else
+                loop(i + 1, n)
+        in
+          loop(1, n)
+        end
+      end
+
+// TODO gcd
+fun totient_sum { k : nat | k >= 1 } (n : int(k)) : int =
   let
-    fnx loop { k : nat | k >= 2 }{ m : nat | m > 0 && k >= m } .<k-m>. (i : int(m), n : int(k)) : int =
-      if i >= n then
-        if is_prime(n) then
-          n - 1
-        else
-          n
+    fnx loop { n : nat | n >= 1 }{ m : nat | m >= n } .<m-n>. (i : int(n), bound : int(m)) : int =
+      if i < bound then
+        totient(i) + loop(i + 1, bound)
       else
-        if n % i = 0 && is_prime(i) && i != n then
-          (loop(i + 1, n) / i) * (i - 1)
-        else
-          loop(i + 1, n)
+        totient(i)
   in
     loop(1, n)
   end

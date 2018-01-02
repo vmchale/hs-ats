@@ -36,4 +36,8 @@ main =
                       [ bench "tau" $ nf tau 3018
                       , bench "hsTau" $ nf hsTau 3018
                       ]
+                , bgroup "totientSum"
+                      [ bench "totientSum" $ nf totientSum 1280
+                      , bench "hsTotientSum" $ nf hsTotientSum 1280
+                      ]
                 ]
