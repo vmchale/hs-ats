@@ -36,7 +36,7 @@ fn prime_divisors { k : nat | k >= 2 } (n : int(k)) :<> stream_vt(int) =
 fn totient { k : nat | k >= 2 } (n : int(k)) : int =
   let
     fnx loop { k : nat | k >= 2 }{ m : nat | m > 0 && k >= m } .<k-m>. (i : int(m), n : int(k)) : int =
-      if i + 1 >= n then
+      if i > n then
         if is_prime(n) then
           n - 1
         else
