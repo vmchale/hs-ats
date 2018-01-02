@@ -1,5 +1,5 @@
 name:                fast-combinatorics
-version:             0.1.0.7
+version:             0.1.0.8
 synopsis:            Fast combinatorics.
 description:         Fast combinatorics code with a high level of safety guaranteed by writing it in ATS.
 homepage:            https://github.com//fast-combinatorics#readme
