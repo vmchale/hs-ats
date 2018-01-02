@@ -2,7 +2,7 @@ name:                fast-combinatorics
 version:             0.1.0.9
 synopsis:            Fast combinatorics.
 description:         Fast combinatorics code with a high level of safety guaranteed by writing it in ATS.
-homepage:            https://github.com//fast-combinatorics#readme
+homepage:            https://github.com/vmchale/fast-combinatorics#readme
 license:             BSD3
 license-file:        LICENSE
 author:              Vanessa McHale
@@ -11,7 +11,6 @@ copyright:           Copyright: (c) 2017 Vanessa McHale
 category:            Numerics
 build-type:          Custom
 extra-source-files:  ATS2-Postiats-include-0.3.8/ccomp/runtime/pats_ccomp_config.h
-                   , stack.yaml
                    , ats-src/*.dats
                    , cabal.project.local
 extra-doc-files:     README.md
@@ -82,4 +81,4 @@ benchmark fast-combinatorics-bench
 
 source-repository head
   type:     git
-  location: https://github.com//fast-combinatorics
+  location: https://github.com/vmchale/fast-combinatorics

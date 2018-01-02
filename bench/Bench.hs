@@ -40,4 +40,12 @@ main =
                       [ bench "totientSum" $ nf totientSum 1280
                       , bench "hsTotientSum" $ nf hsTotientSum 1280
                       ]
+                , bgroup "littleOmega"
+                      [ bench "littleOmega" $ nf littleOmega 91
+                      , bench "hsLittleOmega" $ nf hsLittleOmega 91
+                      ]
+                , bgroup "fastGcd"
+                      [ bench "fastGcd" $ nf (fastGcd 201 :: Int -> Int) 67
+                      , bench "gcd" $ nf (gcd 201 :: Int -> Int) 67
+                      ]
                 ]

@@ -4,16 +4,15 @@
 # Code maintenane
 - [ ] test suite for double factorial
 # Features
+- [ ] lcm
+- [ ] coprimality test
+- [ ] big omega
 - [ ] Euclid's algorithm
 - [ ] quadratic residues
 - [ ] jacobi symbol
 - [ ] chinese remainder theorem
-- [ ] factor a number
+- [ ] factor a number (ATS)
 - [ ] elliptic curves
-- [ ] LCM
-- [ ] check coprimality
-- [ ] GCD
-- [ ] prime check
 - [ ] bell numbers
   - [ ] https://en.wikipedia.org/wiki/Bell_number#Properties
 - [ ] catalan numbers

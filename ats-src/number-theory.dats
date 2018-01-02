@@ -16,6 +16,31 @@ typedef Odd = [ n : nat ] int(2 * n+1)
 fn divides(m : int, n : int) :<> bool =
   n % m = 0
 
+// TODO lcm, coprimality test
+fnx gcd {k : nat}{l : nat} (m : int(l), n : int(k)) : int =
+  if n > 0 then
+    gcd(n, witness(m % n))
+  else
+    m
+
+fn coprime {k : nat}{l : nat} (m : int(l), n : int(k)) : bool =
+  gcd(m, n) != 1
+
+// stream all divisors of an integer.
+fn divisors(n : intGte(1)) : stream_vt(int) =
+  let
+    fun loop {k : nat}{ m : nat | m > 0 && k >= m } .<k-m>. (n : int(k), acc : int(m)) : stream_vt(int) =
+      if acc >= n then
+        $ldelay(stream_vt_cons(acc, $ldelay(stream_vt_nil)))
+      else
+        if n % acc = 0 then
+          $ldelay(stream_vt_cons(n, loop(n, acc + 1)))
+        else
+          $ldelay(stream_vt_nil)
+  in
+    loop(n, 1)
+  end
+
 // fn totient_sum(n: int) : int =
 fn count_divisors(n : intGte(1)) :<> int =
   let
@@ -24,6 +49,24 @@ fn count_divisors(n : intGte(1)) :<> int =
         1
       else
         if n % acc = 0 then
+          1 + loop(n, acc + 1)
+        else
+          loop(n, acc + 1)
+  in
+    loop(n, 1)
+  end
+
+// distinct prime divisors
+fn little_omega(n : intGte(1)) :<> int =
+  let
+    fun loop {k : nat}{ m : nat | m > 0 && k >= m } .<k-m>. (n : int(k), acc : int(m)) :<> int =
+      if acc >= n then
+        if is_prime(n) then
+          1
+        else
+          0
+      else
+        if n % acc = 0 && is_prime(acc) then
           1 + loop(n, acc + 1)
         else
           loop(n, acc + 1)
@@ -55,7 +98,6 @@ fn totient(n : intGte(1)) : int =
       end
 
 // The sum of all φ(m) for m between 1 and n 
-// TODO gcd
 fun totient_sum(n : intGte(1)) : int =
   let
     fnx loop { n : nat | n >= 1 }{ m : nat | m >= n } .<m-n>. (i : int(n), bound : int(m)) : int =

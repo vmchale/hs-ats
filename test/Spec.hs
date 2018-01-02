@@ -43,3 +43,9 @@ main = hspec $ parallel $ do
     describe "totientSum" $
         prop "should agree with the pure Haskell function" $
             \n -> n < 1 || totientSum n == hsTotientSum n
+    describe "littleOmega" $
+        prop "should agree with the pure Haskell function" $
+            \n -> n < 1 || littleOmega n == hsLittleOmega n
+    describe "fastGcd" $
+        prop "should agree with the pure Haskell function" $
+            \m n -> n < 0 || m < 0 || fastGcd m n == gcd m n

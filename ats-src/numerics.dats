@@ -25,12 +25,14 @@ fun exp {n : nat} .<n>. (x : int, n : int(n)) :<> int =
           1
       end
 
+fn witness(n : int) :<> [ m : nat ] int(m) =
+  $UN.cast(n)
+
 fn sqrt_int(k : intGt(0)) :<> [ m : nat ] int(m) =
   let
-    var pre_bound: int = g0float2int(sqrt_float(g0int2float(k)))
-    var bound: [ m : nat ] int(m) = $UN.cast(pre_bound)
+    var bound: int = g0float2int(sqrt_float(g0int2float(k)))
   in
-    bound
+    witness(bound)
   end
 
 // function to check primality
