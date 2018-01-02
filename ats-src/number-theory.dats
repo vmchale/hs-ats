@@ -17,7 +17,7 @@ fn divides(m : int, n : int) :<> bool =
   n % m = 0
 
 // fn totient_sum(n: int) : int =
-fn count_divisors { k : nat | k >= 1 } (n : int(k)) :<> int =
+fn count_divisors(n : intGte(1)) :<> int =
   let
     fun loop {k : nat}{ m : nat | m > 0 && k >= m } .<k-m>. (n : int(k), acc : int(m)) :<> int =
       if acc >= n then
@@ -32,7 +32,7 @@ fn count_divisors { k : nat | k >= 1 } (n : int(k)) :<> int =
   end
 
 // Euler's totient function.
-fn totient { k : nat | k >= 1 } (n : int(k)) : int =
+fn totient(n : intGte(1)) : int =
   case+ n of
     | 1 => 1
     | n =>> 
@@ -54,8 +54,9 @@ fn totient { k : nat | k >= 1 } (n : int(k)) : int =
         end
       end
 
+// The sum of all φ(m) for m between 1 and n 
 // TODO gcd
-fun totient_sum { k : nat | k >= 1 } (n : int(k)) : int =
+fun totient_sum(n : intGte(1)) : int =
   let
     fnx loop { n : nat | n >= 1 }{ m : nat | m >= n } .<m-n>. (i : int(n), bound : int(m)) : int =
       if i < bound then
