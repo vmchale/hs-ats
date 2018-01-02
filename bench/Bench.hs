@@ -3,6 +3,7 @@ module Main where
 import           Criterion.Main
 import           Numeric.Combinatorics
 import           Numeric.Integer
+import           Numeric.NumberTheory
 import           Numeric.Pure
 
 main :: IO ()
@@ -26,5 +27,9 @@ main =
                 , bgroup "integer exponentiation"
                       [ bench "integerExp" $ nf (integerExp 3) 7
                       , bench "^" $ nf ((3 :: Int) ^) (7 :: Int)
+                      ]
+                , bgroup "totient"
+                      [ bench "totient" $ nf totient 2016
+                      , bench "hsTotient" $ nf hsTotient 2016
                       ]
                 ]

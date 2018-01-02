@@ -60,6 +60,7 @@ fn totient { k : nat | k >= 2 } (n : int(k)) : int =
 fn num_divisors { k : nat | k >= 2 } (n : int(k)) :<!wrt> int =
   stream_vt_length(prime_divisors(n))
 
+// TODO tau function to count divisors?
 fn is_even(n : int) :<> bool =
   n % 2 = 0
 
