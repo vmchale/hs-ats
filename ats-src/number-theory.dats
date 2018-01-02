@@ -16,7 +16,6 @@ typedef Odd = [ n : nat ] int(2 * n+1)
 fn divides(m : int, n : int) :<> bool =
   n % m = 0
 
-// totien sum http://mathworld.wolfram.com/TotientSummatoryFunction.html
 // fn totient_sum(n: int) : int =
 fn count_divisors { k : nat | k >= 1 } (n : int(k)) :<> int =
   let

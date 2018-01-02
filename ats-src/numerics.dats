@@ -13,8 +13,8 @@ fun exp {n : nat} .<n>. (x : int, n : int(n)) :<> int =
       begin
         if n > 0 then
           let
-            val n2 = half(n)
-            val i2 = n % 2
+            var n2 = half(n)
+            var i2 = n % 2
           in
             if i2 = 0 then
               exp(x * x, n2)

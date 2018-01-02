@@ -12,34 +12,34 @@ tooBig x y = go x y >= 2 ^ (16 :: Integer)
         go m n = fromIntegral m ^ (fromIntegral n :: Integer)
 
 main :: IO ()
-main = hspec $ do
-    parallel $ describe "factorial" $
+main = hspec $ parallel $ do
+    describe "factorial" $
         prop "should agree with the pure Haskell function" $
             \x -> x < 1 || x > 12 || factorial x == hsFactorial x
-    parallel $ describe "doubleFactorial" $
+    describe "doubleFactorial" $
         prop "should agree with the pure Haskell function" $
             \x -> x < 0 || x > 19 || doubleFactorial x == hsDoubleFactorial x
-    parallel $ describe "choose" $
+    describe "choose" $
         prop "should agree with the pure Haskell function" $
             \x y -> x < 0 || y < 0 || x > 12 || y > 11 || (x `choose` y) == (x `hsChoose` y)
-    parallel $ describe "isPrime" $
+    describe "isPrime" $
         prop "should agree with the pure Haskell function" $
             \x -> x < 1 || isPrime x == hsIsPrime x
-    parallel $ describe "integerExp" $
+    describe "integerExp" $
         prop "should agree with the pure Haskell function" $
             \a k -> a < 0 || k < 0 || tooBig a k || (a == 0 && k == 0) || integerExp a k == a ^ k
-    parallel $ describe "totient" $
+    describe "totient" $
         prop "should agree with the pure Haskell function" $
             \m -> m < 1 || totient m == hsTotient m
-    parallel $ describe "totient" $
+    describe "totient" $
         prop "should be equal to m-1 for m prime" $
             \m -> m < 1 || not (isPrime m) || totient m == m - 1
-    parallel $ describe "totient" $
+    describe "totient" $
         prop "should satisfy Fermat's little theorem" $
             \a m -> a < 1 || m < 2 || gcd a m /= 1 || tooBig a m || (a ^ totient m) `mod` m == 1
-    parallel $ describe "tau" $
+    describe "tau" $
         prop "should agree with the pure Haskell function" $
             \n -> n < 1 || tau n == hsTau n
-    parallel $ describe "totientSum" $
+    describe "totientSum" $
         prop "should agree with the pure Haskell function" $
             \n -> n < 1 || totientSum n == hsTotientSum n
