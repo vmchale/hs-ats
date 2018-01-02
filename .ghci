@@ -1,0 +1,5 @@
+:load Numeric.Integer Numeric.Combinatorics Numeric.Pure Numeric.NumberTheory
+:m Numeric.Combinatorics Numeric.Integer Numeric.Pure Numeric.NumberTheory
+
+:set prompt "λ:> "
+:set +t
