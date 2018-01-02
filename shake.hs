@@ -49,12 +49,11 @@ main = shakeArgs shakeOptions { shakeFiles = ".shake"
         let sourcePlain = preSource -<.> "dats"
         let sourceFile = replace ".dats" "-ffi.dats" sourcePlain
         need (("ats-src/" ++) <$> [sourceFile, sourcePlain])
-        (Exit c, Stderr err, Stdout output) <- command [EchoStderr False, AddEnv "PATSHOME" patshome] "patsopt" ["-dd", "ats-src/" ++ sourceFile, "-cc"]
+        (Exit c, Stderr err) <- command [EchoStderr False, AddEnv "PATSHOME" patshome] "patsopt" ["--output", out, "-dd", "ats-src/" ++ sourceFile, "-cc"]
         cmd_ [Stdin err] Shell "pats-filter"
         if c /= ExitSuccess
             then error "patscc failure"
             else pure ()
-        liftIO $ writeFile out output
 
     "clean" ~> do
         cmd_ ["sn", "c"]

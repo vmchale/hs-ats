@@ -1,10 +1,10 @@
-#define ATS_MAINATSFLAG 1
-
 #include "share/atspre_staload.hats"
 #include "ats-src/numerics.dats"
 
 staload "libats/libc/SATS/math.sats"
 staload UN = "prelude/SATS/unsafe.sats"
+
+#define ATS_MAINATSFLAG 1
 
 // Existential types for even and odd numbers. These are only usable with the
 // ATS library.
@@ -35,13 +35,19 @@ fn prime_divisors { k : nat | k >= 2 } (n : int(k)) :<> stream_vt(int) =
 
 fn totient { k : nat | k >= 2 } (n : int(k)) : int =
   let
-    fn adjust(x : int, y : int) :<> int =
-      x * (y - 1) / y
-    
-    val p1: stream_vt(int) = prime_divisors(n)
-    val result: int = stream_vt_foldleft_cloptr(p1, n, lam (acc, next) => adjust(acc, next))
+    fnx loop { k : nat | k >= 2 }{ m : nat | m > 0 && k >= m } .<k-m>. (i : int(m), n : int(k)) : int =
+      if i + 1 >= n then
+        if is_prime(n) then
+          n - 1
+        else
+          n
+      else
+        if n % i = 0 && is_prime(i) && i != n then
+          (loop(i + 1, n) / i) * (i - 1)
+        else
+          loop(i + 1, n)
   in
-    result
+    loop(1, n)
   end
 
 fn num_divisors { k : nat | k >= 2 } (n : int(k)) :<!wrt> int =

@@ -10,8 +10,8 @@ maintainer:          vamchale@gmail.com
 copyright:           Copyright: (c) 2017 Vanessa McHale
 category:            Numerics
 build-type:          Custom
-extra-source-files:  cbits/combinatorics-ffi.c
-                   , cbits/numerics-ffi.c
+extra-source-files:  cbits/combinatorics.c
+                   , cbits/numerics.c
                    , ATS2-Postiats-include-0.3.8/ccomp/runtime/pats_ccomp_config.h
                    , stack.yaml
                    , ats-src/*.dats
@@ -38,8 +38,6 @@ library
   c-sources:           cbits/combinatorics.c
                      , cbits/numerics.c
                      , cbits/number-theory.c
-  include-dirs:       /usr/local/lib/ats2-postiats-0.3.8/ccomp/runtime/
-                    , /usr/local/lib/ats2-postiats-0.3.8/
   include-dirs:        ATS2-Postiats-include-0.3.8/ccomp/runtime/
                      , ATS2-Postiats-include-0.3.8/
   hs-source-dirs:      src

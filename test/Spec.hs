@@ -21,7 +21,7 @@ main = hspec $ do
             \x -> x < 0 || x > 19 || doubleFactorial x == hsDoubleFactorial x
     parallel $ describe "choose" $
         prop "should agree with the pure Haskell function" $
-            \x y -> x < 0 || y < 0 || x > 13 || y > 11 || (x `choose` y) == (x `hsChoose` y)
+            \x y -> x < 0 || y < 0 || x > 12 || y > 11 || (x `choose` y) == (x `hsChoose` y)
     parallel $ describe "isPrime" $
         prop "should agree with the pure Haskell function" $
             \x -> x < 1 || isPrime x == hsIsPrime x
@@ -31,3 +31,9 @@ main = hspec $ do
     parallel $ describe "totient" $
         prop "should agree with the pure Haskell function" $
             \m -> m < 0 || totient m == hsTotient m
+    parallel $ describe "totient" $
+        prop "should be equal to m-1 for m prime" $
+            \m -> m < 2 || not (isPrime m) || totient m == m - 1
+    parallel $ describe "totient" $
+        prop "should satisfy Fermat's little theorem" $
+            \a m -> a < 1 || m < 2 || gcd a m /= 1 || tooBig a m || (a ^ (totient m)) `mod` m == 1
