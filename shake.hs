@@ -21,9 +21,11 @@ main = shakeArgs shakeOptions { shakeFiles = ".shake"
 
     want [ "cbits/numerics.c"
          , "cbits/number-theory.c"
+         , "cbits/combinatorics.c"
          ]
 
     "ci" ~> do
+        need ["cbits/number-theory.c", "cbits/numerics.c"]
         cmd_ ["cabal", "new-build"]
         cmd_ ["cabal", "new-test"]
         cmd_ ["cabal", "new-haddock"]
@@ -40,7 +42,7 @@ main = shakeArgs shakeOptions { shakeFiles = ".shake"
         need ["shake.hs"]
         cmd_ ["cp", "shake.hs", ".shake/shake.hs"]
         command_ [Cwd ".shake"] "ghc-8.2.2" ["-O", "shake.hs", "-o", "build", "-threaded", "-rtsopts", "-with-rtsopts=-I0 -qg -qb"]
-        cmd ["cp", ".shake/build", "."]
+        cmd ["cp", "-f", ".shake/build", "."]
 
     "//*.c" %> \out -> do
         let patshome = "/usr/local/lib/ats2-postiats-0.3.8"
@@ -63,4 +65,4 @@ main = shakeArgs shakeOptions { shakeFiles = ".shake"
         cmd_ ["sn", "c"]
         removeFilesAfter "." ["//*.c", "//tags"]
         removeFilesAfter ".shake" ["//*"]
-        removeFilesAfter "ATS2-Postiats-include-0.3.8" ["//*"]
+        removeFilesAfter "ats-deps" ["//*"]

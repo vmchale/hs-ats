@@ -4,15 +4,15 @@
 #include "ats-src/combinatorics.dats"
 
 extern
-fun choose_ats {n : nat}{ m : nat | m <= n } : (int(n), int(m)) -> int =
+fun choose_ats {n : nat}{ m : nat | m <= n } : (int(n), int(m)) -> Intinf =
   "mac#"
 
 extern
-fun double_factorial {n : nat} : int(n) -> int =
+fun double_factorial {n : nat} : int(n) -> Intinf =
   "mac#"
 
 extern
-fun factorial_ats {n : nat} : int(n) -> int =
+fun factorial_ats {n : nat} : int(n) -> Intinf =
   "mac#"
 
 implement choose_ats (n, k) =

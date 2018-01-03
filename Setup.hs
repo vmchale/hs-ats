@@ -1,6 +1,6 @@
+{-# OPTIONS_GHC -Wall -Werror -Wincomplete-uni-patterns -Wincomplete-record-updates -Wcompat -fno-warn-missing-signatures #-}
 {-# LANGUAGE CPP               #-}
 {-# LANGUAGE OverloadedStrings #-}
-
 
 #if __GLASGOW_HASKELL__ <= 784
 import           Control.Applicative
@@ -23,21 +23,34 @@ main = defaultMainWithHooks myHooks
                                     , postClean = cleanATS }
 
 cleanATS :: Args -> CleanFlags -> PackageDescription -> () -> IO ()
-cleanATS _ _ _ _ = removeDirectoryRecursive "ATS2-Postiats-include-0.3.8"
+cleanATS _ _ _ _ =
+    removeDirectoryRecursive "ATS2-Postiats-include-0.3.8" >>
+    removeDirectoryRecursive "node_modules"
 
 buildScript :: Args -> ConfigFlags -> IO HookedBuildInfo
-buildScript _ _ = do
+buildScript _ _ =
+    buildHelper "ats2-postiats-0.3.8-prelude" "ats-deps/prelude" "https://downloads.sourceforge.net/project/ats2-lang/ats2-lang/ats2-postiats-0.3.8/ATS2-Postiats-include-0.3.8.tgz" >>
+    buildHelper "atscntrb-hs-intinf-1.0.6" "ats-deps/contrib/atscntrb-hx-intinf" "https://registry.npmjs.org/atscntrb-hx-intinf/-/atscntrb-hx-intinf-1.0.6.tgz" >>
+    buildHelper "atscntrb-libgmp-1.0.4" "ats-deps/contrib/atscntrb-libgmp" "https://registry.npmjs.org/atscntrb-libgmp/-/atscntrb-libgmp-1.0.4.tgz"
 
-    needsSetup <- not <$> doesDirectoryExist "ATS2-Postiats-include-0.3.8/prelude"
+buildHelper libName dirName url = do
+
+    needsSetup <- not <$> doesDirectoryExist dirName
 
     when needsSetup $ do
 
-        putStrLn "Fetching libraries..."
+        putStrLn ("Fetching library " ++ libName ++ "...")
         manager <- newManager tlsManagerSettings
-        initialRequest <- parseRequest "https://downloads.sourceforge.net/project/ats2-lang/ats2-lang/ats2-postiats-0.3.8/ATS2-Postiats-include-0.3.8.tgz"
+        initialRequest <- parseRequest url
         response <- responseBody <$> httpLbs (initialRequest { method = "GET" }) manager
 
-        putStrLn "Unpacking libraries..."
-        Tar.unpack "." . Tar.read . decompress $ response
+        putStrLn ("Unpacking library " ++ libName ++ "...")
+        Tar.unpack dirName . Tar.read . decompress $ response
+
+        needsMove <- doesDirectoryExist (dirName ++ "/package")
+        when needsMove $ do
+            renameDirectory (dirName ++ "/package") "tempdir"
+            removeDirectory dirName
+            renameDirectory "tempdir" dirName
 
     pure emptyHookedBuildInfo

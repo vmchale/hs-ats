@@ -1,8 +1,12 @@
 #include "share/atspre_staload.hats"
 #include "ats-src/numerics.dats"
+#include "contrib/atscntrb-hx-intinf/DATS/intinf_t.dats"
+#include "contrib/atscntrb-hx-intinf/DATS/intinf_vt.dats"
 
 staload "libats/libc/SATS/math.sats"
 staload UN = "prelude/SATS/unsafe.sats"
+staload "contrib/atscntrb-hx-intinf/SATS/intinf.sats"
+staload "contrib/atscntrb-hx-intinf/SATS/intinf_t.sats"
 
 #define ATS_MAINATSFLAG 1
 
@@ -113,19 +117,13 @@ fn totient(n : intGte(1)) : int =
       end
 
 // The sum of all φ(m) for m between 1 and n 
-fun totient_sum(n : intGte(1)) : int =
+fun totient_sum(n : intGte(1)) : Intinf =
   let
-    fnx loop { n : nat | n >= 1 }{ m : nat | m >= n } .<m-n>. (i : int(n), bound : int(m)) : int =
+    fnx loop { n : nat | n >= 1 }{ m : nat | m >= n } .<m-n>. (i : int(n), bound : int(m)) : Intinf =
       if i < bound then
-        totient(i) + loop(i + 1, bound)
+        loop(i + 1, bound) + witness(totient(i))
       else
-        totient(i)
+        int2intinf(witness(totient(i)))
   in
     loop(1, n)
   end
-
-fn is_even(n : int) :<> bool =
-  n % 2 = 0
-
-fn is_odd(n : int) :<> bool =
-  n % 2 = 1

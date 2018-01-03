@@ -1,3 +1,4 @@
+{-# LANGUAGE CPP #-}
 -- | Pure Haskell functions for testing and benchmarking. Specialized for
 -- 'Int's.
 module Numeric.Pure ( hsIsPrime
@@ -10,6 +11,10 @@ module Numeric.Pure ( hsIsPrime
                     , hsLittleOmega
                     , hsIsPerfect
                     ) where
+
+#if __GLASGOW_HASKELL__ <= 784
+import           Control.Applicative
+#endif
 
 {-# SPECIALIZE hsLittleOmega :: Int -> Int #-}
 {-# SPECIALIZE hsFactorial :: Int -> Int #-}

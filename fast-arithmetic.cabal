@@ -1,7 +1,7 @@
 name:                fast-arithmetic
 version:             0.1.0.0
-synopsis:            Fast combinatorics.
-description:         Fast combinatorics code with a high level of safety guaranteed by writing it in ATS.
+synopsis:            Fast number-theoretic functions.
+description:         Fast number-theoretic code with a high level of safety guaranteed by ATS.
 homepage:            https://github.com/vmchale/fast-arithmetic#readme
 license:             BSD3
 license-file:        LICENSE
@@ -14,6 +14,7 @@ extra-source-files:  ATS2-Postiats-include-0.3.8/ccomp/runtime/pats_ccomp_config
                    , ats-src/*.dats
                    , cabal.project.local
                    , shake.hs
+                   , node_modules/atscntrb-hx-intinf/package.json
 extra-doc-files:     README.md
 cabal-version:       >= 1.18
 
@@ -35,8 +36,10 @@ custom-setup
 library
   c-sources:           cbits/numerics.c
                      , cbits/number-theory.c
-  include-dirs:        ATS2-Postiats-include-0.3.8/ccomp/runtime/
-                     , ATS2-Postiats-include-0.3.8/
+  include-dirs:        ats-deps/
+                     , ats-deps/contrib
+                     , ats-deps/prelude/ATS2-Postiats-include-0.3.8
+                     , ats-deps/prelude/ATS2-Postiats-include-0.3.8/ccomp/runtime
   hs-source-dirs:      src
   exposed-modules:     Numeric.Pure
                      , Numeric.Integer

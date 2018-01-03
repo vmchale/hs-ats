@@ -36,3 +36,9 @@ main = hspec $ parallel $ do
     describe "isPerfect" $
         prop "should agree with the pure Haskell function" $
             \n -> n < 1 || isPerfect n == hsIsPerfect n
+    describe "even" $
+        prop "should agree with the pure Haskell function" $
+            \n -> isEven n == even n
+    describe "odd" $
+        prop "should agree with the pure Haskell function" $
+            \n -> isOdd n == odd n
