@@ -2,9 +2,13 @@
 
 [![Build Status](https://travis-ci.org/vmchale/fast-combinatorics.svg?branch=master)](https://travis-ci.org/vmchale/fast-combinatorics)
 
-This is a library for fast combinatorics using ATS. As such, make sure
-a C compiler is installed. It may not work on Windows, so if you run into bugs
-building this please open an issue.
+This is a library for fast arithmetical functions using ATS, with a Haskell
+wrapper.
+
+It is intended to supplement (but not replace)
+[arithmoi](https://hackage.haskell.org/package/arithmoi) where speed is
+important. In particular, it provides a fast primality checking function and
+a slightly faster GCD function.
 
 ## Benchmarks
 
@@ -39,6 +43,6 @@ You will also likely want to install
 ## Documentation
 
 You can find documentation for the Haskell library on 
-[Hackage](https://hackage.haskell.org/package/fast-combinatorics/).
+[Hackage](https://hackage.haskell.org/package/fast-arithmetic/).
 Unfortunately, there is no documentation for the ATS library, however, you may
 find the bundled source code informative.

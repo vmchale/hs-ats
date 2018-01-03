@@ -21,7 +21,7 @@ module Numeric.Pure ( hsIsPrime
 {-# SPECIALIZE hsIsPerfect :: Int -> Bool #-}
 {-# SPECIALIZE hsDoubleFactorial :: Int -> Int #-}
 
--- N.B. only works on positive integers
+-- | N.B. positive integers only
 divisors :: (Integral a) => a -> [a]
 divisors n = filter ((== 0) . (n `mod`)) [1..n]
 
@@ -36,7 +36,7 @@ hsSumDivisors :: (Integral a) => a -> a
 hsSumDivisors = sum . init . divisors
 
 hsIsPerfect :: (Integral a) => a -> Bool
-hsIsPerfect = ((==) <*>) hsSumDivisors
+hsIsPerfect = idem hsSumDivisors where idem = ((==) <*>)
 
 hsTotientSum :: (Integral a) => a -> a
 hsTotientSum k = sum [ hsTotient n | n <- [1..k] ]
@@ -47,7 +47,7 @@ hsTotient n = (n * product [ p - 1 | p <- ps ]) `div` product ps
 
 hsIsPrime :: (Integral a) => a -> Bool
 hsIsPrime 1 = False
-hsIsPrime x = all ((/=0) . (x `rem`)) [2..m]
+hsIsPrime x = all ((/=0) . (x `mod`)) [2..m]
     where m = floor (sqrt (fromIntegral x :: Float))
 
 hsFactorial :: (Integral a) => a -> a

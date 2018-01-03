@@ -4,6 +4,7 @@
 # Code maintenane
 - [ ] test suite for double factorial
 # Features
+- [ ] factorial w/ libgmp bindings for ATS side.
 - [ ] lcm
 - [ ] coprimality test
 - [ ] big omega
