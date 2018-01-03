@@ -15,6 +15,7 @@ module Numeric.Combinatorics
 
 import           Control.Composition
 import           Foreign.C
+import           Numeric.Common
 
 foreign import ccall unsafe factorial_ats :: CInt -> CInt
 foreign import ccall unsafe choose_ats :: CInt -> CInt -> CInt
@@ -29,7 +30,7 @@ choose = fromIntegral .* on choose_ats fromIntegral
 
 -- | See [here](http://mathworld.wolfram.com/DoubleFactorial.html).
 doubleFactorial :: Int -> Int
-doubleFactorial = fromIntegral . double_factorial . fromIntegral
+doubleFactorial = conjugate double_factorial
 
 factorial :: Int -> Int
-factorial = fromIntegral . factorial_ats . fromIntegral
+factorial = conjugate factorial_ats

@@ -16,7 +16,11 @@ fnx dfact {n : nat} .<n>. (k : int(n)) :<> int =
     | 1 => 1
     | k =>> k * dfact(k - 2)
 
-// TODO make this more versatile?
+// Number of permutations on n objects using k at a time.
+fn permutatsions {n : nat}{ k : nat | k <= n } (n : int(n), k : int(k)) :<> int =
+  fact(n) / fact(n - k)
+
+// Number of permutations on n objects using k at a time.
 fn choose {n : nat}{ m : nat | m <= n } (n : int(n), k : int(m)) :<> int =
   let
     fun numerator_loop { m : nat | m > 1 } .<m>. (i : int(m)) :<> int =

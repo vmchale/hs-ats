@@ -23,8 +23,15 @@ extern
 fun gcd_ats : {n : nat} {m : nat} (int(m), int(n)) -> int =
   "mac#"
 
+extern
+fun lcm_ats : {n : nat} {m : nat} (int(m), int(n)) -> int =
+  "mac#"
+
 implement gcd_ats (m, n) =
   gcd(m, n)
+
+implement lcm_ats (m, n) =
+  lcm(m, n)
 
 implement count_divisors_ats (n) =
   count_divisors(n)

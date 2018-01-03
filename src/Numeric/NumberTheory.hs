@@ -10,23 +10,28 @@ module Numeric.NumberTheory ( totient
                             , totientSum
                             , littleOmega
                             , fastGcd
+                            , fastLcm
                             ) where
 
 import           Control.Composition
 import           Foreign.C
+import           Numeric.Common
 
 foreign import ccall unsafe totient_ats :: CInt -> CInt
 foreign import ccall unsafe count_divisors_ats :: CInt -> CInt
 foreign import ccall unsafe totient_sum_ats :: CInt -> CInt
 foreign import ccall unsafe little_omega_ats :: CInt -> CInt
 foreign import ccall unsafe gcd_ats :: CInt -> CInt -> CInt
+foreign import ccall unsafe lcm_ats :: CInt -> CInt -> CInt
 
-conjugate :: (CInt -> CInt) -> Int -> Int
-conjugate f = fromIntegral . f . fromIntegral
+fastLcm :: Int -> Int -> Int
+fastLcm = fromIntegral .* on lcm_ats fromIntegral
 
+-- | Slightly faster than the function in the prelude.
 fastGcd :: Int -> Int -> Int
 fastGcd = fromIntegral .* on gcd_ats fromIntegral
 
+-- TODO mathworld link
 littleOmega :: Int -> Int
 littleOmega = conjugate little_omega_ats
 

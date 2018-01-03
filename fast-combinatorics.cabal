@@ -13,6 +13,7 @@ build-type:          Custom
 extra-source-files:  ATS2-Postiats-include-0.3.8/ccomp/runtime/pats_ccomp_config.h
                    , ats-src/*.dats
                    , cabal.project.local
+                   , shake.hs
 extra-doc-files:     README.md
 cabal-version:       >= 1.18
 
@@ -42,6 +43,7 @@ library
                      , Numeric.Pure
                      , Numeric.Integer
                      , Numeric.NumberTheory
+  other-modules:       Numeric.Common
   build-depends:       base >= 4.7 && < 5
                      , composition-prelude >= 0.1.1.4
   default-language:    Haskell2010

@@ -16,7 +16,7 @@ import           Network.HTTP.Client                   hiding (decompress)
 import           Network.HTTP.Client.TLS               (tlsManagerSettings)
 import           System.Directory
 
--- TODO make the cleaning occur in the post-build phase.
+-- TODO add a
 -- ideally controllable with a build flag?
 main = defaultMainWithHooks myHooks
     where myHooks = simpleUserHooks { preConf = buildScript

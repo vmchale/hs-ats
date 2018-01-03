@@ -16,15 +16,14 @@ typedef Odd = [ n : nat ] int(2 * n+1)
 fn divides(m : int, n : int) :<> bool =
   n % m = 0
 
-// TODO lcm, coprimality test
 fnx gcd {k : nat}{l : nat} (m : int(l), n : int(k)) : int =
   if n > 0 then
     gcd(n, witness(m % n))
   else
     m
 
-fn coprime {k : nat}{l : nat} (m : int(l), n : int(k)) : bool =
-  gcd(m, n) != 1
+fn lcm {k : nat}{l : nat} (m : int(l), n : int(k)) : int =
+  (m / gcd(m, n)) * n
 
 // stream all divisors of an integer.
 fn divisors(n : intGte(1)) : stream_vt(int) =
