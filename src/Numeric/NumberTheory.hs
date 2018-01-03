@@ -9,7 +9,6 @@ Copyright   : Copyright (c) 2017 Vanessa McHale
 
 module Numeric.NumberTheory ( totient
                             , tau
-                            , totientSum
                             , littleOmega
                             , fastGcd
                             , fastLcm
