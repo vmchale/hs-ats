@@ -19,7 +19,9 @@ module Numeric.Pure ( hsIsPrime
 {-# SPECIALIZE hsIsPrime :: Int -> Bool #-}
 {-# SPECIALIZE hsChoose :: Int -> Int -> Int #-}
 {-# SPECIALIZE hsIsPerfect :: Int -> Bool #-}
+{-# SPECIALIZE hsDoubleFactorial :: Int -> Int #-}
 
+-- N.B. only works on positive integers
 divisors :: (Integral a) => a -> [a]
 divisors n = filter ((== 0) . (n `mod`)) [1..n]
 

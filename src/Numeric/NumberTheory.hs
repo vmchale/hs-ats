@@ -53,7 +53,3 @@ tau = conjugate count_divisors_ats
 -- | Euler totient function.
 totient :: Int -> Int
 totient = conjugate totient_ats
-
--- | @[totient k | k <- [1 .. n]]@ in Haskell
-totientSum :: Int -> Int
-totientSum = conjugate totient_sum_ats

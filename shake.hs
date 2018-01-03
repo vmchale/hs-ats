@@ -19,8 +19,7 @@ main = shakeArgs shakeOptions { shakeFiles = ".shake"
                               , shakeThreads = 4
                               } $ do
 
-    want [ "cbits/combinatorics.c"
-         , "cbits/numerics.c"
+    want [ "cbits/numerics.c"
          , "cbits/number-theory.c"
          ]
 
