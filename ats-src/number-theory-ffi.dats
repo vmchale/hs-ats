@@ -27,6 +27,10 @@ extern
 fun lcm_ats : {n : nat} {m : nat} (int(m), int(n)) -> int =
   "mac#"
 
+extern
+fun is_perfect_ats : intGte(1) -> bool =
+  "mac#"
+
 implement gcd_ats (m, n) =
   gcd(m, n)
 
@@ -44,3 +48,6 @@ implement totient_sum_ats (n) =
 
 implement little_omega_ats (n) =
   little_omega(n)
+
+implement is_perfect_ats (n) =
+  is_perfect(n)

@@ -8,6 +8,8 @@ module Numeric.Pure ( hsIsPrime
                     , hsTau
                     , hsTotientSum
                     , hsLittleOmega
+                    , hsSumDivisors
+                    , hsIsPerfect
                     ) where
 
 {-# SPECIALIZE hsLittleOmega :: Int -> Int #-}
@@ -16,12 +18,23 @@ module Numeric.Pure ( hsIsPrime
 {-# SPECIALIZE hsTotient :: Int -> Int #-}
 {-# SPECIALIZE hsIsPrime :: Int -> Bool #-}
 {-# SPECIALIZE hsChoose :: Int -> Int -> Int #-}
+{-# SPECIALIZE hsIsPerfect :: Int -> Bool #-}
+
+divisors :: (Integral a) => a -> [a]
+divisors n = filter ((== 0) . (n `mod`)) [1..n]
 
 hsLittleOmega :: (Integral a) => a -> Int
-hsLittleOmega n = length (filter (\k -> n `mod` k == 0 && hsIsPrime k) [2..n])
+hsLittleOmega = length . filter hsIsPrime . divisors
 
 hsTau :: (Integral a) => a -> Int
-hsTau n = length (filter ((== 0) . (n `mod`)) [1..n])
+hsTau = length . divisors
+
+-- N.B. sum of proper divisors
+hsSumDivisors :: (Integral a) => a -> a
+hsSumDivisors = sum . init . divisors
+
+hsIsPerfect :: (Integral a) => a -> Bool
+hsIsPerfect = ((==) <*>) hsSumDivisors
 
 hsTotientSum :: (Integral a) => a -> a
 hsTotientSum k = sum [ hsTotient n | n <- [1..k] ]
