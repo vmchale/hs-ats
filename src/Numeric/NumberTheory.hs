@@ -34,9 +34,6 @@ foreign import ccall unsafe is_perfect_ats :: CInt -> CUChar
 isPerfect :: Int -> Bool
 isPerfect = convertBool . is_perfect_ats . fromIntegral
 
-fastLcm :: Int -> Int -> Int
-fastLcm = fromIntegral .* on lcm_ats fromIntegral
-
 -- | Slightly faster than the function in the prelude.
 fastGcd :: Int -> Int -> Int
 fastGcd = fromIntegral .* on gcd_ats fromIntegral

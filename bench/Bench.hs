@@ -27,10 +27,6 @@ main =
                       [ bench "fastGcd" $ nf (fastGcd 201 :: Int -> Int) 67
                       , bench "gcd" $ nf (gcd 201 :: Int -> Int) 67
                       ]
-                , bgroup "fastLcm"
-                      [ bench "fastLcm" $ nf (fastLcm 201 :: Int -> Int) 67
-                      , bench "lcm" $ nf (lcm 201 :: Int -> Int) 67
-                      ]
                 , bgroup "isPerfect"
                       [ bench "isPerfect" $ nf isPerfect 318
                       , bench "hsIsPerfect" $ nf hsIsPerfect (318 :: Int)

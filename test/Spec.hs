@@ -33,9 +33,6 @@ main = hspec $ parallel $ do
     describe "fastGcd" $
         prop "should agree with the pure Haskell function" $
             \m n -> n < 0 || m < 0 || fastGcd m n == gcd m n
-    describe "fastLcm" $
-        prop "should agree with the pure Haskell function" $
-            \m n -> n < 0 || m < 0 || fastLcm m n == lcm m n
     describe "isPerfect" $
         prop "should agree with the pure Haskell function" $
             \n -> n < 1 || isPerfect n == hsIsPerfect n
