@@ -1,4 +1,3 @@
-import           Numeric.Combinatorics
 import           Numeric.Integer
 import           Numeric.NumberTheory
 import           Numeric.Pure

@@ -1,7 +1,6 @@
 module Main where
 
 import           Criterion.Main
-import           Numeric.Combinatorics
 import           Numeric.Integer
 import           Numeric.NumberTheory
 import           Numeric.Pure
@@ -11,10 +10,6 @@ main =
     defaultMain [ bgroup "primality check"
                       [ bench "isPrime" $ nf isPrime 2017
                       , bench "hsIsPrime" $ nf hsIsPrime (2017 :: Int)
-                      ]
-                , bgroup "integer exponentiation"
-                      [ bench "integerExp" $ nf (integerExp 3) 7
-                      , bench "^" $ nf ((3 :: Int) ^) (7 :: Int)
                       ]
                 , bgroup "totient"
                       [ bench "totient" $ nf totient 2016
