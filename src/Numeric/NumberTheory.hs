@@ -11,7 +11,6 @@ module Numeric.NumberTheory ( totient
                             , tau
                             , littleOmega
                             , fastGcd
-                            , fastLcm
                             , isPerfect
                             ) where
 
@@ -21,10 +20,8 @@ import           Numeric.Common
 
 foreign import ccall unsafe totient_ats :: CInt -> CInt
 foreign import ccall unsafe count_divisors_ats :: CInt -> CInt
-foreign import ccall unsafe totient_sum_ats :: CInt -> CInt
 foreign import ccall unsafe little_omega_ats :: CInt -> CInt
 foreign import ccall unsafe gcd_ats :: CInt -> CInt -> CInt
-foreign import ccall unsafe lcm_ats :: CInt -> CInt -> CInt
 #if __GLASGOW_HASKELL__ >= 820
 foreign import ccall unsafe is_perfect_ats :: CInt -> CBool
 #else

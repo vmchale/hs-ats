@@ -8,7 +8,6 @@ module Numeric.Pure ( hsIsPrime
                     , hsTau
                     , hsTotientSum
                     , hsLittleOmega
-                    , hsSumDivisors
                     , hsIsPerfect
                     ) where
 
