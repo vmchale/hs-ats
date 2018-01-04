@@ -3,6 +3,8 @@
 - [ ] consider a separate package for installing `patscc`
 # Code maintenane
 - [ ] test suite for double factorial
+# Benchmarks
+- [ ] hylomorphism for totient?
 # Features
 - [ ] factorial w/ libgmp bindings for ATS side.
 - [ ] lcm

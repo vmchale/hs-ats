@@ -25,10 +25,11 @@ foreign import ccall unsafe is_perfect_ats :: CInt -> CBool
 foreign import ccall unsafe is_perfect_ats :: CInt -> CUChar
 #endif
 
+-- | See [here](http://mathworld.wolfram.com/PerfectNumber.html)
 isPerfect :: Int -> Bool
 isPerfect = convertBool . is_perfect_ats . fromIntegral
 
--- TODO mathworld link
+-- Number of distinct prime factors
 littleOmega :: Int -> Int
 littleOmega = conjugate little_omega_ats
 

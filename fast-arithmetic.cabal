@@ -1,5 +1,5 @@
 name:                fast-arithmetic
-version:             0.1.0.1
+version:             0.1.0.6
 synopsis:            Fast number-theoretic functions.
 description:         Fast number-theoretic code with a high level of safety guaranteed by ATS.
 homepage:            https://github.com/vmchale/fast-arithmetic#readme
