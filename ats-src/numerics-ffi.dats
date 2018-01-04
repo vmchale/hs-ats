@@ -17,9 +17,3 @@ fun is_odd_ats { n : nat | n > 0 } : int(n) -> bool =
 
 implement is_prime_ats (n) =
   is_prime(n)
-
-implement is_even_ats (n) =
-  is_even(n)
-
-implement is_odd_ats (n) =
-  is_odd(n)

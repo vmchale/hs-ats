@@ -30,15 +30,6 @@ main = hspec $ parallel $ do
     describe "littleOmega" $
         prop "should agree with the pure Haskell function" $
             \n -> n < 1 || littleOmega n == hsLittleOmega n
-    describe "fastGcd" $
-        prop "should agree with the pure Haskell function" $
-            \m n -> n < 0 || m < 0 || fastGcd m n == gcd m n
     describe "isPerfect" $
         prop "should agree with the pure Haskell function" $
             \n -> n < 1 || isPerfect n == hsIsPerfect n
-    describe "even" $
-        prop "should agree with the pure Haskell function" $
-            \n -> isEven n == even n
-    describe "odd" $
-        prop "should agree with the pure Haskell function" $
-            \n -> isOdd n == odd n

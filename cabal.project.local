@@ -6,3 +6,4 @@ benchmarks: True
 documentation: True
 haddock-hoogle: True
 haddock-internal: True
+allow-boot-library-installs: True

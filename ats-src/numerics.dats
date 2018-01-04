@@ -60,9 +60,3 @@ fn is_prime(k : intGt(0)) :<> bool =
           loop(2, sqrt_int(k))
         end
       end
-
-fn is_even(n : int) :<> bool =
-  n % 2 = 0
-
-fn is_odd(n : int) :<> bool =
-  n % 2 = 1

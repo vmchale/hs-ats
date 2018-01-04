@@ -1,5 +1,5 @@
 #!/usr/bin/env stack
--- stack runghc --resolver lts-10.0 --package shake --package split --install-ghc
+-- stack runghc --resolver lts-10.2 --package shake --package split --install-ghc
 
 import           Data.List                  (intercalate)
 import           Data.List.Split            (splitOn)

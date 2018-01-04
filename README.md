@@ -3,12 +3,11 @@
 [![Build Status](https://travis-ci.org/vmchale/fast-combinatorics.svg?branch=master)](https://travis-ci.org/vmchale/fast-combinatorics)
 
 This is a library for fast arithmetical functions using ATS, with a Haskell
-wrapper. Of particular interest on the Haskell side, it provides a fast primality checking function and
-a slightly faster `gcd` function.
+wrapper.
 
 It is intended to supplement (but not replace)
 [arithmoi](https://hackage.haskell.org/package/arithmoi) where speed is
-important.
+important. In particular, this library provides a fast primality check.
 
 ## Benchmarks
 
