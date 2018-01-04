@@ -72,6 +72,7 @@ fn sum_divisors(n : intGte(1)) :<> int =
     loop(n, 1)
   end
 
+// TODO proofs of correctness like HX for fibonacci numbers?
 fn is_perfect(n : intGte(1)) :<> bool =
   sum_divisors(n) = n
 

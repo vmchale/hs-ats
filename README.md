@@ -21,8 +21,6 @@ important. In particular, this library provides a fast primality check.
 | `τ(3018)` | Haskell | 35.87 μs |
 | `ω(91)` | ATS | 282.1 ns |
 | `ω(91)` | Haskell | 1.194 μs |
-| `gcd(201, 67)` | ATS | 8.848 ns |
-| `gcd(201, 67)` | Haskell | 11.26 ns |
 
 ## Building
 

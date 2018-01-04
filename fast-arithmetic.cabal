@@ -1,5 +1,5 @@
 name:                fast-arithmetic
-version:             0.1.0.0
+version:             0.1.0.1
 synopsis:            Fast number-theoretic functions.
 description:         Fast number-theoretic code with a high level of safety guaranteed by ATS.
 homepage:            https://github.com/vmchale/fast-arithmetic#readme
@@ -40,8 +40,8 @@ library
                      , cbits/number-theory.c
   include-dirs:        ats-deps/
                      , ats-deps/contrib
-                     , ats-deps/prelude/ATS2-Postiats-include-0.3.8
                      , ats-deps/prelude/ATS2-Postiats-include-0.3.8/ccomp/runtime
+                     , ats-deps/prelude/ATS2-Postiats-include-0.3.8
   hs-source-dirs:      src
   exposed-modules:     Numeric.Pure
                      , Numeric.Integer
