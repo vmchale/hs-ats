@@ -19,7 +19,7 @@ extra-doc-files:     README.md
 cabal-version:       >= 1.18
 
 Flag development {
-  Description: Enable `-Werror`
+  Description: Enable `-Werror` and don't clean ATS libraries between builds.
   manual: True
   default: False
 }
