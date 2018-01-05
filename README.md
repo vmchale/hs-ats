@@ -1,6 +1,6 @@
 # fast-combinatorics
 
-[![Build Status](https://travis-ci.org/vmchale/fast-combinatorics.svg?branch=master)](https://travis-ci.org/vmchale/fast-combinatorics)
+[![Build Status](https://travis-ci.org/vmchale/fast-arithmetic.svg?branch=master)](https://travis-ci.org/vmchale/fast-arithmetic)
 
 This is a library for fast arithmetical functions using ATS, with a Haskell
 wrapper.
