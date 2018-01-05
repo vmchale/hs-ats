@@ -1,5 +1,5 @@
 name:                fast-arithmetic
-version:             0.1.0.6
+version:             0.1.0.7
 synopsis:            Fast number-theoretic functions.
 description:         Fast number-theoretic code with a high level of safety guaranteed by ATS.
 homepage:            https://github.com/vmchale/fast-arithmetic#readme
@@ -8,7 +8,7 @@ license-file:        LICENSE
 author:              Vanessa McHale
 maintainer:          vamchale@gmail.com
 copyright:           Copyright: (c) 2017 Vanessa McHale
-category:            Numerics
+category:            Numerics, Math, Algorithms, Number Theory
 build-type:          Custom
 extra-source-files:  ats-deps/prelude/ATS2-Postiats-include-0.3.8/ccomp/runtime/pats_ccomp_config.h
                    , ats-src/*.dats

@@ -33,7 +33,7 @@ isPerfect = convertBool . is_perfect_ats . fromIntegral
 littleOmega :: Int -> Int
 littleOmega = conjugate little_omega_ats
 
--- | Number of distinct prime divisors.
+-- | Number of distinct divisors.
 tau :: Int -> Int
 tau = conjugate count_divisors_ats
 
