@@ -1,6 +1,3 @@
-{-# LANGUAGE DeriveAnyClass #-}
-{-# LANGUAGE DeriveGeneric  #-}
-
 -- | This provides a few facilities for working with common combinatorial
 -- functions.
 module Numeric.Combinatorics ( factorial
@@ -8,16 +5,13 @@ module Numeric.Combinatorics ( factorial
                              ) where
 
 import           Control.Composition
-import           Control.DeepSeq       (NFData)
 import           Data.Word
 import           Foreign.C
 import           Foreign.Marshal.Array
 import           Foreign.Ptr
 import           Foreign.Storable
-import           GHC.Generics          (Generic)
 
 data GMPInt = GMPInt { _mp_alloc :: Word32, _mp_size :: Word32, _mp_d :: Ptr Word64 }
-    deriving (Generic, NFData, Show)
 
 wordWidth :: Int
 wordWidth = sizeOf (undefined :: Word32)
@@ -30,7 +24,7 @@ gmpToList (GMPInt a _ aptr) = peekArray (fromIntegral a) aptr
 
 wordListToInteger :: [Word64] -> Integer
 wordListToInteger []     = 0
-wordListToInteger (x:xs) = fromIntegral x + (2 ^ (64 :: Integer)) * (wordListToInteger xs)
+wordListToInteger (x:xs) = fromIntegral x + (2 ^ (64 :: Integer)) * wordListToInteger xs
 
 gmpToInteger :: GMPInt -> IO Integer
 gmpToInteger = fmap wordListToInteger . gmpToList
@@ -44,6 +38,7 @@ instance Storable GMPInt where
 foreign import ccall unsafe factorial_ats :: CInt -> Ptr GMPInt
 foreign import ccall unsafe choose_ats :: CInt -> CInt -> Ptr GMPInt
 
+-- | See [here](http://mathworld.wolfram.com/BinomialCoefficient.html).
 choose :: Int -> Int -> IO Integer
 choose = (gmpToInteger <=<) . (peek .* on choose_ats fromIntegral)
 

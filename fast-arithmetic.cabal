@@ -1,5 +1,5 @@
 name:                fast-arithmetic
-version:             0.1.0.7
+version:             0.1.1.0
 synopsis:            Fast number-theoretic functions.
 description:         Fast number-theoretic code with a high level of safety guaranteed by ATS.
 homepage:            https://github.com/vmchale/fast-arithmetic#readme
@@ -25,7 +25,7 @@ Flag development {
 }
 
 custom-setup
-  ghc-options:     -threaded -rtsopts -with-rtsopts=-N
+  -- ghc-options:     -threaded -rtsopts -with-rtsopts=-N
   setup-depends:   base
                  , Cabal >= 2.0
                  , http-client
