@@ -4,7 +4,7 @@
   - {name: error, within: [Main]}  # throw real errors
   - {name: fromJust, within: []}  # this is hell to track down
   - {name: foldl, within: []}  # foldl has bad properties
-- ignore: {name: Use camelCase, within: [Numeric.Combinatorics]}
+- ignore: {name: Use camelCase, within: [Data.GMP]}
 
 - error: {lhs: "hylo embed", rhs: "ana", name: "Use anamorphism"}
 - error: {lhs: "hylo f project", rhs: "cata f", name: "Use catamorphism"}

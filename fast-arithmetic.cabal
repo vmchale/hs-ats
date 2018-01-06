@@ -1,5 +1,5 @@
 name:                fast-arithmetic
-version:             0.1.1.0
+version:             0.1.1.1
 synopsis:            Fast number-theoretic functions.
 description:         Fast number-theoretic code with a high level of safety guaranteed by ATS.
 homepage:            https://github.com/vmchale/fast-arithmetic#readme
@@ -48,6 +48,7 @@ library
                      , Numeric.Integer
                      , Numeric.NumberTheory
                      , Numeric.Combinatorics
+                     , Data.GMP
   other-modules:       Numeric.Common
   build-depends:       base >= 4.7 && < 5
                      , composition-prelude

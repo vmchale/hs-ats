@@ -35,5 +35,5 @@ main = hspec $ parallel $ do
         prop "should agree with the pure Haskell function" $
             \n -> n < 1 || isPerfect n == hsIsPerfect n
     describe "factorial" $
-        it "should agree with the pure Haskell function" $
+        it "should work on a slightly large number" $
             factorial 3141 >>= (`shouldBe` hsFactorial 3141)
