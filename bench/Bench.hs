@@ -1,6 +1,7 @@
 module Main where
 
 import           Criterion.Main
+import           Numeric.Combinatorics
 import           Numeric.Integer
 import           Numeric.NumberTheory
 import           Numeric.Pure
@@ -26,5 +27,9 @@ main =
                 , bgroup "perfection check"
                       [ bench "isPerfect" $ nf isPerfect 318
                       , bench "hsIsPerfect" $ nf hsIsPerfect (318 :: Int)
+                      ]
+                , bgroup "factorial"
+                      [ bench "factorial" $ nf factorialRaw 1000
+                      , bench "hsFactorial" $ nf hsFactorial (1000 :: Integer)
                       ]
                 ]

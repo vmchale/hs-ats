@@ -7,7 +7,7 @@ license:             BSD3
 license-file:        LICENSE
 author:              Vanessa McHale
 maintainer:          vamchale@gmail.com
-copyright:           Copyright: (c) 2017 Vanessa McHale
+copyright:           Copyright: (c) 2018 Vanessa McHale
 category:            Numerics, Math, Algorithms, Number Theory
 build-type:          Custom
 extra-source-files:  ats-deps/prelude/ATS2-Postiats-include-0.3.8/ccomp/runtime/pats_ccomp_config.h
@@ -38,6 +38,7 @@ custom-setup
 library
   c-sources:           cbits/numerics.c
                      , cbits/number-theory.c
+                     , cbits/combinatorics.c
   include-dirs:        ats-deps/
                      , ats-deps/contrib
                      , ats-deps/prelude/ATS2-Postiats-include-0.3.8/ccomp/runtime
@@ -46,6 +47,7 @@ library
   exposed-modules:     Numeric.Pure
                      , Numeric.Integer
                      , Numeric.NumberTheory
+                     , Numeric.Combinatorics
   other-modules:       Numeric.Common
   build-depends:       base >= 4.7 && < 5
   default-language:    Haskell2010

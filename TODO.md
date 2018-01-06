@@ -1,3 +1,5 @@
+# ATS library
+- [ ] stack-allocated big integers?
 # Build
 - [ ] use `Setup.hs` so everything works on hackage like it's supposed to.
 - [ ] consider a separate package for installing `patscc`

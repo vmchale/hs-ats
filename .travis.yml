@@ -28,6 +28,7 @@ before_install:
   - pip install yamllint
 
 # FIXME only install patscc if it doesn't exist
+# - if [ -x patscc ]
 install:
   - wget http://ats-lang.sourceforge.net/IMPLEMENT/Postiats/ATS2-Postiats-0.3.8.tgz
   - tar xvf ATS2-Postiats-0.3.8.tgz

@@ -1,12 +1,9 @@
 #include "share/atspre_staload.hats"
 #include "ats-src/numerics.dats"
-#include "contrib/atscntrb-hx-intinf/DATS/intinf_t.dats"
-#include "contrib/atscntrb-hx-intinf/DATS/intinf_vt.dats"
+#include "contrib/atscntrb-hx-intinf/mylibies.hats"
 
-staload "libats/libc/SATS/math.sats"
 staload UN = "prelude/SATS/unsafe.sats"
-staload "contrib/atscntrb-hx-intinf/SATS/intinf.sats"
-staload "contrib/atscntrb-hx-intinf/SATS/intinf_t.sats"
+staload "contrib/atscntrb-hx-intinf/SATS/intinf_vt.sats"
 
 #define ATS_MAINATSFLAG 1
 
@@ -122,7 +119,12 @@ fun totient_sum(n : intGte(1)) : Intinf =
   let
     fnx loop { n : nat | n >= 1 }{ m : nat | m >= n } .<m-n>. (i : int(n), bound : int(m)) : Intinf =
       if i < bound then
-        loop(i + 1, bound) + witness(totient(i))
+        let
+          val x = loop(i + 1, bound)
+          val y = add_intinf0_int(x, witness(totient(i)))
+        in
+          y
+        end
       else
         int2intinf(witness(totient(i)))
   in

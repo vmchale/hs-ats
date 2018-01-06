@@ -25,7 +25,6 @@ import           Control.Applicative
 {-# SPECIALIZE hsIsPerfect :: Int -> Bool #-}
 {-# SPECIALIZE hsDoubleFactorial :: Int -> Int #-}
 
--- | N.B. positive integers only
 divisors :: (Integral a) => a -> [a]
 divisors n = filter ((== 0) . (n `mod`)) [1..n]
 

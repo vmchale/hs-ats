@@ -1,5 +1,5 @@
-:load Numeric.Integer Numeric.Pure Numeric.NumberTheory Numeric.Common
-:m Numeric.Integer Numeric.Pure Numeric.NumberTheory Numeric.Common
+:load Numeric.Integer Numeric.Pure Numeric.NumberTheory Numeric.Common Numeric.Combinatorics
+:m Numeric.Integer Numeric.Pure Numeric.NumberTheory Numeric.Common Numeric.Combinatorics
 
 :set prompt "λ:> "
 :set +t
