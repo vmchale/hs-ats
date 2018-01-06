@@ -32,4 +32,8 @@ main =
                       [ bench "factorial" $ nf factorialRaw 1000
                       , bench "hsFactorial" $ nf hsFactorial (1000 :: Integer)
                       ]
+                , bgroup "choose"
+                      [ bench "choose" $ nf (chooseRaw 322) 16
+                      , bench "hsChoose" $ nf (hsChoose 322) (16 :: Integer)
+                      ]
                 ]
