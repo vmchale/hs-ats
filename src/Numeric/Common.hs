@@ -7,7 +7,7 @@ module Numeric.Common ( convertBool
 import           Data.Word
 import           Foreign.C
 
-conjugate :: (CInt -> CInt) -> Int -> Int
+conjugate :: (Integral a, Integral b) => (CInt -> CInt) -> a -> b
 conjugate f = fromIntegral . f . fromIntegral
 
 #if __GLASGOW_HASKELL__ >= 820

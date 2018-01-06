@@ -2,7 +2,6 @@
 - functions:
   - {name: unsafePerformIO, within: []}  # unsafePerformIO can appear nowhere
   - {name: error, within: [Main]}  # throw real errors
-  - {name: undefined, within: []}
   - {name: fromJust, within: []}  # this is hell to track down
   - {name: foldl, within: []}  # foldl has bad properties
 
