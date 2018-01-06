@@ -31,6 +31,9 @@ wordListToInteger :: [Word8] -> Integer
 wordListToInteger []     = 0
 wordListToInteger (x:xs) = fromIntegral x + 256 * (wordListToInteger xs)
 
+gmpToInteger :: GMPInt -> IO Integer
+gmpToInteger = fmap wordListToInteger . gmpToList
+
 instance Storable GMPInt where
     sizeOf _ = 2 * wordWidth + ptrWidth
     alignment _ = gcd wordWidth ptrWidth
@@ -41,7 +44,7 @@ foreign import ccall unsafe factorial_ats :: CInt -> Ptr GMPInt
 foreign import ccall unsafe choose_ats :: CInt -> CInt -> Ptr GMPInt
 
 factorial :: Int -> IO Integer
-factorial = fmap wordListToInteger . gmpToList <=< (peek . factorial_ats . fromIntegral)
+factorial = gmpToInteger <=< (peek . factorial_ats . fromIntegral)
 
-choose :: Int -> Int -> IO GMPInt
-choose = peek .* on choose_ats fromIntegral
+choose :: Int -> Int -> IO Integer
+choose = (gmpToInteger <=<) . (peek .* on choose_ats fromIntegral)
