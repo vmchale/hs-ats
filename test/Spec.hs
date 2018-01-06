@@ -1,3 +1,4 @@
+import           Numeric.Combinatorics
 import           Numeric.Integer
 import           Numeric.NumberTheory
 import           Numeric.Pure
@@ -33,3 +34,6 @@ main = hspec $ parallel $ do
     describe "isPerfect" $
         prop "should agree with the pure Haskell function" $
             \n -> n < 1 || isPerfect n == hsIsPerfect n
+    describe "factorial" $
+        it "should agree with the pure Haskell function" $
+            factorial 3124321 >>= (`shouldBe` hsFactorial 3124321)
