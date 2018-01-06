@@ -1,5 +1,7 @@
 ---
 resolver: lts-10.2
+extra-deps:
+  - composition-prelude-0.1.1.4
 flags:
   fast-arithmetic:
     development: true
