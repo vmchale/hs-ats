@@ -26,7 +26,7 @@ fnx dfact {n : nat} .<n>. (k : int(n)) : Intinf =
     end
 
 // Number of permutations on n objects using k at a time.
-fn permutatsions {n : nat}{ k : nat | k <= n } (n : int(n), k : int(k)) : Intinf =
+fn permutations {n : nat}{ k : nat | k <= n } (n : int(n), k : int(k)) : Intinf =
   let
     val x = fact(n)
     val y = fact(n - k)
