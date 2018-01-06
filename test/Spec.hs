@@ -36,4 +36,4 @@ main = hspec $ parallel $ do
             \n -> n < 1 || isPerfect n == hsIsPerfect n
     describe "factorial" $
         it "should agree with the pure Haskell function" $
-            factorial 3124 >>= (`shouldBe` hsFactorial 3124)
+            factorial 20 >>= (`shouldBe` hsFactorial 20)

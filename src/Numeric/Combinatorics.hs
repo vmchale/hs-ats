@@ -30,7 +30,7 @@ gmpToList (GMPInt a _ aptr) = peekArray (fromIntegral a) aptr
 
 wordListToInteger :: [Word64] -> Integer
 wordListToInteger []     = 0
-wordListToInteger (x:xs) = fromIntegral x + 256 * (wordListToInteger xs)
+wordListToInteger (x:xs) = fromIntegral x + (2 ^ (64 :: Integer)) * (wordListToInteger xs)
 
 gmpToInteger :: GMPInt -> IO Integer
 gmpToInteger = fmap wordListToInteger . gmpToList
