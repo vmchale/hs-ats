@@ -1,13 +1,18 @@
+{-# LANGUAGE DeriveAnyClass #-}
+{-# LANGUAGE DeriveGeneric  #-}
+
 -- | This module is somewhat experimental.
 module Numeric.Combinatorics ( factorial
                              , choose
                              ) where
 
 import           Control.Composition
+import           Control.DeepSeq     (NFData)
 import           Data.Word
 import           Foreign.C
 import           Foreign.Ptr
 import           Foreign.Storable
+import           GHC.Generics        (Generic)
 
 -- useAsCString - fast parser?
 -- TODO storable instance for mpz_t variables
@@ -15,18 +20,19 @@ import           Foreign.Storable
 -- rest doesn't matter
 -- field #2: _mp_d, a pointer to an array of limbs.
 
-data GMPInt = GMPInt Int Int (Ptr Word8)
+data GMPInt = GMPInt { _mp_alloc :: Word32, _mp_size :: Word32, _mp_d :: Ptr Word8 }
+    deriving (Generic, NFData, Show)
 
-intWidth :: Int
-intWidth = sizeOf (undefined :: Int)
+wordWidth :: Int
+wordWidth = sizeOf (undefined :: Word32)
 
 ptrWidth :: Int
-ptrWidth = sizeOf (undefined :: Int)
+ptrWidth = sizeOf (undefined :: Ptr Word8)
 
 instance Storable GMPInt where
-    sizeOf _ = 2 * intWidth + ptrWidth
-    alignment _ = gcd intWidth ptrWidth
-    peek ptr = GMPInt <$> peekByteOff ptr 0 <*> peekByteOff ptr intWidth <*> peekByteOff ptr 5
+    sizeOf _ = 2 * wordWidth + ptrWidth
+    alignment _ = gcd wordWidth ptrWidth
+    peek ptr = GMPInt <$> peekByteOff ptr 0 <*> peekByteOff ptr wordWidth <*> peekByteOff ptr (wordWidth * 2)
     poke = undefined
 
 {- typedef struct -}
@@ -44,8 +50,8 @@ instance Storable GMPInt where
 foreign import ccall unsafe factorial_ats :: CInt -> Ptr GMPInt
 foreign import ccall unsafe choose_ats :: CInt -> CInt -> Ptr GMPInt
 
-factorial :: Int -> Ptr GMPInt
-factorial = factorial_ats . fromIntegral
+factorial :: Int -> IO GMPInt
+factorial = peek . factorial_ats . fromIntegral
 
-choose :: Int -> Int -> Ptr GMPInt
-choose = on choose_ats fromIntegral
+choose :: Int -> Int -> IO GMPInt
+choose = peek .* on choose_ats fromIntegral

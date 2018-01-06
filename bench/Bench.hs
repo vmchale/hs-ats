@@ -29,11 +29,11 @@ main =
                       , bench "hsIsPerfect" $ nf hsIsPerfect (318 :: Int)
                       ]
                 , bgroup "factorial"
-                      [ bench "factorial" $ nf factorial 1000
+                      [ bench "factorial" $ nfIO (factorial 1000)
                       , bench "hsFactorial" $ nf hsFactorial (1000 :: Integer)
                       ]
                 , bgroup "choose"
-                      [ bench "choose" $ nf (choose 322) 16
+                      [ bench "choose" $ nfIO (choose 322 16)
                       , bench "hsChoose" $ nf (hsChoose 322) (16 :: Integer)
                       ]
                 ]
