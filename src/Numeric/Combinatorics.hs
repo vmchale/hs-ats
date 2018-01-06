@@ -1,7 +1,8 @@
 {-# LANGUAGE DeriveAnyClass #-}
 {-# LANGUAGE DeriveGeneric  #-}
 
--- | This module is somewhat experimental.
+-- | This provides a few facilities for working with common combinatorial
+-- functions.
 module Numeric.Combinatorics ( factorial
                              , choose
                              ) where
@@ -15,19 +16,19 @@ import           Foreign.Ptr
 import           Foreign.Storable
 import           GHC.Generics          (Generic)
 
-data GMPInt = GMPInt { _mp_alloc :: Word32, _mp_size :: Word32, _mp_d :: Ptr Word8 }
+data GMPInt = GMPInt { _mp_alloc :: Word32, _mp_size :: Word32, _mp_d :: Ptr Word32 }
     deriving (Generic, NFData, Show)
 
 wordWidth :: Int
 wordWidth = sizeOf (undefined :: Word32)
 
 ptrWidth :: Int
-ptrWidth = sizeOf (undefined :: Ptr Word8)
+ptrWidth = sizeOf (undefined :: Ptr Word32)
 
-gmpToList :: GMPInt -> IO [Word8]
+gmpToList :: GMPInt -> IO [Word32]
 gmpToList (GMPInt a _ aptr) = peekArray (fromIntegral a) aptr
 
-wordListToInteger :: [Word8] -> Integer
+wordListToInteger :: [Word32] -> Integer
 wordListToInteger []     = 0
 wordListToInteger (x:xs) = fromIntegral x + 256 * (wordListToInteger xs)
 
