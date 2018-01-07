@@ -23,6 +23,7 @@ fnx gcd {k : nat}{l : nat} (m : int(l), n : int(k)) : int =
   else
     m
 
+// FIXME this should return an intinf.
 fn lcm {k : nat}{l : nat} (m : int(l), n : int(k)) : int =
   (m / gcd(m, n)) * n
 
@@ -55,6 +56,7 @@ fn count_divisors(n : intGte(1)) :<> int =
     loop(n, 1)
   end
 
+// FIXME this should return an Intinf
 fn sum_divisors(n : intGte(1)) :<> int =
   let
     fun loop {k : nat}{ m : nat | m > 0 && k >= m } .<k-m>. (n : int(k), acc : int(m)) :<> int =

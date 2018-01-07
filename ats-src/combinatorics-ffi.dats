@@ -14,6 +14,10 @@ fun choose_ats {n : nat}{ m : nat | m <= n } : (int(n), int(m)) -> Intinf =
   "mac#"
 
 extern
+fun permutations_ats {n : nat}{ m : nat | m <= n } : (int(n), int(m)) -> Intinf =
+  "mac#"
+
+extern
 fun double_factorial {n : nat} : int(n) -> Intinf =
   "mac#"
 
@@ -22,6 +26,9 @@ fun factorial_ats {n : nat} : int(n) -> Intinf =
   "mac#"
 
 implement choose_ats (n, k) =
+  choose(n, k)
+
+implement permutations_ats (n, k) =
   choose(n, k)
 
 implement double_factorial (m) =
