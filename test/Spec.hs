@@ -1,3 +1,4 @@
+import           Data.List             (zipWith4)
 import           Numeric.Combinatorics
 import           Numeric.Integer
 import           Numeric.NumberTheory
@@ -11,29 +12,39 @@ tooBig x y = go x y >= 2 ^ (16 :: Integer)
         go :: Int -> Int -> Integer
         go m n = fromIntegral m ^ (fromIntegral n :: Integer)
 
+agree :: (Eq a) => String -> (Int -> a) -> (Int -> a) -> SpecWith ()
+agree s f g = describe s $
+    prop "should agree with the pure Haskell function" $
+        \n -> n < 1 || f n == g n
+
+check :: (Eq a, Show a) => String -> (Int -> IO a) -> (Integer -> a) -> Int -> SpecWith ()
+check s f g n = describe s $
+    it ("should work for n=" ++ show n) $
+        f n >>= (`shouldBe` g (fromIntegral n))
+
 main :: IO ()
 main = hspec $ parallel $ do
-    describe "isPrime" $
-        prop "should agree with the pure Haskell function" $
-            \x -> x < 1 || isPrime x == hsIsPrime x
-    describe "totient" $
-        prop "should agree with the pure Haskell function" $
-            \m -> m < 1 || totient m == hsTotient m
+
+    sequence_ $ zipWith3 agree
+        ["totient", "tau", "littleOmega"]
+        [totient, tau, littleOmega]
+        [hsTotient, hsTau, hsLittleOmega]
+
+    sequence_ $ zipWith3 agree
+        ["isPrime", "isPerfect"]
+        [isPrime, isPerfect]
+        [hsIsPrime, hsIsPerfect]
+
     describe "totient" $
         prop "should be equal to m-1 for m prime" $
             \m -> m < 1 || not (isPrime m) || totient m == m - 1
     describe "totient" $
         prop "should satisfy Fermat's little theorem" $
             \a m -> a < 1 || m < 2 || gcd a m /= 1 || tooBig a m || (a ^ totient m) `mod` m == 1
-    describe "tau" $
-        prop "should agree with the pure Haskell function" $
-            \n -> n < 1 || tau n == hsTau n
-    describe "littleOmega" $
-        prop "should agree with the pure Haskell function" $
-            \n -> n < 1 || littleOmega n == hsLittleOmega n
-    describe "isPerfect" $
-        prop "should agree with the pure Haskell function" $
-            \n -> n < 1 || isPerfect n == hsIsPerfect n
-    describe "factorial" $
-        it "should work on a slightly large number" $
-            factorial 3141 >>= (`shouldBe` hsFactorial 3141)
+
+    -- TODO property test w/ recurrence relations?
+    sequence_ $ zipWith4 check
+        ["factorial", "choose"]
+        [factorial, choose 21]
+        [hsFactorial, hsChoose 21]
+        [3141, 21]

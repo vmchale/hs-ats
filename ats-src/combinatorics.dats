@@ -6,7 +6,6 @@
 staload "contrib/atscntrb-hx-intinf/SATS/intinf_vt.sats"
 staload UN = "prelude/SATS/unsafe.sats"
 
-// TODO fancy/insane bit-flipping?
 fnx fact {n : nat} .<n>. (k : int(n)) : [ n : nat | n > 0 ] intinf(n) =
   case+ k of
     | 0 => int2intinf(1)

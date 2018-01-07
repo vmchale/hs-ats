@@ -9,11 +9,14 @@ module Data.GMP ( GMPInt (..)
 #if __GLASGOW_HASKELL__ <= 784
 import           Control.Applicative
 #endif
+import           Data.Functor.Foldable
 import           Data.Word
 import           Foreign.Marshal.Array
 import           Foreign.Ptr
 import           Foreign.Storable
 
+-- | The GMP integer type holds information about array size as well as
+-- a pointer to an array.
 data GMPInt = GMPInt { _mp_alloc :: Word32, _mp_size :: Word32, _mp_d :: Ptr Word64 }
 
 wordWidth :: Int
@@ -23,12 +26,14 @@ ptrWidth :: Int
 ptrWidth = sizeOf (undefined :: Ptr Word64)
 
 gmpToList :: GMPInt -> IO [Word64]
-gmpToList (GMPInt a _ aptr) = peekArray (fromIntegral a) aptr
+gmpToList (GMPInt _ s aptr) = peekArray (fromIntegral s) aptr
 
 wordListToInteger :: [Word64] -> Integer
-wordListToInteger []     = 0
-wordListToInteger (x:xs) = fromIntegral x + (2 ^ (64 :: Integer)) * wordListToInteger xs
+wordListToInteger = cata a where
+    a Nil         = 0
+    a (Cons x xs) = fromIntegral x + (2 ^ (64 :: Integer)) * xs
 
+-- | Convert a GMPInt to Haskell's 'Integer' type.
 gmpToInteger :: GMPInt -> IO Integer
 gmpToInteger = fmap wordListToInteger . gmpToList
 
@@ -36,5 +41,8 @@ instance Storable GMPInt where
     sizeOf _ = 2 * wordWidth + ptrWidth
     alignment _ = gcd wordWidth ptrWidth
     peek ptr = GMPInt <$> peekByteOff ptr 0 <*> peekByteOff ptr wordWidth <*> peekByteOff ptr (wordWidth * 2)
-    poke = undefined
+    poke ptr (GMPInt a s d) =
+        pokeByteOff ptr 0 a >>
+        pokeByteOff ptr wordWidth s >>
+        pokeByteOff ptr (wordWidth * 2) d
 
