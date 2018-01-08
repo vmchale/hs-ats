@@ -25,8 +25,11 @@ main = shakeArgs shakeOptions { shakeFiles = ".shake"
          ]
 
     "ci" ~> do
-        need ["cbits/number-theory.c", "cbits/numerics.c"]
+        need ["cbits/number-theory.c", "cbits/numerics.c", "cbits/combinatorics.c"]
         cmd_ ["cabal", "new-build"]
+        cmd_ ["cabal", "new-build", "-w", "ghc-8.0.2"]
+        cmd_ ["cabal", "new-build", "-w", "ghc-7.10.3"]
+        cmd_ ["cabal", "new-build", "-w", "ghc-7.8.4"]
         cmd_ ["cabal", "new-test"]
         cmd_ ["cabal", "new-haddock"]
         cmd_ ["hlint", "bench", "src", "test/", "Setup.hs"]

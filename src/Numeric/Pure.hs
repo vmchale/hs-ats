@@ -1,4 +1,5 @@
 {-# LANGUAGE CPP #-}
+
 -- | Pure Haskell functions for testing and benchmarking. Specialized for
 -- 'Int's.
 module Numeric.Pure ( hsIsPrime

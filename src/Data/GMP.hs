@@ -1,6 +1,13 @@
 {-# LANGUAGE CPP #-}
 
--- | This module defines a storable instance for GMP's integer type.
+{-|
+Module      : Data.GMP
+Copyright   : Copyright (c) 2017 Vanessa McHale
+
+This module defines a storable instance for GMP's @mpz@ integer type.
+-}
+
+
 
 module Data.GMP ( GMPInt (..)
                 , gmpToInteger
@@ -17,7 +24,11 @@ import           Foreign.Storable
 
 -- | The GMP integer type holds information about array size as well as
 -- a pointer to an array.
-data GMPInt = GMPInt { _mp_alloc :: Word32, _mp_size :: Word32, _mp_d :: Ptr Word64 }
+data GMPInt = GMPInt {
+                       _mp_alloc :: Word32 -- ^ Number of limbs allocated.
+                     , _mp_size  :: Word32 -- ^ Number of limbs used.
+                     , _mp_d     :: Ptr Word64 -- ^ Pointer to an array containing the limbs.
+                     }
 
 wordWidth :: Int
 wordWidth = sizeOf (undefined :: Word32)
@@ -33,7 +44,7 @@ wordListToInteger = cata a where
     a Nil         = 0
     a (Cons x xs) = fromIntegral x + (2 ^ (64 :: Integer)) * xs
 
--- | Convert a GMPInt to Haskell's 'Integer' type.
+-- | Convert a GMP @mpz@ to Haskell's 'Integer' type.
 gmpToInteger :: GMPInt -> IO Integer
 gmpToInteger = fmap wordListToInteger . gmpToList
 

@@ -2,9 +2,9 @@
 
 {-|
 Module      : Numeric.Combinatorics
-Description : Fast computation of common functions on integers.
 Copyright   : Copyright (c) 2017 Vanessa McHale
 
+This module provides a fast primality check.
 -}
 
 module Numeric.Integer ( isPrime
@@ -21,4 +21,4 @@ foreign import ccall unsafe is_prime_ats :: CInt -> CUChar
 
 -- | O(√n)
 isPrime :: Int -> Bool
-isPrime = convertBool . is_prime_ats . fromIntegral
+isPrime = asTest is_prime_ats

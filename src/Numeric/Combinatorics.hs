@@ -1,5 +1,11 @@
--- | This provides a few facilities for working with common combinatorial
--- functions.
+{-|
+Module      : Numeric.Combinatorics
+Copyright   : Copyright (c) 2017 Vanessa McHale
+
+This provides a few facilities for working with common combinatorial
+functions.
+-}
+
 module Numeric.Combinatorics ( factorial
                              , choose
                              ) where

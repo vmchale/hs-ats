@@ -2,15 +2,16 @@
 
 {-|
 Module      : Numeric.NumberTheory
-Description : Fast computation of number theoretic functions
 Copyright   : Copyright (c) 2017 Vanessa McHale
 
+This module provides fast number theoretic functions when possible.
 -}
 
 module Numeric.NumberTheory ( totient
                             , tau
                             , littleOmega
                             , isPerfect
+                            , τ
                             ) where
 
 import           Foreign.C
@@ -27,7 +28,7 @@ foreign import ccall unsafe is_perfect_ats :: CInt -> CUChar
 
 -- | See [here](http://mathworld.wolfram.com/PerfectNumber.html)
 isPerfect :: Int -> Bool
-isPerfect = convertBool . is_perfect_ats . fromIntegral
+isPerfect = asTest is_perfect_ats
 
 -- Number of distinct prime factors
 littleOmega :: Int -> Int
@@ -36,6 +37,10 @@ littleOmega = conjugate little_omega_ats
 -- | Number of distinct divisors.
 tau :: Int -> Int
 tau = conjugate count_divisors_ats
+
+-- | Alias for 'tau'
+τ :: Int -> Int
+τ = tau
 
 -- | Euler totient function.
 totient :: Int -> Int
