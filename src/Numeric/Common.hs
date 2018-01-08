@@ -1,7 +1,6 @@
 {-# LANGUAGE CPP #-}
 
-module Numeric.Common ( convertBool
-                      , conjugate
+module Numeric.Common ( conjugate
                       , asTest
                       ) where
 

@@ -16,15 +16,15 @@ fun little_omega_ats { n : nat | n > 0 } : int(n) -> int =
   "mac#"
 
 extern
-fun gcd_ats : {n : nat} {m : nat} (int(m), int(n)) -> int =
+fun sum_divisors_ats : { n : nat | n >= 1 } int(n) -> int =
   "mac#"
 
 extern
 fun is_perfect_ats : intGte(1) -> bool =
   "mac#"
 
-implement gcd_ats (m, n) =
-  gcd(m, n)
+implement sum_divisors_ats (m) =
+  sum_divisors(m)
 
 implement count_divisors_ats (n) =
   count_divisors(n)

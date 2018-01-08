@@ -27,9 +27,9 @@ main :: IO ()
 main = hspec $ parallel $ do
 
     sequence_ $ zipWith3 agree
-        ["totient", "tau", "littleOmega"]
-        [totient, tau, littleOmega]
-        [hsTotient, hsTau, hsLittleOmega]
+        ["totient", "tau", "littleOmega", "sumDivisors"]
+        [totient, tau, littleOmega, sumDivisors]
+        [hsTotient, hsTau, hsLittleOmega, hsSumDivisors]
 
     sequence_ $ zipWith3 agree
         ["isPrime", "isPerfect"]
@@ -45,7 +45,7 @@ main = hspec $ parallel $ do
 
     -- TODO property test w/ recurrence relations?
     sequence_ $ zipWith4 check
-        ["factorial", "choose"]
-        [factorial, choose 101]
-        [hsFactorial, hsChoose 101]
-        [3141, 16]
+        ["factorial", "choose", "doubleFactorial"]
+        [factorial, choose 101, doubleFactorial]
+        [hsFactorial, hsChoose 101, hsDoubleFactorial]
+        [3141, 16, 79]

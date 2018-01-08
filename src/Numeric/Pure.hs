@@ -11,6 +11,7 @@ module Numeric.Pure ( hsIsPrime
                     , hsTotientSum
                     , hsLittleOmega
                     , hsIsPerfect
+                    , hsSumDivisors
                     ) where
 
 #if __GLASGOW_HASKELL__ <= 784
@@ -23,7 +24,6 @@ import           Control.Applicative
 {-# SPECIALIZE hsTotient :: Int -> Int #-}
 {-# SPECIALIZE hsIsPrime :: Int -> Bool #-}
 {-# SPECIALIZE hsChoose :: Int -> Int -> Int #-}
-{-# SPECIALIZE hsIsPerfect :: Int -> Bool #-}
 {-# SPECIALIZE hsDoubleFactorial :: Int -> Int #-}
 
 divisors :: (Integral a) => a -> [a]

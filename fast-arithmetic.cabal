@@ -93,4 +93,4 @@ benchmark fast-arithmetic-bench
 
 source-repository head
   type:     git
-  location: https://github.com/vmchale/fast-arithmetic
+  location: git@github.com:vmchale/fast-arithmetic.git

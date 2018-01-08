@@ -56,7 +56,6 @@ fn count_divisors(n : intGte(1)) :<> int =
     loop(n, 1)
   end
 
-// FIXME this should return an Intinf
 fn sum_divisors(n : intGte(1)) :<> int =
   let
     fun loop {k : nat}{ m : nat | m > 0 && k >= m } .<k-m>. (n : int(k), acc : int(m)) :<> int =
@@ -71,7 +70,6 @@ fn sum_divisors(n : intGte(1)) :<> int =
     loop(n, 1)
   end
 
-// TODO proofs of correctness like HX for fibonacci numbers?
 fn is_perfect(n : intGte(1)) :<> bool =
   sum_divisors(n) = n
 
