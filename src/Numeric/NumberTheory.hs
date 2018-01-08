@@ -11,7 +11,6 @@ module Numeric.NumberTheory ( totient
                             , tau
                             , littleOmega
                             , isPerfect
-                            , τ
                             ) where
 
 import           Foreign.C
@@ -37,10 +36,6 @@ littleOmega = conjugate little_omega_ats
 -- | Number of distinct divisors.
 tau :: Int -> Int
 tau = conjugate count_divisors_ats
-
--- | Alias for 'tau'
-τ :: Int -> Int
-τ = tau
 
 -- | Euler totient function.
 totient :: Int -> Int
