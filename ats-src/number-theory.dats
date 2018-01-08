@@ -23,7 +23,6 @@ fnx gcd {k : nat}{l : nat} (m : int(l), n : int(k)) : int =
   else
     m
 
-// FIXME this should return an intinf.
 fn lcm {k : nat}{l : nat} (m : int(l), n : int(k)) : int =
   (m / gcd(m, n)) * n
 
