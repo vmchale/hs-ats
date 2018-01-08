@@ -9,7 +9,7 @@ license-file:        LICENSE
 author:              Vanessa McHale
 maintainer:          vamchale@gmail.com
 copyright:           Copyright: (c) 2018 Vanessa McHale
-category:            Numerics, Math, Algorithms, Number Theory, Combinatorics
+category:            Numerics, Math, Algorithms, Number Theory, Combinatorics, FFI, ATS
 build-type:          Custom
 extra-source-files:  ats-deps/prelude/ATS2-Postiats-include-0.3.8/ccomp/runtime/pats_ccomp_config.h
                    , ats-src/*.dats
