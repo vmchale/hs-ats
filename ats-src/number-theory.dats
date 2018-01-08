@@ -13,6 +13,9 @@ typedef Even = [ n : nat ] int(2 * n)
 
 typedef Odd = [ n : nat ] int(2 * n+1)
 
+// TODO jacobi symbol
+// fn legendre(a: int, p: int) : int =
+//  a ^ (p - 1 / 2) % p
 // m | n
 fn divides(m : int, n : int) :<> bool =
   n % m = 0
@@ -27,9 +30,9 @@ fn lcm {k : nat}{l : nat} (m : int(l), n : int(k)) : int =
   (m / gcd(m, n)) * n
 
 // stream all divisors of an integer.
-fn divisors(n : intGte(1)) : stream_vt(int) =
+fn divisors(n : intGte(1)) :<> stream_vt(int) =
   let
-    fun loop {k : nat}{ m : nat | m > 0 && k >= m } .<k-m>. (n : int(k), acc : int(m)) : stream_vt(int) =
+    fun loop {k : nat}{ m : nat | m > 0 && k >= m } .<k-m>. (n : int(k), acc : int(m)) :<> stream_vt(int) =
       if acc >= n then
         $ldelay(stream_vt_cons(acc, $ldelay(stream_vt_nil)))
       else
@@ -113,6 +116,7 @@ fn totient(n : intGte(1)) : int =
         end
       end
 
+// TODO modular exponentiation
 // The sum of all φ(m) for m between 1 and n 
 fun totient_sum(n : intGte(1)) : Intinf =
   let

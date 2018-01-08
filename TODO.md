@@ -8,15 +8,14 @@
 # Benchmarks
 - [ ] hylomorphism for totient?
 # Features
-- [ ] factorial w/ libgmp bindings for ATS side.
-- [ ] lcm
 - [ ] coprimality test
 - [ ] big omega
 - [ ] Euclid's algorithm
 - [ ] quadratic residues
 - [ ] jacobi symbol
+  - [ ] legendre symbol (relatively easy)
 - [ ] chinese remainder theorem
-- [ ] factor a number (ATS)
+- [ ] factor a number (ATS stream)
 - [ ] elliptic curves
 - [ ] bell numbers
   - [ ] https://en.wikipedia.org/wiki/Bell_number#Properties
@@ -24,6 +23,5 @@
 - [ ] bernoulli numbers
 - [ ] striling numbers of the first kind
   - [ ] https://en.wikipedia.org/wiki/Stirling_numbers_of_the_first_kind#Recurrence_relation
-- [ ] totient function
 - [ ] quadratic residues
 - [ ] modular exponentiation

@@ -14,7 +14,7 @@ main =
                       ]
                 , bgroup "φ"
                       [ bench "totient" $ nf totient 2016
-                      , bench "hsTotient" $ nf (hsTotient :: Int -> Int) 2016
+                      , bench "hsTotient" $ nf hsTotient (2016 :: Int)
                       ]
                 , bgroup "τ"
                       [ bench "tau" $ nf tau 3018

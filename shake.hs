@@ -27,9 +27,6 @@ main = shakeArgs shakeOptions { shakeFiles = ".shake"
     "ci" ~> do
         need ["cbits/number-theory.c", "cbits/numerics.c", "cbits/combinatorics.c"]
         cmd_ ["cabal", "new-build"]
-        cmd_ ["cabal", "new-build", "-w", "ghc-8.0.2"]
-        cmd_ ["cabal", "new-build", "-w", "ghc-7.10.3"]
-        cmd_ ["cabal", "new-build", "-w", "ghc-7.8.4"]
         cmd_ ["cabal", "new-test"]
         cmd_ ["cabal", "new-haddock"]
         cmd_ ["hlint", "bench", "src", "test/", "Setup.hs"]
@@ -40,6 +37,9 @@ main = shakeArgs shakeOptions { shakeFiles = ".shake"
         cmd_ ["yamllint", ".yamllint"]
         cmd_ ["stack", "build", "--test", "--bench", "--no-run-tests", "--no-run-benchmarks"]
         cmd_ ["weeder"]
+
+    {- "/home/vanessa/programming/haskell/done/fast-arithmetic/dist-newstyle/build/x86_64-linux/ghc-8.2.2/fast-arithmetic-0.1.1.5/opt/build/fast-arithmetic-test/fast-arithmetic-test" %> \_ -> -}
+        {- cmd ["cabal", "new-build"] -}
 
     "build" %> \_ -> do
         need ["shake.hs"]

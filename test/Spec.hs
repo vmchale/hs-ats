@@ -45,7 +45,7 @@ main = hspec $ parallel $ do
 
     -- TODO property test w/ recurrence relations?
     sequence_ $ zipWith4 check
-        ["factorial", "choose", "doubleFactorial"]
+        ["factorial", "choose 101", "doubleFactorial"]
         [factorial, choose 101, doubleFactorial]
         [hsFactorial, hsChoose 101, hsDoubleFactorial]
         [3141, 16, 79]

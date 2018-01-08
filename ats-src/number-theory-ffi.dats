@@ -1,7 +1,7 @@
-#define ATS_MAINATSFLAG 1
-
 #include "share/atspre_staload.hats"
 #include "ats-src/number-theory.dats"
+
+#define ATS_MAINATSFLAG 1
 
 extern
 fun totient_ats { k : nat | k >= 2 } (int(k)) : int =
