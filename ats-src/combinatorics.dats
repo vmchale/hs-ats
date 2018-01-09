@@ -6,7 +6,6 @@
 staload "contrib/atscntrb-hx-intinf/SATS/intinf_vt.sats"
 staload UN = "prelude/SATS/unsafe.sats"
 
-// FIXME this is too slow.
 // see [here](http://mathworld.wolfram.com/Derangement.html)
 fun derangements {n : nat} .<n>. (n : int(n)) : Intinf =
   let
@@ -30,7 +29,7 @@ fun derangements {n : nat} .<n>. (n : int(n)) : Intinf =
     case+ n of
       | 0 => int2intinf(1)
       | 1 => int2intinf(0)
-      | n =>> loop(n, 2, int2intinf(0), int2intinf(1))
+      | n =>> loop(n, 1, int2intinf(0), int2intinf(1))
   end
 
 fnx fact {n : nat} .<n>. (k : int(n)) : intinfGte(1) =
