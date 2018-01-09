@@ -25,10 +25,6 @@ extern
 fun factorial_ats {n : nat} : int(n) -> Intinf =
   "mac#"
 
-extern
-fun derangement_ats {n : nat} : int(n) -> Intinf =
-  "mac#"
-
 implement choose_ats (n, k) =
   choose(n, k)
 
@@ -40,6 +36,3 @@ implement double_factorial_ats (m) =
 
 implement factorial_ats (m) =
   fact(m)
-
-implement derangement_ats (m) =
-  derangements(m)
