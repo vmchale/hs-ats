@@ -17,8 +17,10 @@ module Data.GMP ( GMPInt (..)
 #if __GLASGOW_HASKELL__ <= 784
 import           Control.Applicative
 #endif
+import           Control.Monad         ((<=<))
 import           Data.Functor.Foldable
 import           Data.Word
+import           Foreign.C
 import           Foreign.Marshal.Array
 import           Foreign.Ptr
 import           Foreign.Storable

@@ -14,4 +14,4 @@
 - error: {lhs: "concat", rhs: "join", name: "Generalize concat"}
 - error: {lhs: "concatMap", rhs: "(=<<)", name: "Generalize concatMap"}
 - error: {lhs: "f >> pure ()", rhs: "void f", name: "Use void"}
-- error: {lhs: "gmpToInteger <=< (peek . f . fromIntegral)", rhs: "conjugateGMP f", name: "Use conjugateGMP" }
+- error: {lhs: "gmpToInteger <=< (peek . f . fromIntegral)", rhs: "conjugateGMP f", name: "Use conjugateGMP"}
