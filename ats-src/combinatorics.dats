@@ -6,22 +6,34 @@
 staload "contrib/atscntrb-hx-intinf/SATS/intinf_vt.sats"
 staload UN = "prelude/SATS/unsafe.sats"
 
+// FIXME this is too slow.
 // see [here](http://mathworld.wolfram.com/Derangement.html)
 fun derangements {n : nat} .<n>. (n : int(n)) : Intinf =
-  case+ n of
-    | 0 => int2intinf(1)
-    | 1 => int2intinf(0)
-    | n =>> let
-      val x = derangements(n - 1)
-      val y = derangements(n - 2)
-      val z = add_intinf0_intinf1(x, y)
-      val _ = intinf_free(y)
-      val w = mul_intinf0_int(z, n - 1)
-    in
-      w
-    end
+  let
+    fun loop { n : nat | n > 1 }{ i : nat | i <= n } .<n-i>. (n : int(n), i : int(i), n1 : Intinf, n2 : Intinf) : Intinf =
+      if i < n then
+        let
+          val x = add_intinf0_intinf1(n2, n1)
+          val y = mul_intinf0_int(x, i)
+        in
+          loop(n, i + 1, y, n1)
+        end
+      else
+        let
+          val x = add_intinf0_intinf1(n1, n2)
+          val _ = intinf_free(n2)
+          val y = mul_intinf0_int(x, i)
+        in
+          y
+        end
+  in
+    case+ n of
+      | 0 => int2intinf(1)
+      | 1 => int2intinf(0)
+      | n =>> loop(n, 2, int2intinf(0), int2intinf(1))
+  end
 
-fun fact {n : nat} .<n>. (k : int(n)) : intinfGte(1) =
+fnx fact {n : nat} .<n>. (k : int(n)) : intinfGte(1) =
   case+ k of
     | 0 => int2intinf(1)
     | 1 => int2intinf(1)
