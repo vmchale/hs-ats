@@ -6,8 +6,6 @@
 staload "contrib/atscntrb-hx-intinf/SATS/intinf_vt.sats"
 staload UN = "prelude/SATS/unsafe.sats"
 
-typedef intpair = (int, int)
-
 // see [here](http://mathworld.wolfram.com/Derangement.html)
 fn derangements {n : nat} .<n>. (n : int(n)) : Intinf =
   let
