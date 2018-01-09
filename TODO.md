@@ -15,7 +15,7 @@
 - [ ] jacobi symbol
   - [ ] legendre symbol (relatively easy)
 - [ ] chinese remainder theorem
-- [ ] factor a number (ATS stream)
+- [ ] factor a number (multiplicity?)
 - [ ] elliptic curves
 - [ ] bell numbers
   - [ ] https://en.wikipedia.org/wiki/Bell_number#Properties

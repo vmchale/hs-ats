@@ -1,15 +1,20 @@
 #define ATS_MAINATSFLAG 1
 
 #include "share/atspre_staload.hats"
+#include "contrib/atscntrb-hx-intinf/mylibies.hats"
 
+staload "contrib/atscntrb-hx-intinf/SATS/intinf_vt.sats"
 staload "libats/libc/SATS/math.sats"
 staload UN = "prelude/SATS/unsafe.sats"
 
+fn witness(n : int) :<> [ m : nat ] int(m) =
+  $UN.cast(n)
+
 // Fast integer exponentiation. Modified from an example in the manual.
-fun exp {n : nat} .<n>. (x : int, n : int(n)) :<> int =
+fun exp {n : nat} .<n>. (x : int, n : int(n)) : int =
   case+ x of
     | 0 => 0
-    | x => 
+    | x =>> 
       begin
         if n > 0 then
           let
@@ -19,14 +24,15 @@ fun exp {n : nat} .<n>. (x : int, n : int(n)) :<> int =
             if i2 = 0 then
               exp(x * x, n2)
             else
-              x * exp(x * x, n2)
+              let
+                val y = exp(x * x, n2)
+              in
+                y
+              end
           end
         else
           1
       end
-
-fn witness(n : int) :<> [ m : nat ] int(m) =
-  $UN.cast(n)
 
 fn sqrt_int(k : intGt(0)) :<> [ m : nat ] int(m) =
   let

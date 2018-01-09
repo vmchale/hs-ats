@@ -2,7 +2,7 @@
 
 #include "share/atspre_staload.hats"
 #include "ats-src/numerics.dats"
-#include "contrib/atscntrb-hx-intinf/DATS/intinf_vt.dats"
+#include "contrib/atscntrb-hx-intinf/mylibies.hats"
 
 staload "contrib/atscntrb-hx-intinf/SATS/intinf_vt.sats"
 
@@ -15,7 +15,7 @@ fun is_even_ats { n : nat | n > 0 } : int(n) -> bool =
   "mac#"
 
 extern
-fun exp_ats {n : nat}{m : nat} : (int(n), int(m)) -> intinfGte(0) =
+fun exp_ats {m : nat} : ([ n : nat ] int(n), int(m)) -> int =
   "mac#"
 
 extern
@@ -26,4 +26,4 @@ implement is_prime_ats (n) =
   is_prime(n)
 
 implement exp_ats (m, n) =
-  pow_int_int(m, n)
+  exp(m, n)
