@@ -5,6 +5,8 @@
 - [ ] consider a separate package for installing `patscc`
 # Code maintenane
 - [ ] test suite for double factorial
+# Performance
+- [ ] Consider view type for appending arrays?
 # Benchmarks
 - [ ] hylomorphism for totient?
 # Features
