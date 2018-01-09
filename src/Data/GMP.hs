@@ -11,6 +11,7 @@ This module defines a storable instance for GMP's @mpz@ integer type.
 
 module Data.GMP ( GMPInt (..)
                 , gmpToInteger
+                , conjugateGMP
                 ) where
 
 #if __GLASGOW_HASKELL__ <= 784
@@ -43,6 +44,9 @@ wordListToInteger :: [Word64] -> Integer
 wordListToInteger = cata a where
     a Nil         = 0
     a (Cons x xs) = fromIntegral x + (2 ^ (64 :: Integer)) * xs
+
+conjugateGMP :: (CInt -> Ptr GMPInt) -> Int -> IO Integer
+conjugateGMP f = gmpToInteger <=< (peek . f . fromIntegral)
 
 -- | Convert a GMP @mpz@ to Haskell's 'Integer' type.
 gmpToInteger :: GMPInt -> IO Integer

@@ -29,11 +29,11 @@ choose = (gmpToInteger <=<) . (peek .* on choose_ats fromIntegral)
 
 -- | See [here](http://mathworld.wolfram.com/DoubleFactorial.html).
 doubleFactorial :: Int -> IO Integer
-doubleFactorial = gmpToInteger <=< (peek . double_factorial_ats . fromIntegral)
+doubleFactorial = conjugateGMP double_factorial_ats
 
 -- | See [here](http://mathworld.wolfram.com/Derangement.html).
 derangement :: Int -> IO Integer
-derangement = gmpToInteger <=< (peek . derangement_ats . fromIntegral)
+derangement = conjugateGMP derangement_ats
 
 factorial :: Int -> IO Integer
-factorial = gmpToInteger <=< (peek . factorial_ats . fromIntegral)
+factorial = conjugateGMP factorial_ats

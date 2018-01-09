@@ -41,7 +41,7 @@ main =
                       , bench "hsChoose" $ nf (hsChoose 322) (16 :: Integer)
                       ]
                 , bgroup "derangement"
-                      [ bench "derangement" $ nfIO (derangement 32)
-                      , bench "hsDerangement" $ nf hsDerangement (32 :: Int)
+                      [ bench "derangement" $ nfIO (derangement 64)
+                      , bench "hsDerangement" $ nf hsDerangement (64 :: Int)
                       ]
                 ]
