@@ -6,7 +6,22 @@
 staload "contrib/atscntrb-hx-intinf/SATS/intinf_vt.sats"
 staload UN = "prelude/SATS/unsafe.sats"
 
-fnx fact {n : nat} .<n>. (k : int(n)) : intinfGte(1) =
+// see [here](http://mathworld.wolfram.com/Derangement.html)
+fun derangements {n : nat} .<n>. (n : int(n)) : Intinf =
+  case+ n of
+    | 0 => int2intinf(1)
+    | 1 => int2intinf(0)
+    | n =>> let
+      val x = derangements(n - 1)
+      val y = derangements(n - 2)
+      val z = add_intinf0_intinf1(x, y)
+      val _ = intinf_free(y)
+      val w = mul_intinf0_int(z, n - 1)
+    in
+      w
+    end
+
+fun fact {n : nat} .<n>. (k : int(n)) : intinfGte(1) =
   case+ k of
     | 0 => int2intinf(1)
     | 1 => int2intinf(1)

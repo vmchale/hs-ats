@@ -12,6 +12,7 @@ module Numeric.Pure ( hsIsPrime
                     , hsLittleOmega
                     , hsIsPerfect
                     , hsSumDivisors
+                    , hsDerangement
                     ) where
 
 #if __GLASGOW_HASKELL__ <= 784
@@ -25,6 +26,13 @@ import           Control.Applicative
 {-# SPECIALIZE hsIsPrime :: Int -> Bool #-}
 {-# SPECIALIZE hsChoose :: Int -> Int -> Int #-}
 {-# SPECIALIZE hsDoubleFactorial :: Int -> Int #-}
+
+hsDerangement :: Int -> Integer
+hsDerangement n = derangements !! n
+
+derangements :: [Integer]
+derangements = fmap snd g
+    where g = (0, 1) : (1, 0) : zipWith (\(_, n) (i, m) -> (i + 1, i * (n + m))) g (tail g)
 
 divisors :: (Integral a) => a -> [a]
 divisors n = filter ((== 0) . (n `mod`)) [1..n]

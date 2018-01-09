@@ -1,4 +1,4 @@
-# fast-combinatorics
+# fast-arithmetic
 
 [![Build Status](https://travis-ci.org/vmchale/fast-arithmetic.svg?branch=master)](https://travis-ci.org/vmchale/fast-arithmetic)
 
