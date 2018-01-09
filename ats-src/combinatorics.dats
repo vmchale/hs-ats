@@ -7,9 +7,9 @@ staload "contrib/atscntrb-hx-intinf/SATS/intinf_vt.sats"
 staload UN = "prelude/SATS/unsafe.sats"
 
 // see [here](http://mathworld.wolfram.com/Derangement.html)
-fun derangements {n : nat} .<n>. (n : int(n)) : Intinf =
+fn derangements {n : nat} .<n>. (n : int(n)) : Intinf =
   let
-    fun loop { n : nat | n > 1 }{ i : nat | i <= n } .<n-i>. (n : int(n), i : int(i), n1 : Intinf, n2 : Intinf) : Intinf =
+    fnx loop { n : nat | n > 1 }{ i : nat | i <= n } .<n-i>. (n : int(n), i : int(i), n1 : Intinf, n2 : Intinf) : Intinf =
       if i < n then
         let
           val x = add_intinf0_intinf1(n2, n1)
@@ -19,8 +19,8 @@ fun derangements {n : nat} .<n>. (n : int(n)) : Intinf =
         end
       else
         let
-          val x = add_intinf0_intinf1(n1, n2)
-          val _ = intinf_free(n2)
+          val x = add_intinf0_intinf1(n2, n1)
+          val _ = intinf_free(n1)
           val y = mul_intinf0_int(x, i)
         in
           y
@@ -28,8 +28,9 @@ fun derangements {n : nat} .<n>. (n : int(n)) : Intinf =
   in
     case+ n of
       | 0 => int2intinf(1)
-      | 1 => int2intinf(0)
-      | n =>> loop(n, 1, int2intinf(0), int2intinf(1))
+      | 1 =>> int2intinf(0)
+      | 2 =>> int2intinf(1)
+      | n =>> loop(n - 1, 1, int2intinf(0), int2intinf(1))
   end
 
 fnx fact {n : nat} .<n>. (k : int(n)) : intinfGte(1) =

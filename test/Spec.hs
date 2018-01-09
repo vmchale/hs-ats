@@ -1,11 +1,11 @@
-import           Data.List                 (zipWith4)
+import           Data.List             (zipWith4)
 import           Numeric.Combinatorics
 import           Numeric.Integer
 import           Numeric.NumberTheory
 import           Numeric.Pure
 import           Test.Hspec
 import           Test.Hspec.QuickCheck
-import           Test.QuickCheck.Arbitrary
+import           Test.QuickCheck       hiding (choose)
 
 tooBig :: Int -> Int -> Bool
 tooBig x y = go x y >= 2 ^ (16 :: Integer)
@@ -22,6 +22,13 @@ check :: (Eq a, Show a) => String -> (Int -> IO a) -> (Integer -> a) -> Int -> S
 check s f g n = describe s $
     it ("should work for n=" ++ show n) $
         f n >>= (`shouldBe` g (fromIntegral n))
+
+{- mkIoProp :: (Int -> IO Integer) -> (Int -> Integer) -> Property -}
+{- mkIoProp f g = again $ ioProperty $ do -}
+    {- m <- randomIO -}
+    {- actual <- f m -}
+    {- let expected = g m -}
+    {- pure $ m < 1 || actual == expected -}
 
 main :: IO ()
 main = hspec $ parallel $ do
