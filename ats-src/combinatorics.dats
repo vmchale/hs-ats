@@ -6,6 +6,8 @@
 staload "contrib/atscntrb-hx-intinf/SATS/intinf_vt.sats"
 staload UN = "prelude/SATS/unsafe.sats"
 
+typedef intpair = (int, int)
+
 // see [here](http://mathworld.wolfram.com/Derangement.html)
 fn derangements {n : nat} .<n>. (n : int(n)) : Intinf =
   let
@@ -30,7 +32,7 @@ fn derangements {n : nat} .<n>. (n : int(n)) : Intinf =
       | 0 => int2intinf(1)
       | 1 =>> int2intinf(0)
       | 2 =>> int2intinf(1)
-      | n =>> loop(n - 1, 1, int2intinf(0), int2intinf(1))
+      | n =>> loop(n - 1, 2, int2intinf(1), int2intinf(0))
   end
 
 fnx fact {n : nat} .<n>. (k : int(n)) : intinfGte(1) =

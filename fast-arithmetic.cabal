@@ -70,7 +70,6 @@ test-suite fast-arithmetic-test
                      , fast-arithmetic
                      , hspec
                      , QuickCheck
-                     , random
   if flag(development)
     ghc-options: -Werror
   if impl(ghc >= 8.0)
