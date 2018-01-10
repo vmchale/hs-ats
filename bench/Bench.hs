@@ -36,4 +36,8 @@ main =
                       [ bench "choose" $ nfIO (choose 322 16)
                       , bench "hsChoose" $ nf (hsChoose 322 :: Int -> Integer) 16
                       ]
+                , bgroup "catalan"
+                      [ bench "catalan" $ nfIO (catalan 300)
+                      , bench "hsCatalan" $ nf (hsCatalan :: Int -> Integer) 300
+                      ]
                 ]

@@ -14,6 +14,7 @@ module Numeric.Pure ( -- * Useful functions
                     , hsLittleOmega
                     , hsIsPerfect
                     , hsSumDivisors
+                    , hsCatalan
                     ) where
 
 #if __GLASGOW_HASKELL__ <= 784
@@ -49,6 +50,9 @@ hsTau = length . divisors
 -- N.B. sum of proper divisors
 hsSumDivisors :: (Integral a) => a -> a
 hsSumDivisors = sum . init . divisors
+
+hsCatalan :: (Integral a) => Int -> a
+hsCatalan n = let n' = fromIntegral n in product [ n' + k | k <- [2..n']] `div` factorial n
 
 hsIsPerfect :: (Integral a) => a -> Bool
 hsIsPerfect = idem hsSumDivisors where idem = ((==) <*>)

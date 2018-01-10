@@ -21,6 +21,10 @@ extern
 fun double_factorial_ats {n : nat} : int(n) -> Intinf =
   "mac#"
 
+extern
+fun catalan_ats {n : nat} : int(n) -> Intinf =
+  "mac#"
+
 implement choose_ats (n, k) =
   choose(n, k)
 
@@ -29,3 +33,6 @@ implement permutations_ats (n, k) =
 
 implement double_factorial_ats (m) =
   dfact(m)
+
+implement catalan_ats (n) =
+  catalan(n)

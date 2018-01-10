@@ -38,9 +38,6 @@ main = shakeArgs shakeOptions { shakeFiles = ".shake"
         cmd_ ["stack", "build", "--test", "--bench", "--no-run-tests", "--no-run-benchmarks"]
         cmd_ ["weeder"]
 
-    {- "/home/vanessa/programming/haskell/done/fast-arithmetic/dist-newstyle/build/x86_64-linux/ghc-8.2.2/fast-arithmetic-0.1.1.5/opt/build/fast-arithmetic-test/fast-arithmetic-test" %> \_ -> -}
-        {- cmd ["cabal", "new-build"] -}
-
     "build" %> \_ -> do
         need ["shake.hs"]
         cmd_ ["sn", "c"]
