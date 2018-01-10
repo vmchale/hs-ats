@@ -34,6 +34,6 @@ main =
                       ]
                 , bgroup "choose"
                       [ bench "choose" $ nfIO (choose 322 16)
-                      , bench "hsChoose" $ nf (hsChoose 322 :: Int -> Integer) (16)
+                      , bench "hsChoose" $ nf (hsChoose 322 :: Int -> Integer) 16
                       ]
                 ]
