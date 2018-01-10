@@ -46,13 +46,16 @@ main = hspec $ parallel $ do
     describe "totient" $
         prop "should be equal to m-1 for m prime" $
             \m -> m < 1 || not (isPrime m) || totient m == m - 1
+    describe "derangement" $
+        prop "should be equal to [n!/e]" $
+            \n -> n < 1 || n > 18 || derangement n == floor ((fromIntegral (factorial n :: Integer) :: Double) / (exp 1) + 0.5)
     describe "totient" $
         prop "should satisfy Fermat's little theorem" $
             \a m -> a < 1 || m < 2 || gcd a m /= 1 || tooBig a m || (a ^ totient m) `mod` m == 1
 
     -- TODO property test w/ recurrence relations?
     sequence_ $ zipWith4 check
-        ["factorial", "choose 101", "doubleFactorial"]
-        [factorial, choose 101, doubleFactorial]
-        [hsFactorial, hsChoose 101, hsDoubleFactorial]
-        [3141, 16, 79]
+        ["choose 101", "doubleFactorial"]
+        [choose 101, doubleFactorial]
+        [hsChoose 101 . fromIntegral, hsDoubleFactorial]
+        [16, 79]

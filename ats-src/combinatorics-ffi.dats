@@ -21,10 +21,6 @@ extern
 fun double_factorial_ats {n : nat} : int(n) -> Intinf =
   "mac#"
 
-extern
-fun factorial_ats {n : nat} : int(n) -> Intinf =
-  "mac#"
-
 implement choose_ats (n, k) =
   choose(n, k)
 
@@ -33,6 +29,3 @@ implement permutations_ats (n, k) =
 
 implement double_factorial_ats (m) =
   dfact(m)
-
-implement factorial_ats (m) =
-  fact(m)

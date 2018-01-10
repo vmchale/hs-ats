@@ -3,7 +3,7 @@
 -- | Pure Haskell functions for testing and benchmarking. Specialized for
 -- 'Int's.
 module Numeric.Pure ( hsIsPrime
-                    , hsFactorial
+                    , factorial
                     , hsDoubleFactorial
                     , hsChoose
                     , hsTotient
@@ -12,7 +12,7 @@ module Numeric.Pure ( hsIsPrime
                     , hsLittleOmega
                     , hsIsPerfect
                     , hsSumDivisors
-                    , hsDerangement
+                    , derangement
                     ) where
 
 #if __GLASGOW_HASKELL__ <= 784
@@ -20,15 +20,16 @@ import           Control.Applicative
 #endif
 
 {-# SPECIALIZE hsLittleOmega :: Int -> Int #-}
-{-# SPECIALIZE hsFactorial :: Int -> Int #-}
+-- {-# SPECIALIZE factorial :: Int -> Int #-}
 {-# SPECIALIZE hsTau :: Int -> Int #-}
 {-# SPECIALIZE hsTotient :: Int -> Int #-}
 {-# SPECIALIZE hsIsPrime :: Int -> Bool #-}
 {-# SPECIALIZE hsChoose :: Int -> Int -> Int #-}
 {-# SPECIALIZE hsDoubleFactorial :: Int -> Int #-}
 
-hsDerangement :: Int -> Integer
-hsDerangement n = derangements !! n
+-- | See [here](http://mathworld.wolfram.com/Derangement.html).
+derangement :: Int -> Integer
+derangement n = derangements !! n
 
 derangements :: [Integer]
 derangements = fmap snd g
@@ -62,8 +63,11 @@ hsIsPrime 1 = False
 hsIsPrime x = all ((/=0) . (x `mod`)) [2..m]
     where m = floor (sqrt (fromIntegral x :: Float))
 
-hsFactorial :: (Integral a) => a -> a
-hsFactorial n = product [1..n]
+factorials :: (Integral a) => [a]
+factorials = 1 : 1 : zipWith (*) [2..] (tail factorials)
+
+factorial :: (Integral a) => Int -> a
+factorial = (factorials !!)
 
 hsDoubleFactorial :: (Integral a) => a -> a
 hsDoubleFactorial 0 = 1
@@ -74,5 +78,5 @@ hsDoubleFactorial n
     | odd n = product [1, 3 .. n]
     | otherwise = 1
 
-hsChoose :: (Integral a) => a -> a -> a
-hsChoose n k = product [ n + 1 - i | i <- [1..k] ] `div` hsFactorial k
+hsChoose :: (Integral a) => a -> Int -> a
+hsChoose n k = product [ n + 1 - i | i <- [1..(fromIntegral k)] ] `div` factorial k
