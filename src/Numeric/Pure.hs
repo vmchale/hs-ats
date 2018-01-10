@@ -31,6 +31,9 @@ import           Control.Applicative
 {-# SPECIALIZE hsDoubleFactorial :: Int -> Int #-}
 
 -- | See [here](http://mathworld.wolfram.com/Derangement.html).
+--
+-- > λ:> fmap derangement [0..10] :: [Integer]
+-- > [1,0,1,2,9,44,265,1854,14833,133496,1334961]
 derangement :: (Integral a) => Int -> a
 derangement n = derangements !! n
 
