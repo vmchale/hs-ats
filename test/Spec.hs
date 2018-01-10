@@ -48,7 +48,7 @@ main = hspec $ parallel $ do
             \m -> m < 1 || not (isPrime m) || totient m == m - 1
     describe "derangement" $
         prop "should be equal to [n!/e]" $
-            \n -> n < 1 || n > 18 || derangement n == floor ((fromIntegral (factorial n :: Integer) :: Double) / exp 1 + 0.5)
+            \n -> n < 1 || n > 18 || (derangement n :: Integer) == floor ((fromIntegral (factorial n :: Integer) :: Double) / exp 1 + 0.5)
     describe "totient" $
         prop "should satisfy Fermat's little theorem" $
             \a m -> a < 1 || m < 2 || gcd a m /= 1 || tooBig a m || (a ^ totient m) `mod` m == 1

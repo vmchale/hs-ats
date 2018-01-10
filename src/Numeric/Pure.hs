@@ -1,9 +1,11 @@
 {-# LANGUAGE CPP #-}
 
--- | Pure Haskell functions for testing and benchmarking. Specialized for
--- 'Int's.
-module Numeric.Pure ( hsIsPrime
+-- | Pure Haskell functions for testing and benchmarking.
+module Numeric.Pure ( -- * Useful functions
+                      derangement
                     , factorial
+                    -- * Functions exported for testing and benchmarking
+                    , hsIsPrime
                     , hsDoubleFactorial
                     , hsChoose
                     , hsTotient
@@ -12,15 +14,15 @@ module Numeric.Pure ( hsIsPrime
                     , hsLittleOmega
                     , hsIsPerfect
                     , hsSumDivisors
-                    , derangement
                     ) where
 
 #if __GLASGOW_HASKELL__ <= 784
 import           Control.Applicative
 #endif
 
+{-# SPECIALIZE factorial :: Int -> Integer #-}
+{-# SPECIALIZE derangement :: Int -> Integer #-}
 {-# SPECIALIZE hsLittleOmega :: Int -> Int #-}
--- {-# SPECIALIZE factorial :: Int -> Int #-}
 {-# SPECIALIZE hsTau :: Int -> Int #-}
 {-# SPECIALIZE hsTotient :: Int -> Int #-}
 {-# SPECIALIZE hsIsPrime :: Int -> Bool #-}
@@ -28,10 +30,10 @@ import           Control.Applicative
 {-# SPECIALIZE hsDoubleFactorial :: Int -> Int #-}
 
 -- | See [here](http://mathworld.wolfram.com/Derangement.html).
-derangement :: Int -> Integer
+derangement :: (Integral a) => Int -> a
 derangement n = derangements !! n
 
-derangements :: [Integer]
+derangements :: (Integral a) => [a]
 derangements = fmap snd g
     where g = (0, 1) : (1, 0) : zipWith (\(_, n) (i, m) -> (i + 1, i * (n + m))) g (tail g)
 
