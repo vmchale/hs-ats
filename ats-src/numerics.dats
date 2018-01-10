@@ -2,6 +2,7 @@
 
 #include "share/atspre_staload.hats"
 #include "contrib/atscntrb-hx-intinf/mylibies.hats"
+#include "contrib/atscntrb-libgmp/mylibies.hats"
 
 staload "contrib/atscntrb-hx-intinf/SATS/intinf_vt.sats"
 staload "libats/libc/SATS/math.sats"
@@ -9,6 +10,17 @@ staload UN = "prelude/SATS/unsafe.sats"
 
 fn witness(n : int) :<> [ m : nat ] int(m) =
   $UN.cast(n)
+
+// Fast computation of Fibonacci numbers via GMP bindings.
+fun fib_gmp(n : intGte(0)) : Intinf =
+  let
+    val z = ptr_alloc()
+    val x: ulint = g0int2uint_int_ulint(n + 1)
+    val () = $GMP.mpz_init(!(z.2))
+    val () = $GMP.mpz_fib_uint(!(z.2), x)
+  in
+    $UN.castvwtp0(z)
+  end
 
 // Fast integer exponentiation. Modified from an example in the manual.
 fun exp {n : nat} .<n>. (x : int, n : int(n)) : int =
