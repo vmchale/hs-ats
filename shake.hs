@@ -28,7 +28,9 @@ main = shakeArgs shakeOptions { shakeFiles = ".shake"
         need ["cbits/number-theory.c", "cbits/numerics.c", "cbits/combinatorics.c"]
         cmd_ ["cabal", "new-build"]
         cmd_ ["cabal", "new-test"]
-        cmd_ ["cabal", "new-haddock"]
+        cmd_ ["cabal", "new-build", "-w", "ghc-8.0.2"]
+        cmd_ ["cabal", "new-build", "-w", "ghc-7.10.3"]
+        cmd_ ["cabal", "new-build", "-w", "ghc-7.8.4"]
         cmd_ ["hlint", "bench", "src", "test/", "Setup.hs"]
         cmd_ ["tomlcheck", "--file", ".atsfmt.toml"]
         cmd_ ["yamllint", ".travis.yml"]
@@ -36,6 +38,7 @@ main = shakeArgs shakeOptions { shakeFiles = ".shake"
         cmd_ ["yamllint", ".stylish-haskell.yaml"]
         cmd_ ["yamllint", ".yamllint"]
         cmd_ ["stack", "build", "--test", "--bench", "--no-run-tests", "--no-run-benchmarks"]
+        cmd_ ["cabal", "new-haddock"]
         cmd_ ["weeder"]
 
     "build" %> \_ -> do
