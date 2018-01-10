@@ -15,6 +15,7 @@ module Numeric.Pure ( -- * Useful functions
                     , hsIsPerfect
                     , hsSumDivisors
                     , hsCatalan
+                    , hsFibonacci
                     ) where
 
 #if __GLASGOW_HASKELL__ <= 784
@@ -89,3 +90,9 @@ hsDoubleFactorial n
 
 hsChoose :: (Integral a) => a -> Int -> a
 hsChoose n k = product [ n + 1 - i | i <- [1..(fromIntegral k)] ] `div` factorial k
+
+fibs :: (Integral a) => [a]
+fibs = 1 : 1 : zipWith (+) fibs (tail fibs)
+
+hsFibonacci :: (Integral a) => Int -> a
+hsFibonacci = (fibs !!)

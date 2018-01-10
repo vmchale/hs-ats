@@ -40,4 +40,8 @@ main =
                       [ bench "catalan" $ nfIO (catalan 300)
                       , bench "hsCatalan" $ nf (hsCatalan :: Int -> Integer) 300
                       ]
+                , bgroup "fibonacci"
+                      [ bench "fibonacci" $ nfIO (fibonacci 200)
+                      , bench "hsFibonacci" $ nf (hsFibonacci :: Int -> Integer) 200
+                      ]
                 ]

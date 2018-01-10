@@ -8,6 +8,7 @@ This module provides a fast primality check.
 -}
 
 module Numeric.Integer ( isPrime
+                       , fibonacci
                        ) where
 
 import           Data.GMP
@@ -22,6 +23,8 @@ foreign import ccall unsafe is_prime_ats :: CInt -> CUChar
 #endif
 foreign import ccall unsafe fib_ats :: CInt -> Ptr GMPInt
 
+-- | Indexed starting at @0@. This function is slower on small values but faster
+-- on large values.
 fibonacci :: Int -> IO Integer
 fibonacci = conjugateGMP fib_ats
 

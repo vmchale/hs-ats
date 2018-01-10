@@ -55,7 +55,7 @@ main = hspec $ parallel $ do
 
     -- TODO property test w/ recurrence relations?
     sequence_ $ zipWith4 check
-        ["choose 101", "doubleFactorial", "catalan"]
-        [choose 101, doubleFactorial, catalan]
-        [hsChoose 101 . fromIntegral, hsDoubleFactorial, hsCatalan . fromIntegral]
-        [16, 79, 300]
+        ["choose 101", "doubleFactorial", "catalan", "fibonacci"]
+        [choose 101, doubleFactorial, catalan, fibonacci]
+        [hsChoose 101 . fromIntegral, hsDoubleFactorial, hsCatalan . fromIntegral, hsFibonacci . fromIntegral]
+        [16, 79, 300, 121]
