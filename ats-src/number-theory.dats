@@ -44,6 +44,21 @@ fn divisors(n : intGte(1)) :<> stream_vt(int) =
     loop(n, 1)
   end
 
+// stream all prime divisors of an integer (without multiplicity)
+fn prime_divisors(n : intGte(1)) :<> stream_vt(int) =
+  let
+    fun loop {k : nat}{ m : nat | m > 0 && k >= m } .<k-m>. (n : int(k), acc : int(m)) :<> stream_vt(int) =
+      if acc >= n then
+        $ldelay(stream_vt_cons(acc, $ldelay(stream_vt_nil)))
+      else
+        if n % acc = 0 && is_prime(n) then
+          $ldelay(stream_vt_cons(n, loop(n, acc + 1)))
+        else
+          $ldelay(stream_vt_nil)
+  in
+    loop(n, 1)
+  end
+
 fn count_divisors(n : intGte(1)) :<> int =
   let
     fun loop {k : nat}{ m : nat | m > 0 && k >= m } .<k-m>. (n : int(k), acc : int(m)) :<> int =
