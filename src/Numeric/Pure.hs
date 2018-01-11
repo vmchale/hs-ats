@@ -1,6 +1,7 @@
 {-# LANGUAGE CPP #-}
 
--- | Pure Haskell functions
+-- | Pure Haskell functions. These tend to be more general than the equivalents
+-- in ATS.
 module Numeric.Pure ( -- * Useful functions
                       derangement
                     -- * Functions exported for testing and benchmarking

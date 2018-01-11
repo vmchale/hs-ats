@@ -28,9 +28,9 @@ import           Foreign.Storable
 -- | The GMP integer type holds information about array size as well as
 -- a pointer to an array.
 data GMPInt = GMPInt {
-                       _mp_alloc :: Word32 -- ^ Number of limbs allocated.
-                     , _mp_size  :: Word32 -- ^ Number of limbs used.
-                     , _mp_d     :: Ptr Word64 -- ^ Pointer to an array containing the limbs.
+                       _mp_alloc :: !Word32 -- ^ Number of limbs allocated.
+                     , _mp_size  :: !Word32 -- ^ Number of limbs used.
+                     , _mp_d     :: !(Ptr Word64) -- ^ Pointer to an array containing the limbs.
                      }
 
 wordWidth :: Int
