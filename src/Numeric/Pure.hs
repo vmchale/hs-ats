@@ -1,9 +1,8 @@
 {-# LANGUAGE CPP #-}
 
--- | Pure Haskell functions for testing and benchmarking.
+-- | Pure Haskell functions
 module Numeric.Pure ( -- * Useful functions
                       derangement
-                    , factorial
                     -- * Functions exported for testing and benchmarking
                     , hsIsPrime
                     , hsDoubleFactorial
@@ -16,14 +15,13 @@ module Numeric.Pure ( -- * Useful functions
                     , hsSumDivisors
                     , hsCatalan
                     , hsFibonacci
+                    , hsFactorial
                     ) where
 
 #if __GLASGOW_HASKELL__ <= 784
 import           Control.Applicative
 #endif
 
-{-# SPECIALIZE factorial :: Int -> Integer #-}
-{-# SPECIALIZE derangement :: Int -> Integer #-}
 {-# SPECIALIZE hsLittleOmega :: Int -> Int #-}
 {-# SPECIALIZE hsTau :: Int -> Int #-}
 {-# SPECIALIZE hsTotient :: Int -> Int #-}
@@ -55,8 +53,8 @@ hsTau = length . divisors
 hsSumDivisors :: (Integral a) => a -> a
 hsSumDivisors = sum . init . divisors
 
-hsCatalan :: (Integral a) => Int -> a
-hsCatalan n = let n' = fromIntegral n in product [ n' + k | k <- [2..n']] `div` factorial n
+hsCatalan :: (Integral a) => a -> a
+hsCatalan n = product [ n + k | k <- [2..n]] `div` hsFactorial n
 
 hsIsPerfect :: (Integral a) => a -> Bool
 hsIsPerfect = idem hsSumDivisors where idem = ((==) <*>)
@@ -73,11 +71,8 @@ hsIsPrime 1 = False
 hsIsPrime x = all ((/=0) . (x `mod`)) [2..m]
     where m = floor (sqrt (fromIntegral x :: Float))
 
-factorials :: (Integral a) => [a]
-factorials = 1 : 1 : zipWith (*) [2..] (tail factorials)
-
-factorial :: (Integral a) => Int -> a
-factorial = (factorials !!)
+hsFactorial :: (Integral a) => a -> a
+hsFactorial n = product [1..n]
 
 hsDoubleFactorial :: (Integral a) => a -> a
 hsDoubleFactorial 0 = 1
@@ -88,8 +83,8 @@ hsDoubleFactorial n
     | odd n = product [1, 3 .. n]
     | otherwise = 1
 
-hsChoose :: (Integral a) => a -> Int -> a
-hsChoose n k = product [ n + 1 - i | i <- [1..(fromIntegral k)] ] `div` factorial k
+hsChoose :: (Integral a) => a -> a -> a
+hsChoose n k =  product [ n + 1 - i | i <- [1..k] ] `div` hsFactorial k
 
 fibs :: (Integral a) => [a]
 fibs = 1 : 1 : zipWith (+) fibs (tail fibs)

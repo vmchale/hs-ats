@@ -28,17 +28,21 @@ main =
                       [ bench "isPerfect" $ nf isPerfect 318
                       , bench "hsIsPerfect" $ nf hsIsPerfect (318 :: Int)
                       ]
+                , bgroup "factorial"
+                      [ bench "factorial" $ nfIO (factorial 160)
+                      , bench "hsFactorial" $ nf hsFactorial (160 :: Integer)
+                      ]
                 , bgroup "doubleFactorial"
                       [ bench "doubleFactorial" $ nfIO (doubleFactorial 79)
                       , bench "hsDoubleFactorial" $ nf hsDoubleFactorial (79 :: Integer)
                       ]
                 , bgroup "choose"
                       [ bench "choose" $ nfIO (choose 322 16)
-                      , bench "hsChoose" $ nf (hsChoose 322 :: Int -> Integer) 16
+                      , bench "hsChoose" $ nf (hsChoose 322) (16 :: Integer)
                       ]
                 , bgroup "catalan"
                       [ bench "catalan" $ nfIO (catalan 300)
-                      , bench "hsCatalan" $ nf (hsCatalan :: Int -> Integer) 300
+                      , bench "hsCatalan" $ nf hsCatalan (300 :: Integer)
                       ]
                 , bgroup "fibonacci"
                       [ bench "fibonacci" $ nfIO (fibonacci 200)

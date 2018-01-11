@@ -9,6 +9,7 @@ functions.
 module Numeric.Combinatorics ( choose
                              , doubleFactorial
                              , catalan
+                             , factorial
                              ) where
 
 import           Control.Composition
@@ -18,6 +19,7 @@ import           Foreign.Ptr
 import           Foreign.Storable
 
 foreign import ccall unsafe double_factorial_ats :: CInt -> Ptr GMPInt
+foreign import ccall unsafe factorial_ats :: CInt -> Ptr GMPInt
 foreign import ccall unsafe choose_ats :: CInt -> CInt -> Ptr GMPInt
 foreign import ccall unsafe catalan_ats :: CInt -> Ptr GMPInt
 
@@ -32,6 +34,9 @@ catalan = conjugateGMP catalan_ats
 -- | See [here](http://mathworld.wolfram.com/BinomialCoefficient.html).
 choose :: Int -> Int -> IO Integer
 choose = (gmpToInteger <=<) . (peek .* on choose_ats fromIntegral)
+
+factorial :: Int -> IO Integer
+factorial = conjugateGMP factorial_ats
 
 -- | See [here](http://mathworld.wolfram.com/DoubleFactorial.html).
 doubleFactorial :: Int -> IO Integer

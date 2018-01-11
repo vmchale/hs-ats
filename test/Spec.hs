@@ -23,13 +23,6 @@ check s f g n = describe s $
     it ("should work for n=" ++ show n) $
         f n >>= (`shouldBe` g (fromIntegral n))
 
-{- mkIoProp :: (Int -> IO Integer) -> (Int -> Integer) -> Property -}
-{- mkIoProp f g = again $ ioProperty $ do -}
-    {- m <- randomIO -}
-    {- actual <- f m -}
-    {- let expected = g m -}
-    {- pure $ m < 1 || actual == expected -}
-
 main :: IO ()
 main = hspec $ parallel $ do
 
@@ -48,14 +41,13 @@ main = hspec $ parallel $ do
             \m -> m < 1 || not (isPrime m) || totient m == m - 1
     describe "derangement" $
         prop "should be equal to [n!/e]" $
-            \n -> n < 1 || n > 18 || (derangement n :: Integer) == floor ((fromIntegral (factorial n :: Integer) :: Double) / exp 1 + 0.5)
+            \n -> n < 1 || n > 18 || (derangement n :: Integer) == floor ((fromIntegral (hsFactorial (fromIntegral n) :: Integer) :: Double) / exp 1 + 0.5)
     describe "totient" $
         prop "should satisfy Fermat's little theorem" $
             \a m -> a < 1 || m < 2 || gcd a m /= 1 || tooBig a m || (a ^ totient m) `mod` m == 1
 
-    -- TODO property test w/ recurrence relations?
     sequence_ $ zipWith4 check
-        ["choose 101", "doubleFactorial", "catalan", "fibonacci"]
-        [choose 101, doubleFactorial, catalan, fibonacci]
-        [hsChoose 101 . fromIntegral, hsDoubleFactorial, hsCatalan . fromIntegral, hsFibonacci . fromIntegral]
-        [16, 79, 300, 121]
+        ["choose 101", "doubleFactorial", "catalan", "fibonacci", "factorial"]
+        [choose 101, doubleFactorial, catalan, fibonacci, factorial]
+        [hsChoose 101 . fromIntegral, hsDoubleFactorial, hsCatalan . fromIntegral, hsFibonacci . fromIntegral, hsFactorial]
+        [16, 79, 300, 121, 231]

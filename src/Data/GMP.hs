@@ -62,4 +62,3 @@ instance Storable GMPInt where
         pokeByteOff ptr 0 a >>
         pokeByteOff ptr wordWidth s >>
         pokeByteOff ptr (wordWidth * 2) d
-

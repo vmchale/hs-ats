@@ -1,0 +1,8 @@
+- package:
+  - name: fast-arithmetic
+  - section:
+    - name: library
+    - message:
+      - name: Redundant build-depends entry
+      - depends: foundation
+

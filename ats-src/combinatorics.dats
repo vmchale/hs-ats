@@ -6,7 +6,7 @@
 staload "contrib/atscntrb-hx-intinf/SATS/intinf_vt.sats"
 staload UN = "prelude/SATS/unsafe.sats"
 
-// see [here](http://mathworld.wolfram.com/Derangement.html)
+// See [here](http://mathworld.wolfram.com/Derangement.html)
 fn derangements {n : nat} .<n>. (n : int(n)) : Intinf =
   let
     fnx loop { n : nat | n > 1 }{ i : nat | i <= n } .<n-i>. (n : int(n), i : int(i), n1 : Intinf, n2 : Intinf) : Intinf =
@@ -39,7 +39,7 @@ fnx fact {n : nat} .<n>. (k : int(n)) : intinfGte(1) =
     | 1 => int2intinf(1)
     | k =>> $UN.castvwtp0(mul_intinf0_int(fact(k - 1), k))
 
-// double factorial http://mathworld.wolfram.com/DoubleFactorial.html
+// Double factorial http://mathworld.wolfram.com/DoubleFactorial.html
 fnx dfact {n : nat} .<n>. (k : int(n)) : Intinf =
   case+ k of
     | 0 => int2intinf(1)
@@ -62,6 +62,7 @@ fn permutations {n : nat}{ k : nat | k <= n } (n : int(n), k : int(k)) : Intinf 
     z
   end
 
+// Catalan numbers, indexing starting at zero.
 fn catalan {n : nat} (n : int(n)) : Intinf =
   let
     fun numerator_loop { i : nat | i > 1 } .<i>. (i : int(i)) : [ n : nat | n > 0 ] intinf(n) =

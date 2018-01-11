@@ -47,5 +47,5 @@ You will also likely want to install
 
 You can find documentation for the Haskell library on 
 [Hackage](https://hackage.haskell.org/package/fast-arithmetic/).
-Unfortunately, there is no documentation for the ATS library, however, you may
-find the bundled source code informative.
+Unfortunately, there is no documentation for the ATS library, however,
+the bundled source code is commented.
