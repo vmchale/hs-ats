@@ -17,11 +17,13 @@ module Numeric.Pure ( -- * Useful functions
                     , hsCatalan
                     , hsFibonacci
                     , hsFactorial
+                    , hsJacobi
                     ) where
 
 #if __GLASGOW_HASKELL__ <= 784
 import           Control.Applicative
 #endif
+import           Data.Bool
 
 {-# SPECIALIZE hsLittleOmega :: Int -> Int #-}
 {-# SPECIALIZE hsTau :: Int -> Int #-}
@@ -29,6 +31,23 @@ import           Control.Applicative
 {-# SPECIALIZE hsIsPrime :: Int -> Bool #-}
 {-# SPECIALIZE hsChoose :: Int -> Int -> Int #-}
 {-# SPECIALIZE hsDoubleFactorial :: Int -> Int #-}
+
+hsLegendre :: (Integral a) => a -> a -> a
+hsLegendre _ 1 = 1
+hsLegendre a p = bool 1 (-1) (a' == p - 1)
+    where a' = (a ^ ((p - 1) `div` 2)) `rem` p
+
+hsMultiplicity :: (Integral a) => a -> a -> a
+hsMultiplicity n p
+    | n `mod` p == 0 = 1 + hsMultiplicity (n `div` p) p
+    | otherwise = 0
+
+-- N.B. n must be odd.
+hsJacobi :: (Integral a) => a -> a -> a
+hsJacobi a n
+    | a `mod` n == 0 = 0
+    | hsIsPrime n = foldr (\k l -> l * (hsLegendre a k ^ hsMultiplicity n k)) 1 $ primeDivisors n
+    | otherwise = foldr (\k l -> l * (hsLegendre a k ^ hsMultiplicity n k)) 1 $ primeDivisors n
 
 -- | See [here](http://mathworld.wolfram.com/Derangement.html).
 --
@@ -44,8 +63,11 @@ derangements = fmap snd g
 divisors :: (Integral a) => a -> [a]
 divisors n = filter ((== 0) . (n `mod`)) [1..n]
 
+primeDivisors :: (Integral a) => a -> [a]
+primeDivisors = filter hsIsPrime . divisors
+
 hsLittleOmega :: (Integral a) => a -> Int
-hsLittleOmega = length . filter hsIsPrime . divisors
+hsLittleOmega = length . primeDivisors
 
 hsTau :: (Integral a) => a -> Int
 hsTau = length . divisors

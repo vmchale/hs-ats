@@ -37,7 +37,7 @@ fun exp {n : nat} .<n>. (x : int, n : int(n)) : int =
               exp(x * x, n2)
             else
               let
-                val y = exp(x * x, n2)
+                var y = x * exp(x * x, n2)
               in
                 y
               end

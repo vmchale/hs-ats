@@ -12,6 +12,7 @@ module Numeric.NumberTheory ( totient
                             , littleOmega
                             , isPerfect
                             , sumDivisors
+                            , jacobi
                             ) where
 
 import           Foreign.C
@@ -21,11 +22,19 @@ foreign import ccall unsafe totient_ats :: CInt -> CInt
 foreign import ccall unsafe count_divisors_ats :: CInt -> CInt
 foreign import ccall unsafe sum_divisors_ats :: CInt -> CInt
 foreign import ccall unsafe little_omega_ats :: CInt -> CInt
+foreign import ccall unsafe jacobi_ats :: CInt -> CInt -> CInt
 #if __GLASGOW_HASKELL__ >= 820
 foreign import ccall unsafe is_perfect_ats :: CInt -> CBool
 #else
 foreign import ccall unsafe is_perfect_ats :: CInt -> CUChar
 #endif
+
+-- | The Jacobi symbol (a/n) (see
+-- [here](http://mathworld.wolfram.com/JacobiSymbol.html)) for more.
+jacobi :: Int -- ^ a
+       -> Int -- ^ n
+       -> Int
+jacobi m n = fromIntegral $ jacobi_ats (fromIntegral m) (fromIntegral n)
 
 -- | See [here](http://mathworld.wolfram.com/PerfectNumber.html)
 isPerfect :: Int -> Bool

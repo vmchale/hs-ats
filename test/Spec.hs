@@ -36,6 +36,9 @@ main = hspec $ parallel $ do
         [isPrime, isPerfect]
         [hsIsPrime, hsIsPerfect]
 
+    describe "jacobi" $
+        prop "should be equal to the pure Haskell function" $
+            \m n -> n `mod` 2 == 0 || n < 2 || jacobi m n == hsJacobi m n
     describe "totient" $
         prop "should be equal to m-1 for m prime" $
             \m -> m < 1 || not (isPrime m) || totient m == m - 1
@@ -47,7 +50,7 @@ main = hspec $ parallel $ do
             \a m -> a < 1 || m < 2 || gcd a m /= 1 || tooBig a m || (a ^ totient m) `mod` m == 1
 
     sequence_ $ zipWith4 check
-        ["choose 101", "doubleFactorial", "catalan", "fibonacci", "factorial"]
+        ["choose 101", "doubleFactorial", "catalan", "fibonacci", "factorial", "jacobi"]
         [choose 101, doubleFactorial, catalan, fibonacci, factorial]
         [hsChoose 101 . fromIntegral, hsDoubleFactorial, hsCatalan . fromIntegral, hsFibonacci . fromIntegral, hsFactorial]
         [16, 79, 300, 121, 231]

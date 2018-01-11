@@ -1,3 +1,4 @@
+:set -fno-warn-type-defaults
 :load Data.GMP Numeric.Integer Numeric.Pure Numeric.NumberTheory Numeric.Common Numeric.Combinatorics
 :m Numeric.Integer Numeric.Pure Numeric.NumberTheory Numeric.Common Numeric.Combinatorics
 

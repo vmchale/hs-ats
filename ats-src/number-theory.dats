@@ -2,6 +2,7 @@
 #include "ats-src/numerics.dats"
 #include "contrib/atscntrb-hx-intinf/mylibies.hats"
 
+staload "prelude/SATS/integer.sats"
 staload UN = "prelude/SATS/unsafe.sats"
 staload "contrib/atscntrb-hx-intinf/SATS/intinf_vt.sats"
 
@@ -9,9 +10,8 @@ staload "contrib/atscntrb-hx-intinf/SATS/intinf_vt.sats"
 
 // Existential types for even and odd numbers. These are only usable with the
 // ATS library.
-typedef Even = [ n : nat ] int(2 * n)
-
-typedef Odd = [ n : nat ] int(2 * n+1)
+typedef Even = [ n : nat ] int(2*n)
+typedef Odd = [ n : nat ] int(2*n+1)
 
 // TODO jacobi symbol
 // fn legendre(a: int, p: int) : int =
@@ -44,8 +44,9 @@ fn divisors(n : intGte(1)) :<> stream_vt(int) =
     loop(n, 1)
   end
 
+// stream_vt_filter_cloptr
 // stream all prime divisors of an integer (without multiplicity)
-fn prime_divisors(n : intGte(1)) :<> stream_vt(int) =
+fn prime_divisors(n : intGte(1)) :<> stream_vt(intGte(2)) =
   let
     fun loop {k : nat}{ m : nat | m > 0 && k >= m } .<k-m>. (n : int(k), acc : int(m)) :<> stream_vt(int) =
       if acc >= n then
@@ -56,8 +57,75 @@ fn prime_divisors(n : intGte(1)) :<> stream_vt(int) =
         else
           $ldelay(stream_vt_nil)
   in
-    loop(n, 1)
+    $UN.castvwtp0(loop(n, 1))
   end
+
+typedef gprime(tk : tk, p : int) = { m, n : nat | m < 1 && m <= n && n < p && m*n != p && p > 1 } g1int(tk, p)
+typedef prime(p : int) = gprime(int_kind, p)
+typedef Prime = [ p : nat ] prime(p)
+
+fn div_gt_zero(n : intGte(0), p : intGt(1)) : intGte(0) =
+  $UN.cast(n / p)
+
+// FIXME require that it be prime.
+fun exp_mod_prime(a : intGte(0), n : intGte(0), p : intGt(1)) : int =
+  let
+    var a1 = a % p
+    var n1 = n % (p - 1)
+  in
+    case+ a of
+      | 0 => 0
+      | x =>> 
+        begin
+          if n > 0 then
+            let
+              var n2: intGte(0) = $UN.cast(half(n1))
+              var i2 = n1 % 2
+              var sq_a: intGte(0) = $UN.cast(a)
+            in
+              if i2 = 0 then
+                exp_mod_prime(sq_a, n2, p)
+              else
+                let
+                  val y = a * exp_mod_prime(sq_a, n2, p)
+                in
+                  y
+                end
+            end
+          else
+            1
+        end
+  end
+
+// FIXME require that it be prime
+fun legendre { p : int | p >= 2 } (a : intGte(0), p : int(p)) : int =
+  case+ a of
+    | 0 => 0
+    | _ => let
+      var i = exp_mod_prime(a, (p - 1) / 2, p)
+    in
+      case+ i of
+        | i when i % (p - 1) = 0 => ~1
+        | i when i = p => 0
+        | _ => 1
+    end
+
+fun get_multiplicity(n : intGte(0), p : intGt(1)) : intGte(0) =
+  case+ n % p of
+    | 0 => 1 + get_multiplicity(div_gt_zero(n, p), p)
+    | _ => 0
+
+// TODO prove it is either -1, 0, or 1.
+// Jacobi symbol for positive integers. See here: http://mathworld.wolfram.com/JacobiSymbol.html
+fun jacobi { n : int | n > 0 } (a : intGte(0), n : int(n)) : int =
+  if a % n = 0 then
+    0
+  else
+    let
+      var divs: stream_vt(intGte(2)) = prime_divisors(n)
+    in
+      stream_vt_foldleft_cloptr(divs, 1, lam (acc, next) => g0int_mul_int(acc, exp(legendre(a, next), get_multiplicity(n, next))))
+    end
 
 fn count_divisors(n : intGte(1)) :<> int =
   let
