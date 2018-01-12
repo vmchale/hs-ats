@@ -1,5 +1,5 @@
 name:                fast-arithmetic
-version:             0.2.3.0
+version:             0.2.3.2
 synopsis:            Fast functions on integers.
 description:         Fast functions for number theory and combinatorics with a high level of safety guaranteed by [ATS](http://www.ats-lang.org/). This package also provides a
                      'Storable' instance for GMP's @mpz@ type.
@@ -55,8 +55,8 @@ library
     build-depends:     base >= 4.7 && < 5
                      , composition-prelude
                      , recursion-schemes
-                     , integer-gmp
                      , foundation < 0.0.18
+                     , memory < 0.14.11
   else
     build-depends:     base >= 4.7 && < 5
                      , composition-prelude

@@ -13,9 +13,6 @@ staload "contrib/atscntrb-hx-intinf/SATS/intinf_vt.sats"
 typedef Even = [ n : nat ] int(2*n)
 typedef Odd = [ n : nat ] int(2*n+1)
 
-// TODO jacobi symbol
-// fn legendre(a: int, p: int) : int =
-//  a ^ (p - 1 / 2) % p
 // m | n
 fn divides(m : int, n : int) :<> bool =
   n % m = 0
@@ -39,30 +36,12 @@ fn divisors(n : intGte(1)) :<> stream_vt(int) =
         if n % acc = 0 then
           $ldelay(stream_vt_cons(n, loop(n, acc + 1)))
         else
-          $ldelay(stream_vt_nil)
+          loop(n, acc + 1)
   in
     loop(n, 1)
   end
 
 // stream_vt_filter_cloptr
-// stream all prime divisors of an integer (without multiplicity)
-fn prime_divisors(n : intGte(1)) :<> stream_vt(intGte(2)) =
-  let
-    fun loop {k : nat}{ m : nat | m > 0 && k >= m } .<k-m>. (n : int(k), acc : int(m)) :<> stream_vt(int) =
-      if acc >= n then
-        $ldelay(stream_vt_cons(acc, $ldelay(stream_vt_nil)))
-      else
-        if n % acc = 0 then
-          if is_prime(n) then
-            $ldelay(stream_vt_cons(n, loop(n, acc + 1)))
-          else
-            loop(n, acc + 1)
-        else
-          $ldelay(stream_vt_nil)
-  in
-    $UN.castvwtp0(loop(n, 1))
-  end
-
 typedef gprime(tk : tk, p : int) = { m, n : nat | m < 1 && m <= n && n < p && m*n != p && p > 1 } g1int(tk, p)
 typedef prime(p : int) = gprime(int_kind, p)
 typedef Prime = [ p : nat ] prime(p)

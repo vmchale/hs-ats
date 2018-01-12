@@ -7,6 +7,11 @@ import           Test.Hspec
 import           Test.Hspec.QuickCheck
 import           Test.QuickCheck       hiding (choose)
 
+{- toInt :: Ext.JacobiSymbol -> Int -}
+{- toInt Ext.MinusOne = -1 -}
+{- toInt Ext.Zero     = 0 -}
+{- toInt Ext.One      = 1 -}
+
 tooBig :: Int -> Int -> Bool
 tooBig x y = go x y >= 2 ^ (16 :: Integer)
     where
@@ -36,9 +41,6 @@ main = hspec $ parallel $ do
         [isPrime, isPerfect]
         [hsIsPrime, hsIsPerfect]
 
-    describe "jacobi" $
-        prop "should be equal to the pure Haskell function" $
-            \m n -> m < 0 || n `mod` 2 == 0 || n < 2 || m > 40 || n > 40 || jacobi m n == hsJacobi m n
     describe "totient" $
         prop "should be equal to m-1 for m prime" $
             \m -> m < 1 || not (isPrime m) || totient m == m - 1
