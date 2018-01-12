@@ -7,11 +7,6 @@ import           Test.Hspec
 import           Test.Hspec.QuickCheck
 import           Test.QuickCheck       hiding (choose)
 
-{- toInt :: Ext.JacobiSymbol -> Int -}
-{- toInt Ext.MinusOne = -1 -}
-{- toInt Ext.Zero     = 0 -}
-{- toInt Ext.One      = 1 -}
-
 tooBig :: Int -> Int -> Bool
 tooBig x y = go x y >= 2 ^ (16 :: Integer)
     where
