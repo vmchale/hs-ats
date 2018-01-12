@@ -34,6 +34,7 @@ import           Data.Bool
 
 hsLegendre :: (Integral a) => a -> a -> a
 hsLegendre _ 1 = 1
+hsLegendre a p | a `mod` p == 0 = 0
 hsLegendre a p = bool 1 (-1) (a' == p - 1)
     where a' = (a ^ ((p - 1) `div` 2)) `rem` p
 

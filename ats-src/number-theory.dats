@@ -52,8 +52,11 @@ fn prime_divisors(n : intGte(1)) :<> stream_vt(intGte(2)) =
       if acc >= n then
         $ldelay(stream_vt_cons(acc, $ldelay(stream_vt_nil)))
       else
-        if n % acc = 0 && is_prime(n) then
-          $ldelay(stream_vt_cons(n, loop(n, acc + 1)))
+        if n % acc = 0 then
+          if is_prime(n) then
+            $ldelay(stream_vt_cons(n, loop(n, acc + 1)))
+          else
+            loop(n, acc + 1)
         else
           $ldelay(stream_vt_nil)
   in
@@ -81,7 +84,7 @@ fun exp_mod_prime(a : intGte(0), n : intGte(0), p : intGt(1)) : int =
             let
               var n2: intGte(0) = $UN.cast(half(n1))
               var i2 = n1 % 2
-              var sq_a: intGte(0) = $UN.cast(a)
+              var sq_a: intGte(0) = $UN.cast(a * a % p)
             in
               if i2 = 0 then
                 exp_mod_prime(sq_a, n2, p)
@@ -99,14 +102,14 @@ fun exp_mod_prime(a : intGte(0), n : intGte(0), p : intGt(1)) : int =
 
 // FIXME require that it be prime
 fun legendre { p : int | p >= 2 } (a : intGte(0), p : int(p)) : int =
-  case+ a of
+  case+ a % p of
     | 0 => 0
     | _ => let
       var i = exp_mod_prime(a, (p - 1) / 2, p)
     in
       case+ i of
         | i when i % (p - 1) = 0 => ~1
-        | i when i = p => 0
+        | i when i % p = 0 => 0
         | _ => 1
     end
 
@@ -118,14 +121,18 @@ fun get_multiplicity(n : intGte(0), p : intGt(1)) : intGte(0) =
 // TODO prove it is either -1, 0, or 1.
 // Jacobi symbol for positive integers. See here: http://mathworld.wolfram.com/JacobiSymbol.html
 fun jacobi { n : int | n > 0 } (a : intGte(0), n : int(n)) : int =
-  if a % n = 0 then
-    0
-  else
-    let
-      var divs: stream_vt(intGte(2)) = prime_divisors(n)
-    in
-      stream_vt_foldleft_cloptr(divs, 1, lam (acc, next) => g0int_mul_int(acc, exp(legendre(a, next), get_multiplicity(n, next))))
-    end
+  let
+    fun loop { m : int | m > 1 } (acc : int(m)) : int =
+      if acc > n then
+        1
+      else
+        if a % acc = 0 && is_prime(acc) then
+          loop(acc + 1) * exp(legendre(acc, n), get_multiplicity(a, acc))
+        else
+          loop(acc + 1)
+  in
+    loop(2)
+  end
 
 fn count_divisors(n : intGte(1)) :<> int =
   let
