@@ -30,6 +30,7 @@ import           Data.Bool
 {-# SPECIALIZE hsTotient :: Int -> Int #-}
 {-# SPECIALIZE hsIsPrime :: Int -> Bool #-}
 {-# SPECIALIZE hsChoose :: Int -> Int -> Int #-}
+{-# SPECIALIZE hsJacobi :: Int -> Int -> Int #-}
 {-# SPECIALIZE hsDoubleFactorial :: Int -> Int #-}
 
 hsLegendre :: (Integral a) => a -> a -> a

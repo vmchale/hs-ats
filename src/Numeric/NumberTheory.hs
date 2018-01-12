@@ -31,6 +31,9 @@ foreign import ccall unsafe is_perfect_ats :: CInt -> CUChar
 
 -- | The Jacobi symbol (a/n) (see
 -- [here](http://mathworld.wolfram.com/JacobiSymbol.html)) for more.
+--
+-- This function is somewhat experimental, and future improvements to
+-- performance are expected.
 jacobi :: Int -- ^ a
        -> Int -- ^ n
        -> Int

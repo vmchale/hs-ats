@@ -44,6 +44,10 @@ main =
                       [ bench "catalan" $ nfIO (catalan 300)
                       , bench "hsCatalan" $ nf hsCatalan (300 :: Integer)
                       ]
+                , bgroup "jacobi"
+                      [ bench "jacobi" $ nf (jacobi 80) 111
+                      , bench "hsJacobi" $ nf (hsJacobi 80) (111 :: Int)
+                      ]
                 , bgroup "fibonacci"
                       [ bench "fibonacci" $ nfIO (fibonacci 200)
                       , bench "hsFibonacci" $ nf (hsFibonacci :: Int -> Integer) 200

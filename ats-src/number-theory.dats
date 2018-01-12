@@ -100,28 +100,26 @@ fun exp_mod_prime(a : intGte(0), n : intGte(0), p : intGt(1)) : int =
         end
   end
 
-// FIXME require that it be prime
-fun legendre { p : int | p >= 2 } (a : intGte(0), p : int(p)) : int =
-  case+ a % p of
-    | 0 => 0
-    | _ => let
-      var i = exp_mod_prime(a, (p - 1) / 2, p)
-    in
-      case+ i of
-        | i when i % (p - 1) = 0 => ~1
-        | i when i % p = 0 => 0
-        | _ => 1
-    end
-
-fun get_multiplicity(n : intGte(0), p : intGt(1)) : intGte(0) =
-  case+ n % p of
-    | 0 => 1 + get_multiplicity(div_gt_zero(n, p), p)
-    | _ => 0
-
-// TODO prove it is either -1, 0, or 1.
 // Jacobi symbol for positive integers. See here: http://mathworld.wolfram.com/JacobiSymbol.html
 fun jacobi { n : int | n > 0 } (a : intGte(0), n : int(n)) : int =
   let
+    fun legendre { p : int | p >= 2 } (a : intGte(0), p : int(p)) : int =
+      case+ p % a of
+        | 0 => 0
+        | _ => let
+          var i = exp_mod_prime(a, (p - 1) / 2, p)
+        in
+          case+ i of
+            | i when i % (p - 1) = 0 => ~1
+            | i when i % p = 0 => 0
+            | _ => 1
+        end
+    
+    fun get_multiplicity(n : intGte(0), p : intGt(1)) : intGte(0) =
+      case+ n % p of
+        | 0 => 1 + get_multiplicity(div_gt_zero(n, p), p)
+        | _ => 0
+    
     fun loop { m : int | m > 1 } (acc : int(m)) : int =
       if acc > n then
         1
