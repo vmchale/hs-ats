@@ -38,22 +38,25 @@ main =
                       , bench "hsFactorial" $ nf hsFactorial (160 :: Integer)
                       , bench "Ext.factorial" $ nf Ext.factorial (160 :: Integer)
                       ]
+                , bgroup "sumDivisors"
+                      [ bench "sumDivisors" $ nf sumDivisors 115
+                      , bench "Ext.sigma" $ nf (Ext.sigma 1) (115 :: Int)
+                      ]
                 , bgroup "doubleFactorial"
                       [ bench "doubleFactorial" $ nfIO (doubleFactorial 79)
-                      , bench "hsDoubleFactorial" $ nf hsDoubleFactorial (79 :: Integer)
                       , bench "Ext.doubleFactorial" $ nf Ext.doubleFactorial (79 :: Integer)
                       ]
                 , bgroup "choose"
                       [ bench "choose" $ nfIO (choose 322 16)
-                      , bench "hsChoose" $ nf (hsChoose 322) (16 :: Integer)
+                      , bench "Ext.binomial" $ nf (Ext.binomial 322) (16 :: Int)
                       ]
                 , bgroup "catalan"
                       [ bench "catalan" $ nfIO (catalan 300)
-                      , bench "hsCatalan" $ nf hsCatalan (300 :: Integer)
+                      , bench "Ext.catalan" $ nf Ext.catalan (300 :: Int)
                       ]
                 , bgroup "jacobi"
                       [ bench "jacobi" $ whnf (jacobi 80) 111
-                      , bench "jacobi" $ whnf ((Ext.jacobi :: Int -> Int -> Ext.JacobiSymbol) 80) 111
+                      , bench "Ext.jacobi" $ whnf ((Ext.jacobi :: Int -> Int -> Ext.JacobiSymbol) 80) 111
                       ]
                 , bgroup "fibonacci"
                       [ bench "fibonacci" $ nfIO (fibonacci 200)

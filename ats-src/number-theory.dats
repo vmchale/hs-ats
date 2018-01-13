@@ -138,18 +138,21 @@ fn count_divisors(n : intGte(1)) : int =
 
 // TODO make this O(√n)
 fn sum_divisors(n : intGte(1)) :<> int =
-  let
-    fun loop {k : nat}{ m : nat | m > 0 && k >= m } .<k-m>. (n : int(k), acc : int(m)) :<> int =
-      if acc >= n then
-        0
-      else
-        if n % acc = 0 then
-          acc + loop(n, acc + 1)
+  if n = 1 then
+    1
+  else
+    let
+      fun loop {k : nat}{ m : nat | m > 0 && k >= m } .<k-m>. (n : int(k), acc : int(m)) :<> int =
+        if acc >= n then
+          n
         else
-          loop(n, acc + 1)
-  in
-    loop(n, 1)
-  end
+          if n % acc = 0 then
+            acc + loop(n, acc + 1)
+          else
+            loop(n, acc + 1)
+    in
+      loop(n, 1)
+    end
 
 fn is_perfect(n : intGte(1)) :<> bool =
   sum_divisors(n) = n
