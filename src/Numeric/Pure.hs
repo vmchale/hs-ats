@@ -6,9 +6,7 @@ module Numeric.Pure ( -- * Useful functions
                       derangement
                     -- * Functions exported for testing and benchmarking
                     , hsIsPrime
-                    , hsTotient
                     , hsTau
-                    , hsTotientSum
                     , hsIsPerfect
                     , hsSumDivisors
                     , hsCatalan
@@ -21,7 +19,6 @@ import           Control.Applicative
 #endif
 
 {-# SPECIALIZE hsTau :: Int -> Int #-}
-{-# SPECIALIZE hsTotient :: Int -> Int #-}
 {-# SPECIALIZE hsIsPrime :: Int -> Bool #-}
 
 -- | See [here](http://mathworld.wolfram.com/Derangement.html).
@@ -50,13 +47,6 @@ hsCatalan n = product [ n + k | k <- [2..n]] `div` hsFactorial n
 
 hsIsPerfect :: (Integral a) => a -> Bool
 hsIsPerfect = idem hsSumDivisors where idem = ((==) <*>)
-
-hsTotientSum :: (Integral a) => a -> a
-hsTotientSum k = sum [ hsTotient n | n <- [1..k] ]
-
-hsTotient :: (Integral a) => a -> a
-hsTotient n = (n * product [ p - 1 | p <- ps ]) `div` product ps
-    where ps = filter (\k -> hsIsPrime k && n `mod` k == 0) [2..n]
 
 hsIsPrime :: (Integral a) => a -> Bool
 hsIsPrime 1 = False

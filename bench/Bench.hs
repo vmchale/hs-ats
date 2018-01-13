@@ -17,7 +17,6 @@ main =
                       ]
                 , bgroup "φ"
                       [ bench "totient" $ nf totient 2016
-                      , bench "hsTotient" $ nf hsTotient (2016 :: Int)
                       , bench "Ext.totient" $ nf Ext.totient (2016 :: Int)
                       ]
                 , bgroup "τ"
