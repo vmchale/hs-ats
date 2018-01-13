@@ -24,7 +24,7 @@ main = shakeArgs shakeOptions { shakeFiles = ".shake"
          , "cbits/combinatorics.c"
          ]
 
-    "dist-newstyle/build/x86_64-linux/ghc-8.2.2/fast-arithmetic-0.3.0.0/opt/build/fast-arithmetic-bench/fast-arithmetic-bench" %> \_ -> do
+    "dist-newstyle/build/x86_64-linux/ghc-8.2.2/fast-arithmetic-0.3.0.0/opt/build/fast-arithmetic-bench/fast-arithmetic-bench" %> \_ ->
         cmd ["cabal", "new-build"]
 
     "//*.html" %> \out -> do
@@ -38,7 +38,7 @@ main = shakeArgs shakeOptions { shakeFiles = ".shake"
         cmd_ ["cabal", "new-build", "-w", "ghc-8.0.2"]
         cmd_ ["cabal", "new-build", "-w", "ghc-7.10.3"]
         cmd_ ["cabal", "new-build", "-w", "ghc-7.8.4"]
-        cmd_ ["hlint", "bench", "src", "test/", "Setup.hs"]
+        cmd_ ["hlint", "bench", "src", "test/", "Setup.hs", "shake.hs"]
         cmd_ ["tomlcheck", "--file", ".atsfmt.toml"]
         cmd_ ["yamllint", ".travis.yml"]
         cmd_ ["yamllint", ".hlint.yaml"]
