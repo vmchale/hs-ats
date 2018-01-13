@@ -1,7 +1,8 @@
 ---
-resolver: lts-10.2
+resolver: lts-10.3
 extra-deps:
   - composition-prelude-0.1.1.4
+  - combinat-0.2.8.2
 flags:
   fast-arithmetic:
     development: true

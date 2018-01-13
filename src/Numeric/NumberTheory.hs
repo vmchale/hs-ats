@@ -37,7 +37,7 @@ foreign import ccall unsafe is_perfect_ats :: CInt -> CUChar
 jacobi :: Int -- ^ a
        -> Int -- ^ n
        -> Int
-jacobi m n = fromIntegral $ jacobi_ats (fromIntegral m) (fromIntegral n)
+jacobi = conjugateTwo jacobi_ats
 
 -- | See [here](http://mathworld.wolfram.com/PerfectNumber.html)
 isPerfect :: Int -> Bool

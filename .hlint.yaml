@@ -6,6 +6,7 @@
   - {name: foldl, within: []}  # foldl has bad properties
 
 - ignore: {name: Use camelCase, within: [Data.GMP]}
+- ignore: {name: Evaluate, within: [Main]}
 
 - error: {lhs: "convertBool . f . fromIntegral", rhs: "asTest f", name: "Use asTest"}
 - error: {lhs: "fromIntegral . f . fromIntegral", rhs: "conjugate f", name: "Use conjugate"}
@@ -15,3 +16,4 @@
 - error: {lhs: "concatMap", rhs: "(=<<)", name: "Generalize concatMap"}
 - error: {lhs: "f >> pure ()", rhs: "void f", name: "Use void"}
 - error: {lhs: "gmpToInteger <=< (peek . f . fromIntegral)", rhs: "conjugateGMP f", name: "Use conjugateGMP"}
+- error: {lhs: "fromIntegral (f (fromIntegral i) (fromIntegral j))", rhs: "conjugateTwo f", name: "Use conjugateTwo"}
