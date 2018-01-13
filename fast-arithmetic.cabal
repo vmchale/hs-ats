@@ -1,5 +1,5 @@
 name:                fast-arithmetic
-version:             0.3.0.0
+version:             0.3.0.1
 synopsis:            Fast functions on integers.
 description:         Fast functions for number theory and combinatorics with a high level of safety guaranteed by [ATS](http://www.ats-lang.org/). This package also provides a
                      'Storable' instance for GMP's @mpz@ type.

@@ -6,7 +6,6 @@
   - {name: foldl, within: []}  # foldl has bad properties
 
 - ignore: {name: Use camelCase, within: [Data.GMP]}
-- ignore: {name: Evaluate, within: [Main]}
 
 - error: {lhs: "convertBool . f . fromIntegral", rhs: "asTest f", name: "Use asTest"}
 - error: {lhs: "fromIntegral . f . fromIntegral", rhs: "conjugate f", name: "Use conjugate"}

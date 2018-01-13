@@ -24,6 +24,13 @@ main = shakeArgs shakeOptions { shakeFiles = ".shake"
          , "cbits/combinatorics.c"
          ]
 
+    "dist-newstyle/build/x86_64-linux/ghc-8.2.2/fast-arithmetic-0.3.0.0/opt/build/fast-arithmetic-bench/fast-arithmetic-bench" %> \_ -> do
+        cmd ["cabal", "new-build"]
+
+    "//*.html" %> \out -> do
+        need ["dist-newstyle/build/x86_64-linux/ghc-8.2.2/fast-arithmetic-0.3.0.0/opt/build/fast-arithmetic-bench/fast-arithmetic-bench"]
+        cmd ["dist-newstyle/build/x86_64-linux/ghc-8.2.2/fast-arithmetic-0.3.0.0/opt/build/fast-arithmetic-bench/fast-arithmetic-bench", "--output=" ++ out]
+
     "ci" ~> do
         need ["cbits/number-theory.c", "cbits/numerics.c", "cbits/combinatorics.c"]
         cmd_ ["cabal", "new-build"]

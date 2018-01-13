@@ -51,10 +51,10 @@ sumDivisors = conjugate sum_divisors_ats
 littleOmega :: Int -> Int
 littleOmega = conjugate little_omega_ats
 
--- | Number of distinct divisors.
+-- | Number of distinct divisors. Experimental.
 tau :: Int -> Int
 tau = conjugate count_divisors_ats
 
--- | Euler totient function.
+-- | Euler totient function. Experimental.
 totient :: Int -> Int
 totient = conjugate totient_ats

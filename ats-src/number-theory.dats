@@ -103,22 +103,16 @@ fun jacobi { n : int | n > 0 } (a : intGte(0), n : int(n)) : int =
         | 0 => 1 + get_multiplicity(div_gt_zero(n, p), p)
         | _ => 0
     
-    fun loop { k : nat | k >= 2 }{ m : nat | m > 0 && k >= m } .<k-m>. (n : int(k), acc : int(m)) : int =
-      if acc >= n then
+    fun loop { m : int | m > 1 } (acc : int(m)) : int =
+      if acc > n then
         1
       else
-        if n % acc = 0 && is_prime(acc) then
-          if acc > 1 then
-            loop(n, acc + 1) * exp(legendre(acc, n), get_multiplicity(a, acc))
-          else
-            loop(n, acc + 1)
+        if a % acc = 0 && is_prime(acc) then
+          loop(acc + 1) * exp(legendre(acc, n), get_multiplicity(a, acc))
         else
-          loop(n, acc + 1)
+          loop(acc + 1)
   in
-    case+ n of
-      | 0 => 0
-      | 1 => 1
-      | n =>> loop(n, 2)
+    loop(2)
   end
 
 // TODO make this O(√n)

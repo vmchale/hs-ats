@@ -47,7 +47,7 @@ main = hspec $ parallel $ do
 
     describe "jacobi" $
         it "should match the arithmoi function" $
-            pendingWith (const "idk." $ jacobi 15 19 `shouldBe` toInt (Ext.jacobi (15 :: Int) 19))
+            jacobi 15 19 `shouldBe` toInt (Ext.jacobi (15 :: Int) 19)
     describe "totient" $
         prop "should be equal to m-1 for m prime" $
             \m -> m < 1 || not (isPrime m) || totient m == m - 1
