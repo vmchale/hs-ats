@@ -34,12 +34,16 @@ fn divisors(n : intGte(1)) :<> stream_vt(int) =
         $ldelay(stream_vt_cons(acc, $ldelay(stream_vt_nil)))
       else
         if n % acc = 0 then
-          $ldelay(stream_vt_cons(n, loop(n, acc + 1)))
+          $ldelay(stream_vt_cons(acc, loop(n, acc + 1)))
         else
           loop(n, acc + 1)
   in
     loop(n, 1)
   end
+
+// prime divisors of an integer
+fn prime_divisors(n : intGte(1)) : stream_vt(int) =
+  stream_vt_filter_cloptr(divisors(n), lam x => is_prime($UN.cast(x)))
 
 // stream_vt_filter_cloptr
 typedef gprime(tk : tk, p : int) = { m, n : nat | m < 1 && m <= n && n < p && m*n != p && p > 1 } g1int(tk, p)
@@ -99,20 +103,26 @@ fun jacobi { n : int | n > 0 } (a : intGte(0), n : int(n)) : int =
         | 0 => 1 + get_multiplicity(div_gt_zero(n, p), p)
         | _ => 0
     
-    fun loop { m : int | m > 1 } (acc : int(m)) : int =
-      if acc > n then
+    fun loop { k : nat | k >= 2 }{ m : nat | m > 0 && k >= m } .<k-m>. (n : int(k), acc : int(m)) : int =
+      if acc >= n then
         1
       else
-        if a % acc = 0 && is_prime(acc) then
-          loop(acc + 1) * exp(legendre(acc, n), get_multiplicity(a, acc))
+        if n % acc = 0 && is_prime(acc) then
+          if acc > 1 then
+            loop(n, acc + 1) * exp(legendre(acc, n), get_multiplicity(a, acc))
+          else
+            loop(n, acc + 1)
         else
-          loop(acc + 1)
+          loop(n, acc + 1)
   in
-    loop(2)
+    case+ n of
+      | 0 => 0
+      | 1 => 1
+      | n =>> loop(n, 2)
   end
 
 // TODO make this O(√n)
-fn count_divisors(n : intGte(1)) :<> int =
+fn count_divisors(n : intGte(1)) : int =
   let
     fun loop {k : nat}{ m : nat | m > 0 && k >= m } .<k-m>. (n : int(k), acc : int(m)) :<> int =
       if acc >= n then
@@ -145,9 +155,18 @@ fn is_perfect(n : intGte(1)) :<> bool =
   sum_divisors(n) = n
 
 // distinct prime divisors
-fn little_omega(n : intGte(1)) :<> int =
+fn little_omega(n : intGte(1)) :<!ntm> int =
   let
-    fun loop {k : nat}{ m : nat | m > 0 && k >= m } .<k-m>. (n : int(k), acc : int(m)) :<> int =
+    fun rip(n : intGt(0), p : intGt(0)) :<!ntm> intGt(0) =
+      if n % p != 0 then
+        n
+      else
+        if n / p > 0 then
+          rip(n / p, p)
+        else
+          1
+    
+    fun loop { k : nat | k > 0 }{ m : nat | m > 0 } (n : int(k), acc : int(m)) :<!ntm> int =
       if acc >= n then
         if is_prime(n) then
           1
@@ -155,7 +174,10 @@ fn little_omega(n : intGte(1)) :<> int =
           0
       else
         if n % acc = 0 && is_prime(acc) then
-          1 + loop(n, acc + 1)
+          if n / acc > 0 then
+            1 + loop(rip(n, acc), 1)
+          else
+            1
         else
           loop(n, acc + 1)
   in

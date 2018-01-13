@@ -11,7 +11,6 @@ module Numeric.Pure ( -- * Useful functions
                     , hsTotient
                     , hsTau
                     , hsTotientSum
-                    , hsLittleOmega
                     , hsIsPerfect
                     , hsSumDivisors
                     , hsCatalan
@@ -25,7 +24,6 @@ import           Control.Applicative
 #endif
 import           Data.Bool
 
-{-# SPECIALIZE hsLittleOmega :: Int -> Int #-}
 {-# SPECIALIZE hsTau :: Int -> Int #-}
 {-# SPECIALIZE hsTotient :: Int -> Int #-}
 {-# SPECIALIZE hsIsPrime :: Int -> Bool #-}
@@ -67,9 +65,6 @@ divisors n = filter ((== 0) . (n `mod`)) [1..n]
 
 primeDivisors :: (Integral a) => a -> [a]
 primeDivisors = filter hsIsPrime . divisors
-
-hsLittleOmega :: (Integral a) => a -> Int
-hsLittleOmega = length . primeDivisors
 
 hsTau :: (Integral a) => a -> Int
 hsTau = length . divisors

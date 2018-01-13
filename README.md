@@ -6,8 +6,10 @@ This is a library for fast arithmetical functions using ATS, with a Haskell
 wrapper.
 
 It is intended to supplement (but not replace)
-[arithmoi](https://hackage.haskell.org/package/arithmoi) where speed is
-important. In particular, this library provides a fast primality check.
+[arithmoi](https://hackage.haskell.org/package/arithmoi) and
+[combinat](https://hackage.haskell.org/package/combinat) where speed is
+important. In particular, this library provides a fast primality check and fast
+computation of basic combinatorial functions.
 
 ## Benchmarks
 

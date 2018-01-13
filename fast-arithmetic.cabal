@@ -77,6 +77,8 @@ test-suite fast-arithmetic-test
                      , fast-arithmetic
                      , hspec
                      , QuickCheck
+                     , arithmoi
+                     , combinat
   if flag(development)
     ghc-options: -Werror
   if impl(ghc >= 8.0)
@@ -91,6 +93,8 @@ benchmark fast-arithmetic-bench
   build-depends:       base
                      , fast-arithmetic
                      , criterion
+                     , arithmoi
+                     , combinat
   if flag(development)
     ghc-options: -Werror
   if impl(ghc >= 8.0)

@@ -5,18 +5,18 @@
 - [ ] consider a separate package for installing `patscc`
 # Code maintenane
 - [ ] test suite for double factorial
+- [ ] consider using `arithmoi` for testing?
 # Performance
 - [ ] Consider view type for appending arrays?
-# Benchmarks
-- [ ] hylomorphism for totient?
+- [ ] make `totient` faster
+- [ ] make `jacobi` faster
 # Features
 - [ ] coprimality test
 - [ ] big omega
 - [ ] Euclid's algorithm
 - [ ] quadratic residues
-- [ ] jacobi symbol
-  - [ ] legendre symbol (relatively easy)
-- [ ] chinese remainder theorem
+- [ ] Jacobi symbol
+- [ ] Chinese remainder theorem
 - [ ] factor a number (multiplicity?)
 - [ ] elliptic curves
 - [ ] bell numbers

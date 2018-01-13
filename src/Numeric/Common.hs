@@ -2,8 +2,10 @@
 
 module Numeric.Common ( conjugate
                       , asTest
+                      , conjugateTwo
                       ) where
 
+import           Control.Composition
 import           Data.Word
 import           Foreign.C
 
@@ -13,6 +15,9 @@ asTest :: Integral a => (CInt -> CBool) -> a -> Bool
 asTest :: Integral a => (CInt -> CUChar) -> a -> Bool
 #endif
 asTest f = convertBool . f . fromIntegral
+
+conjugateTwo :: (Integral a, Integral b) => (CInt -> CInt -> CInt) -> a -> a -> b
+conjugateTwo f = fromIntegral .* on f fromIntegral
 
 conjugate :: (Integral a, Integral b) => (CInt -> CInt) -> a -> b
 conjugate f = fromIntegral . f . fromIntegral

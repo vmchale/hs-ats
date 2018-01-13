@@ -12,7 +12,6 @@ addons:
       libgmp3-dev
 matrix:
   include:
-
     - language: python
       addons:
         apt:
