@@ -20,7 +20,7 @@ fun sum_divisors_ats : { n : nat | n >= 1 } int(n) -> int =
   "mac#"
 
 extern
-fun jacobi_ats : (intGte(0), intGt(0)) -> int =
+fun jacobi_ats : (intGte(0), Odd) -> int =
   "mac#"
 
 extern
@@ -43,4 +43,4 @@ implement is_perfect_ats (n) =
   is_perfect(n)
 
 implement jacobi_ats (m, n) =
-  jacobi(m, n)
+  jacobi(m, $UN.cast(n))
