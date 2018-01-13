@@ -17,18 +17,18 @@ computation of basic combinatorial functions.
 | ----------- | --------------------- | ---- |
 | `isPrime 2017` | ATS | 118.9 ns |
 | `isPrime 2017` | Haskell | 497.3 ns |
-| `φ(2016)` | ATS | 5.574 μs |
-| `φ(2016)` | Haskell | 177.3 μs |
-| `τ(3018)` | ATS | 7.962 μs |
-| `τ(3018)` | Haskell | 35.87 μs |
-| `ω(91)` | ATS | 282.1 ns |
-| `ω(91)` | Haskell | 1.194 μs |
-| `1000!` | ATS | 93.03 μs |
-| `1000!` | Haskell | 117.1 μs |
-| `89!!` | ATS | 849.2 ns |
-| `89!!` | Haskell | 1.899 μs |
-| ``322 `choose` 16`` | ATS | 629.0 ns |
-| ``322 `choose` 16`` | Haskell | 1.801 μs |
+| `φ(2016)` | ATS | - |
+| `φ(2016)` | Haskell | - |
+| `τ(3018)` | ATS | - |
+| `τ(3018)` | Haskell | - |
+| `ω(91)` | ATS | 66.59 ns |
+| `ω(91)` | Haskell | 338.6 ns |
+| `160!` | ATS | 4.081 μs |
+| `160!` | Haskell | 6.032 μs |
+| `79!!` | ATS | 813.8 ns ns |
+| `79!!` | Haskell | 1.395 μs |
+| ``322 `choose` 16`` | ATS | 629.8 ns |
+| ``322 `choose` 16`` | Haskell | 1.046 μs |
 
 ## Building
 

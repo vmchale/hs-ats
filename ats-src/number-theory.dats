@@ -160,12 +160,19 @@ fn is_perfect(n : intGte(1)) :<> bool =
 // distinct prime divisors
 fn little_omega(n : intGte(1)) :<!ntm> int =
   let
-    fun rip(n : intGt(0), p : intGt(0)) :<!ntm> intGt(0) =
+    fun rip { n : nat | n > 0 }{ p : nat | p > 0 } .<n>. (n : int(n), p : int(p)) :<> [ r : nat | r <= n && r > 0 ] int(r) =
       if n % p != 0 then
         n
       else
         if n / p > 0 then
-          rip(n / p, p)
+          let
+            var n1 = n / p
+          in
+            if n1 < n then
+              $UN.cast(rip(n1, p))
+            else
+              1
+          end
         else
           1
     
@@ -210,7 +217,6 @@ fn totient(n : intGte(1)) : int =
         end
       end
 
-// TODO modular exponentiation
 // The sum of all φ(m) for m between 1 and n 
 fun totient_sum(n : intGte(1)) : Intinf =
   let

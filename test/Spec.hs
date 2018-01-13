@@ -38,12 +38,12 @@ main = hspec $ parallel $ do
     sequence_ $ zipWith3 agree
         ["totient", "tau", "littleOmega", "sumDivisors"]
         [totient, tau, littleOmega, sumDivisors]
-        [Ext.totient, hsTau, Ext.smallOmega, Ext.sigma 1]
+        [Ext.totient, Ext.tau, Ext.smallOmega, Ext.sigma 1]
 
     sequence_ $ zipWith3 agree
-        ["isPrime", "isPerfect"]
-        [isPrime, isPerfect]
-        [hsIsPrime, hsIsPerfect]
+        ["isPrime"]
+        [isPrime]
+        [hsIsPrime]
 
     describe "jacobi" $
         it "should match the arithmoi function" $
@@ -53,7 +53,7 @@ main = hspec $ parallel $ do
             \m -> m < 1 || not (isPrime m) || totient m == m - 1
     describe "derangement" $
         prop "should be equal to [n!/e]" $
-            \n -> n < 1 || n > 18 || (derangement n :: Integer) == floor ((fromIntegral (hsFactorial (fromIntegral n) :: Integer) :: Double) / exp 1 + 0.5)
+            \n -> n < 1 || n > 18 || (derangement n :: Integer) == floor ((fromIntegral (Ext.factorial (fromIntegral n :: Int) :: Integer) :: Double) / exp 1 + 0.5)
     describe "totient" $
         prop "should satisfy Fermat's little theorem" $
             \a m -> a < 1 || m < 2 || gcd a m /= 1 || tooBig a m || (a ^ totient m) `mod` m == 1
@@ -61,5 +61,5 @@ main = hspec $ parallel $ do
     sequence_ $ zipWith4 check
         ["choose 101", "doubleFactorial", "catalan", "fibonacci", "factorial", "jacobi"]
         [choose 101, doubleFactorial, catalan, fibonacci, factorial]
-        [Ext.binomial 101, Ext.doubleFactorial, Ext.catalan, hsFibonacci . fromIntegral, hsFactorial]
+        [Ext.binomial 101, Ext.doubleFactorial, Ext.catalan, hsFibonacci . fromIntegral, Ext.factorial]
         [16, 79, 300, 121, 231]
