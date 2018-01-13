@@ -157,25 +157,25 @@ fn sum_divisors(n : intGte(1)) :<> int =
 fn is_perfect(n : intGte(1)) :<> bool =
   sum_divisors(n) = n
 
+fun rip { n : nat | n > 0 }{ p : nat | p > 0 } .<n>. (n : int(n), p : int(p)) :<> [ r : nat | r <= n && r > 0 ] int(r) =
+  if n % p != 0 then
+    n
+  else
+    if n / p > 0 then
+      let
+        var n1 = n / p
+      in
+        if n1 < n then
+          $UN.cast(rip(n1, p))
+        else
+          1
+      end
+    else
+      1
+
 // distinct prime divisors
 fn little_omega(n : intGte(1)) :<!ntm> int =
   let
-    fun rip { n : nat | n > 0 }{ p : nat | p > 0 } .<n>. (n : int(n), p : int(p)) :<> [ r : nat | r <= n && r > 0 ] int(r) =
-      if n % p != 0 then
-        n
-      else
-        if n / p > 0 then
-          let
-            var n1 = n / p
-          in
-            if n1 < n then
-              $UN.cast(rip(n1, p))
-            else
-              1
-          end
-        else
-          1
-    
     fun loop { k : nat | k > 0 }{ m : nat | m > 0 } (n : int(k), acc : int(m)) :<!ntm> int =
       if acc >= n then
         if is_prime(n) then
