@@ -86,7 +86,7 @@ fun exp_mod_prime(a : intGte(0), n : intGte(0), p : intGt(1)) : int =
 // Jacobi symbol for positive integers. See here: http://mathworld.wolfram.com/JacobiSymbol.html
 fun jacobi(a : intGte(0), n : Odd) : int =
   let
-    fun legendre { p : int | p >= 2 } (a : intGte(0), p : int(p)) : int =
+    fun legendre { p : int | p >= 2 } (a : intGte(0), p : int(p)) : intBtwe(~1, 1) =
       case+ p % a of
         | 0 => 0
         | _ => let
