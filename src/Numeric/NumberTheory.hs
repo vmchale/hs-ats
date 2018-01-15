@@ -29,13 +29,11 @@ foreign import ccall unsafe is_perfect_ats :: CInt -> CUChar
 
 -- | See [here](http://mathworld.wolfram.com/PerfectNumber.html)
 isPerfect :: Int -> Bool
-isPerfect 1 = True
-isPerfect x = asTest is_perfect_ats x
+isPerfect = asTest is_perfect_ats
 
 -- | Sum of proper divisors.
 sumDivisors :: Int -> Int
-sumDivisors 1 = 1
-sumDivisors x = conjugate sum_divisors_ats x
+sumDivisors = conjugate sum_divisors_ats
 
 -- Number of distinct prime factors
 littleOmega :: Int -> Int
