@@ -17,8 +17,8 @@ computation of basic combinatorial functions.
 | ----------- | --------------------- | ---- |
 | `isPrime 2017` | ATS | 118.9 ns |
 | `isPrime 2017` | Haskell | 497.3 ns |
-| `φ(2016)` | ATS | - |
-| `φ(2016)` | Haskell | - |
+| `φ(2016)` | ATS | 230.1 ns |
+| `φ(2016)` | Haskell | 402.8 ns |
 | `τ(3018)` | ATS | 438.5 ns |
 | `τ(3018)` | Haskell | 726.4 ns |
 | `σ(115)` | ATS | 216.3 ns |
