@@ -44,7 +44,7 @@ buildScript _ _ = do
             ["ats2-postiats-0.3.8-prelude", "atscntrb-hs-intinf-1.0.6", "atscntrb-libgmp-1.0.4"]
             ["ats-deps/prelude", "ats-deps/contrib/atscntrb-hx-intinf", "ats-deps/contrib/atscntrb-libgmp"]
             ["ats-deps/prelude/ATS2-Postiats-include-0.3.8/prelude", "ats-deps/contrib/atscntrb-hx-intinf", "ats-deps/contrib/atscntrb-libgmp/SATS"]
-            ["https://downloads.sourceforge.net/project/ats2-lang/ats2-lang/ats2-postiats-0.3.8/ATS2-Postiats-include-0.3.8.tgz", "https://registry.npmjs.org/atscntrb-hx-intinf/-/atscntrb-hx-intinf-1.0.6.tgz", "https://registry.npmjs.org/atscntrb-libgmp/-/atscntrb-libgmp-1.0.4.tgz" ]
+            ["https://downloads.sourceforge.net/project/ats2-lang/ats2-lang/ats2-postiats-0.3.8/ATS2-Postiats-include-0.3.8.tgz", "https://registry.npmjs.org/atscntrb-hx-intinf/-/atscntrb-hx-intinf-1.0.6.tgz", "https://registry.npmjs.org/atscntrb-libgmp/-/atscntrb-libgmp-1.0.4.tgz"]
     parallel_ libs >> stopGlobalPool
 
     pure emptyHookedBuildInfo

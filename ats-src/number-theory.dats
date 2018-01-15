@@ -22,22 +22,30 @@ fn lcm {k : nat}{l : nat} (m : int(l), n : int(k)) : int =
   (m / gcd(m, n)) * n
 
 // stream all divisors of an integer.
-fn divisors(n : intGte(1)) : stream_vt(int) =
+fn divisors(n : intGte(1)) : stream_vt(intGt(0)) =
   case+ n of
     | 1 => $ldelay(stream_vt_cons(1, $ldelay(stream_vt_nil)))
     | _ => let
-      fun loop { k : nat | k > 0 }{ m : nat | m > 0 } (n : int(k), acc : int(m)) : stream_vt(int) =
+      fun loop { k : nat | k > 0 }{ m : nat | m > 0 } (n : int(k), acc : int(m)) : stream_vt(intGt(0)) =
         if acc >= sqrt_int(n) then
           if n % acc = 0 then
             if n / acc != acc then
-              $ldelay(stream_vt_cons(acc, $ldelay(stream_vt_cons(n / acc, $ldelay(stream_vt_nil)))))
+              let
+                var x: intGt(0) = $UN.cast(n / acc)
+              in
+                $ldelay(stream_vt_cons(acc, $ldelay(stream_vt_cons(x, $ldelay(stream_vt_nil)))))
+              end
             else
               $ldelay(stream_vt_cons(acc, $ldelay(stream_vt_nil)))
           else
             $ldelay(stream_vt_nil)
         else
           if n % acc = 0 then
-            $ldelay(stream_vt_cons(acc, $ldelay(stream_vt_cons(n / acc, (loop(n, acc + 1))))))
+            let
+              var x: intGt(0) = $UN.cast(n / acc)
+            in
+              $ldelay(stream_vt_cons(acc, $ldelay(stream_vt_cons(x, (loop(n, acc + 1))))))
+            end
           else
             loop(n, acc + 1)
     in
@@ -113,11 +121,9 @@ fun jacobi(a : intGte(0), n : Odd) : int =
     loop(2)
   end
 
-// TODO make this O(√n)
 fn count_divisors(n : intGte(1)) : int =
   stream_vt_length(divisors(n))
 
-// TODO make this O(√n)
 fn sum_divisors(n : intGte(1)) : int =
   let
     val x: stream_vt(int) = divisors(n)
@@ -144,26 +150,29 @@ fun rip { n : nat | n > 0 }{ p : nat | p > 0 } .<n>. (n : int(n), p : int(p)) :<
     else
       1
 
-// distinct prime divisors
-fn little_omega(n : intGte(1)) :<!ntm> int =
+fun prime_factors(n : intGte(1)) : stream_vt(int) =
   let
-    fun loop { k : nat | k > 0 }{ m : nat | m > 0 } (n : int(k), acc : int(m)) :<!ntm> int =
+    fun loop { k : nat | k > 0 }{ m : nat | m > 0 } (n : int(k), acc : int(m)) : stream_vt(int) =
       if acc >= n then
         if is_prime(n) then
-          1
+          $ldelay(stream_vt_cons(n, $ldelay(stream_vt_nil)))
         else
-          0
+          $ldelay(stream_vt_nil)
       else
         if n % acc = 0 && is_prime(acc) then
           if n / acc > 0 then
-            1 + loop(rip(n, acc), 1)
+            $ldelay(stream_vt_cons(acc, loop(rip(n, acc), 1)))
           else
-            1
+            $ldelay(stream_vt_cons(acc, $ldelay(stream_vt_nil)))
         else
           loop(n, acc + 1)
   in
     loop(n, 1)
   end
+
+// distinct prime divisors
+fn little_omega(n : intGte(1)) : int =
+  stream_vt_length(prime_factors(n))
 
 // Euler's totient function.
 fn totient(n : intGte(1)) :<> int =
