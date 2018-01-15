@@ -166,13 +166,13 @@ fn little_omega(n : intGte(1)) :<!ntm> int =
   end
 
 // Euler's totient function.
-fn totient(n : intGte(1)) : int =
+fn totient(n : intGte(1)) :<> int =
   case+ n of
     | 1 => 1
     | n =>> 
       begin
         let
-          fnx loop { k : nat | k >= 2 }{ m : nat | m > 0 && k >= m } .<k-m>. (i : int(m), n : int(k)) : int =
+          fnx loop { k : nat | k >= 2 }{ m : nat | m > 0 && k >= m } .<k-m>. (i : int(m), n : int(k)) :<> int =
             if i >= n then
               if is_prime(n) then
                 n - 1

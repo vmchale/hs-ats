@@ -31,7 +31,7 @@ main =
                       [ bench "factorial" $ nfIO (factorial 160)
                       , bench "Ext.factorial" $ nf Ext.factorial (160 :: Integer)
                       ]
-                , bgroup "sumDivisors"
+                , bgroup "σ"
                       [ bench "sumDivisors" $ nf sumDivisors 115
                       , bench "Ext.sigma" $ nf (Ext.sigma 1) (115 :: Int)
                       ]

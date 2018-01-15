@@ -21,6 +21,8 @@ computation of basic combinatorial functions.
 | `φ(2016)` | Haskell | - |
 | `τ(3018)` | ATS | 438.5 ns |
 | `τ(3018)` | Haskell | 726.4 ns |
+| `σ(115)` | ATS | 216.3 ns |
+| `σ(115)` | Haskell | 324.5 ns |
 | `ω(91)` | ATS | 66.59 ns |
 | `ω(91)` | Haskell | 338.6 ns |
 | `160!` | ATS | 4.081 μs |
