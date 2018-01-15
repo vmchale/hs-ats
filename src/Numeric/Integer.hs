@@ -23,8 +23,7 @@ foreign import ccall unsafe is_prime_ats :: CInt -> CUChar
 #endif
 foreign import ccall unsafe fib_ats :: CInt -> Ptr GMPInt
 
--- | Indexed starting at @0@. This function is slower on small values but faster
--- on large values.
+-- | Indexed starting at @0@.
 fibonacci :: Int -> IO Integer
 fibonacci = conjugateGMP fib_ats
 

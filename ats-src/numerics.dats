@@ -1,5 +1,9 @@
 #define ATS_MAINATSFLAG 1
 
+#define ATS_EXTERN_PREFIX "atscntrb_gmp_"
+
+#define ATS_EXTERN_STATIC "_atscntrb_gmp_"
+
 #include "share/atspre_staload.hats"
 #include "contrib/atscntrb-hx-intinf/mylibies.hats"
 #include "contrib/atscntrb-libgmp/mylibies.hats"
@@ -8,14 +12,22 @@ staload "contrib/atscntrb-hx-intinf/SATS/intinf_vt.sats"
 staload "libats/libc/SATS/math.sats"
 staload UN = "prelude/SATS/unsafe.sats"
 
+// Existential types for even and odd numbers. These are only usable with the
+// ATS library.
+typedef Even = [ n : nat ] int(2*n)
+typedef Odd = [ n : nat ] int(2*n+1)
+typedef gprime(tk : tk, p : int) = { m, n : nat | m < 1 && m <= n && n < p && m*n != p && p > 1 } g1int(tk, p)
+typedef prime(p : int) = gprime(int_kind, p)
+typedef Prime = [ p : nat ] prime(p)
+
 fn witness(n : int) :<> [ m : nat ] int(m) =
   $UN.cast(n)
 
 // Fast computation of Fibonacci numbers via GMP bindings.
 fun fib_gmp(n : intGte(0)) : Intinf =
   let
-    val z = ptr_alloc()
-    val x: ulint = g0int2uint_int_ulint(n + 1)
+    var z = ptr_alloc()
+    var x: ulint = g0int2uint_int_ulint(n + 1)
     val () = $GMP.mpz_init(!(z.2))
     val () = $GMP.mpz_fib_uint(!(z.2), x)
   in

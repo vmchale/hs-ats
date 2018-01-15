@@ -8,11 +8,6 @@ staload "contrib/atscntrb-hx-intinf/SATS/intinf_vt.sats"
 
 #define ATS_MAINATSFLAG 1
 
-// Existential types for even and odd numbers. These are only usable with the
-// ATS library.
-typedef Even = [ n : nat ] int(2*n)
-typedef Odd = [ n : nat ] int(2*n+1)
-
 // m | n
 fn divides(m : int, n : int) :<> bool =
   n % m = 0
@@ -27,28 +22,31 @@ fn lcm {k : nat}{l : nat} (m : int(l), n : int(k)) : int =
   (m / gcd(m, n)) * n
 
 // stream all divisors of an integer.
-fn divisors(n : intGte(1)) :<> stream_vt(int) =
-  let
-    fun loop {k : nat}{ m : nat | m > 0 && k >= m } .<k-m>. (n : int(k), acc : int(m)) :<> stream_vt(int) =
-      if acc >= n then
-        $ldelay(stream_vt_cons(acc, $ldelay(stream_vt_nil)))
-      else
-        if n % acc = 0 then
-          $ldelay(stream_vt_cons(acc, loop(n, acc + 1)))
+fn divisors(n : intGte(1)) : stream_vt(int) =
+  case+ n of
+    | 1 => $ldelay(stream_vt_cons(1, $ldelay(stream_vt_nil)))
+    | _ => let
+      fun loop { k : nat | k > 0 }{ m : nat | m > 0 } (n : int(k), acc : int(m)) : stream_vt(int) =
+        if acc >= sqrt_int(n) then
+          if n % acc = 0 then
+            if n / acc != acc then
+              $ldelay(stream_vt_cons(acc, $ldelay(stream_vt_cons(n / acc, $ldelay(stream_vt_nil)))))
+            else
+              $ldelay(stream_vt_cons(acc, $ldelay(stream_vt_nil)))
+          else
+            $ldelay(stream_vt_nil)
         else
-          loop(n, acc + 1)
-  in
-    loop(n, 1)
-  end
+          if n % acc = 0 then
+            $ldelay(stream_vt_cons(acc, $ldelay(stream_vt_cons(n / acc, (loop(n, acc + 1))))))
+          else
+            loop(n, acc + 1)
+    in
+      loop(n, 1)
+    end
 
 // prime divisors of an integer
 fn prime_divisors(n : intGte(1)) : stream_vt(int) =
   stream_vt_filter_cloptr(divisors(n), lam x => is_prime($UN.cast(x)))
-
-// stream_vt_filter_cloptr
-typedef gprime(tk : tk, p : int) = { m, n : nat | m < 1 && m <= n && n < p && m*n != p && p > 1 } g1int(tk, p)
-typedef prime(p : int) = gprime(int_kind, p)
-typedef Prime = [ p : nat ] prime(p)
 
 fn div_gt_zero(n : intGte(0), p : intGt(1)) : intGte(0) =
   $UN.cast(n / p)
@@ -73,7 +71,7 @@ fun exp_mod_prime(a : intGte(0), n : intGte(0), p : intGt(1)) : int =
                 exp_mod_prime(sq_a, n2, p)
               else
                 let
-                  val y = a * exp_mod_prime(sq_a, n2, p)
+                  var y = a * exp_mod_prime(sq_a, n2, p)
                 in
                   y
                 end
@@ -117,38 +115,17 @@ fun jacobi(a : intGte(0), n : Odd) : int =
 
 // TODO make this O(√n)
 fn count_divisors(n : intGte(1)) : int =
-  let
-    fun loop {k : nat}{ m : nat | m > 0 && k >= m } .<k-m>. (n : int(k), acc : int(m)) :<> int =
-      if acc >= n then
-        1
-      else
-        if n % acc = 0 then
-          1 + loop(n, acc + 1)
-        else
-          loop(n, acc + 1)
-  in
-    loop(n, 1)
-  end
+  stream_vt_length(divisors(n))
 
 // TODO make this O(√n)
-fn sum_divisors(n : intGte(1)) :<> int =
-  if n = 1 then
-    1
-  else
-    let
-      fun loop {k : nat}{ m : nat | m > 0 && k >= m } .<k-m>. (n : int(k), acc : int(m)) :<> int =
-        if acc >= n then
-          n
-        else
-          if n % acc = 0 then
-            acc + loop(n, acc + 1)
-          else
-            loop(n, acc + 1)
-    in
-      loop(n, 1)
-    end
+fn sum_divisors(n : intGte(1)) : int =
+  let
+    val x: stream_vt(int) = divisors(n)
+  in
+    stream_vt_foldleft_cloptr(x, 0, lam (acc, next) => g0int_add(acc, next))
+  end
 
-fn is_perfect(n : intGte(1)) :<> bool =
+fn is_perfect(n : intGte(1)) : bool =
   sum_divisors(n) = n
 
 fun rip { n : nat | n > 0 }{ p : nat | p > 0 } .<n>. (n : int(n), p : int(p)) :<> [ r : nat | r <= n && r > 0 ] int(r) =
@@ -217,8 +194,8 @@ fun totient_sum(n : intGte(1)) : Intinf =
     fnx loop { n : nat | n >= 1 }{ m : nat | m >= n } .<m-n>. (i : int(n), bound : int(m)) : Intinf =
       if i < bound then
         let
-          val x = loop(i + 1, bound)
-          val y = add_intinf0_int(x, witness(totient(i)))
+          var x = loop(i + 1, bound)
+          var y = add_intinf0_int(x, witness(totient(i)))
         in
           y
         end

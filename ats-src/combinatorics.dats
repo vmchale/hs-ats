@@ -45,8 +45,8 @@ fnx dfact {n : nat} .<n>. (k : int(n)) : Intinf =
     | 0 => int2intinf(1)
     | 1 => int2intinf(1)
     | k =>> let
-      val x = dfact(k - 2)
-      val y = mul_intinf0_int(x, k)
+      var x = dfact(k - 2)
+      var y = mul_intinf0_int(x, k)
     in
       y
     end
@@ -54,9 +54,9 @@ fnx dfact {n : nat} .<n>. (k : int(n)) : Intinf =
 // Number of permutations on n objects using k at a time.
 fn permutations {n : nat}{ k : nat | k <= n } (n : int(n), k : int(k)) : Intinf =
   let
-    val x = fact(n)
-    val y = fact(n - k)
-    val z = div_intinf0_intinf1(x, y)
+    var x = fact(n)
+    var y = fact(n - k)
+    var z = div_intinf0_intinf1(x, y)
     val _ = intinf_free(y)
   in
     z
@@ -69,8 +69,8 @@ fn catalan {n : nat} (n : int(n)) : Intinf =
       case+ i of
         | 2 => int2intinf(n + 2)
         | i =>> let
-          val x = numerator_loop(i - 1)
-          val y = mul_intinf0_int(x, n + i)
+          var x = numerator_loop(i - 1)
+          var y = mul_intinf0_int(x, n + i)
         in
           $UN.castvwtp0(y)
         end
@@ -79,9 +79,9 @@ fn catalan {n : nat} (n : int(n)) : Intinf =
       | 0 => int2intinf(1)
       | 1 => int2intinf(1)
       | k =>> let
-        val x = numerator_loop(k)
-        val y = fact(k)
-        val z = div_intinf0_intinf1(x, y)
+        var x = numerator_loop(k)
+        var y = fact(k)
+        var z = div_intinf0_intinf1(x, y)
         val _ = intinf_free(y)
       in
         $UN.castvwtp0(z)
@@ -96,8 +96,8 @@ fn choose {n : nat}{ m : nat | m <= n } (n : int(n), k : int(m)) : Intinf =
         | 1 => int2intinf(n)
         | 2 => $UN.castvwtp0(int2intinf((n - 1) * n))
         | i =>> let
-          val x = numerator_loop(i - 1)
-          val y = mul_intinf0_int(x, n + 1 - i)
+          var x = numerator_loop(i - 1)
+          var y = mul_intinf0_int(x, n + 1 - i)
         in
           $UN.castvwtp0(y)
         end
@@ -106,9 +106,9 @@ fn choose {n : nat}{ m : nat | m <= n } (n : int(n), k : int(m)) : Intinf =
       | 0 => int2intinf(1)
       | 1 => int2intinf(n)
       | k =>> let
-        val x = numerator_loop(k)
-        val y = fact(k)
-        val z = div_intinf0_intinf1(x, y)
+        var x = numerator_loop(k)
+        var y = fact(k)
+        var z = div_intinf0_intinf1(x, y)
         val _ = intinf_free(y)
       in
         $UN.castvwtp0(z)
