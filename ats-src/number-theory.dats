@@ -124,12 +124,22 @@ fun jacobi(a : intGte(0), n : Odd) : int =
 fn count_divisors(n : intGte(1)) : int =
   stream_vt_length(divisors(n))
 
-fn sum_divisors(n : intGte(1)) : int =
-  let
-    val x: stream_vt(int) = divisors(n)
-  in
-    stream_vt_foldleft_cloptr(x, 0, lam (acc, next) => g0int_add(acc, next))
-  end
+fn sum_divisors(n : intGte(1)) :<> int =
+  if n = 1 then
+    1
+  else
+    let
+      fun loop {k : nat}{ m : nat | m > 0 && k >= m } .<k-m>. (n : int(k), acc : int(m)) :<> int =
+        if acc >= n then
+          n
+        else
+          if n % acc = 0 then
+            acc + loop(n, acc + 1)
+          else
+            loop(n, acc + 1)
+    in
+      loop(n, 1)
+    end
 
 fn is_perfect(n : intGte(1)) : bool =
   sum_divisors(n) = n
@@ -172,35 +182,55 @@ fun prime_factors(n : intGte(1)) : stream_vt(int) =
 
 // distinct prime divisors
 fn little_omega(n : intGte(1)) : int =
-  stream_vt_length(prime_factors(n))
+  let
+    fun loop { k : nat | k > 0 }{ m : nat | m > 0 } (n : int(k), acc : int(m)) :<!ntm> int =
+      if acc >= n then
+        if is_prime(n) then
+          1
+        else
+          0
+      else
+        if n % acc = 0 && is_prime(acc) then
+          if n / acc > 0 then
+            1 + loop(rip(n, acc), 1)
+          else
+            1
+        else
+          loop(n, acc + 1)
+  in
+    loop(n, 1)
+  end
 
 // Euler's totient function.
-fn totient(n : intGte(1)) :<> int =
+fn totient(n : intGt(1)) : int =
   case+ n of
     | 1 => 1
     | n =>> 
       begin
         let
-          fnx loop { k : nat | k >= 2 }{ m : nat | m > 0 && k >= m } .<k-m>. (i : int(m), n : int(k)) :<> int =
-            if i >= n then
+          fnx loop { k : nat | k >= 0 }{ m : nat | m > 0 } (i : int(m), k : int(k)) : int =
+            if i >= k then
               if is_prime(n) then
-                n - 1
+                k - 1
               else
-                n
+                k
             else
-              if n % i = 0 && is_prime(i) && i != n then
-                (loop(i + 1, n) / i) * (i - 1)
+              if k % i = 0 && is_prime(i) && i != k then
+                if i / k > 0 then
+                  (loop(1, i / k) / i * (i - 1))
+                else
+                  loop(i + 1, k) / i * (i - 1)
               else
-                loop(i + 1, n)
+                loop(i + 1, k)
         in
           loop(1, n)
         end
       end
 
-// The sum of all φ(m) for m between 1 and n 
-fun totient_sum(n : intGte(1)) : Intinf =
+// The sum of all φ(m) for m between 2 and n 
+fun totient_sum(n : intGte(2)) : Intinf =
   let
-    fnx loop { n : nat | n >= 1 }{ m : nat | m >= n } .<m-n>. (i : int(n), bound : int(m)) : Intinf =
+    fnx loop { n : nat | n > 1 }{ m : nat | m >= n } .<m-n>. (i : int(n), bound : int(m)) : Intinf =
       if i < bound then
         let
           var x = loop(i + 1, bound)
@@ -211,7 +241,7 @@ fun totient_sum(n : intGte(1)) : Intinf =
       else
         int2intinf(witness(totient(i)))
   in
-    loop(1, n)
+    loop(2, n)
   end
 
 extern
