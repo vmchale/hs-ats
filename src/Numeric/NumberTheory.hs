@@ -29,16 +29,6 @@ foreign import ccall unsafe is_perfect_ats :: CInt -> CBool
 foreign import ccall unsafe is_perfect_ats :: CInt -> CUChar
 #endif
 
--- | The Jacobi symbol (a/n) (see
--- [here](http://mathworld.wolfram.com/JacobiSymbol.html)) for more.
---
--- This function is somewhat experimental, and improvements to
--- performance are expected.
-jacobi :: Int -- ^ a
-       -> Int -- ^ n
-       -> Int
-jacobi = conjugateTwo jacobi_ats
-
 -- | See [here](http://mathworld.wolfram.com/PerfectNumber.html)
 isPerfect :: Int -> Bool
 isPerfect = asTest is_perfect_ats
