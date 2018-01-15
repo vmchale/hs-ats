@@ -22,27 +22,31 @@ fn lcm {k : nat}{l : nat} (m : int(l), n : int(k)) : int =
   (m / gcd(m, n)) * n
 
 // stream all divisors of an integer.
-fn divisors(n : intGte(1)) : stream_vt(intGt(0)) =
+fn divisors(n : intGte(1)) : stream_vt(int) =
   case+ n of
     | 1 => $ldelay(stream_vt_cons(1, $ldelay(stream_vt_nil)))
     | _ => let
-      fun loop { k : nat | k > 0 }{ m : nat | m > 0 } (n : int(k), acc : int(m)) : stream_vt(intGt(0)) =
+      fun loop { k : nat | k > 0 }{ m : nat | m > 0 } (n : int(k), acc : int(m)) : stream_vt(int) =
         if acc >= sqrt_int(n) then
           if n % acc = 0 then
             if n / acc != acc then
               let
-                var x: intGt(0) = $UN.cast(n / acc)
+                var x: int = n / acc
               in
                 $ldelay(stream_vt_cons(acc, $ldelay(stream_vt_cons(x, $ldelay(stream_vt_nil)))))
               end
             else
-              $ldelay(stream_vt_cons(acc, $ldelay(stream_vt_nil)))
+              let
+                
+              in
+                $ldelay(stream_vt_cons(acc, $ldelay(stream_vt_nil)))
+              end
           else
             $ldelay(stream_vt_nil)
         else
           if n % acc = 0 then
             let
-              var x: intGt(0) = $UN.cast(n / acc)
+              var x: int = n / acc
             in
               $ldelay(stream_vt_cons(acc, $ldelay(stream_vt_cons(x, (loop(n, acc + 1))))))
             end
@@ -124,24 +128,23 @@ fun jacobi(a : intGte(0), n : Odd) : int =
 fn count_divisors(n : intGte(1)) : int =
   stream_vt_length(divisors(n))
 
-fn sum_divisors(n : intGte(1)) :<> int =
-  if n = 1 then
-    1
-  else
-    let
-      fun loop {k : nat}{ m : nat | m > 0 && k >= m } .<k-m>. (n : int(k), acc : int(m)) :<> int =
-        if acc >= n then
-          n
-        else
-          if n % acc = 0 then
-            acc + loop(n, acc + 1)
-          else
-            loop(n, acc + 1)
-    in
-      loop(n, 1)
-    end
+vtypedef pair = @{ first = int, second = int }
 
-fn is_perfect(n : intGte(1)) : bool =
+fn sum_divisors(n : intGt(1)) : int =
+  let
+    var x: stream_vt(int) = divisors(n)
+    
+    fun loop(xs : stream_vt(int), acc : int) : (int, stream_vt(int)) =
+      case+ !xs of
+        | ~stream_vt_nil() => (acc, $ldelay(stream_vt_nil))
+        | ~stream_vt_cons (x, xs) => loop(xs, acc + x)
+    
+    val (i, _) = loop(x, 0)
+  in
+    n + i
+  end
+
+fn is_perfect(n : intGt(1)) : bool =
   sum_divisors(n) = n
 
 fun rip { n : nat | n > 0 }{ p : nat | p > 0 } .<n>. (n : int(n), p : int(p)) :<> [ r : nat | r <= n && r > 0 ] int(r) =
@@ -200,8 +203,6 @@ fn little_omega(n : intGte(1)) : int =
   in
     loop(n, 1)
   end
-
-vtypedef pair = @{ first = int, second = int }
 
 // Euler's totient function.
 fn totient(n : intGte(1)) : int =

@@ -16,7 +16,7 @@ fun little_omega_ats { n : nat | n > 0 } : int(n) -> int =
   "mac#"
 
 extern
-fun sum_divisors_ats : { n : nat | n >= 1 } int(n) -> int =
+fun sum_divisors_ats : { n : nat | n > 1 } int(n) -> int =
   "mac#"
 
 extern
@@ -24,7 +24,7 @@ fun jacobi_ats : (intGte(0), Odd) -> int =
   "mac#"
 
 extern
-fun is_perfect_ats : intGte(1) -> bool =
+fun is_perfect_ats : intGt(1) -> bool =
   "mac#"
 
 implement sum_divisors_ats (m) =

@@ -12,7 +12,6 @@ module Numeric.NumberTheory ( totient
                             , littleOmega
                             , isPerfect
                             , sumDivisors
-                            , jacobi
                             ) where
 
 import           Foreign.C
@@ -22,7 +21,6 @@ foreign import ccall unsafe totient_ats :: CInt -> CInt
 foreign import ccall unsafe count_divisors_ats :: CInt -> CInt
 foreign import ccall unsafe sum_divisors_ats :: CInt -> CInt
 foreign import ccall unsafe little_omega_ats :: CInt -> CInt
-foreign import ccall unsafe jacobi_ats :: CInt -> CInt -> CInt
 #if __GLASGOW_HASKELL__ >= 820
 foreign import ccall unsafe is_perfect_ats :: CInt -> CBool
 #else
@@ -31,11 +29,13 @@ foreign import ccall unsafe is_perfect_ats :: CInt -> CUChar
 
 -- | See [here](http://mathworld.wolfram.com/PerfectNumber.html)
 isPerfect :: Int -> Bool
-isPerfect = asTest is_perfect_ats
+isPerfect 1 = True
+isPerfect x = asTest is_perfect_ats x
 
 -- | Sum of proper divisors.
 sumDivisors :: Int -> Int
-sumDivisors = conjugate sum_divisors_ats
+sumDivisors 1 = 1
+sumDivisors x = conjugate sum_divisors_ats x
 
 -- Number of distinct prime factors
 littleOmega :: Int -> Int
