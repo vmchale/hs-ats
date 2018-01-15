@@ -234,6 +234,3 @@ fun totient_sum(n : intGte(1)) : Intinf =
   in
     loop(1, n)
   end
-
-extern
-fun chinese_remainder {n : nat} (residues : list_vt(int, n), moduli : list_vt(int, n)) : Option_vt(int)
