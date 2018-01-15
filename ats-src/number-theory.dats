@@ -201,17 +201,21 @@ fn little_omega(n : intGte(1)) : int =
     loop(n, 1)
   end
 
+vtypedef pair = @{ first = int, second = int }
+
+fn adjust_contents(x : pair, y : int) : pair =
+  @{ first = g0int_mul(x.first, y - 1), second = g0int_mul(x.second, y) }
+
 // Euler's totient function.
 fn totient(n : intGte(1)) : int =
   case+ n of
     | 1 => 1
     | n =>> let
-      var x1: stream_vt(int) = prime_factors(n)
-      var x2: stream_vt(int) = prime_factors(n)
-      var y: int = stream_vt_foldleft_cloptr(x1, 1, lam (acc, next) => g0int_mul(acc, (next - 1)))
-      var z: int = stream_vt_foldleft_cloptr(x2, 1, lam (acc, next) => g0int_mul(acc, next))
+      var x: stream_vt(int) = prime_factors(n)
+      var empty_pair = @{ first = 1, second = 1 } : pair
+      var y = stream_vt_foldleft_cloptr(x, empty_pair, lam (acc, next) => adjust_contents(acc, next)) : pair
     in
-      g0int_div(g0int_mul(n, y), z)
+      g0int_div(g0int_mul(n, y.first), y.second)
     end
 
 // The sum of all φ(m) for m between 1 and n 
