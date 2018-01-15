@@ -132,16 +132,30 @@ vtypedef pair = @{ first = int, second = int }
 
 fn sum_divisors(n : intGt(1)) : int =
   let
-    var x: stream_vt(int) = divisors(n)
-    
-    fun loop(xs : stream_vt(int), acc : int) : (int, stream_vt(int)) =
-      case+ !xs of
-        | ~stream_vt_nil() => (acc, $ldelay(stream_vt_nil))
-        | ~stream_vt_cons (x, xs) => loop(xs, acc + x)
-    
-    val (i, _) = loop(x, 0)
+    fun loop { k : nat | k > 0 }{ m : nat | m > 0 } (n : int(k), acc : int(m)) : int =
+      if acc >= sqrt_int(n) then
+        if n % acc = 0 then
+          if n / acc != acc then
+            let
+              var x: int = n / acc
+            in
+              acc + x
+            end
+          else
+            acc
+        else
+          0
+      else
+        if n % acc = 0 then
+          let
+            var x: int = n / acc
+          in
+            acc + x + loop(n, acc + 1)
+          end
+        else
+          loop(n, acc + 1)
   in
-    n + i
+    loop(n, 1)
   end
 
 fn is_perfect(n : intGt(1)) : bool =
