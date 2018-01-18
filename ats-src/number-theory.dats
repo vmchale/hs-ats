@@ -130,7 +130,7 @@ fn count_divisors(n : intGte(1)) : int =
 
 vtypedef pair = @{ first = int, second = int }
 
-fn sum_divisors(n : intGt(1)) : int =
+fn sum_divisors(n : intGte(1)) : int =
   let
     fun loop { k : nat | k > 0 }{ m : nat | m > 0 } (n : int(k), acc : int(m)) : int =
       if acc >= sqrt_int(n) then
