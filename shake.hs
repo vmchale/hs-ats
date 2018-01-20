@@ -15,6 +15,7 @@ import           System.FilePath.Posix
 replace :: Eq a => [a] -> [a] -> [a] -> [a]
 replace old new = intercalate new . splitOn old
 
+-- TODO: shakeArgsWith?
 main :: IO ()
 main = shakeArgs shakeOptions { shakeFiles = ".shake"
                               , shakeProgress = progressSimple
@@ -48,10 +49,5 @@ main = shakeArgs shakeOptions { shakeFiles = ".shake"
         cmd ["cp", "-f", ".shake/build", "."]
 
     cgenPretty
-
-    "poly" ~> do
-        cmd_ ["sn", "c"]
-        removeFilesAfter "." ["//*.c", "tags"]
-        cmd ["poly", "src", "Setup.hs", "test", "bench", "shake.hs", "ats-src/"]
 
     cleanATS
