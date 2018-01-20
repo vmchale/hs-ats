@@ -1,12 +1,14 @@
 #!/usr/bin/env stack
--- stack runghc --resolver lts-10.3 --package shake --package split --install-ghc
+-- stack runghc --resolver lts-10.3 --package shake --package split --package shake-ext-0.2.1.0 --install-ghc
 
 import           Data.List                  (intercalate)
 import           Data.List.Split            (splitOn)
 import           Data.Maybe                 (fromMaybe)
 import           Data.Monoid
 import           Development.Shake
+import           Development.Shake.ATS
 import           Development.Shake.FilePath
+import           Development.Shake.Linters
 import           System.Exit                (ExitCode (..))
 import           System.FilePath.Posix
 
@@ -31,12 +33,9 @@ main = shakeArgs shakeOptions { shakeFiles = ".shake"
         cmd_ ["cabal", "new-build", "-w", "ghc-8.0.2"]
         cmd_ ["cabal", "new-build", "-w", "ghc-7.10.3"]
         cmd_ ["cabal", "new-build", "-w", "ghc-7.8.4"]
+        tomlcheck
+        yamllint
         cmd_ ["hlint", "bench", "src", "test/", "Setup.hs", "shake.hs"]
-        cmd_ ["tomlcheck", "--file", ".atsfmt.toml"]
-        cmd_ ["yamllint", ".travis.yml"]
-        cmd_ ["yamllint", ".hlint.yaml"]
-        cmd_ ["yamllint", ".stylish-haskell.yaml"]
-        cmd_ ["yamllint", ".yamllint"]
         cmd_ ["stack", "build", "--test", "--bench", "--no-run-tests", "--no-run-benchmarks"]
         cmd_ ["cabal", "new-haddock"]
         cmd_ ["weeder"]
@@ -48,17 +47,7 @@ main = shakeArgs shakeOptions { shakeFiles = ".shake"
         command_ [Cwd ".shake"] "ghc-8.2.2" ["-O", "shake.hs", "-o", "build", "-threaded", "-rtsopts", "-with-rtsopts=-I0 -qg -qb"]
         cmd ["cp", "-f", ".shake/build", "."]
 
-    "//*.c" %> \out -> do
-        let patshome = "/usr/local/lib/ats2-postiats-0.3.8"
-        let preSource = dropDirectory1 out
-        let sourcePlain = preSource -<.> "dats"
-        let sourceFile = replace ".dats" "-ffi.dats" sourcePlain
-        need (("ats-src/" ++) <$> [sourceFile, sourcePlain])
-        (Exit c, Stderr err) <- command [EchoStderr False, AddEnv "PATSHOME" patshome] "patsopt" ["--output", out, "-dd", "ats-src/" ++ sourceFile, "-cc"]
-        cmd_ [Stdin err] Shell "pats-filter" -- TODO automatically build compiler?
-        if c /= ExitSuccess
-            then error "patscc failure"
-            else pure ()
+    cgenPretty
 
     "poly" ~> do
         cmd_ ["sn", "c"]
