@@ -45,8 +45,8 @@ script:
   - curl -sL https://raw.githubusercontent.com/vmchale/tomlcheck/master/sh/check | sh -s .atsfmt.toml
   - curl -sL https://raw.github.com/ndmitchell/hlint/master/misc/travis.sh | sh -s shake.hs
   - mkdir cbits
-  - patsopt --output cbits/combinatorics.c -dd ats-src/combinatorics-ffi.dats -cc
-  - patsopt --output cbits/numerics.c -dd ats-src/numerics-ffi.dats -cc
-  - patsopt --output cbits/number-theory.c -dd ats-src/number-theory-ffi.dats -cc
+  - patsopt --output cbits/combinatorics.c -dd ats-src/combinatorics.dats -cc
+  - patsopt --output cbits/numerics.c -dd ats-src/numerics.dats -cc
+  - patsopt --output cbits/number-theory.c -dd ats-src/number-theory.dats -cc
   - cabal new-build
   - cabal new-test

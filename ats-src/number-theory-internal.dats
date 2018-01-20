@@ -1,5 +1,5 @@
 #include "share/atspre_staload.hats"
-#include "ats-src/numerics.dats"
+#include "ats-src/numerics-internal.dats"
 #include "contrib/atscntrb-hx-intinf/mylibies.hats"
 
 staload "prelude/SATS/integer.sats"
