@@ -54,8 +54,4 @@ main = shakeArgs shakeOptions { shakeFiles = ".shake"
         removeFilesAfter "." ["//*.c", "tags"]
         cmd ["poly", "src", "Setup.hs", "test", "bench", "shake.hs", "ats-src/"]
 
-    "clean" ~> do
-        cmd_ ["sn", "c"]
-        removeFilesAfter "." ["//*.c", "//tags"]
-        removeFilesAfter ".shake" ["//*"]
-        removeFilesAfter "ats-deps" ["//*"]
+    cleanATS
