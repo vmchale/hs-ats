@@ -1,6 +1,3 @@
-#!/usr/bin/env stack
--- stack runghc --resolver lts-10.3 --package shake --package split --package shake-ext-0.2.0.2 --install-ghc
-
 import           Data.List                  (intercalate)
 import           Data.List.Split            (splitOn)
 import           Data.Maybe                 (fromMaybe)
@@ -34,8 +31,7 @@ main = shakeArgs shakeOptions { shakeFiles = ".shake"
         cmd_ ["cabal", "new-build", "-w", "ghc-8.0.2"]
         cmd_ ["cabal", "new-build", "-w", "ghc-7.10.3"]
         cmd_ ["cabal", "new-build", "-w", "ghc-7.8.4"]
-        tomlcheck
-        yamllint
+        sequence_ [ tomlcheck, yamllint ]
         cmd_ ["hlint", "bench", "src", "test/", "Setup.hs", "shake.hs"]
         cmd_ ["stack", "build", "--test", "--bench", "--no-run-tests", "--no-run-benchmarks"]
         cmd_ ["cabal", "new-haddock"]
@@ -48,6 +44,6 @@ main = shakeArgs shakeOptions { shakeFiles = ".shake"
         command_ [Cwd ".shake"] "ghc-8.2.2" ["-O", "shake.hs", "-o", "build", "-threaded", "-rtsopts", "-with-rtsopts=-I0 -qg -qb"]
         cmd ["cp", "-f", ".shake/build", "."]
 
-    cgenPretty
+    cgenPretty (Version [0,3,8]) "ats-src"
 
     cleanATS
