@@ -4,6 +4,7 @@ cache:
   directories:
     - $HOME/.ghc
     - $HOME/.cabal
+    - $HOME/.atspkg
     - /usr/local/lib/ats2-postiats-0.3.8/
     - /usr/local/bin
 addons:
@@ -26,15 +27,10 @@ before_install:
   - cabal update
   - pip install yamllint
 
-# FIXME only install patscc if it doesn't exist
-# - if [ -x patscc ]
 install:
-  - wget http://ats-lang.sourceforge.net/IMPLEMENT/Postiats/ATS2-Postiats-0.3.8.tgz
-  - tar xvf ATS2-Postiats-0.3.8.tgz
-  - cd ATS2-Postiats-0.3.8 && ./configure && make && sudo make install
-  - cd ../
-  - rm -rf ATS2-Postiats-0.3.8
-  - cabal new-build --dependencies-only
+  - export PATH=$HOME/.local/bin:$PATH
+  - curl -sSl https://raw.githubusercontent.com/vmchale/atspkg/master/bash/install.sh | bash -s
+  - atspkg -v
 
 script:
   - pip install yamllint
@@ -43,10 +39,5 @@ script:
   - yamllint .hlint.yaml
   - yamllint .yamllint
   - curl -sL https://raw.githubusercontent.com/vmchale/tomlcheck/master/sh/check | sh -s .atsfmt.toml
-  - curl -sL https://raw.github.com/ndmitchell/hlint/master/misc/travis.sh | sh -s shake.hs
-  - mkdir cbits
-  - patsopt --output cbits/combinatorics.c -dd ats-src/combinatorics.dats -cc
-  - patsopt --output cbits/numerics.c -dd ats-src/numerics.dats -cc
-  - patsopt --output cbits/number-theory.c -dd ats-src/number-theory.dats -cc
-  - cabal new-build
+  - atspkg build
   - cabal new-test
