@@ -16,6 +16,7 @@ extra-source-files:  ats-deps/prelude/ATS2-Postiats-include-0.3.8/ccomp/runtime/
                    , cabal.project.local
                    , shake.hs
                    , ats-deps/contrib/atscntrb-libgmp/CATS/gmp.cats
+                   , atspkg.dhall
 extra-doc-files:     README.md
 cabal-version:       >= 1.18
 
@@ -51,14 +52,7 @@ library
                      , Numeric.Combinatorics
                      , Data.GMP
   other-modules:       Numeric.Common
-  if impl(ghc < 7.10)
-    build-depends:     base >= 4.7 && < 5
-                     , composition-prelude
-                     , recursion-schemes
-                     , foundation < 0.0.18
-                     , memory < 0.14.11
-  else
-    build-depends:     base >= 4.7 && < 5
+  build-depends:       base >= 4.7 && < 5
                      , composition-prelude
                      , recursion-schemes
   default-language:    Haskell2010
