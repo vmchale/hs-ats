@@ -39,16 +39,11 @@ more.
 
 The Haskell library comes with the C bundled, however you will likely want to build from
 source if you are hacking on the library. To that end, you can install
-[stack](http://haskellstack.org/), [patsopt](http://www.ats-lang.org/Downloads.html), and
-[pats-filter](https://github.com/Hibou57/PostiATS-Utilities) and build with
+[atspkg](http://hackage.haskell.org/package/ats-pkg), and build with
 
 ```bash
- $ ./shake.hs
+ $ atspkg build
 ```
-
-You will also likely want to install
-[GHC](https://www.haskell.org/ghc/download.html) as well as
-[cabal](https://www.haskell.org/cabal/).
 
 ## Documentation
 
