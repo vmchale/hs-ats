@@ -39,5 +39,5 @@ script:
   - yamllint .hlint.yaml
   - yamllint .yamllint
   - curl -sL https://raw.githubusercontent.com/vmchale/tomlcheck/master/sh/check | sh -s .atsfmt.toml
-  - atspkg build
+  - time atspkg build
   - cabal new-test
