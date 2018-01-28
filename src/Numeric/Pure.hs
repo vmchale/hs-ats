@@ -1,5 +1,3 @@
-{-# LANGUAGE CPP #-}
-
 -- | Pure Haskell functions. These tend to be more general than the equivalents
 -- in ATS.
 module Numeric.Pure ( -- * Useful functions
@@ -8,10 +6,6 @@ module Numeric.Pure ( -- * Useful functions
                     , hsIsPrime
                     , hsFibonacci
                     ) where
-
-#if __GLASGOW_HASKELL__ <= 784
-import           Control.Applicative
-#endif
 
 {-# SPECIALIZE hsIsPrime :: Int -> Bool #-}
 

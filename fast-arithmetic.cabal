@@ -1,5 +1,5 @@
 name:                fast-arithmetic
-version:             0.3.2.1
+version:             0.3.2.4
 synopsis:            Fast functions on integers.
 description:         Fast functions for number theory and combinatorics with a high level of safety guaranteed by [ATS](http://www.ats-lang.org/). This package also provides a
                      'Storable' instance for GMP's @mpz@ type.
@@ -28,7 +28,7 @@ Flag development {
 custom-setup
   ghc-options:     -threaded -rtsopts -with-rtsopts=-N
   setup-depends:   base
-                 , ats-setup
+                 , ats-setup >= 0.1.0.2
                  , Cabal
 
 library
@@ -46,13 +46,12 @@ library
                      , Numeric.Combinatorics
                      , Data.GMP
   other-modules:       Numeric.Common
-  build-depends:       base >= 4.8 && < 5
+  build-depends:       base >= 4.10 && < 5
                      , composition-prelude
                      , recursion-schemes
   default-language:    Haskell2010
   if flag(development)
-    if impl(ghc >= 8.0)
-      ghc-options:       -Werror
+    ghc-options:       -Werror
   if impl(ghc >= 8.0)
     ghc-options:       -Wincomplete-uni-patterns -Wincomplete-record-updates -Wcompat
   ghc-options:         -Wall -optc-mtune=native -optc-flto -optc-O3

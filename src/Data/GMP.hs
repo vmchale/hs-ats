@@ -1,5 +1,3 @@
-{-# LANGUAGE CPP #-}
-
 {-|
 Module      : Data.GMP
 Copyright   : Copyright (c) 2017 Vanessa McHale
@@ -14,9 +12,6 @@ module Data.GMP ( GMPInt (..)
                 , conjugateGMP
                 ) where
 
-#if __GLASGOW_HASKELL__ <= 784
-import           Control.Applicative
-#endif
 import           Control.Monad         ((<=<))
 import           Data.Functor.Foldable
 import           Data.Word

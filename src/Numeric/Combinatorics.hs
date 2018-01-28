@@ -1,6 +1,6 @@
 {-|
 Module      : Numeric.Combinatorics
-Copyright   : Copyright (c) 2017 Vanessa McHale
+Copyright   : Copyright (c) 2018 Vanessa McHale
 
 This provides a few facilities for working with common combinatorial
 functions.

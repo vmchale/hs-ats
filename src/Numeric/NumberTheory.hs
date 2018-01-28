@@ -1,8 +1,6 @@
-{-# LANGUAGE CPP #-}
-
 {-|
 Module      : Numeric.NumberTheory
-Copyright   : Copyright (c) 2017 Vanessa McHale
+Copyright   : Copyright (c) 2018 Vanessa McHale
 
 This module provides fast number theoretic functions when possible.
 -}
@@ -21,11 +19,7 @@ foreign import ccall unsafe totient_ats :: CInt -> CInt
 foreign import ccall unsafe count_divisors_ats :: CInt -> CInt
 foreign import ccall unsafe sum_divisors_ats :: CInt -> CInt
 foreign import ccall unsafe little_omega_ats :: CInt -> CInt
-#if __GLASGOW_HASKELL__ >= 820
 foreign import ccall unsafe is_perfect_ats :: CInt -> CBool
-#else
-foreign import ccall unsafe is_perfect_ats :: CInt -> CUChar
-#endif
 
 -- | See [here](http://mathworld.wolfram.com/PerfectNumber.html)
 isPerfect :: Int -> Bool
