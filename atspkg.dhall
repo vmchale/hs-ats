@@ -7,5 +7,4 @@ in pkg //
                    , https://raw.githubusercontent.com/vmchale/atspkg/master/pkgs/atscntrb-libgmp-1.0.4.dhall
                    ]
   , atsSource = [ "ats-src/combinatorics.dats", "ats-src/number-theory.dats", "ats-src/numerics.dats" ]
-  , cDir = "cbits"
   }
