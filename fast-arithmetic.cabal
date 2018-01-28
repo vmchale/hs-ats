@@ -1,5 +1,5 @@
 name:                fast-arithmetic
-version:             0.3.2.0
+version:             0.3.2.1
 synopsis:            Fast functions on integers.
 description:         Fast functions for number theory and combinatorics with a high level of safety guaranteed by [ATS](http://www.ats-lang.org/). This package also provides a
                      'Storable' instance for GMP's @mpz@ type.
@@ -14,7 +14,6 @@ build-type:          Custom
 extra-source-files:  ats-deps/prelude/ATS2-Postiats-include-0.3.8/ccomp/runtime/pats_ccomp_config.h
                    , ats-src/*.dats
                    , cabal.project.local
-                   , shake.hs
                    , ats-deps/contrib/atscntrb-libgmp/CATS/gmp.cats
                    , atspkg.dhall
 extra-doc-files:     README.md
