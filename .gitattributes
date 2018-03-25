@@ -1,1 +1,1 @@
-cbits/hs-ats-ffi.c linguist-generated=true
+fast-arithmetic/cbits/*.c linguist-generated=true

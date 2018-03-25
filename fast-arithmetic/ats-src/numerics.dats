@@ -1,10 +1,15 @@
-#define ATS_MAINATSFLAG 1
+#define ATS_DYNLOADFLAG 0
 
 #include "share/atspre_staload.hats"
 #include "ats-src/numerics-internal.dats"
-#include "contrib/atscntrb-hx-intinf/mylibies.hats"
+#include "$PATSHOMELOCS/atscntrb-libgmp/mylibies.hats"
 
 staload "contrib/atscntrb-hx-intinf/SATS/intinf_vt.sats"
+staload "contrib/atscntrb-libgmp/SATS/gmp.sats"
+
+extern
+fun mpz_free : (&mpz >> mpz?) -> void =
+  "mac#"
 
 extern
 fun is_prime_ats { n : nat | n > 0 } : int(n) -> bool =
@@ -26,3 +31,6 @@ implement exp_ats (m, n) =
 
 implement fib_ats (m) =
   fib_gmp(m)
+
+implement mpz_free (x) =
+  mpz_clear(x)

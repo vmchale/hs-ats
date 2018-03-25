@@ -38,6 +38,7 @@ script:
   - yamllint .stylish-haskell.yaml
   - yamllint .hlint.yaml
   - yamllint .yamllint
-  - curl -sL https://raw.githubusercontent.com/vmchale/tomlcheck/master/sh/check | sh -s .atsfmt.toml
+  - curl -sL https://raw.githubusercontent.com/vmchale/tomlcheck/master/sh/check | sh -s fast-arithmetic/.atsfmt.toml
+  - cd fast-arithmetic
   - time atspkg build
   - cabal new-test

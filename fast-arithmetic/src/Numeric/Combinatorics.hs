@@ -13,10 +13,12 @@ module Numeric.Combinatorics ( choose
                              ) where
 
 import           Control.Composition
+import           Control.Monad
 import           Data.GMP
 import           Foreign.C
 import           Foreign.Ptr
 import           Foreign.Storable
+import           System.IO.Unsafe    (unsafePerformIO)
 
 foreign import ccall unsafe double_factorial_ats :: CInt -> Ptr GMPInt
 foreign import ccall unsafe factorial_ats :: CInt -> Ptr GMPInt
@@ -28,16 +30,16 @@ foreign import ccall unsafe catalan_ats :: CInt -> Ptr GMPInt
 --
 -- > λ:> mapM catalan [0..9]
 -- > [1,1,2,5,14,42,132,429,1430,4862]
-catalan :: Int -> IO Integer
-catalan = conjugateGMP catalan_ats
+catalan :: Int -> Integer
+catalan = unsafePerformIO . conjugateGMP catalan_ats
 
--- | See [here](http://mathworld.wolfram.com/BinomialCoefficient.html).
-choose :: Int -> Int -> IO Integer
-choose = (gmpToInteger <=<) . (peek .* on choose_ats fromIntegral)
+-- | \( \binom{n}{k} \)
+choose :: Int -> Int -> Integer
+choose = unsafePerformIO .* (gmpToInteger <=<) . (peek .* on choose_ats fromIntegral)
 
-factorial :: Int -> IO Integer
-factorial = conjugateGMP factorial_ats
+factorial :: Int -> Integer
+factorial = unsafePerformIO . conjugateGMP factorial_ats
 
 -- | See [here](http://mathworld.wolfram.com/DoubleFactorial.html).
-doubleFactorial :: Int -> IO Integer
-doubleFactorial = conjugateGMP double_factorial_ats
+doubleFactorial :: Int -> Integer
+doubleFactorial = unsafePerformIO . conjugateGMP double_factorial_ats

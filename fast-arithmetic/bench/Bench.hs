@@ -28,7 +28,7 @@ main =
                       , bench "Ext.smallOmega" $ nf (Ext.smallOmega :: Int -> Int) 91
                       ]
                 , bgroup "factorial"
-                      [ bench "factorial" $ nfIO (factorial 160)
+                      [ bench "factorial" $ nf factorial 160
                       , bench "Ext.factorial" $ nf Ext.factorial (160 :: Integer)
                       ]
                 , bgroup "σ"
@@ -36,23 +36,19 @@ main =
                       , bench "Ext.sigma" $ nf (Ext.sigma 1) (115 :: Int)
                       ]
                 , bgroup "doubleFactorial"
-                      [ bench "doubleFactorial" $ nfIO (doubleFactorial 79)
+                      [ bench "doubleFactorial" $ nf doubleFactorial 79
                       , bench "Ext.doubleFactorial" $ nf Ext.doubleFactorial (79 :: Integer)
                       ]
                 , bgroup "choose"
-                      [ bench "choose" $ nfIO (choose 322 16)
+                      [ bench "choose" $ nf (choose 322) 16
                       , bench "Ext.binomial" $ nf (Ext.binomial 322) (16 :: Int)
                       ]
                 , bgroup "catalan"
-                      [ bench "catalan" $ nfIO (catalan 300)
+                      [ bench "catalan" $ nf catalan 300
                       , bench "Ext.catalan" $ nf Ext.catalan (300 :: Int)
                       ]
-                {- , bgroup "jacobi" -}
-                      {- [ bench "jacobi" $ whnf (jacobi 80) 111 -}
-                      {- , bench "Ext.jacobi" $ whnf ((Ext.jacobi :: Int -> Int -> Ext.JacobiSymbol) 80) 111 -}
-                      {- ] -}
                 , bgroup "fibonacci"
-                      [ bench "fibonacci" $ nfIO (fibonacci 200)
+                      [ bench "fibonacci" $ nf fibonacci 200
                       , bench "hsFibonacci" $ nf (hsFibonacci :: Int -> Integer) 200
                       ]
                 ]

@@ -1,6 +1,7 @@
 #include "share/atspre_staload.hats"
-#include "ats-src/numerics-internal.dats"
+#include "contrib/atscntrb-hx-intinf/mydepies.hats"
 #include "contrib/atscntrb-hx-intinf/mylibies.hats"
+#include "ats-src/numerics-internal.dats"
 
 staload "prelude/SATS/integer.sats"
 staload UN = "prelude/SATS/unsafe.sats"
@@ -12,13 +13,13 @@ staload "contrib/atscntrb-hx-intinf/SATS/intinf_vt.sats"
 fn divides(m : int, n : int) :<> bool =
   n % m = 0
 
-fnx gcd {k : nat}{l : nat} (m : int(l), n : int(k)) : int =
+fnx gcd {k:nat}{l:nat}(m : int(l), n : int(k)) : int =
   if n > 0 then
     gcd(n, witness(m % n))
   else
     m
 
-fn lcm {k : nat}{l : nat} (m : int(l), n : int(k)) : int =
+fn lcm {k:nat}{l:nat}(m : int(l), n : int(k)) : int =
   (m / gcd(m, n)) * n
 
 // stream all divisors of an integer.
@@ -26,7 +27,7 @@ fn divisors(n : intGte(1)) : stream_vt(int) =
   case+ n of
     | 1 => $ldelay(stream_vt_cons(1, $ldelay(stream_vt_nil)))
     | _ => let
-      fun loop { k : nat | k > 0 }{ m : nat | m > 0 } (n : int(k), acc : int(m)) : stream_vt(int) =
+      fun loop { k : nat | k > 0 }{ m : nat | m > 0 }(n : int(k), acc : int(m)) : stream_vt(int) =
         if acc >= sqrt_int(n) then
           if n % acc = 0 then
             if n / acc != acc then
@@ -96,7 +97,7 @@ fun exp_mod_prime(a : intGte(0), n : intGte(0), p : intGt(1)) : int =
 // Jacobi symbol for positive integers. See here: http://mathworld.wolfram.com/JacobiSymbol.html
 fun jacobi(a : intGte(0), n : Odd) : int =
   let
-    fun legendre { p : int | p >= 2 } (a : intGte(0), p : int(p)) : intBtwe(~1, 1) =
+    fun legendre { p : int | p >= 2 }(a : intGte(0), p : int(p)) : intBtwe(~1, 1) =
       case+ p % a of
         | 0 => 0
         | _ => let
@@ -113,7 +114,7 @@ fun jacobi(a : intGte(0), n : Odd) : int =
         | 0 => 1 + get_multiplicity(div_gt_zero(n, p), p)
         | _ => 0
     
-    fun loop { m : int | m > 1 } (acc : int(m)) : int =
+    fun loop { m : int | m > 1 }(acc : int(m)) : int =
       if acc > n then
         1
       else
@@ -132,7 +133,7 @@ vtypedef pair = @{ first = int, second = int }
 
 fn sum_divisors(n : intGte(1)) : int =
   let
-    fun loop { k : nat | k > 0 }{ m : nat | m > 0 } (n : int(k), acc : int(m)) : int =
+    fun loop { k : nat | k > 0 }{ m : nat | m > 0 }(n : int(k), acc : int(m)) : int =
       if acc >= sqrt_int(n) then
         if n % acc = 0 then
           if n / acc != acc then
@@ -179,7 +180,7 @@ fun rip { n : nat | n > 0 }{ p : nat | p > 0 } .<n>. (n : int(n), p : int(p)) :<
 
 fun prime_factors(n : intGte(1)) : stream_vt(int) =
   let
-    fun loop { k : nat | k > 0 }{ m : nat | m > 0 } (n : int(k), acc : int(m)) : stream_vt(int) =
+    fun loop { k : nat | k > 0 }{ m : nat | m > 0 }(n : int(k), acc : int(m)) : stream_vt(int) =
       if acc >= n then
         if is_prime(n) then
           $ldelay(stream_vt_cons(n, $ldelay(stream_vt_nil)))
@@ -200,7 +201,7 @@ fun prime_factors(n : intGte(1)) : stream_vt(int) =
 // distinct prime divisors
 fn little_omega(n : intGte(1)) : int =
   let
-    fun loop { k : nat | k > 0 }{ m : nat | m > 0 } (n : int(k), acc : int(m)) :<!ntm> int =
+    fun loop { k : nat | k > 0 }{ m : nat | m > 0 }(n : int(k), acc : int(m)) :<!ntm> int =
       if acc >= n then
         if is_prime(n) then
           1

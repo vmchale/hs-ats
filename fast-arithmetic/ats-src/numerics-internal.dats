@@ -1,9 +1,3 @@
-#define ATS_MAINATSFLAG 1
-
-#define ATS_EXTERN_PREFIX "atscntrb_gmp_"
-
-#define ATS_EXTERN_STATIC "_atscntrb_gmp_"
-
 #include "share/atspre_staload.hats"
 #include "contrib/atscntrb-hx-intinf/mylibies.hats"
 #include "contrib/atscntrb-libgmp/mylibies.hats"
@@ -14,13 +8,13 @@ staload UN = "prelude/SATS/unsafe.sats"
 
 // Existential types for even and odd numbers. These are only usable with the
 // ATS library.
-typedef Even = [ n : nat ] int(2*n)
-typedef Odd = [ n : nat ] int(2*n+1)
-typedef gprime(tk : tk, p : int) = { m, n : nat | m < 1 && m <= n && n < p && m*n != p && p > 1 } g1int(tk, p)
-typedef prime(p : int) = gprime(int_kind, p)
-typedef Prime = [ p : nat ] prime(p)
+typedef Even = [n:nat] int(2*n)
+typedef Odd = [n:nat] int(2*n+1)
+typedef gprime(tk: tk, p: int) = { m, n : nat | m < 1 && m <= n && n < p && m*n != p && p > 1 } g1int(tk, p)
+typedef prime(p: int) = gprime(int_kind, p)
+typedef Prime = [p:nat] prime(p)
 
-fn witness(n : int) :<> [ m : nat ] int(m) =
+fn witness(n : int) :<> [m:nat] int(m) =
   $UN.cast(n)
 
 // Fast computation of Fibonacci numbers via GMP bindings.
@@ -34,8 +28,8 @@ fun fib_gmp(n : intGte(0)) : Intinf =
     $UN.castvwtp0(z)
   end
 
-// Fast integer exponentiation. Modified from an example in the manual.
-fun exp {n : nat} .<n>. (x : int, n : int(n)) : int =
+// Fast integer exponentiation.
+fun exp {n:nat} .<n>. (x : int, n : int(n)) : int =
   case+ x of
     | 0 => 0
     | x =>> 
@@ -58,7 +52,7 @@ fun exp {n : nat} .<n>. (x : int, n : int(n)) : int =
           1
       end
 
-fn sqrt_int(k : intGt(0)) :<> [ m : nat ] int(m) =
+fn sqrt_int(k : intGt(0)) :<> [m:nat] int(m) =
   let
     var bound: int = g0float2int(sqrt_float(g0int2float(k)))
   in
@@ -72,7 +66,7 @@ fn is_prime(k : intGt(0)) :<> bool =
     | k => 
       begin
         let
-          fnx loop {n : nat}{m : nat} .<max(0,m-n)>. (i : int(n), bound : int(m)) :<> bool =
+          fnx loop {n:nat}{m:nat} .<max(0,m-n)>. (i : int(n), bound : int(m)) :<> bool =
             if i < bound then
               if k % i = 0 then
                 false

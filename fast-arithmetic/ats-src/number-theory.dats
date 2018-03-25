@@ -1,14 +1,11 @@
-#include "share/atspre_staload.hats"
 #include "ats-src/number-theory-internal.dats"
 
-#define ATS_MAINATSFLAG 1
-
 extern
-fun totient_ats { k : nat | k >= 2 } (int(k)) : int =
+fun totient_ats { k : nat | k >= 2 }(int(k)) : int =
   "mac#"
 
 extern
-fun count_divisors_ats { k : nat | k >= 2 } (int(k)) : int =
+fun count_divisors_ats { k : nat | k >= 2 }(int(k)) : int =
   "mac#"
 
 extern

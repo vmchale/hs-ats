@@ -1,6 +1,6 @@
 ---
 - functions:
-  - {name: unsafePerformIO, within: []}  # unsafePerformIO can appear nowhere
+  - {name: unsafePerformIO, within: [Numeric.Combinatorics, Numeric.Integer]}
   - {name: error, within: [Main]}  # throw real errors
   - {name: fromJust, within: []}  # this is hell to track down
   - {name: foldl, within: []}  # foldl has bad properties

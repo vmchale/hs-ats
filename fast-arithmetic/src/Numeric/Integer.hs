@@ -13,14 +13,15 @@ import           Data.GMP
 import           Foreign.C
 import           Foreign.Ptr
 import           Numeric.Common
+import           System.IO.Unsafe (unsafePerformIO)
 
-foreign import ccall unsafe is_prime_ats :: CInt -> CBool
+foreign import ccall is_prime_ats :: CInt -> CBool
 foreign import ccall unsafe fib_ats :: CInt -> Ptr GMPInt
 
 -- | Indexed starting at @0@.
-fibonacci :: Int -> IO Integer
-fibonacci = conjugateGMP fib_ats
+fibonacci :: Int -> Integer
+fibonacci = unsafePerformIO . conjugateGMP fib_ats
 
--- | O(√n)
+-- | \( O(\sqrt(n)) \)
 isPrime :: Int -> Bool
 isPrime = asTest is_prime_ats

@@ -27,10 +27,10 @@ agree s f g = describe s $
     prop "should agree with the pure Haskell function" $
         \n -> n < 1 || f n == g n
 
-check :: (Eq a, Show a) => String -> (Int -> IO a) -> (Integer -> a) -> Int -> SpecWith ()
+check :: (Eq a, Show a) => String -> (Int -> a) -> (Integer -> a) -> Int -> SpecWith ()
 check s f g n = describe s $
     it ("should work for n=" ++ show n) $
-        f n >>= (`shouldBe` g (fromIntegral n))
+        f n `shouldBe` g (fromIntegral n)
 
 main :: IO ()
 main = hspec $ parallel $ do
@@ -49,8 +49,8 @@ main = hspec $ parallel $ do
         it "should match the arithmoi function" $
             toInt (Ext.jacobi (15 :: Int) 19) `shouldBe` toInt (Ext.jacobi (15 :: Int) 19)
     describe "totient" $
-        prop "should be equal to m-1 for m prime" $
-            \m -> m < 1 || not (isPrime m) || totient m == m - 1
+        prop "should be equal to p-1 for p prime" $
+            \p -> p < 1 || not (isPrime p) || totient p == p - 1
     describe "derangement" $
         prop "should be equal to [n!/e]" $
             \n -> n < 1 || n > 18 || (derangement n :: Integer) == floor ((fromIntegral (Ext.factorial (fromIntegral n :: Int) :: Integer) :: Double) / exp 1 + 0.5)
