@@ -18,14 +18,14 @@ extra-source-files:
     dist-newstyle/lib/empty
 extra-doc-files: README.md
 
-custom-setup
-    setup-depends: base -any,
-                   Cabal -any,
-                   ats-pkg >= 2.7.0.0
-
 source-repository head
     type: git
     location: git@github.com:vmchale/fast-arithmetic.git
+
+custom-setup
+    setup-depends: base -any,
+                   Cabal -any,
+                   ats-pkg >=2.7.0.0
 
 flag development
     description:
