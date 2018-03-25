@@ -20,7 +20,7 @@ extra-doc-files: README.md
 
 source-repository head
     type: git
-    location: git@github.com:vmchale/fast-arithmetic.git
+    location: git@github.com:vmchale/hs-ats.git
 
 custom-setup
     setup-depends: base -any,
