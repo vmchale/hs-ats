@@ -11,5 +11,5 @@ allow-newer:
 
 allow-boot-library-installs: True
 optimization: 2
--- tests: True
--- benchmarks: True
+tests: True
+benchmarks: True
