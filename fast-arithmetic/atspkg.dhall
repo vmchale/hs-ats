@@ -10,6 +10,6 @@ in prelude.default ⫽
       , static = True
       }
     ]
-  , compiler = [0,3,8]
+  , compiler = [0,3,10]
   , dependencies = prelude.mapPlainDeps [ "atscntrb-hx-intinf" ]
   }

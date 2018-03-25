@@ -21,7 +21,7 @@ fn witness(n : int) :<> [m:nat] int(m) =
 fun fib_gmp(n : intGte(0)) : Intinf =
   let
     var z = ptr_alloc()
-    var x: ulint = g0int2uint_int_ulint(n + 1)
+    var x = g0int2uint(n + 1)
     val () = $GMP.mpz_init(!(z.2))
     val () = $GMP.mpz_fib_uint(!(z.2), x)
   in
