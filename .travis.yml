@@ -37,4 +37,4 @@ script:
   - curl -sL https://raw.githubusercontent.com/vmchale/tomlcheck/master/sh/check | sh -s fast-arithmetic/.atsfmt.toml
   - cd fast-arithmetic
   - cabal new-build
-  - cabal new-build all -w ghc-8.2.2
+    # - cabal new-build all -w ghc-8.2.2
