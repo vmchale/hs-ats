@@ -30,7 +30,7 @@ before_install:
 install:
   - export PATH=$HOME/.local/bin:$PATH
   - curl -sSl https://raw.githubusercontent.com/vmchale/atspkg/master/bash/install.sh | bash -s
-  - atspkg -v
+  - atspkg -V
 
 script:
   - pip install yamllint
