@@ -1,9 +1,7 @@
 ci:
     cabal new-build all
-    cd fast-arithmetic && cabal new-test
-    stack build --test --no-run-tests --bench --no-run-benchmarks
+    cabal new-test all -w ghc-8.2.2
     hlint .
-    weeder .
     yamllint .stylish-haskell.yaml
     yamllint .hlint.yaml
     yamllint .travis.yml

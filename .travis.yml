@@ -18,6 +18,7 @@ matrix:
         apt:
           packages:
             - cabal-install-head
+            - ghc-8.4.1
             - ghc-8.2.2
           sources:
             - hvr-ghc
@@ -27,11 +28,6 @@ before_install:
   - cabal update
   - pip install yamllint
 
-install:
-  - export PATH=$HOME/.local/bin:$PATH
-  - curl -sSl https://raw.githubusercontent.com/vmchale/atspkg/master/bash/install.sh | bash -s
-  - atspkg -V
-
 script:
   - pip install yamllint
   - yamllint .travis.yml
@@ -40,5 +36,5 @@ script:
   - yamllint .yamllint
   - curl -sL https://raw.githubusercontent.com/vmchale/tomlcheck/master/sh/check | sh -s fast-arithmetic/.atsfmt.toml
   - cd fast-arithmetic
-  - time atspkg build
-  - cabal new-test
+  - cabal new-build
+  - cabal new-build all -w ghc-8.2.2
