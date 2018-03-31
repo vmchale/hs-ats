@@ -6,9 +6,6 @@ constraints:
   fast-arithmetic +development,
   ats-pkg +no-executable
 
-allow-newer:
-  Cabal
-
 allow-boot-library-installs: True
 optimization: 2
 -- tests: True

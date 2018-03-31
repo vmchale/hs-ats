@@ -1,5 +1,5 @@
 ci:
-    cabal new-build all
+    cd fast-arithmetic && cabal new-build
     cabal new-test all -w ghc-8.2.2
     hlint .
     yamllint .stylish-haskell.yaml
