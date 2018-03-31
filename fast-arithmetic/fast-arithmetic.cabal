@@ -25,7 +25,7 @@ source-repository head
 custom-setup
     setup-depends: base -any,
                    Cabal -any,
-                   ats-pkg >=2.7.0.0
+                   ats-pkg >=2.8.0.8
 
 flag development
     description:

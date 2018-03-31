@@ -32,9 +32,6 @@ computation of basic combinatorial functions.
 | ``322 `choose` 16`` | ATS | 629.8 ns |
 | ``322 `choose` 16`` | Haskell | 1.046 μs |
 
-See [here](https://vmchale.github.io/fast-arithmetic/arithmetic-bench.html) for
-more.
-
 ## Building
 
 The Haskell library comes with the C bundled, however you will likely want to build from
