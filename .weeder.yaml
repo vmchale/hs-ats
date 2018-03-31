@@ -1,0 +1,30 @@
+- package:
+  - name: fast-arithmetic
+  - section:
+    - name: bench:fast-arithmetic-bench
+    - message:
+      - name: Module not compiled
+      - module: Bench.hs
+    - message:
+      - name: Redundant build-depends entry
+      - depends:
+        - arithmoi
+        - base
+        - combinat
+        - criterion
+        - fast-arithmetic
+  - section:
+    - name: test:fast-arithmetic-test
+    - message:
+      - name: Module not compiled
+      - module: Spec.hs
+    - message:
+      - name: Redundant build-depends entry
+      - depends:
+        - QuickCheck
+        - arithmoi
+        - base
+        - combinat
+        - fast-arithmetic
+        - hspec
+
