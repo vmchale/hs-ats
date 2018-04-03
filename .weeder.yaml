@@ -10,7 +10,7 @@
       - depends:
         - arithmoi
         - base
-        - combinat
+        - combinat-compat
         - criterion
         - fast-arithmetic
   - section:
@@ -24,7 +24,7 @@
         - QuickCheck
         - arithmoi
         - base
-        - combinat
+        - combinat-compat
         - fast-arithmetic
         - hspec
 
