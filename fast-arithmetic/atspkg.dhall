@@ -1,6 +1,7 @@
 let prelude = https://raw.githubusercontent.com/vmchale/atspkg/master/ats-pkg/dhall/atspkg-prelude.dhall
+in
 
-in prelude.default ⫽ 
+prelude.default ⫽
   { libraries =
     [
       prelude.lib ⫽ 

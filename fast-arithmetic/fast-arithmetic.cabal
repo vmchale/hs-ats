@@ -15,7 +15,6 @@ build-type: Custom
 extra-source-files:
     ats-src/*.dats
     atspkg.dhall
-    dist-newstyle/lib/empty
 extra-doc-files: README.md
 
 source-repository head
@@ -25,7 +24,7 @@ source-repository head
 custom-setup
     setup-depends: base -any,
                    Cabal -any,
-                   ats-pkg >=2.8.0.8
+                   ats-pkg >=2.9.0.1
 
 flag development
     description:
@@ -45,7 +44,6 @@ library
     default-language: Haskell2010
     extra-libraries:
         numbertheory
-    extra-lib-dirs: dist-newstyle/lib
     ghc-options: -Wall -optc-mtune=native -optc-flto -optc-O3
     build-depends:
         base >=4.10 && <5,
