@@ -10,3 +10,4 @@ allow-boot-library-installs: True
 optimization: 2
 tests: True
 benchmarks: True
+documentation: True
