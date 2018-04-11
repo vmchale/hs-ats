@@ -1,8 +1,8 @@
 #include "share/atspre_staload.hats"
-#include "contrib/atscntrb-hx-intinf/mydepies.hats"
-#include "contrib/atscntrb-hx-intinf/mylibies.hats"
+#include "$PATSHOMELOCS/atscntrb-hx-intinf/mydepies.hats"
+#include "$PATSHOMELOCS/atscntrb-hx-intinf/mylibies.hats"
 
-staload "contrib/atscntrb-hx-intinf/SATS/intinf_vt.sats"
+staload "$PATSHOMELOCS/atscntrb-hx-intinf/SATS/intinf_vt.sats"
 staload UN = "prelude/SATS/unsafe.sats"
 
 // See [here](http://mathworld.wolfram.com/Derangement.html)

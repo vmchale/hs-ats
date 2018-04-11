@@ -1,11 +1,11 @@
 #include "share/atspre_staload.hats"
-#include "contrib/atscntrb-hx-intinf/mydepies.hats"
-#include "contrib/atscntrb-hx-intinf/mylibies.hats"
+#include "$PATSHOMELOCS/atscntrb-hx-intinf/mydepies.hats"
+#include "$PATSHOMELOCS/atscntrb-hx-intinf/mylibies.hats"
 #include "ats-src/numerics-internal.dats"
 
 staload "prelude/SATS/integer.sats"
 staload UN = "prelude/SATS/unsafe.sats"
-staload "contrib/atscntrb-hx-intinf/SATS/intinf_vt.sats"
+staload "$PATSHOMELOCS/atscntrb-hx-intinf/SATS/intinf_vt.sats"
 
 #define ATS_MAINATSFLAG 1
 

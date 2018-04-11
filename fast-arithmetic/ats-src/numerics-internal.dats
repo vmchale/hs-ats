@@ -1,8 +1,8 @@
 #include "share/atspre_staload.hats"
-#include "contrib/atscntrb-hx-intinf/mylibies.hats"
-#include "contrib/atscntrb-libgmp/mylibies.hats"
+#include "$PATSHOMELOCS/atscntrb-hx-intinf/mydepies.hats"
+#include "$PATSHOMELOCS/atscntrb-hx-intinf/mylibies.hats"
 
-staload "contrib/atscntrb-hx-intinf/SATS/intinf_vt.sats"
+staload "$PATSHOMELOCS/atscntrb-hx-intinf/SATS/intinf_vt.sats"
 staload "libats/libc/SATS/math.sats"
 staload UN = "prelude/SATS/unsafe.sats"
 

@@ -1,6 +1,6 @@
 cabal-version: 1.18
 name: fast-arithmetic
-version: 0.3.3.3
+version: 0.3.3.7
 license: BSD3
 license-file: LICENSE
 copyright: Copyright: (c) 2018 Vanessa McHale
@@ -15,6 +15,7 @@ build-type: Custom
 extra-source-files:
     ats-src/*.dats
     atspkg.dhall
+    dist-newstyle/lib/empty
 extra-doc-files: README.md
 
 source-repository head
@@ -24,7 +25,7 @@ source-repository head
 custom-setup
     setup-depends: base -any,
                    Cabal -any,
-                   ats-pkg >=2.9.0.1
+                   ats-pkg >=2.10.0.0
 
 flag development
     description:
@@ -42,11 +43,13 @@ library
     other-modules:
         Numeric.Common
     default-language: Haskell2010
+    extra-lib-dirs:
+      dist-newstyle/lib
     extra-libraries:
         numbertheory
     ghc-options: -Wall -optc-mtune=native -optc-flto -optc-O3
     build-depends:
-        base >= 4.10 && <5,
+        base >=4.10 && <5,
         composition-prelude -any,
         gmpint -any
     
@@ -64,7 +67,7 @@ test-suite fast-arithmetic-test
     default-language: Haskell2010
     ghc-options: -threaded -rtsopts -with-rtsopts=-N -Wall
     build-depends:
-        base,
+        base -any,
         fast-arithmetic -any,
         hspec -any,
         QuickCheck -any,
@@ -85,7 +88,7 @@ benchmark fast-arithmetic-bench
     default-language: Haskell2010
     ghc-options: -Wall
     build-depends:
-        base,
+        base -any,
         fast-arithmetic -any,
         criterion -any,
         arithmoi -any,

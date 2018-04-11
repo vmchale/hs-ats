@@ -1,4 +1,6 @@
-{-# LANGUAGE CApiFFI #-}
+{-# LANGUAGE CApiFFI          #-}
+{-# LANGUAGE FlexibleContexts #-}
+{-# LANGUAGE TypeFamilies     #-}
 
 {-|
 Module      : Data.GMP
@@ -39,9 +41,10 @@ gmpToList :: GMPInt -> IO [Word64]
 gmpToList (GMPInt _ s aptr) = peekArray (fromIntegral s) aptr
 
 integerToWordList :: Integer -> [Word64]
-integerToWordList i
-    | i < 2 ^ (64 :: Int) = [fromIntegral i]
-    | otherwise = fromIntegral (i `mod` (2 ^ (64 :: Int))) : integerToWordList (i `div` (2 ^ (64 :: Int)))
+integerToWordList = coelgot pa c where
+    pa (i, ws) | i < 2 ^ (64 :: Int) = [fromIntegral i]
+               | otherwise = embed ws
+    c i = Cons (fromIntegral (i `mod` (2 ^ (64 :: Int)))) (i `div` (2 ^ (64 :: Int)))
 {-# INLINEABLE integerToWordList #-}
 
 wordListToInteger :: [Word64] -> Integer

@@ -3,7 +3,6 @@ module Main where
 import           Criterion.Main
 import qualified Math.Combinat.Numbers                 as Ext
 import qualified Math.NumberTheory.ArithmeticFunctions as Ext
--- import qualified Math.NumberTheory.Moduli.Jacobi       as Ext
 import           Numeric.Combinatorics
 import           Numeric.Integer
 import           Numeric.NumberTheory
@@ -46,9 +45,5 @@ main =
                 , bgroup "catalan"
                       [ bench "catalan" $ nf catalan 300
                       , bench "Ext.catalan" $ nf Ext.catalan (300 :: Int)
-                      ]
-                , bgroup "fibonacci"
-                      [ bench "fibonacci" $ nf fibonacci 200
-                      , bench "hsFibonacci" $ nf (hsFibonacci :: Int -> Integer) 200
                       ]
                 ]

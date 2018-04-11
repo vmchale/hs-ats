@@ -2,10 +2,10 @@
 
 #include "share/atspre_staload.hats"
 #include "ats-src/numerics-internal.dats"
-#include "$PATSHOMELOCS/atscntrb-libgmp/mylibies.hats"
+#include "$PATSHOMELOCS/atscntrb-hx-libgmp/mylibies.hats"
 
-staload "contrib/atscntrb-hx-intinf/SATS/intinf_vt.sats"
-staload "contrib/atscntrb-libgmp/SATS/gmp.sats"
+staload "$PATSHOMELOCS/atscntrb-hx-intinf/SATS/intinf_vt.sats"
+staload "$PATSHOMELOCS/atscntrb-hx-libgmp/SATS/gmp.sats"
 
 extern
 fun mpz_free : (&mpz >> mpz?) -> void =
@@ -29,8 +29,7 @@ implement is_prime_ats (n) =
 implement exp_ats (m, n) =
   exp(m, n)
 
-implement fib_ats (m) =
-  fib_gmp(m)
-
+// implement fib_ats (m) =
+//   fib_gmp(m)
 implement mpz_free (x) =
   mpz_clear(x)

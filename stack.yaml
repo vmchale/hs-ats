@@ -1,5 +1,5 @@
 ---
-resolver: nightly-2018-04-03
+resolver: nightly-2018-04-10
 packages:
   - 'gmpint'
   - 'fast-arithmetic'
@@ -7,14 +7,14 @@ flags:
   ats-pkg:
     no-executable: true
 extra-deps:
-  - ats-pkg-2.9.0.2
+  - ats-pkg-2.10.0.0
   - composition-prelude-1.3.0.8
   - bzlib-0.5.0.5
-  - cli-setup-0.2.0.2
+  - cli-setup-0.2.0.3
   - dependency-0.1.0.10
   - dhall-1.12.0
-  - shake-ats-1.6.0.2
-  - shake-ext-2.8.0.0
+  - shake-ats-1.8.0.0
+  - shake-ext-2.10.0.0
   - hs2ats-0.3.0.0
-  - language-ats-1.2.0.4
-  - casing-0.1.3.0
+  - language-ats-1.2.0.6
+  - casing-0.1.4.0

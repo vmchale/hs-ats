@@ -1,37 +1,44 @@
-name:                gmpint
-version:             0.1.0.5
-synopsis:            GMP integer conversions
-description:         This defines a 'Storable' instance for GMP's @mpz@ type and provides functions for working with GMP integers.
-homepage:            https://github.com/vmchale/gmpint#readme
-license:             BSD3
-license-file:        LICENSE
-author:              Vanessa McHale
-maintainer:          vamchale@gmail.com
-copyright:           Copyright: (c) 2018 Vanessa McHale
-category:            C, FFI, Foreign
-build-type:          Simple
-extra-doc-files:     README.md
-cabal-version:       1.18
-
-Flag development {
-  Description: Enable `-Werror`
-  manual: True
-  default: False
-}
-
-library
-  hs-source-dirs:      src
-  extra-libraries:     gmp
-  exposed-modules:     Data.GMP
-  build-depends:       base >= 4.8 && < 5
-                     , recursion-schemes
-  default-language:    Haskell2010
-  if flag(development)
-    ghc-options:       -Werror
-  if impl(ghc >= 8.0)
-    ghc-options:       -Wincomplete-uni-patterns -Wincomplete-record-updates -Wcompat
-  ghc-options:         -Wall
+cabal-version: 1.18
+name: gmpint
+version: 0.1.0.7
+license: BSD3
+license-file: LICENSE
+copyright: Copyright: (c) 2018 Vanessa McHale
+maintainer: vamchale@gmail.com
+author: Vanessa McHale
+homepage: https://github.com/vmchale/gmpint#readme
+synopsis: GMP integer conversions
+description:
+    This defines a 'Storable' instance for GMP's @mpz@ type and provides functions for working with GMP integers.
+category: C, FFI, Foreign
+build-type: Simple
+extra-doc-files: README.md
 
 source-repository head
-  type:     git
-  location: https://github.com/vmchale/hs-ats
+    type: git
+    location: https://github.com/vmchale/hs-ats
+
+flag development
+    description:
+        Enable `-Werror`
+    default: False
+    manual: True
+
+library
+    exposed-modules:
+        Data.GMP
+    hs-source-dirs: src
+    default-language: Haskell2010
+    extra-libraries:
+        gmp
+    ghc-options: -Wall
+    build-depends:
+        base >=4.8 && <5,
+        recursion-schemes -any
+    
+    if flag(development)
+        ghc-options: -Werror
+    
+    if impl(ghc >=8.0)
+        ghc-options: -Wincomplete-uni-patterns -Wincomplete-record-updates
+                     -Wcompat

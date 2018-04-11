@@ -60,6 +60,6 @@ main = hspec $ parallel $ do
 
     sequence_ $ zipWith4 check
         ["choose 101", "doubleFactorial", "catalan", "fibonacci", "factorial", "jacobi"]
-        [choose 101, doubleFactorial, catalan, fibonacci, factorial]
-        [Ext.binomial 101, Ext.doubleFactorial, Ext.catalan, hsFibonacci . fromIntegral, Ext.factorial]
+        [choose 101, doubleFactorial, catalan, factorial]
+        [Ext.binomial 101, Ext.doubleFactorial, Ext.catalan, Ext.factorial]
         [16, 79, 300, 121, 231]

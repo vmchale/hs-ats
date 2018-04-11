@@ -6,6 +6,7 @@
 # Code maintenane
 - [ ] test suite for double factorial
 - [ ] consider using `arithmoi` for testing?
+- [ ] benchmarks in ATS proper (probably interesting?)
 # Performance
 - [ ] Consider view type for appending arrays?
 - [ ] make `totient` faster
