@@ -1,16 +1,22 @@
 let prelude = https://raw.githubusercontent.com/vmchale/atspkg/master/ats-pkg/dhall/atspkg-prelude.dhall
 in
 
+let map = https://ipfs.io/ipfs/QmQ8w5PLcsNz56dMvRtq54vbuPe9cNnCCUXAQp6xLc6Ccx/Prelude/List/map
+in
+
+let PreSrc = { atsSrc : Text, cTarget : Text }
+in
+
+let hsDatsSrc =
+  λ(x : Text) → { atsSrc = "ats-src/${x}.dats", cTarget = "cbits/${x}.c" }
+in
+
+let mapDatsSrc =
+  λ(x : List Text) → map Text PreSrc hsDatsSrc x
+in
+
 prelude.default ⫽
-  { libraries =
-    [
-      prelude.lib ⫽ 
-      { name = "storable"
-      , src = [ "ats-src/combinatorics.dats", "ats-src/number-theory.dats", "ats-src/numerics.dats" ]
-      , libTarget = "dist-newstyle/lib/libnumbertheory.a"
-      , static = True
-      }
-    ]
-  , compiler = [0,3,10]
-  , dependencies = prelude.mapPlainDeps [ "atscntrb-hx-intinf" ]
+  { atsSource = prelude.mapSrc
+      (mapDatsSrc ["combinatorics", "number-theory", "numerics" ])
+  , dependencies = prelude.mapPlainDeps [ "atscntrb-hx-intinf", "ats-includes" ]
   }

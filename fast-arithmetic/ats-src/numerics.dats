@@ -7,6 +7,12 @@
 staload "$PATSHOMELOCS/atscntrb-hx-intinf/SATS/intinf_vt.sats"
 staload "$PATSHOMELOCS/atscntrb-hx-libgmp/SATS/gmp.sats"
 
+%{^
+#define ATS_MEMALLOC_LIBC
+#include "ccomp/runtime/pats_ccomp_memalloc_libc.h"
+#include "ccomp/runtime/pats_ccomp_runtime_memalloc.c"
+%}
+
 extern
 fun mpz_free : (&mpz >> mpz?) -> void =
   "mac#"

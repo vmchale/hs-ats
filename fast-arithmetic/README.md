@@ -39,7 +39,8 @@ source if you are hacking on the library. To that end, you can install
 [atspkg](http://hackage.haskell.org/package/ats-pkg), and build with
 
 ```bash
- $ atspkg build
+atspkg build
+cabal new-build
 ```
 
 ## Documentation

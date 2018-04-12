@@ -11,21 +11,22 @@ synopsis: Fast functions on integers.
 description:
     Fast functions for number theory and combinatorics with a high level of safety guaranteed by [ATS](http://www.ats-lang.org/).
 category: Numerics, Math, Algorithms, Number Theory, Combinatorics, FFI, ATS
-build-type: Custom
+build-type: Simple
 extra-source-files:
     ats-src/*.dats
     atspkg.dhall
-    dist-newstyle/lib/empty
+    .atspkg/contrib/ats-includes-0.3.10/ccomp/runtime/*.h
+    .atspkg/contrib/ats-includes-0.3.10/ccomp/runtime/*.c
+    .atspkg/contrib/ats-includes-0.3.10/prelude/CATS/*.cats
+    .atspkg/contrib/ats-includes-0.3.10/libats/libc/CATS/*.cats
+    .atspkg/contrib/ats-includes-0.3.10/libats/libc/CATS/sys/*.cats
+    .atspkg/contrib/atscntrb-hx-intinf/*.hats
+    .atspkg/contrib/atscntrb-hx-libgmp/CATS/*.cats
 extra-doc-files: README.md
 
 source-repository head
     type: git
     location: git@github.com:vmchale/hs-ats.git
-
-custom-setup
-    setup-depends: base -any,
-                   Cabal -any,
-                   ats-pkg >=2.10.0.0
 
 flag development
     description:
@@ -34,6 +35,12 @@ flag development
     manual: True
 
 library
+    c-sources: cbits/combinatorics.c
+             , cbits/number-theory.c
+             , cbits/numerics.c
+    include-dirs: .atspkg/contrib/ats-includes-0.3.10/ccomp/runtime,
+                  .atspkg/contrib/ats-includes-0.3.10/,
+                  .atspkg/contrib
     exposed-modules:
         Numeric.Pure
         Numeric.Integer
@@ -43,10 +50,6 @@ library
     other-modules:
         Numeric.Common
     default-language: Haskell2010
-    extra-lib-dirs:
-      dist-newstyle/lib
-    extra-libraries:
-        numbertheory
     ghc-options: -Wall -optc-mtune=native -optc-flto -optc-O3
     build-depends:
         base >=4.10 && <5,

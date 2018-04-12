@@ -44,7 +44,6 @@ gmpToList (GMPInt _ s aptr) = peekArray (fromIntegral s) aptr
 base :: Integer
 base = 2 ^ (64 :: Int)
 
--- TODO benchmark vs. apo?
 integerToWordList :: Integer -> [Word64]
 integerToWordList = coelgot pa c where
     c i = Cons (fromIntegral (i `rem` base)) (i `quot` base)
