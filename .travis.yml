@@ -37,4 +37,4 @@ script:
   - cd fast-arithmetic
   - atspkg build
   - cabal new-build
-  # - cabal new-build all -w ghc-8.2.2
+  - cabal new-test
