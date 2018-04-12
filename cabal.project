@@ -6,8 +6,8 @@ constraints:
   fast-arithmetic +development,
   ats-pkg +no-executable
 
-allow-boot-library-installs: True
+allow-boot-library-installs: true
 optimization: 2
-tests: True
-benchmarks: True
-documentation: True
+-- tests: true
+-- benchmarks: true
+documentation: true

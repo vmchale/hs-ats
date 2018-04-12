@@ -37,6 +37,6 @@ littleOmega = conjugate little_omega_ats
 tau :: Int -> Int
 tau = conjugate count_divisors_ats
 
--- | Euler totient function. Experimental.
+-- | Euler totient function.
 totient :: Int -> Int
 totient = conjugate totient_ats

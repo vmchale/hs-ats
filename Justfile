@@ -1,5 +1,6 @@
 ci:
-    cd fast-arithmetic && cabal new-build
+    cabal new-build all
+    cabal new-test fast-arithmetic
     hlint fast-arithmetic gmpint
     yamllint .stylish-haskell.yaml
     yamllint .hlint.yaml

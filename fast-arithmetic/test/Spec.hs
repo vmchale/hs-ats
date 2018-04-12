@@ -11,6 +11,13 @@ import           Test.Hspec
 import           Test.Hspec.QuickCheck
 import           Test.QuickCheck                       hiding (choose)
 
+{-# SPECIALIZE hsIsPrime :: Int -> Bool #-}
+
+hsIsPrime :: (Integral a) => a -> Bool
+hsIsPrime 1 = False
+hsIsPrime x = all ((/=0) . (x `rem`)) [2..up]
+    where up = floor (sqrt (fromIntegral x :: Float))
+
 toInt :: JacobiSymbol -> Int
 toInt MinusOne = -1
 toInt Zero     = 0

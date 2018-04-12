@@ -6,13 +6,23 @@ import qualified Math.NumberTheory.ArithmeticFunctions as Ext
 import           Numeric.Combinatorics
 import           Numeric.Integer
 import           Numeric.NumberTheory
-import           Numeric.Pure
+
+{-# SPECIALIZE hsIsPrime :: Int -> Bool #-}
+
+hsIsPrime :: (Integral a) => a -> Bool
+hsIsPrime 1 = False
+hsIsPrime x = all ((/=0) . (x `rem`)) [2..up]
+    where up = floor (sqrt (fromIntegral x :: Float))
 
 main :: IO ()
 main =
     defaultMain [ bgroup "primality check"
                       [ bench "isPrime" $ nf isPrime 2017
                       , bench "hsIsPrime" $ nf hsIsPrime (2017 :: Int)
+                      ]
+                , bgroup "factorial"
+                      [ bench "factorial" $ nf factorial 160
+                      , bench "Ext.factorial" $ nf Ext.factorial (160 :: Integer)
                       ]
                 , bgroup "φ"
                       [ bench "totient" $ nf totient 2016
@@ -25,10 +35,6 @@ main =
                 , bgroup "ω"
                       [ bench "littleOmega" $ nf littleOmega 91
                       , bench "Ext.smallOmega" $ nf (Ext.smallOmega :: Int -> Int) 91
-                      ]
-                , bgroup "factorial"
-                      [ bench "factorial" $ nf factorial 160
-                      , bench "Ext.factorial" $ nf Ext.factorial (160 :: Integer)
                       ]
                 , bgroup "σ"
                       [ bench "sumDivisors" $ nf sumDivisors 115

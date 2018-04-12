@@ -1,5 +1,6 @@
 {-# LANGUAGE CApiFFI          #-}
 {-# LANGUAGE FlexibleContexts #-}
+{-# LANGUAGE RankNTypes       #-}
 {-# LANGUAGE TypeFamilies     #-}
 
 {-|
@@ -29,7 +30,7 @@ data GMPInt = GMPInt {
                      , _mp_d     :: !(Ptr Word64) -- ^ Pointer to an array containing the limbs.
                      }
 
-foreign import capi "&mpz_free" mpz_free :: FunPtr (Ptr GMPInt -> IO ())
+foreign import capi "&__gmpz_clear" mpz_clear :: FunPtr (Ptr GMPInt -> IO ())
 
 wordWidth :: Int
 wordWidth = sizeOf (undefined :: Word32)
@@ -40,26 +41,31 @@ ptrWidth = sizeOf (undefined :: Ptr Word64)
 gmpToList :: GMPInt -> IO [Word64]
 gmpToList (GMPInt _ s aptr) = peekArray (fromIntegral s) aptr
 
+base :: Integer
+base = 2 ^ (64 :: Int)
+
+-- TODO benchmark vs. apo?
 integerToWordList :: Integer -> [Word64]
 integerToWordList = coelgot pa c where
-    pa (i, ws) | i < 2 ^ (64 :: Int) = [fromIntegral i]
+    c i = Cons (fromIntegral (i `rem` base)) (i `quot` base)
+    pa (i, ws) | i < base = [fromIntegral i]
                | otherwise = embed ws
-    c i = Cons (fromIntegral (i `mod` (2 ^ (64 :: Int)))) (i `div` (2 ^ (64 :: Int)))
 {-# INLINEABLE integerToWordList #-}
 
+-- TODO mendler-style catamorphism?
 wordListToInteger :: [Word64] -> Integer
 wordListToInteger = cata a where
     a Nil         = 0
-    a (Cons x xs) = fromIntegral x + (2 ^ (64 :: Int)) * xs
+    a (Cons x xs) = fromIntegral x + base * xs
 {-# INLINEABLE wordListToInteger #-}
 
 integerToGMP :: Integer -> IO GMPInt
 integerToGMP i = GMPInt l l <$> newArray ls
-    where l = fromIntegral . length $ ls
+    where l = fromIntegral (length ls)
           ls = integerToWordList i
 
 gmpForeignPtr :: Ptr GMPInt -> IO (ForeignPtr GMPInt)
-gmpForeignPtr = newForeignPtr mpz_free
+gmpForeignPtr = newForeignPtr mpz_clear
 
 conjugateGMP :: (CInt -> Ptr GMPInt) -> Int -> IO Integer
 conjugateGMP f = gmpToInteger <=< flip withForeignPtr peek <=< (gmpForeignPtr . f . fromIntegral)
@@ -73,10 +79,13 @@ instance Storable GMPInt where
     {-# INLINEABLE sizeOf #-}
     alignment _ = gcd wordWidth ptrWidth
     {-# INLINEABLE alignment #-}
-    peek ptr = GMPInt <$> peekByteOff ptr 0 <*> peekByteOff ptr wordWidth <*> peekByteOff ptr (wordWidth * 2)
+    peek ptr = GMPInt
+        <$> peekByteOff ptr 0
+        <*> peekByteOff ptr wordWidth
+        <*> peekByteOff ptr (wordWidth * 2)
     {-# INLINEABLE peek #-}
-    poke ptr (GMPInt a s d) =
-        pokeByteOff ptr 0 a >>
-        pokeByteOff ptr wordWidth s >>
-        pokeByteOff ptr (wordWidth * 2) d
+    poke ptr (GMPInt a s d) = mconcat
+        [ pokeByteOff ptr 0 a
+        , pokeByteOff ptr wordWidth s
+        , pokeByteOff ptr (wordWidth * 2) d ]
     {-# INLINEABLE poke #-}

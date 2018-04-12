@@ -28,7 +28,7 @@ foreign import ccall unsafe catalan_ats :: CInt -> Ptr GMPInt
 -- | The @n@th Catalan number, with indexing beginning at @0@. See
 -- [here](http://mathworld.wolfram.com/CatalanNumber.html).
 --
--- > λ:> mapM catalan [0..9]
+-- > λ:> catalan <$> [0..9]
 -- > [1,1,2,5,14,42,132,429,1430,4862]
 catalan :: Int -> Integer
 catalan = unsafePerformIO . conjugateGMP catalan_ats
