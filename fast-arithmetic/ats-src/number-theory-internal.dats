@@ -62,10 +62,11 @@ fn divisors(n : intGte(1)) : stream_vt(int) =
 fn prime_divisors(n : intGte(1)) : stream_vt(int) =
   stream_vt_filter_cloptr(divisors(n), lam x => is_prime($UN.cast(x)))
 
+// if n >= 0, p > 1, then n/p >=
 fn div_gt_zero(n : intGte(0), p : intGt(1)) : intGte(0) =
   $UN.cast(n / p)
 
-// FIXME require that it be prime.
+// TODO require that it be prime?
 fun exp_mod_prime(a : intGte(0), n : intGte(0), p : intGt(1)) : int =
   let
     var a1 = a % p

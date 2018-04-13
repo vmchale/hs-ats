@@ -8,7 +8,7 @@ staload UN = "prelude/SATS/unsafe.sats"
 // See [here](http://mathworld.wolfram.com/Derangement.html)
 fn derangements {n:nat} .<n>. (n : int(n)) : Intinf =
   let
-    fnx loop { n : nat | n > 1 }{ i : nat | i <= n } .<n-i>. (n : int(n), i : int(i), n1 : Intinf, n2 : Intinf) : Intinf =
+    fun loop { n : nat | n > 1 }{ i : nat | i <= n } .<n-i>. (n : int(n), i : int(i), n1 : Intinf, n2 : Intinf) : Intinf =
       if i < n then
         let
           var x = add_intinf0_intinf1(n2, n1)
@@ -32,14 +32,14 @@ fn derangements {n:nat} .<n>. (n : int(n)) : Intinf =
       | n =>> loop(n - 1, 2, int2intinf(1), int2intinf(0))
   end
 
-fnx fact {n:nat} .<n>. (k : int(n)) : intinfGte(1) =
+fun fact {n:nat} .<n>. (k : int(n)) : intinfGte(1) =
   case+ k of
     | 0 => int2intinf(1)
     | 1 => int2intinf(1)
     | k =>> $UN.castvwtp0(mul_intinf0_int(fact(k - 1), k))
 
 // Double factorial http://mathworld.wolfram.com/DoubleFactorial.html
-fnx dfact {n:nat} .<n>. (k : int(n)) : Intinf =
+fun dfact {n:nat} .<n>. (k : int(n)) : Intinf =
   case+ k of
     | 0 => int2intinf(1)
     | 1 => int2intinf(1)
