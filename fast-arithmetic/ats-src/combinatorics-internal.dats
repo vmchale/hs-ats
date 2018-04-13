@@ -5,7 +5,9 @@
 staload "$PATSHOMELOCS/atscntrb-hx-intinf/SATS/intinf_vt.sats"
 staload UN = "prelude/SATS/unsafe.sats"
 
-// See [here](http://mathworld.wolfram.com/Derangement.html)
+// See [here](http://mathworld.wolfram.com/Derangement.html). I'm not sure how
+// fast this is, but it *seems* to be faster than the Haskell version so that's
+// good.
 fn derangements {n:nat} .<n>. (n : int(n)) : Intinf =
   let
     fun loop { n : nat | n > 1 }{ i : nat | i <= n } .<n-i>. (n : int(n), i : int(i), n1 : Intinf, n2 : Intinf) : Intinf =

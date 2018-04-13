@@ -66,7 +66,7 @@ fn prime_divisors(n : intGte(1)) : stream_vt(int) =
 fn div_gt_zero(n : intGte(0), p : intGt(1)) : intGte(0) =
   $UN.cast(n / p)
 
-// TODO require that it be prime?
+// TODO require that p be prime
 fun exp_mod_prime(a : intGte(0), n : intGte(0), p : intGt(1)) : int =
   let
     var a1 = a % p
@@ -97,7 +97,7 @@ fun exp_mod_prime(a : intGte(0), n : intGte(0), p : intGt(1)) : int =
   end
 
 // Jacobi symbol for positive integers. See here: http://mathworld.wolfram.com/JacobiSymbol.html
-// I'm pretty sure this is broken in some way, though I'm not sure exactly how.
+// I'm pretty sure this is broken in some way, though I'm really sure why.
 fun jacobi(a : intGte(0), n : Odd) : int =
   let
     fun legendre { p : int | p >= 2 }(a : intGte(0), p : int(p)) : intBtwe(~1, 1) =
@@ -134,6 +134,7 @@ fn count_divisors(n : intGte(1)) : int =
 
 vtypedef pair = @{ first = int, second = int }
 
+// aka σ in number theory
 fn sum_divisors(n : intGte(1)) : int =
   let
     fun loop { k : nat | k > 0 }{ m : nat | m > 0 }(n : int(k), acc : int(m)) : int =
@@ -238,7 +239,8 @@ fn totient(n : intGte(1)) : int =
     end
 
 // The sum of all φ(m) for m between 1 and n. Note the use of refinement types
-// to prevent 0 from being passed as an argument.
+// to prevent 0 from being passed as an argument. This function is actually
+// slower than the Haskell equivalent, as it uses a naïve algorithm.
 fn totient_sum(n : intGte(1)) : Intinf =
   let
     fnx loop { n : nat | n >= 1 }{ m : nat | m >= n } .<m-n>. (i : int(n), bound : int(m)) : Intinf =

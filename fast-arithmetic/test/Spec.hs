@@ -14,7 +14,7 @@ import           Test.QuickCheck                       hiding (choose)
 
 hsIsPrime :: (Integral a) => a -> Bool
 hsIsPrime 1 = False
-hsIsPrime x = all ((/=0) . (x `rem`)) [2..up]
+hsIsPrime x = all ((/=0) . (x `mod`)) [2..up]
     where up = floor (sqrt (fromIntegral x :: Float))
 
 toInt :: JacobiSymbol -> Int

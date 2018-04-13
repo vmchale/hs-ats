@@ -10,6 +10,10 @@ staload UN = "prelude/SATS/unsafe.sats"
 // ATS library.
 typedef Even = [n:nat] int(2*n)
 typedef Odd = [n:nat] int(2*n+1)
+
+// These types work... less well. I'm not sure what the story is with
+// multiplicative constraints in ATS, but in general they're unsolvable due to
+// Gödel's incompleteness theorem.
 typedef gprime(tk: tk, p: int) = { m, n : nat | m < 1 && m <= n && n < p && m*n != p && p > 1 } g1int(tk, p)
 typedef prime(p: int) = gprime(int_kind, p)
 typedef Prime = [p:nat] prime(p)
@@ -22,13 +26,13 @@ fun fib_gmp(n : intGte(0)) : Intinf =
   let
     var z = ptr_alloc()
     var x = g0int2uint(n + 1)
-    val () = $GMP.mpz_init(!(z.2))
-    val () = $GMP.mpz_fib_uint(!(z.2), x)
+    val _ = $GMP.mpz_init(!(z.2))
+    val _ = $GMP.mpz_fib_uint(!(z.2), x)
   in
     $UN.castvwtp0(z)
   end
 
-// Fast integer exponentiation.
+// Fast integer exponentiation. This performs O(log n) multiplications.
 fun exp {n:nat} .<n>. (x : int, n : int(n)) : int =
   case+ x of
     | 0 => 0
@@ -52,6 +56,7 @@ fun exp {n:nat} .<n>. (x : int, n : int(n)) : int =
           1
       end
 
+// square root is bounded for bounded k.
 fn sqrt_int(k : intGt(0)) :<> [m:nat] int(m) =
   let
     var bound: int = g0float2int(sqrt_float(g0int2float(k)))
@@ -66,7 +71,7 @@ fn is_prime(k : intGt(0)) :<> bool =
     | k => 
       begin
         let
-          fnx loop {n:nat}{m:nat} .<max(0,m-n)>. (i : int(n), bound : int(m)) :<> bool =
+          fun loop {n:nat}{m:nat} .<max(0,m-n)>. (i : int(n), bound : int(m)) :<> bool =
             if i < bound then
               if k % i = 0 then
                 false
