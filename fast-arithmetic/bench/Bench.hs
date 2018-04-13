@@ -3,6 +3,7 @@ module Main where
 import           Criterion.Main
 import qualified Math.Combinat.Numbers                 as Ext
 import qualified Math.NumberTheory.ArithmeticFunctions as Ext
+import qualified Math.NumberTheory.MoebiusInversion    as Ext
 import           Numeric.Combinatorics
 import           Numeric.Integer
 import           Numeric.NumberTheory
@@ -27,6 +28,10 @@ main =
                 , bgroup "φ"
                       [ bench "totient" $ nf totient 2016
                       , bench "Ext.totient" $ nf Ext.totient (2016 :: Int)
+                      ]
+                , bgroup "Σφ"
+                      [ bench "totientSum" $ nf totientSum 2016
+                      , bench "Ext.totientSum" $ nf Ext.totientSum (2016 :: Int)
                       ]
                 , bgroup "τ"
                       [ bench "tau" $ nf tau 3018

@@ -24,6 +24,10 @@ extern
 fun is_perfect_ats : intGt(1) -> bool =
   "mac#"
 
+extern
+fun totient_sum_ats : intGte(1) -> Intinf =
+  "mac#"
+
 implement sum_divisors_ats (m) =
   sum_divisors(m)
 
@@ -41,3 +45,6 @@ implement is_perfect_ats (n) =
 
 implement jacobi_ats (m, n) =
   jacobi(m, $UN.cast(n))
+
+implement totient_sum_ats (n) =
+  totient_sum(n)

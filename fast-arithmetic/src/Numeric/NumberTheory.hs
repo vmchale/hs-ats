@@ -10,16 +10,24 @@ module Numeric.NumberTheory ( totient
                             , littleOmega
                             , isPerfect
                             , sumDivisors
+                            , totientSum
                             ) where
 
+import           Data.GMP
 import           Foreign.C
+import           Foreign.Ptr
 import           Numeric.Common
+import           System.IO.Unsafe (unsafePerformIO)
 
 foreign import ccall unsafe totient_ats :: CInt -> CInt
 foreign import ccall unsafe count_divisors_ats :: CInt -> CInt
 foreign import ccall unsafe sum_divisors_ats :: CInt -> CInt
 foreign import ccall unsafe little_omega_ats :: CInt -> CInt
 foreign import ccall unsafe is_perfect_ats :: CInt -> CBool
+foreign import ccall unsafe totient_sum_ats :: CInt -> Ptr (GMPInt)
+
+totientSum :: Int -> Integer
+totientSum = unsafePerformIO . conjugateGMP totient_sum_ats
 
 -- | See [here](http://mathworld.wolfram.com/PerfectNumber.html)
 isPerfect :: Int -> Bool

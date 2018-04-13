@@ -97,6 +97,7 @@ fun exp_mod_prime(a : intGte(0), n : intGte(0), p : intGt(1)) : int =
   end
 
 // Jacobi symbol for positive integers. See here: http://mathworld.wolfram.com/JacobiSymbol.html
+// I'm pretty sure this is broken in some way, though I'm not sure exactly how.
 fun jacobi(a : intGte(0), n : Odd) : int =
   let
     fun legendre { p : int | p >= 2 }(a : intGte(0), p : int(p)) : intBtwe(~1, 1) =
@@ -236,7 +237,8 @@ fn totient(n : intGte(1)) : int =
       g0int_div(g0int_mul(n, y.first), y.second)
     end
 
-// The sum of all φ(m) for m between 1 and n 
+// The sum of all φ(m) for m between 1 and n. Note the use of refinement types
+// to prevent 0 from being passed as an argument.
 fn totient_sum(n : intGte(1)) : Intinf =
   let
     fnx loop { n : nat | n >= 1 }{ m : nat | m >= n } .<m-n>. (i : int(n), bound : int(m)) : Intinf =
