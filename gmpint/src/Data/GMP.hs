@@ -67,7 +67,9 @@ gmpForeignPtr :: Ptr GMPInt -> IO (ForeignPtr GMPInt)
 gmpForeignPtr = newForeignPtr mpz_clear
 
 conjugateGMP :: (CInt -> Ptr GMPInt) -> Int -> IO Integer
-conjugateGMP f = gmpToInteger <=< flip withForeignPtr peek <=< (gmpForeignPtr . f . fromIntegral)
+conjugateGMP f = gmpToInteger
+    <=< flip withForeignPtr peek
+    <=< (gmpForeignPtr . f . fromIntegral)
 
 -- | Convert a GMP @mpz@ to Haskell's 'Integer' type.
 gmpToInteger :: GMPInt -> IO Integer
@@ -86,5 +88,6 @@ instance Storable GMPInt where
     poke ptr (GMPInt a s d) = mconcat
         [ pokeByteOff ptr 0 a
         , pokeByteOff ptr wordWidth s
-        , pokeByteOff ptr (wordWidth * 2) d ]
+        , pokeByteOff ptr (wordWidth * 2) d
+        ]
     {-# INLINEABLE poke #-}

@@ -1,4 +1,3 @@
-import           Data.List                             (zipWith4)
 import qualified Math.Combinat.Numbers                 as Ext
 import qualified Math.NumberTheory.ArithmeticFunctions as Ext
 import           Math.NumberTheory.Moduli.Jacobi       (JacobiSymbol (..))
@@ -34,11 +33,6 @@ agree s f g = describe s $
     prop "should agree with the pure Haskell function" $
         \n -> n < 1 || f n == g n
 
-check :: (Eq a, Show a) => String -> (Int -> a) -> (Integer -> a) -> Int -> SpecWith ()
-check s f g n = describe s $
-    it ("should work for n=" ++ show n) $
-        f n `shouldBe` g (fromIntegral n)
-
 main :: IO ()
 main = hspec $ parallel $ do
 
@@ -64,9 +58,15 @@ main = hspec $ parallel $ do
     describe "totient" $
         prop "should satisfy Fermat's little theorem" $
             \a m -> a < 1 || m < 2 || gcd a m /= 1 || tooBig a m || (a ^ totient m) `mod` m == 1
-
-    sequence_ $ zipWith4 check
-        ["choose 101", "doubleFactorial", "catalan", "fibonacci", "factorial", "jacobi"]
-        [choose 101, doubleFactorial, catalan, factorial]
-        [Ext.binomial 101, Ext.doubleFactorial, Ext.catalan, Ext.factorial]
-        [16, 79, 300, 121, 231]
+    describe "doubleFactorial" $
+        prop "should agree" $
+            \a -> a < 0 || doubleFactorial a == Ext.doubleFactorial a
+    describe "catalan" $
+        prop "should agree" $
+            \a -> a < 0 || catalan a == Ext.catalan a
+    describe "factorial" $
+        prop "should agree" $
+            \a -> a < 0 || factorial a == Ext.factorial a
+    describe "choose" $
+        prop "should agree" $
+            \a -> a < 0 || choose 101 a == Ext.binomial 101 a
