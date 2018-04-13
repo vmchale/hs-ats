@@ -1,3 +1,5 @@
+.ghc.*
+,hspec-failures
 .atspkg
 ats-deps
 tags
