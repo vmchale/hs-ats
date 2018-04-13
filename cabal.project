@@ -4,7 +4,8 @@ packages: fast-arithmetic
 constraints:
   gmpint +development,
   fast-arithmetic +development,
-  ats-pkg +no-executable
+  ats-pkg +no-executable,
+  micro-recursion-schemes -template-haskell
 
 allow-boot-library-installs: true
 optimization: 2

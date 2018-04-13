@@ -1,3 +1,9 @@
+poly:
+    poly -e cbits
+
+linguist:
+    linguist
+
 ci:
     cd fast-arithmetic && atspkg build
     cabal new-build all

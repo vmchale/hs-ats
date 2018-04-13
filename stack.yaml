@@ -3,3 +3,8 @@ resolver: lts-11.4
 packages:
   - 'gmpint'
   - 'fast-arithmetic'
+flags:
+  micro-recursion-schemes:
+    template-haskell: false
+extra-deps:
+  - micro-recursion-schemes-5.0.2.1
