@@ -10,6 +10,7 @@ module Numeric.Combinatorics ( choose
                              , doubleFactorial
                              , catalan
                              , factorial
+                             , derangement
                              ) where
 
 import           Control.Composition
@@ -24,6 +25,11 @@ foreign import ccall unsafe double_factorial_ats :: CInt -> Ptr GMPInt
 foreign import ccall unsafe factorial_ats :: CInt -> Ptr GMPInt
 foreign import ccall unsafe choose_ats :: CInt -> CInt -> Ptr GMPInt
 foreign import ccall unsafe catalan_ats :: CInt -> Ptr GMPInt
+foreign import ccall unsafe derangements_ats :: CInt -> Ptr GMPInt
+
+-- | \\( !n \\). See [here](http://mathworld.wolfram.com/Derangement.html)
+derangement :: Int -> Integer
+derangement = unsafePerformIO . conjugateGMP derangements_ats
 
 -- | The @n@th Catalan number, with indexing beginning at @0@. See
 -- [here](http://mathworld.wolfram.com/CatalanNumber.html).

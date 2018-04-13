@@ -70,3 +70,6 @@ main = hspec $ parallel $ do
     describe "choose" $
         prop "should agree" $
             \a -> a < 0 || choose 101 a == Ext.binomial 101 a
+    describe "derangement" $
+        prop "should agree" $
+            \a -> a < 0 || derangement a == hsDerangement a

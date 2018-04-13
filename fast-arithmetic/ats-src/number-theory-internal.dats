@@ -13,6 +13,7 @@ staload "$PATSHOMELOCS/atscntrb-hx-intinf/SATS/intinf_vt.sats"
 fn divides(m : int, n : int) :<> bool =
   n % m = 0
 
+// Euclid's algorithm
 fnx gcd {k:nat}{l:nat}(m : int(l), n : int(k)) : int =
   if n > 0 then
     gcd(n, witness(m % n))

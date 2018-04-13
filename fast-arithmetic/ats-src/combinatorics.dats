@@ -23,6 +23,10 @@ extern
 fun catalan_ats {n:nat} : int(n) -> Intinf =
   "mac#"
 
+extern
+fun derangements_ats {n:nat} : int(n) -> Intinf =
+  "mac#"
+
 implement choose_ats (n, k) =
   choose(n, k)
 
@@ -37,3 +41,6 @@ implement factorial_ats (m) =
 
 implement catalan_ats (n) =
   catalan(n)
+
+implement derangements_ats (n) =
+  derangements(n)
