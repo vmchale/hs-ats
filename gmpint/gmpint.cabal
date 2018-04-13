@@ -6,7 +6,6 @@ license-file: LICENSE
 copyright: Copyright: (c) 2018 Vanessa McHale
 maintainer: vamchale@gmail.com
 author: Vanessa McHale
-homepage: https://github.com/vmchale/gmpint#readme
 synopsis: GMP integer conversions
 description:
     This defines a 'Storable' instance for GMP's @mpz@ type and provides functions for working with GMP integers.

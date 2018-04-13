@@ -35,21 +35,21 @@ flag development
     manual: True
 
 library
-    c-sources: cbits/combinatorics.c
-             , cbits/number-theory.c
-             , cbits/numerics.c
-    include-dirs: .atspkg/contrib/ats-includes-0.3.10/ccomp/runtime,
-                  .atspkg/contrib/ats-includes-0.3.10/,
-                  .atspkg/contrib
     exposed-modules:
         Numeric.Pure
         Numeric.Integer
         Numeric.NumberTheory
         Numeric.Combinatorics
+    c-sources:
+        cbits/combinatorics.c
+        cbits/number-theory.c
+        cbits/numerics.c
     hs-source-dirs: src
     other-modules:
         Numeric.Common
     default-language: Haskell2010
+    include-dirs: .atspkg/contrib/ats-includes-0.3.10/ccomp/runtime
+                  .atspkg/contrib/ats-includes-0.3.10/ .atspkg/contrib
     ghc-options: -Wall -optc-mtune=native -optc-flto -optc-O3
     build-depends:
         base >=4.10 && <5,

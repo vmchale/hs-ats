@@ -1,3 +1,4 @@
+---
 - package:
   - name: fast-arithmetic
   - section:
@@ -27,4 +28,3 @@
         - combinat-compat
         - fast-arithmetic
         - hspec
-
