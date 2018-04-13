@@ -28,6 +28,10 @@ extern
 fun totient_sum_ats : intGte(1) -> Intinf =
   "mac#"
 
+extern
+fun coprime_ats {k:nat}{n:nat} : (int(k), int(n)) -> bool =
+  "mac#"
+
 implement sum_divisors_ats (m) =
   sum_divisors(m)
 
@@ -48,3 +52,6 @@ implement jacobi_ats (m, n) =
 
 implement totient_sum_ats (n) =
   totient_sum(n)
+
+implement coprime_ats (m, n) =
+  is_coprime(m, n)

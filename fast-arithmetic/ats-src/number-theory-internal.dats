@@ -23,6 +23,9 @@ fnx gcd {k:nat}{l:nat}(m : int(l), n : int(k)) : int =
 fn lcm {k:nat}{l:nat}(m : int(l), n : int(k)) : int =
   (m / gcd(m, n)) * n
 
+fn is_coprime {k:nat}{l:nat}(m : int(l), n : int(k)) : bool =
+  gcd(m, n) = 1
+
 // stream all divisors of an integer.
 fn divisors(n : intGte(1)) : stream_vt(int) =
   case+ n of

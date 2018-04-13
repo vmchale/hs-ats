@@ -69,7 +69,7 @@ main = hspec $ parallel $ do
             \a -> a < 0 || factorial a == Ext.factorial a
     describe "choose" $
         prop "should agree" $
-            \a -> a < 0 || choose 101 a == Ext.binomial 101 a
+            \a b -> a < 0 || b < 0 || choose b a == Ext.binomial b a
     describe "derangement" $
         prop "should agree" $
-            \a -> a < 0 || derangement a == hsDerangement a
+            \a -> a < 1 || derangement a == hsDerangement a
