@@ -51,7 +51,7 @@ library
     ghc-options: -Wall -optc-mtune=native -optc-flto -optc-O3
     build-depends:
         base >=4.10 && <5,
-        composition-prelude -any,
+        composition-prelude >=1.2.0.0,
         gmpint -any
     
     if flag(development)
