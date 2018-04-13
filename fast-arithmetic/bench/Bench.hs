@@ -29,10 +29,6 @@ main =
                       [ bench "totient" $ nf totient 2016
                       , bench "Ext.totient" $ nf Ext.totient (2016 :: Int)
                       ]
-                , bgroup "Σφ"
-                      [ bench "totientSum" $ nf totientSum 2016
-                      , bench "Ext.totientSum" $ nf Ext.totientSum (2016 :: Int)
-                      ]
                 , bgroup "τ"
                       [ bench "tau" $ nf tau 3018
                       , bench "Ext.tau" $ nf (Ext.tau :: Int -> Int) 3018

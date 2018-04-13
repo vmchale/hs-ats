@@ -2,7 +2,6 @@ import qualified Math.Combinat.Numbers                 as Ext
 import qualified Math.NumberTheory.ArithmeticFunctions as Ext
 import           Math.NumberTheory.Moduli.Jacobi       (JacobiSymbol (..))
 import qualified Math.NumberTheory.Moduli.Jacobi       as Ext
-import qualified Math.NumberTheory.MoebiusInversion    as Ext
 import           Numeric.Combinatorics
 import           Numeric.Integer
 import           Numeric.NumberTheory
@@ -74,6 +73,3 @@ main = hspec $ parallel $ do
     describe "derangement" $
         prop "should agree" $
             \a -> a < 0 || derangement a == hsDerangement a
-    describe "totientSum" $
-        prop "should agree" $
-            \a -> a < 1 || totientSum a == Ext.totientSum a

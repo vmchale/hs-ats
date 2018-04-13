@@ -9,8 +9,8 @@
 - [ ] benchmarks in ATS proper (probably interesting?)
 # Performance
 - [ ] Consider view type for appending arrays?
-- [ ] make `totient` faster
 - [ ] make `jacobi` faster
+- [ ] make `totientSum` use the right algorithm
 # Features
 - [ ] coprimality test
 - [ ] big omega
