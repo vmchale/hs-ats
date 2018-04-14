@@ -21,11 +21,11 @@ import           Foreign.Ptr
 import           Foreign.Storable
 import           System.IO.Unsafe    (unsafePerformIO)
 
-foreign import ccall double_factorial_ats :: CInt -> Ptr GMPInt
-foreign import ccall factorial_ats :: CInt -> Ptr GMPInt
-foreign import ccall choose_ats :: CInt -> CInt -> Ptr GMPInt
-foreign import ccall catalan_ats :: CInt -> Ptr GMPInt
-foreign import ccall derangements_ats :: CInt -> Ptr GMPInt
+foreign import ccall unsafe double_factorial_ats :: CInt -> Ptr GMPInt
+foreign import ccall unsafe factorial_ats :: CInt -> Ptr GMPInt
+foreign import ccall unsafe choose_ats :: CInt -> CInt -> Ptr GMPInt
+foreign import ccall unsafe catalan_ats :: CInt -> Ptr GMPInt
+foreign import ccall unsafe derangements_ats :: CInt -> Ptr GMPInt
 
 -- | \\( !n \\). See [here](http://mathworld.wolfram.com/Derangement.html)
 derangement :: Int -> Integer

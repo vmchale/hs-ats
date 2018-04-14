@@ -115,3 +115,24 @@ fn choose {n:nat}{ m : nat | m <= n }(n : int(n), k : int(m)) : Intinf =
         $UN.castvwtp0(z)
       end
   end
+
+// Bell numbers. These can't be called via the FFI because of the mutually
+// recursive functions here.
+fnx bell {n:nat}(n : int(n)) : [ n : nat | n > 0 ] intinf(n) =
+  case- n of
+    | 0 => int2intinf(1)
+    | n when n >= 0 =>> sum_loop(n, n)
+and sum_loop {n:nat}{ m : nat | m >= 1 && m <= n } .<m>. (n : int(n), i : int(m)) : [ n : nat | n > 0 ] intinf(n) =
+  case+ i of
+    | 1 => int2intinf(1)
+    | i =>> let
+      var p = sum_loop(n, i - 1)
+      var b = bell(i)
+      var c = choose(n, i)
+      var pre_ret = mul_intinf0_intinf1(c, b)
+      var ret = add_intinf0_intinf1(pre_ret, p)
+      val _ = intinf_free(b)
+      val _ = intinf_free(p)
+    in
+      $UN.castvwtp0(ret)
+    end

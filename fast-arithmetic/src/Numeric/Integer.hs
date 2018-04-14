@@ -11,7 +11,7 @@ module Numeric.Integer ( isPrime
 import           Foreign.C
 import           Numeric.Common
 
-foreign import ccall is_prime_ats :: CInt -> CBool
+foreign import ccall unsafe is_prime_ats :: CInt -> CBool
 
 -- | \( O(\sqrt(n)) \)
 isPrime :: Int -> Bool

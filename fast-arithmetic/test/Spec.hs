@@ -63,7 +63,7 @@ main = hspec $ parallel $ do
             \a -> a < 0 || doubleFactorial a == Ext.doubleFactorial a
     describe "catalan" $
         prop "should agree" $
-            \a -> a < 0 || catalan a == Ext.catalan a
+            \a -> a < 0 || catalan a == Ext.catalan a -- FIXME is Ext. catalan wrong for n = 9?
     describe "factorial" $
         prop "should agree" $
             \a -> a < 0 || factorial a == Ext.factorial a
