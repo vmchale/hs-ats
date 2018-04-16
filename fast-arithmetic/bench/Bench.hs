@@ -1,4 +1,4 @@
-module Main where
+module Main (main) where
 
 import           Criterion.Main
 import qualified Math.Combinat.Numbers                 as Ext

@@ -27,7 +27,10 @@ foreign import ccall unsafe choose_ats :: CInt -> CInt -> Ptr GMPInt
 foreign import ccall unsafe catalan_ats :: CInt -> Ptr GMPInt
 foreign import ccall unsafe derangements_ats :: CInt -> Ptr GMPInt
 
--- | \\( !n \\). See [here](http://mathworld.wolfram.com/Derangement.html)
+-- | \\( !n \\). See [here](http://mathworld.wolfram.com/Derangement.html).
+--
+-- > λ:> fmap derangement [0..10] :: [Integer]
+-- > [1,0,1,2,9,44,265,1854,14833,133496,1334961]
 derangement :: Int -> Integer
 derangement = unsafePerformIO . conjugateGMP derangements_ats
 

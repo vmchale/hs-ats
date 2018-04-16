@@ -1,3 +1,5 @@
+module Main (main) where
+
 import qualified Math.Combinat.Numbers                 as Ext
 import qualified Math.NumberTheory.ArithmeticFunctions as Ext
 import           Math.NumberTheory.Moduli.Jacobi       (JacobiSymbol (..))
@@ -5,12 +7,9 @@ import qualified Math.NumberTheory.Moduli.Jacobi       as Ext
 import           Numeric.Combinatorics
 import           Numeric.Integer
 import           Numeric.NumberTheory
-import           Numeric.Pure
 import           Test.Hspec
 import           Test.Hspec.QuickCheck
 import           Test.QuickCheck                       hiding (choose)
-
-{-# SPECIALIZE hsIsPrime :: Int -> Bool #-}
 
 hsIsPrime :: (Integral a) => a -> Bool
 hsIsPrime 1 = False
@@ -21,6 +20,14 @@ toInt :: JacobiSymbol -> Int
 toInt MinusOne = -1
 toInt Zero     = 0
 toInt One      = 1
+
+hsDerangement :: (Integral a) => Int -> a
+hsDerangement n = derangements !! n
+
+derangements :: (Integral a) => [a]
+derangements = fmap snd g
+    where g = (0, 1) : (1, 0) : zipWith step g (tail g)
+          step (_, n) (i, m) = (i + 1, i * (n + m))
 
 tooBig :: Int -> Int -> Bool
 tooBig x y = go x y >= 2 ^ (16 :: Integer)
