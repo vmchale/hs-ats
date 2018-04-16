@@ -13,9 +13,6 @@ description:
 category: Numerics, Math, Algorithms, Number Theory, Combinatorics, FFI, ATS
 build-type: Simple
 extra-source-files:
-    pkg.dhall
-    atspkg.dhall
-    ats-src/*.dats
     .atspkg/contrib/ats-includes-0.3.10/ccomp/runtime/*.h
     .atspkg/contrib/ats-includes-0.3.10/ccomp/runtime/*.c
     .atspkg/contrib/ats-includes-0.3.10/prelude/CATS/*.cats
