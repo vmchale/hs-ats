@@ -6,7 +6,6 @@ tags
 *.c
 dist-newstyle
 dist
-cbits
 .stack-work
 *.o
 *.so
