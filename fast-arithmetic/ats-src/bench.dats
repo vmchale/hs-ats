@@ -3,7 +3,7 @@
 #include "share/HATS/atspre_staload_libats_ML.hats"
 #include "share/HATS/atslib_staload_libats_libc.hats"
 #include "ats-src/combinatorics-internal.dats"
-#include "$PATSHOMELOCS/ats-bench-0.2.0/bench.dats"
+#include "$PATSHOMELOCS/ats-bench-0.2.1/bench.dats"
 
 fun factorial_bench() : void =
   {
