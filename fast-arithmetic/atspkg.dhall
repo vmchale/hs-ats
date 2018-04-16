@@ -18,5 +18,12 @@ in
 prelude.default ⫽
   { atsSource = prelude.mapSrc
       (mapDatsSrc ["combinatorics", "number-theory", "numerics" ])
-  , dependencies = prelude.mapPlainDeps [ "atscntrb-hx-intinf", "ats-includes" ]
+  , test =
+    [ prelude.bin ⫽
+      { src = "ats-src/bench.dats"
+      , target = "../dist-newstyle/build/bench"
+      , libs = [ "gmp" ]
+      }
+    ]
+  , dependencies = prelude.mapPlainDeps [ "atscntrb-hx-intinf", "ats-includes", "ats-bench" ]
   }

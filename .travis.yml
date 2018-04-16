@@ -35,5 +35,6 @@ script:
   - curl -sL https://raw.githubusercontent.com/vmchale/tomlcheck/master/sh/check | sh -s fast-arithmetic/.atsfmt.toml
   - cd fast-arithmetic
   - atspkg build
+  - atspkg test
   - cabal new-build
   - cabal new-test
