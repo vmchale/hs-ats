@@ -116,8 +116,17 @@ fn choose {n:nat}{ m : nat | m <= n }(n : int(n), k : int(m)) : Intinf =
       end
   end
 
+fn sterling {n:nat}{ k : nat | k <= n }(n : int(n), k : int(k)) : Intinf =
+  let
+    fun numerator_loop {j:nat}(j : int(j), acc : Intinf) : Intinf =
+      acc
+  in
+    int2intinf(0)
+  end
+
+// TODO stirling numbers of the second kind.
 // Bell numbers. These can't be called via the FFI because of the mutually
-// recursive functions here.
+// recursive functions, so we should probably think of something else.
 fnx bell {n:nat}(n : int(n)) : [ n : nat | n > 0 ] intinf(n) =
   case- n of
     | 0 => int2intinf(1)

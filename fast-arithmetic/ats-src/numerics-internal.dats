@@ -32,7 +32,9 @@ fun fib_gmp(n : intGte(0)) : Intinf =
     $UN.castvwtp0(z)
   end
 
-// Fast integer exponentiation. This performs O(log n) multiplications.
+// Fast integer exponentiation. This performs O(log n) multiplications. This
+// function is mostly useful for exponentiation in modular arithmetic, as
+// it can overflow.
 fun exp {n:nat} .<n>. (x : int, n : int(n)) : int =
   case+ x of
     | 0 => 0
@@ -55,6 +57,39 @@ fun exp {n:nat} .<n>. (x : int, n : int(n)) : int =
         else
           1
       end
+
+// Fast integer exponentiation, that mostly works as we would like.
+fun big_exp {n:nat} .<n>. (x : Intinf, n : int(n)) : Intinf =
+  if compare_intinf_int(x, 0) = 0 then
+    x
+  else
+    if n > 0 then
+      let
+        var n2 = half(n)
+        var i2 = n % 2
+      in
+        if i2 = 0 then
+          let
+            // FIXME copy it
+            var x0 = abs_intinf1(x)
+            var c = mul_intinf0_intinf1(x0, x)
+            val _ = intinf_free(x)
+          in
+            big_exp(c, n2)
+          end
+        else
+          let
+            var x0 = abs_intinf1(x)
+            var c0 = mul_intinf0_intinf1(x0, x)
+            var c1 = big_exp(c0, n2)
+            var c = mul_intinf0_intinf1(c1, x)
+            val _ = intinf_free(x)
+          in
+            c
+          end
+      end
+    else
+      (intinf_free(x) ; int2intinf(1))
 
 // square root is bounded for bounded k.
 fn sqrt_int(k : intGt(0)) :<> [m:nat] int(m) =

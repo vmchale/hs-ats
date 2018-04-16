@@ -103,6 +103,7 @@ fun exp_mod_prime(a : intGte(0), n : intGte(0), p : intGt(1)) : int =
 // I'm pretty sure this is broken in some way, though I'm really sure why.
 fun jacobi(a : intGte(0), n : Odd) : int =
   let
+    // TODO make this take p prime only.
     fun legendre { p : int | p >= 2 }(a : intGte(0), p : int(p)) : intBtwe(~1, 1) =
       case+ p % a of
         | 0 => 0

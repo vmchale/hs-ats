@@ -6,6 +6,7 @@
 - [ ] Consider view type for appending arrays?
 - [ ] make `jacobi` faster
 - [ ] make `totientSum` use the right algorithm
+- [ ] Use factorial etc. for derangement formula?
 # Functions
 - [ ] big omega
 - [ ] quadratic residues
