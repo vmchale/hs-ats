@@ -23,6 +23,7 @@ prelude.default ⫽
       { src = "ats-src/bench.dats"
       , target = "../dist-newstyle/build/bench"
       , libs = [ "gmp" ]
+      , gcBin = True
       }
     ]
   , dependencies = prelude.mapPlainDeps [ "atscntrb-hx-intinf", "ats-includes", "ats-bench" ]
