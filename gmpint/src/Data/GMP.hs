@@ -51,7 +51,6 @@ integerToWordList = coelgot pa c where
                | otherwise = embed ws
 {-# INLINEABLE integerToWordList #-}
 
--- TODO mendler-style catamorphism?
 wordListToInteger :: [Word64] -> Integer
 wordListToInteger = cata a where
     a Nil         = 0
