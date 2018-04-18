@@ -56,9 +56,8 @@ library
     if flag(development)
         ghc-options: -Werror
     
-    if impl(ghc >=8.0)
-        ghc-options: -Wincomplete-uni-patterns -Wincomplete-record-updates
-                     -Wcompat
+    ghc-options: -Wincomplete-uni-patterns -Wincomplete-record-updates
+                 -Wcompat
 
 test-suite fast-arithmetic-test
     type: exitcode-stdio-1.0
