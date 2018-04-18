@@ -4,7 +4,5 @@ packages:
   - 'gmpint'
   - 'fast-arithmetic'
 flags:
-  micro-recursion-schemes:
+  recursion-schemes:
     template-haskell: false
-extra-deps:
-  - micro-recursion-schemes-5.0.2.1

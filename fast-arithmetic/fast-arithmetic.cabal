@@ -7,6 +7,7 @@ copyright: Copyright: (c) 2018 Vanessa McHale
 maintainer: vamchale@gmail.com
 author: Vanessa McHale
 homepage: https://github.com/vmchale/fast-arithmetic#readme
+bug-reports: https://github.com/vmchale/hs-ats/issues
 synopsis: Fast functions on integers.
 description:
     Fast functions for number theory and combinatorics with a high level of safety guaranteed by [ATS](http://www.ats-lang.org/).
