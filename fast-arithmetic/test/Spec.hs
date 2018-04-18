@@ -5,7 +5,6 @@ import qualified Math.NumberTheory.ArithmeticFunctions as Ext
 import           Math.NumberTheory.Moduli.Jacobi       (JacobiSymbol (..))
 import qualified Math.NumberTheory.Moduli.Jacobi       as Ext
 import           Numeric.Combinatorics
-import           Numeric.Integer
 import           Numeric.NumberTheory
 import           Test.Hspec
 import           Test.Hspec.QuickCheck

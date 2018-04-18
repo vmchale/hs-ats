@@ -4,7 +4,6 @@ import           Criterion.Main
 import qualified Math.Combinat.Numbers                 as Ext
 import qualified Math.NumberTheory.ArithmeticFunctions as Ext
 import           Numeric.Combinatorics
-import           Numeric.Integer
 import           Numeric.NumberTheory
 
 {-# SPECIALIZE hsIsPrime :: Int -> Bool #-}

@@ -10,6 +10,7 @@ module Numeric.NumberTheory ( totient
                             , littleOmega
                             , isPerfect
                             , sumDivisors
+                            , isPrime
                             ) where
 
 import           Foreign.C
@@ -20,6 +21,11 @@ foreign import ccall unsafe count_divisors_ats :: CInt -> CInt
 foreign import ccall unsafe sum_divisors_ats :: CInt -> CInt
 foreign import ccall unsafe little_omega_ats :: CInt -> CInt
 foreign import ccall unsafe is_perfect_ats :: CInt -> CBool
+foreign import ccall unsafe is_prime_ats :: CInt -> CBool
+
+-- | \( O(\sqrt(n)) \)
+isPrime :: Int -> Bool
+isPrime = asTest is_prime_ats
 
 -- | See [here](http://mathworld.wolfram.com/PerfectNumber.html)
 isPerfect :: Int -> Bool

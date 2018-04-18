@@ -35,7 +35,6 @@ flag development
 
 library
     exposed-modules:
-        Numeric.Integer
         Numeric.NumberTheory
         Numeric.Combinatorics
     c-sources:
