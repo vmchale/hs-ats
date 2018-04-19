@@ -48,6 +48,7 @@ library
     include-dirs: .atspkg/contrib/ats-includes-0.3.10/ccomp/runtime
                   .atspkg/contrib/ats-includes-0.3.10/ .atspkg/contrib
     ghc-options: -Wall -optc-mtune=native -optc-flto -optc-O3
+                 -Wincomplete-uni-patterns -Wincomplete-record-updates -Wcompat
     build-depends:
         base >=4.10 && <5,
         composition-prelude >=1.2.0.0,
@@ -55,9 +56,6 @@ library
     
     if flag(development)
         ghc-options: -Werror
-    
-    ghc-options: -Wincomplete-uni-patterns -Wincomplete-record-updates
-                 -Wcompat
 
 test-suite fast-arithmetic-test
     type: exitcode-stdio-1.0
