@@ -49,13 +49,11 @@ integerToWordList = coelgot pa c where
     c i = Cons (fromIntegral (i `rem` base)) (i `quot` base)
     pa (i, ws) | i < base = [fromIntegral i]
                | otherwise = embed ws
-{-# INLINEABLE integerToWordList #-}
 
 wordListToInteger :: [Word64] -> Integer
 wordListToInteger = cata a where
     a Nil         = 0
     a (Cons x xs) = fromIntegral x + base * xs
-{-# INLINEABLE wordListToInteger #-}
 
 integerToGMP :: Integer -> IO GMPInt
 integerToGMP i = GMPInt l l <$> newArray ls
@@ -76,17 +74,13 @@ gmpToInteger = fmap wordListToInteger . gmpToList
 
 instance Storable GMPInt where
     sizeOf _ = 2 * wordWidth + ptrWidth
-    {-# INLINEABLE sizeOf #-}
     alignment _ = gcd wordWidth ptrWidth
-    {-# INLINEABLE alignment #-}
     peek ptr = GMPInt
         <$> peekByteOff ptr 0
         <*> peekByteOff ptr wordWidth
         <*> peekByteOff ptr (wordWidth * 2)
-    {-# INLINEABLE peek #-}
     poke ptr (GMPInt a s d) = mconcat
         [ pokeByteOff ptr 0 a
         , pokeByteOff ptr wordWidth s
         , pokeByteOff ptr (wordWidth * 2) d
         ]
-    {-# INLINEABLE poke #-}
