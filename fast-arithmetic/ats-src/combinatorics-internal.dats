@@ -50,10 +50,16 @@ extern
 praxi fact_b_base : [fact_b(0,1)] unit_p
 
 extern
-praxi mul_b_base {n:int} : [mul_b(n,1,n)] unit_p
+praxi mul_b_base0 {n:int} : [mul_b(n,1,n)] unit_p
 
 extern
-praxi mul_b_base {n:int} : [mul_b(1,n,n)] unit_p
+praxi mul_b_base1 {n:int} : [mul_b(1,n,n)] unit_p
+
+extern
+praxi mul_b_ind0 {n:int}{m:int}{nm:int} : [mul_b(n,m,nm) ->> mul_b(n+1,m,m+nm)] unit_p
+
+extern
+praxi mul_b_ind1 {n:int}{m:int}{nm:int} : [mul_b(n,m,nm) ->> mul_b(n,m+1,n+nm)] unit_p
 
 extern
 fun fact_v {n:nat} (n : int(n)) : [r:int] (fact_p(n, r) | intinf(r))
