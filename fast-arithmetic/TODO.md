@@ -1,3 +1,5 @@
+# Bugs
+- [ ] `derangement` fails for `n=29`?
 # ATS library
 - [ ] stack-allocated big integers?
 # Code maintenance

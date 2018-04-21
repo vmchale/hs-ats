@@ -5,6 +5,10 @@
 staload "$PATSHOMELOCS/atscntrb-hx-intinf/SATS/intinf_vt.sats"
 staload UN = "prelude/SATS/unsafe.sats"
 
+infixr (->) ->>
+
+stadef ->> (b1: bool, b2: bool) = ~b1 || b2
+
 // See [here](http://mathworld.wolfram.com/Derangement.html). I'm not sure how
 // fast this is, but it *seems* to be faster than the Haskell version so that's
 // good.
@@ -34,6 +38,31 @@ fn derangements {n:nat} .<n>. (n : int(n)) : Intinf =
       | n =>> loop(n - 1, 2, int2intinf(1), int2intinf(0))
   end
 
+dataprop fact_p(int, int) =
+  | fact_p_base(0, 1) of ()
+  | {n:nat}{r:int}{rn:int} fact_p_ind(n + 1, rn) of (fact_p(n, r), MUL(r, n + 1, rn))
+
+stacst fact_b : (int, int) -> bool
+
+stacst mul_b : (int, int, int) -> bool
+
+extern
+praxi fact_b_base : [fact_b(0,1)] unit_p
+
+extern
+praxi mul_b_base {n:int} : [mul_b(n,1,n)] unit_p
+
+extern
+praxi mul_b_base {n:int} : [mul_b(1,n,n)] unit_p
+
+extern
+fun fact_v {n:nat} (n : int(n)) : [r:int] (fact_p(n, r) | intinf(r))
+
+extern
+praxi fact_b_ind {n:nat}{r:int}{rn:int} : [fact_b(n,r) && mul_b(r,n+1,rn) ->> fact_b(n+1,rn)] unit_p
+
+// the fancy proof stuff isn't that useful, but it gets us a tail-recursive (?)
+// implementation that terminates which isn't the worst.
 fun fact {n:nat} .<n>. (k : int(n)) : intinfGte(1) =
   case+ k of
     | 0 => int2intinf(1)
