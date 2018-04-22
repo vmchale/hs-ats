@@ -58,14 +58,15 @@ praxi mul_b_base1 {n:int} : [mul_b(1,n,n)] unit_p
 extern
 praxi mul_b_ind0 {n:int}{m:int}{nm:int} : [mul_b(n,m,nm) ->> mul_b(n+1,m,m+nm)] unit_p
 
+// I have no idea how to actually use this proof
 extern
 praxi mul_b_ind1 {n:int}{m:int}{nm:int} : [mul_b(n,m,nm) ->> mul_b(n,m+1,n+nm)] unit_p
 
 extern
-fun fact_v {n:nat} (n : int(n)) : [r:int] (fact_p(n, r) | intinf(r))
+praxi fact_b_ind {n:nat}{r:int}{rn:int} : [fact_b(n,r) && mul_b(r,n+1,rn) ->> fact_b(n+1,rn)] unit_p
 
 extern
-praxi fact_b_ind {n:nat}{r:int}{rn:int} : [fact_b(n,r) && mul_b(r,n+1,rn) ->> fact_b(n+1,rn)] unit_p
+fun fact_v {n:nat} (n : int(n)) : [r:int] (fact_p(n, r) | intinf(r))
 
 // the fancy proof stuff isn't that useful, but it gets us a tail-recursive (?)
 // implementation that terminates which isn't the worst.
