@@ -5,7 +5,7 @@ constraints:
   gmpint +development,
   fast-arithmetic +development,
   ats-pkg +no-executable,
-  micro-recursion-schemes -template-haskell
+  recursion-schemes -template-haskell
 
 allow-boot-library-installs: true
 optimization: 2
