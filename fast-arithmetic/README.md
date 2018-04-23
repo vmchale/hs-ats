@@ -1,6 +1,6 @@
 # fast-arithmetic
 
-[![Build Status](https://travis-ci.org/vmchale/fast-arithmetic.svg?branch=master)](https://travis-ci.org/vmchale/fast-arithmetic)
+[![Build Status](https://travis-ci.org/vmchale/hs-ats.svg?branch=master)](https://travis-ci.org/vmchale/hs-ats)
 [![Hackage](https://img.shields.io/hackage/v/fast-arithmetic.svg)](http://hackage.haskell.org/package/fast-arithmetic)
 
 This is a library for fast arithmetical functions using ATS, with a Haskell
