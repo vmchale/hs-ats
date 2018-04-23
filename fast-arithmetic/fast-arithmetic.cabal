@@ -1,6 +1,6 @@
 cabal-version: 1.18
 name: fast-arithmetic
-version: 0.6.0.0
+version: 0.6.0.1
 license: BSD3
 license-file: LICENSE
 copyright: Copyright: (c) 2018 Vanessa McHale
@@ -70,8 +70,14 @@ test-suite fast-arithmetic-test
         fast-arithmetic -any,
         hspec -any,
         QuickCheck -any,
-        arithmoi -any,
-        combinat-compat -any
+        arithmoi -any
+    
+    if impl(ghc >=8.4)
+        build-depends:
+            combinat-compat -any
+    else
+        build-depends:
+            combinat -any
     
     if flag(development)
         ghc-options: -Werror
@@ -90,8 +96,14 @@ benchmark fast-arithmetic-bench
         base -any,
         fast-arithmetic -any,
         criterion -any,
-        arithmoi -any,
-        combinat-compat -any
+        arithmoi -any
+    
+    if impl(ghc >=8.4)
+        build-depends:
+            combinat-compat -any
+    else
+        build-depends:
+            combinat -any
     
     if flag(development)
         ghc-options: -Werror
