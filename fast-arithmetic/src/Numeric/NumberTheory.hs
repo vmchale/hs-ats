@@ -2,7 +2,7 @@
 Module      : Numeric.NumberTheory
 Copyright   : Copyright (c) 2018 Vanessa McHale
 
-This module provides fast number theoretic functions when possible.
+This module provides fast number theoretic functions.
 -}
 
 module Numeric.NumberTheory ( totient
@@ -35,7 +35,7 @@ isPerfect = asTest is_perfect_ats
 sumDivisors :: Int -> Int
 sumDivisors = conjugate sum_divisors_ats
 
--- Number of distinct prime factors
+-- | Number of distinct prime factors
 littleOmega :: Int -> Int
 littleOmega = conjugate little_omega_ats
 

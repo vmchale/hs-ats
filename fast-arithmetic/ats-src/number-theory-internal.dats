@@ -100,7 +100,7 @@ fun exp_mod_prime(a : intGte(0), n : intGte(0), p : intGt(1)) : int =
   end
 
 // Jacobi symbol for positive integers. See here: http://mathworld.wolfram.com/JacobiSymbol.html
-// I'm pretty sure this is broken in some way, though I'm really sure why.
+// I'm pretty sure this is broken in some way, though I'm not really sure why.
 fun jacobi(a : intGte(0), n : Odd) : int =
   let
     // TODO make this take p prime only.

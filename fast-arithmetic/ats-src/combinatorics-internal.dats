@@ -153,6 +153,7 @@ fn choose {n:nat}{ m : nat | m <= n }(n : int(n), k : int(m)) : Intinf =
       end
   end
 
+// Sterling numbers of the second kind
 fn sterling {n:nat}{ k : nat | k <= n }(n : int(n), k : int(k)) : Intinf =
   let
     fun numerator_loop {j:nat}(j : int(j), acc : Intinf) : Intinf =

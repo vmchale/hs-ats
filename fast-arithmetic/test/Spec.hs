@@ -12,7 +12,7 @@ import           Test.QuickCheck                       hiding (choose)
 
 hsIsPrime :: (Integral a) => a -> Bool
 hsIsPrime 1 = False
-hsIsPrime x = all ((/=0) . (x `mod`)) [2..up]
+hsIsPrime x = all ((/=0) . (x `rem`)) [2..up]
     where up = floor (sqrt (fromIntegral x :: Float))
 
 toInt :: JacobiSymbol -> Int
@@ -28,16 +28,20 @@ derangements = fmap snd g
     where g = (0, 1) : (1, 0) : zipWith step g (tail g)
           step (_, n) (i, m) = (i + 1, i * (n + m))
 
+-- FIXME report bug in integer-gmp
 tooBig :: Int -> Int -> Bool
 tooBig x y = go x y >= 2 ^ (16 :: Integer)
     where
         go :: Int -> Int -> Integer
         go m n = fromIntegral m ^ (fromIntegral n :: Integer)
 
-agree :: (Eq a, Show b, Integral b, Arbitrary b) => String -> (b -> a) -> (b -> a) -> SpecWith ()
-agree s f g = describe s $
+agreeL :: (Eq a, Show b, Integral b, Arbitrary b) => b -> String -> (b -> a) -> (b -> a) -> SpecWith ()
+agreeL lower s f g = describe s $
     prop "should agree with the pure Haskell function" $
-        \n -> n < 1 || f n == g n
+        \n -> n < lower || f n == g n
+
+agree :: (Eq a, Show b, Integral b, Arbitrary b) => String -> (b -> a) -> (b -> a) -> SpecWith ()
+agree = agreeL 1
 
 main :: IO ()
 main = hspec $ parallel $ do
@@ -69,7 +73,7 @@ main = hspec $ parallel $ do
             \a -> a < 0 || doubleFactorial a == Ext.doubleFactorial a
     describe "catalan" $
         prop "should agree" $
-            \a -> a < 0 || catalan a == Ext.catalan a -- FIXME is Ext. catalan wrong for n = 9?
+            \a -> a < 0 || catalan a == Ext.catalan a
     describe "factorial" $
         prop "should agree" $
             \a -> a < 0 || factorial a == Ext.factorial a

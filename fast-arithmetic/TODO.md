@@ -1,6 +1,7 @@
 # Bugs
 - [ ] `derangement` fails for `n=29`?
 - [ ] `factorial` fails for `n=56`, `n=33`?
+- [ ] `catalan` fails for `n=0`, `n=9`?
 # ATS library
 - [ ] stack-allocated big integers?
 # Code maintenance
