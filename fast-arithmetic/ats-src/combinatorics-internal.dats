@@ -59,6 +59,7 @@ extern
 praxi mul_b_ind0 {n:int}{m:int}{nm:int} : [mul_b(n,m,nm) ->> mul_b(n+1,m,m+nm)] unit_p
 
 // I have no idea how to actually use this proof
+// I think I need a proof-level function??
 extern
 praxi mul_b_ind1 {n:int}{m:int}{nm:int} : [mul_b(n,m,nm) ->> mul_b(n,m+1,n+nm)] unit_p
 
@@ -69,7 +70,7 @@ extern
 fun fact_v {n:nat} (n : int(n)) : [r:int] (fact_p(n, r) | intinf(r))
 
 // the fancy proof stuff isn't that useful, but it gets us a tail-recursive (?)
-// implementation that terminates which isn't the worst.
+// implementation which might be good (?)
 fun fact {n:nat} .<n>. (k : int(n)) : intinfGte(1) =
   case+ k of
     | 0 => int2intinf(1)

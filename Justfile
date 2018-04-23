@@ -7,7 +7,7 @@ linguist:
 ci:
     cd fast-arithmetic && atspkg build
     cabal new-build all
-    cabal new-test fast-arithmetic
+    cabal new-test all
     hlint fast-arithmetic gmpint
     yamllint .stylish-haskell.yaml
     yamllint .hlint.yaml
