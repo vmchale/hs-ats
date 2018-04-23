@@ -1,5 +1,6 @@
 poly:
-    poly -e cbits
+    @rm -f fast-arithmetic/*.c
+    @poly -e cbits
 
 linguist:
     linguist
