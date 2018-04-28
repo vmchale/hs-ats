@@ -1,6 +1,6 @@
 cabal-version: 1.18
 name: fast-arithmetic
-version: 0.6.0.1
+version: 0.6.0.2
 license: BSD3
 license-file: LICENSE
 copyright: Copyright: (c) 2018 Vanessa McHale
@@ -50,11 +50,14 @@ library
     include-dirs: .atspkg/contrib/ats-includes-0.3.10/ccomp/runtime
                   .atspkg/contrib/ats-includes-0.3.10/ .atspkg/contrib
     ghc-options: -Wall -optc-mtune=native -optc-flto -optc-O3
-                 -Wincomplete-uni-patterns -Wincomplete-record-updates -Wcompat
     build-depends:
-        base >=4.10 && <5,
+        base >=4.7 && <5,
         composition-prelude >=1.2.0.0,
         gmpint -any
+    
+    if impl(ghc >=8.0)
+        ghc-options: -Wincomplete-uni-patterns -Wincomplete-record-updates
+                     -Wcompat
     
     if flag(development)
         ghc-options: -Werror

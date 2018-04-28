@@ -42,7 +42,7 @@ let atsSource = if sourceBld
     prelude.mapSrc
       (mapDatsSrc moduleNames)
   else
-    [] : List prelude.Src
+    prelude.emptySrc
 in
 
 let test = if withBench
@@ -55,7 +55,7 @@ let test = if withBench
       }
     ]
   else
-    [] : List prelude.Bin
+    prelude.emptyBin
 in
 
 let libraries = if not sourceBld
@@ -67,7 +67,7 @@ let libraries = if not sourceBld
       }
     ]
   else
-    [] : List prelude.Lib
+    prelude.emptyLib
 in
 
 let dependencies = prelude.mapPlainDeps
