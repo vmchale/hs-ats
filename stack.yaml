@@ -8,5 +8,3 @@ flags:
     template-haskell: false
   comonad:
     test-doctests: false
-  semigroupoids:
-    doctests: false
