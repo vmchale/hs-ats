@@ -1,8 +1,12 @@
 ---
-resolver: lts-11.6
+resolver: lts-11.7
 packages:
   - 'gmpint'
   - 'fast-arithmetic'
 flags:
   recursion-schemes:
     template-haskell: false
+  comonad:
+    test-doctests: false
+  semigroupoids:
+    doctests: false

@@ -1,6 +1,6 @@
 cabal-version: 1.18
 name: fast-arithmetic
-version: 0.6.0.2
+version: 0.6.0.3
 license: BSD3
 license-file: LICENSE
 copyright: Copyright: (c) 2018 Vanessa McHale
@@ -31,7 +31,7 @@ source-repository head
 
 flag development
     description:
-        Enable `-Werror` and don't clean ATS libraries between builds.
+        Enable `-Werror`.
     default: False
     manual: True
 
