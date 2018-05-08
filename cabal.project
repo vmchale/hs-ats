@@ -6,7 +6,8 @@ constraints:
   fast-arithmetic +development,
   ats-pkg +no-executable,
   recursion-schemes -template-haskell,
-  comonad -test-doctests
+  comonad -test-doctests,
+  semigroupoids -doctests
 
 allow-boot-library-installs: true
 optimization: 2
