@@ -5,9 +5,7 @@ constraints:
   gmpint +development,
   fast-arithmetic +development,
   ats-pkg +no-executable,
-  recursion-schemes -template-haskell,
-  comonad -test-doctests,
-  semigroupoids -doctests
+  recursion-schemes -template-haskell
 
 allow-boot-library-installs: true
 optimization: 2

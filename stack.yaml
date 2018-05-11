@@ -6,5 +6,3 @@ packages:
 flags:
   recursion-schemes:
     template-haskell: false
-  comonad:
-    test-doctests: false
