@@ -1,2 +1,2 @@
 fast-arithmetic/cbits/*.c linguist-generated=true
-.atspkg/contrib linguist-vendored=true
+.atspkg/contrib/* linguist-vendored=true
