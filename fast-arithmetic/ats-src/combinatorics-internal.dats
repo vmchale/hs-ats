@@ -69,8 +69,12 @@ praxi fact_b_ind {n:nat}{r:int}{rn:int} : [fact_b(n,r) && mul_b(r,n+1,rn) ->> fa
 extern
 fun fact_v {n:nat} (n : int(n)) : [r:int] (fact_p(n, r) | intinf(r))
 
+extern
+fun imul {m:int}{n:int}{o:int} (x : int(m), y : int(m)) : (MUL(m, n, o) | int(o))
+
 // the fancy proof stuff isn't that useful, but it gets us a tail-recursive (?)
 // implementation which might be good (?)
+// TODO - imul_intinf0_int function
 fun fact {n:nat} .<n>. (k : int(n)) : intinfGte(1) =
   case+ k of
     | 0 => int2intinf(1)

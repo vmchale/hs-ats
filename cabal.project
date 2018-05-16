@@ -2,7 +2,7 @@ packages: fast-arithmetic
         , gmpint
 
 constraints:
-  gmpint +development,
+  gmpint -development,
   fast-arithmetic +development,
   ats-pkg +no-executable,
   recursion-schemes -template-haskell

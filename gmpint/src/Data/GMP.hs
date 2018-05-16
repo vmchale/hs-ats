@@ -16,8 +16,10 @@ module Data.GMP ( GMPInt (..)
                 , integerToGMP
                 ) where
 
+import           Control.Applicative
 import           Control.Monad         ((<=<))
-import           Data.Functor.Foldable
+import           Data.Foldable         (fold)
+import           Data.Functor.Foldable hiding (fold)
 import           Data.Word
 import           Foreign
 import           Foreign.C
@@ -79,7 +81,7 @@ instance Storable GMPInt where
         <$> peekByteOff ptr 0
         <*> peekByteOff ptr wordWidth
         <*> peekByteOff ptr (wordWidth * 2)
-    poke ptr (GMPInt a s d) = mconcat
+    poke ptr (GMPInt a s d) = fold
         [ pokeByteOff ptr 0 a
         , pokeByteOff ptr wordWidth s
         , pokeByteOff ptr (wordWidth * 2) d
