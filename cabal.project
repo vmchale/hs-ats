@@ -7,7 +7,6 @@ constraints:
   ats-pkg +no-executable,
   recursion-schemes -template-haskell
 
-allow-boot-library-installs: true
 optimization: 2
 tests: true
 benchmarks: true

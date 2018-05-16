@@ -25,6 +25,7 @@ install:
   - cabal update
   - pip install yamllint
   - curl -sSl https://raw.githubusercontent.com/vmchale/atspkg/master/bash/install.sh | bash -s
+  - atspkg clean
 
 script:
   - pip install yamllint
