@@ -3,11 +3,9 @@ packages: fast-arithmetic
 
 constraints:
   gmpint -development,
-  fast-arithmetic +development,
-  ats-pkg +no-executable,
-  recursion-schemes -template-haskell
+  fast-arithmetic +development
 
 optimization: 2
--- tests: true
--- benchmarks: true
+tests: true
+benchmarks: true
 documentation: true

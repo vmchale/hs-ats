@@ -19,23 +19,33 @@ matrix:
             - ghc-8.4.2
           sources:
             - hvr-ghc
+    - env: TARGET=x86_64-apple-darwin
+      os: osx
+      language: c
 
 install:
-  - export PATH=/opt/ghc/bin:$PATH
+  - |
+    if [ `uname` = "Darwin" ]
+    then
+      brew install cabal-install
+    else
+      export PATH=/opt/ghc/bin:$PATH
+    fi
   - cabal update
-  - pip install yamllint
   - curl -sSl https://raw.githubusercontent.com/vmchale/atspkg/master/bash/install.sh | bash -s
-  - atspkg clean
 
 script:
-  - pip install yamllint
-  - yamllint .travis.yml
-  - yamllint .stylish-haskell.yaml
-  - yamllint .hlint.yaml
-  - yamllint .yamllint
-  - curl -sL https://raw.githubusercontent.com/vmchale/tomlcheck/master/sh/check | sh -s fast-arithmetic/.atsfmt.toml
+  - |
+    if [ `uname` = "Linux" ]
+    then
+      pip install yamllint
+      yamllint .travis.yml
+      yamllint .stylish-haskell.yaml
+      yamllint .hlint.yaml
+      yamllint .yamllint
+      curl -sL https://raw.githubusercontent.com/vmchale/tomlcheck/master/sh/check | sh -s fast-arithmetic/.atsfmt.toml
+    fi
   - cd fast-arithmetic
-  # TODO only do this for Linux
   - atspkg build
   - atspkg test
   - cabal new-build
