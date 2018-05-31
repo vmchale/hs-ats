@@ -47,6 +47,6 @@ script:
     fi
   - cd fast-arithmetic
   - atspkg build -vv
-  - atspkg test
+  - atspkg test -vv
   - cabal new-build
   - cabal new-test
