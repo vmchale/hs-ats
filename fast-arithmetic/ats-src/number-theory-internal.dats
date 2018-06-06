@@ -14,7 +14,7 @@ fn divides(m : int, n : int) :<> bool =
   n % m = 0
 
 // Euclid's algorithm
-fnx gcd {k:nat}{l:nat}(m : int(l), n : int(k)) : int =
+fun gcd {k:nat}{l:nat}(m : int(l), n : int(k)) : int =
   if n > 0 then
     gcd(n, witness(m % n))
   else
@@ -247,7 +247,7 @@ fn totient(n : intGte(1)) : int =
 // slower than the Haskell equivalent, as it uses a naïve algorithm.
 fn totient_sum(n : intGte(1)) : Intinf =
   let
-    fnx loop { n : nat | n >= 1 }{ m : nat | m >= n } .<m-n>. (i : int(n), bound : int(m)) : Intinf =
+    fun loop { n : nat | n >= 1 }{ m : nat | m >= n } .<m-n>. (i : int(n), bound : int(m)) : Intinf =
       if i < bound then
         let
           var x = loop(i + 1, bound)

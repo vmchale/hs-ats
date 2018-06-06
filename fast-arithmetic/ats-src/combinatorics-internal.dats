@@ -169,10 +169,11 @@ fn sterling {n:nat}{ k : nat | k <= n }(n : int(n), k : int(k)) : Intinf =
 // TODO stirling numbers of the second kind.
 // Bell numbers. These can't be called via the FFI because of the mutually
 // recursive functions, so we should probably think of something else.
-fnx bell {n:nat}(n : int(n)) : [ n : nat | n > 0 ] intinf(n) =
+fun bell {n:nat}(n : int(n)) : [ n : nat | n > 0 ] intinf(n) =
   case- n of
     | 0 => int2intinf(1)
     | n when n >= 0 =>> sum_loop(n, n)
+
 and sum_loop {n:nat}{ m : nat | m >= 1 && m <= n } .<m>. (n : int(n), i : int(m)) : [ n : nat | n > 0 ] intinf(n) =
   case+ i of
     | 1 => int2intinf(1)

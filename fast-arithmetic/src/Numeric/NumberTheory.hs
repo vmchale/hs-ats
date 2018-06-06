@@ -31,7 +31,7 @@ isPrime = asTest is_prime_ats
 isPerfect :: Int -> Bool
 isPerfect = asTest is_perfect_ats
 
--- | Sum of proper divisors.
+-- | Sum of proper divisors. May overflow.
 sumDivisors :: Int -> Int
 sumDivisors = conjugate sum_divisors_ats
 

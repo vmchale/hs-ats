@@ -77,7 +77,7 @@ test-suite fast-arithmetic-test
         fast-arithmetic -any,
         hspec -any,
         QuickCheck -any,
-        arithmoi -any
+        arithmoi >=0.6.0.0
     
     if impl(ghc >=8.4)
         build-depends:
