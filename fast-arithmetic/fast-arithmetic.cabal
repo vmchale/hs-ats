@@ -17,11 +17,11 @@ extra-source-files:
     atspkg.dhall
     pkg.dhall
     ats-src/*.dats
-    .atspkg/contrib/ats-includes-0.3.10/ccomp/runtime/*.h
-    .atspkg/contrib/ats-includes-0.3.10/ccomp/runtime/*.c
-    .atspkg/contrib/ats-includes-0.3.10/prelude/CATS/*.cats
-    .atspkg/contrib/ats-includes-0.3.10/libats/libc/CATS/*.cats
-    .atspkg/contrib/ats-includes-0.3.10/libats/libc/CATS/sys/*.cats
+    .atspkg/contrib/ats-includes-0.3.11/ccomp/runtime/*.h
+    .atspkg/contrib/ats-includes-0.3.11/ccomp/runtime/*.c
+    .atspkg/contrib/ats-includes-0.3.11/prelude/CATS/*.cats
+    .atspkg/contrib/ats-includes-0.3.11/libats/libc/CATS/*.cats
+    .atspkg/contrib/ats-includes-0.3.11/libats/libc/CATS/sys/*.cats
     .atspkg/contrib/atscntrb-hx-intinf/*.hats
     .atspkg/contrib/atscntrb-hx-libgmp/CATS/*.cats
 extra-doc-files: README.md
@@ -48,8 +48,8 @@ library
     other-modules:
         Numeric.Common
     default-language: Haskell2010
-    include-dirs: .atspkg/contrib/ats-includes-0.3.10/ccomp/runtime
-                  .atspkg/contrib/ats-includes-0.3.10/ .atspkg/contrib
+    include-dirs: .atspkg/contrib/ats-includes-0.3.11/ccomp/runtime
+                  .atspkg/contrib/ats-includes-0.3.11/ .atspkg/contrib
     ghc-options: -Wall -optc-mtune=native -optc-flto -optc-O3
     build-depends:
         base >=4.3 && <5,

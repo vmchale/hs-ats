@@ -63,6 +63,7 @@ let libraries = if not sourceBld
     [ prelude.staticLib ⫽
       { name = "numbertheory"
       , src = (map Text Text asDats moduleNames)
+      , includes = [ "include/fast_arithmetic.h" ]
       , libTarget = "${prelude.cabalDir}/libnumbertheory.a"
       }
     ]
@@ -82,4 +83,5 @@ prelude.default ⫽
   , test = test
   , libraries = libraries
   , dependencies = dependencies
+  , cflags = if sourceBld then ([] : List Text) else [ "-DLIBRARY_BUILD" ]
   }

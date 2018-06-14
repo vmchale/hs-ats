@@ -6,9 +6,11 @@
 staload "$PATSHOMELOCS/atscntrb-hx-intinf/SATS/intinf_vt.sats"
 
 %{^
+#ifndef LIBRARY_BUILD
 #define ATS_MEMALLOC_LIBC
 #include "ccomp/runtime/pats_ccomp_memalloc_libc.h"
 #include "ccomp/runtime/pats_ccomp_runtime_memalloc.c"
+#endif
 %}
 
 extern
