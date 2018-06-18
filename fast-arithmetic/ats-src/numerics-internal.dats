@@ -17,6 +17,7 @@ typedef Odd = [n:nat] int(2*n+1)
 typedef gprime(tk: tk, p: int) = { m, n : nat | m < 1 && m <= n && n < p && m*n != p && p > 1 } g1int(tk, p)
 typedef prime(p: int) = gprime(int_kind, p)
 typedef Prime = [p:nat] prime(p)
+typedef GroethendieckPrime = [ p : nat | p == 57 ] int(p)
 
 fn witness(n : int) :<> [m:nat] int(m) =
   $UN.cast(n)
@@ -58,7 +59,7 @@ fun exp {n:nat} .<n>. (x : int, n : int(n)) : int =
           1
       end
 
-// Fast integer exponentiation, that mostly works as we would like.
+// Fast integer exponentiation.
 fun big_exp {n:nat} .<n>. (x : Intinf, n : int(n)) : Intinf =
   if compare_intinf_int(x, 0) = 0 then
     x
@@ -71,16 +72,13 @@ fun big_exp {n:nat} .<n>. (x : Intinf, n : int(n)) : Intinf =
         if i2 = 0 then
           let
             // FIXME copy it
-            var x0 = abs_intinf1(x)
-            var c = mul_intinf0_intinf1(x0, x)
-            val _ = intinf_free(x)
+            var c = square_intinf0(x)
           in
             big_exp(c, n2)
           end
         else
           let
-            var x0 = abs_intinf1(x)
-            var c0 = mul_intinf0_intinf1(x0, x)
+            var c0 = square_intinf1(x)
             var c1 = big_exp(c0, n2)
             var c = mul_intinf0_intinf1(c1, x)
             val _ = intinf_free(x)
@@ -92,6 +90,7 @@ fun big_exp {n:nat} .<n>. (x : Intinf, n : int(n)) : Intinf =
       (intinf_free(x) ; int2intinf(1))
 
 // square root is bounded for bounded k.
+// pretty sure this isn't side effecting idk.
 fn sqrt_int(k : intGt(0)) :<> [m:nat] int(m) =
   let
     var bound: int = g0float2int(sqrt_float(g0int2float(k)))

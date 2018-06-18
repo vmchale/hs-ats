@@ -40,6 +40,7 @@ library
     exposed-modules:
         Numeric.NumberTheory
         Numeric.Combinatorics
+    include-dirs: include
     c-sources:
         cbits/combinatorics.c
         cbits/number-theory.c
