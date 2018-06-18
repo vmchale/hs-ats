@@ -71,7 +71,6 @@ fun big_exp {n:nat} .<n>. (x : Intinf, n : int(n)) : Intinf =
       in
         if i2 = 0 then
           let
-            // FIXME copy it
             var c = square_intinf0(x)
           in
             big_exp(c, n2)

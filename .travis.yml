@@ -43,6 +43,7 @@ script:
       yamllint .stylish-haskell.yaml
       yamllint .hlint.yaml
       yamllint .yamllint
+      yamllint .weeder.yaml
       curl -sL https://raw.githubusercontent.com/vmchale/tomlcheck/master/sh/check | sh -s fast-arithmetic/.atsfmt.toml
     fi
   - cd fast-arithmetic
