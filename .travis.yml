@@ -11,12 +11,44 @@ addons:
       libgmp3-dev
 matrix:
   include:
-    - language: python
+    - language: c
       addons:
         apt:
           packages:
             - cabal-install-head
-            - ghc-8.4.2
+            - ghc-8.4.3
+          sources:
+            - hvr-ghc
+    - language: c
+      addons:
+        apt:
+          packages:
+            - cabal-install-head
+            - ghc-8.2.2
+          sources:
+            - hvr-ghc
+    - language: c
+      addons:
+        apt:
+          packages:
+            - cabal-install-head
+            - ghc-8.0.2
+          sources:
+            - hvr-ghc
+    - language: c
+      addons:
+        apt:
+          packages:
+            - cabal-install-head
+            - ghc-7.10.3
+          sources:
+            - hvr-ghc
+    - language: c
+      addons:
+        apt:
+          packages:
+            - cabal-install-head
+            - ghc-7.8.4
           sources:
             - hvr-ghc
     - env: TARGET=x86_64-apple-darwin
@@ -38,12 +70,6 @@ script:
   - |
     if [ `uname` = "Linux" ]
     then
-      pip install yamllint
-      yamllint .travis.yml
-      yamllint .stylish-haskell.yaml
-      yamllint .hlint.yaml
-      yamllint .yamllint
-      yamllint .weeder.yaml
       curl -sL https://raw.githubusercontent.com/vmchale/tomlcheck/master/sh/check | sh -s fast-arithmetic/.atsfmt.toml
     fi
   - cd fast-arithmetic

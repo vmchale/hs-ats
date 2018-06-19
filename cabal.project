@@ -3,8 +3,7 @@ packages: fast-arithmetic
 
 constraints:
   gmpint -development,
-  fast-arithmetic +development,
-  composition-prelude +cross
+  fast-arithmetic +development
 
 optimization: 2
 tests: true
