@@ -38,7 +38,7 @@ computation of basic combinatorial functions.
 
 The Haskell library comes with the C bundled, however you will likely want to build from
 source if you are hacking on the library. To that end, you can install
-[atspkg](http://hackage.haskell.org/package/ats-pkg), and build with
+[atspkg](http://hackage.haskell.org/package/ats-pkg) and build with
 
 ```bash
 atspkg build
