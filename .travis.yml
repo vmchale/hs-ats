@@ -51,9 +51,8 @@ matrix:
             - ghc-7.8.4
           sources:
             - hvr-ghc
-    - env: TARGET=x86_64-apple-darwin
+    - language: c
       os: osx
-      language: c
 
 install:
   - |
