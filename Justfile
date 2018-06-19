@@ -13,8 +13,6 @@ ci:
     yamllint .stylish-haskell.yaml
     yamllint .hlint.yaml
     yamllint .travis.yml
-    yamllint stack.yaml
-    stack build && weeder .
 
 bench:
     cd fast-arithmetic && bench "cdeps cbits/numerics.c -I .atspkg/contrib/ats-includes-0.3.10/ -I .atspkg/contrib/ats-includes-0.3.10/ccomp/runtime"
