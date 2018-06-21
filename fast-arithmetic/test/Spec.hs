@@ -57,8 +57,8 @@ main = hspec $ parallel $ do
         [hsIsPrime]
 
     describe "jacobi" $
-        it "should match the arithmoi function" $
-            toInt (Ext.jacobi (15 :: Int) 19) `shouldBe` toInt (Ext.jacobi (15 :: Int) 19)
+        prop "should match the arithmoi function" $
+            \p q -> p < 0 || not (isPrime q) || q <= 2 || jacobi p q == toInt (Ext.jacobi p q)
     describe "totient" $
         prop "should be equal to p-1 for p prime" $
             \p -> p < 1 || not (isPrime p) || totient p == p - 1

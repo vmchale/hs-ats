@@ -116,7 +116,10 @@ benchmark fast-arithmetic-bench
         base -any,
         fast-arithmetic -any,
         criterion -any,
-        arithmoi -any
+        arithmoi -any,
+        deepseq
+
+    other-extensions: DeriveGeneric DeriveAnyClass StandaloneDeriving
     
     if impl(ghc >=8.4)
         build-depends:

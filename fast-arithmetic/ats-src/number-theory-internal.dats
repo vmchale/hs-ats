@@ -65,7 +65,7 @@ fn divisors(n : intGte(1)) : stream_vt(int) =
 fn prime_divisors(n : intGte(1)) : stream_vt(int) =
   stream_vt_filter_cloptr(divisors(n), lam x => is_prime($UN.cast(x)))
 
-// if n >= 0, p > 1, then n/p >=
+// if n >= 0, p > 1, then n/p >= 0
 fn div_gt_zero(n : intGte(0), p : intGt(1)) : intGte(0) =
   $UN.cast(n / p)
 
@@ -100,7 +100,6 @@ fun exp_mod_prime(a : intGte(0), n : intGte(0), p : intGt(1)) : int =
   end
 
 // Jacobi symbol for positive integers. See here: http://mathworld.wolfram.com/JacobiSymbol.html
-// I'm pretty sure this is broken in some way, though I'm not really sure why.
 fun jacobi(a : intGte(0), n : Odd) : int =
   let
     // TODO make this take p prime only.
@@ -112,6 +111,8 @@ fun jacobi(a : intGte(0), n : Odd) : int =
         in
           case+ i of
             | i when i % (p - 1) = 0 => ~1
+            // TODO why do I need this
+            | i when i % p = (p - 1) => ~1
             | i when i % p = 0 => 0
             | _ => 1
         end
@@ -125,10 +126,13 @@ fun jacobi(a : intGte(0), n : Odd) : int =
       if acc > n then
         1
       else
-        if a % acc = 0 && is_prime(acc) then
-          loop(acc + 1) * exp(legendre(acc, n), get_multiplicity(a, acc))
+        if a = 0 then
+          0
         else
-          loop(acc + 1)
+          if a % acc = 0 && is_prime(acc) then
+            loop(acc + 1) * exp(legendre(acc, n), get_multiplicity(a, acc))
+          else
+            loop(acc + 1)
   in
     loop(2)
   end
