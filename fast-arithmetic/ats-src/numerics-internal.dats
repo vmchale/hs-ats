@@ -17,7 +17,6 @@ typedef Odd = [n:nat] int(2*n+1)
 typedef gprime(tk: tk, p: int) = { m, n : nat | m < 1 && m <= n && n < p && m*n != p && p > 1 } g1int(tk, p)
 typedef prime(p: int) = gprime(int_kind, p)
 typedef Prime = [p:nat] prime(p)
-typedef GroethendieckPrime = [ p : nat | p == 57 ] int(p)
 
 fn witness(n : int) :<> [m:nat] int(m) =
   $UN.cast(n)
