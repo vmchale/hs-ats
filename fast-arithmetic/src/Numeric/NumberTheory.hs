@@ -26,7 +26,7 @@ foreign import ccall unsafe is_perfect_ats :: CInt -> CUChar
 foreign import ccall unsafe is_prime_ats :: CInt -> CUChar
 foreign import ccall unsafe jacobi_ats :: CInt -> CInt -> CInt
 
--- | This is slow and thus not recommended.
+-- | This is slow and also slightly broken.
 jacobi :: Int -> Int -> Int
 jacobi = fromIntegral .* on jacobi_ats fromIntegral
 
