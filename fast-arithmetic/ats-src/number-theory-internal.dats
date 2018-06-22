@@ -137,6 +137,16 @@ fun jacobi(a : intGte(0), n : Odd) : int =
     loop(2)
   end
 
+// this doesn't actually work but it should be faster once it's done
+fun jacobi2{m:int}{n:int}(a: int(m), n: int(n)) : int =
+  case+ a of
+    | 0 => 0
+    | 1 => 1
+    | _ when a > n => jacobi2($UN.cast(a % n), n)
+    | _ when a % 2 = 0 => if n % 8 = 1 || n % 8 = ~1 then jacobi2(a/2, n) else ~jacobi2(a/2, n)
+    | _ when a % 4 = 3 && n % 4 = 3 => jacobi2(n, a)
+    | _ => ~jacobi2(n, a)
+
 fn count_divisors(n : intGte(1)) : int =
   stream_vt_length(divisors(n))
 
