@@ -13,6 +13,7 @@ module Data.GMP ( GMPInt (..)
                 , gmpToInteger
                 , conjugateGMP
                 , integerToGMP
+                , gmpForeignPtr
                 ) where
 
 import           Control.Applicative
