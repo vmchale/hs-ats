@@ -6,6 +6,6 @@ constraints:
   fast-arithmetic +development
 
 optimization: 2
-tests: true
-benchmarks: true
-documentation: true
+-- tests: true
+-- benchmarks: true
+-- documentation: true
