@@ -4,6 +4,8 @@
 - [ ] `catalan` fails for `n=0`, `n=9`?
 # ATS library
 - [ ] stack-allocated big integers?
+# Haskell library
+- [ ] Consider backpack and/or pure haskell library for when ATS fails?
 # Code maintenance
 - [ ] benchmarks in ATS proper (probably interesting?)
 # Performance
