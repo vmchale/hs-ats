@@ -19,7 +19,7 @@ module Data.GMP ( GMPInt (..)
 
 import           Control.Monad         ((<=<))
 import           Data.Foldable         (fold)
-import           Data.Functor.Foldable hiding (fold)
+import           Data.Functor.Foldable
 import           Data.Word
 import           Foreign
 import           Foreign.C

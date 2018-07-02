@@ -1,6 +1,6 @@
 cabal-version: 1.18
 name: gmpint
-version: 0.1.1.0
+version: 0.1.1.1
 license: BSD3
 license-file: LICENSE
 copyright: Copyright: (c) 2018 Vanessa McHale
@@ -33,14 +33,8 @@ library
         gmp
     ghc-options: -Wall
     build-depends:
-        base >=4.8 && <5
-    
-    if impl(ghc >=8.2)
-        build-depends:
-            micro-recursion-schemes -any
-    else
-        build-depends:
-            recursion-schemes -any
+        base >=4.8 && <5,
+        micro-recursion-schemes -any
     
     if flag(development)
         ghc-options: -Werror
