@@ -13,12 +13,11 @@ Various libraries facilitating calling ATS from Haskell (and vice versa).
  Cabal Project            1          13            8            3            2
  Dhall                    2          92           77            0           15
  Haskell                  7         374          293           21           60
- HTML                     1        1574         1483            0           91
  Justfile                 1          21           17            0            4
  Markdown                 5         112           98            0           14
  TOML                     1           3            3            0            0
  YAML                     3         104           99            0            5
 -------------------------------------------------------------------------------
- Total                   30        3243         2879           68          296
+ Total                   29        1669         1396           68          205
 -------------------------------------------------------------------------------
 ```
