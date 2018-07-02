@@ -36,22 +36,6 @@ matrix:
           sources:
             - hvr-ghc
     - language: c
-      addons:
-        apt:
-          packages:
-            - cabal-install-head
-            - ghc-7.10.3
-          sources:
-            - hvr-ghc
-    - language: c
-      addons:
-        apt:
-          packages:
-            - cabal-install-head
-            - ghc-7.8.4
-          sources:
-            - hvr-ghc
-    - language: c
       os: osx
 
 install:
