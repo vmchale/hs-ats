@@ -1,3 +1,4 @@
+{-# LANGUAGE CApiFFI          #-}
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE RankNTypes       #-}
 {-# LANGUAGE TypeFamilies     #-}
@@ -16,8 +17,9 @@ module Data.GMP ( GMPInt (..)
                 , gmpForeignPtr
                 ) where
 
-import           Control.Applicative
-import           Control.Monad       ((<=<))
+import           Control.Monad         ((<=<))
+import           Data.Foldable         (fold)
+import           Data.Functor.Foldable hiding (fold)
 import           Data.Word
 import           Foreign
 import           Foreign.C
@@ -30,7 +32,7 @@ data GMPInt = GMPInt {
                      , _mp_d     :: !(Ptr Word64) -- ^ Pointer to an array containing the limbs.
                      }
 
-foreign import ccall "&__gmpz_clear" mpz_clear :: FunPtr (Ptr GMPInt -> IO ())
+foreign import capi "&__gmpz_clear" mpz_clear :: FunPtr (Ptr GMPInt -> IO ())
 
 wordWidth :: Int
 wordWidth = sizeOf (undefined :: Word32)
@@ -45,12 +47,15 @@ base :: Integer
 base = 2 ^ (64 :: Int)
 
 integerToWordList :: Integer -> [Word64]
-integerToWordList i | i < base = [fromIntegral i]
-                    | otherwise = fromIntegral (i `rem` base) : integerToWordList (i `quot` base)
+integerToWordList = coelgot pa c where
+    c i = Cons (fromIntegral (i `rem` base)) (i `quot` base)
+    pa (i, ws) | i < base = [fromIntegral i]
+               | otherwise = embed ws
 
 wordListToInteger :: [Word64] -> Integer
-wordListToInteger []     = 0
-wordListToInteger (x:xs) = fromIntegral x + base * wordListToInteger xs
+wordListToInteger = cata a where
+    a Nil         = 0
+    a (Cons x xs) = fromIntegral x + base * xs
 
 integerToGMP :: Integer -> IO GMPInt
 integerToGMP i = GMPInt l l <$> newArray ls
@@ -76,7 +81,7 @@ instance Storable GMPInt where
         <$> peekByteOff ptr 0
         <*> peekByteOff ptr wordWidth
         <*> peekByteOff ptr (wordWidth * 2)
-    poke ptr (GMPInt a s d) = sequence_
+    poke ptr (GMPInt a s d) = fold
         [ pokeByteOff ptr 0 a
         , pokeByteOff ptr wordWidth s
         , pokeByteOff ptr (wordWidth * 2) d
