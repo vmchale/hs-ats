@@ -4,10 +4,6 @@ packages: fast-arithmetic
 constraints:
   gmpint -development,
   fast-arithmetic +development,
-  micro-recursion-schemes -template-haskell,
-  recursion-schemes -template-haskell
+  micro-recursion-schemes -template-haskell
 
 optimization: 2
--- tests: true
--- benchmarks: true
--- documentation: true
