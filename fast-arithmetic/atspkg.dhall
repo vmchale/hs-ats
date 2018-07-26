@@ -12,13 +12,6 @@ in
 let PreSrc = { atsSrc : Text, cTarget : Text }
 in
 
-{- Configuration variables -}
-let sourceBld = True
-in
-
-let withBench = True
-in
-
 {- Helper functions -}
 let asDats =
   λ(x : Text) → "ats-src/${x}.dats"
@@ -36,52 +29,53 @@ let moduleNames =
   ["combinatorics", "number-theory", "numerics" ]
 in
 
-{- Build components -}
-let atsSource = if sourceBld
-  then
-    prelude.mapSrc
-      (mapDatsSrc moduleNames)
-  else
-    prelude.emptySrc
-in
-
-let test = if withBench
-  then
-    [ prelude.bin ⫽
-      { src = "ats-src/bench.dats"
-      , target = "target/bench"
-      , libs = [ "gmp" ]
-      , gcBin = True
-      }
-    ]
-  else
-    prelude.emptyBin
-in
-
-let libraries = if not sourceBld
-  then
-    [ prelude.staticLib ⫽
-      { name = "numbertheory"
-      , src = (map Text Text asDats moduleNames)
-      , includes = [ "include/fast_arithmetic.h" ]
-      , libTarget = "${prelude.cabalDir}/libnumbertheory.a"
-      }
-    ]
-  else
-    prelude.emptyLib
-in
-
-let dependencies = prelude.mapPlainDeps
-  ([ "atscntrb-hx-intinf" ]
-   # (if sourceBld then [ "ats-includes" ] else [] : List Text)
-   # (if withBench then [ "ats-bench" ] else [] : List Text))
-in
-
 {- Main -}
-prelude.default ⫽
-  { atsSource = atsSource
-  , test = test
-  , libraries = libraries
-  , dependencies = dependencies
-  , cflags = if sourceBld then ([] : List Text) else [ "-DLIBRARY_BUILD" ]
-  }
+λ(cfg : { sourceBld : Bool, withBench : Bool }) →
+
+    let test = if cfg.withBench
+    then
+        [ prelude.bin ⫽
+            { src = "ats-src/bench.dats"
+            , target = "target/bench"
+            , libs = [ "gmp" ]
+            , gcBin = True
+            }
+        ]
+    else
+        prelude.emptyBin
+    in
+
+    let atsSource = if cfg.sourceBld
+        then
+            prelude.mapSrc
+            (mapDatsSrc moduleNames)
+        else
+            prelude.emptySrc
+    in
+
+    let libraries = if not cfg.sourceBld
+        then
+            [ prelude.staticLib ⫽
+                { name = "numbertheory"
+                , src = (map Text Text asDats moduleNames)
+                , includes = [ "include/fast_arithmetic.h" ]
+                , libTarget = "${prelude.cabalDir}/libnumbertheory.a"
+                }
+            ]
+        else
+            prelude.emptyLib
+    in
+
+        let dependencies = prelude.mapPlainDeps
+        ([ "atscntrb-hx-intinf" ]
+            # (if cfg.sourceBld then [ "ats-includes" ] else [] : List Text)
+            # (if cfg.withBench then [ "ats-bench" ] else [] : List Text))
+    in
+
+    prelude.default ⫽
+        { atsSource = atsSource
+        , test = test
+        , libraries = libraries
+        , dependencies = dependencies
+        , cflags = if cfg.sourceBld then ([] : List Text) else [ "-DLIBRARY_BUILD" ]
+        }
