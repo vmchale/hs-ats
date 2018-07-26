@@ -15,6 +15,9 @@ build-type: Simple
 extra-source-files:
     atspkg.dhall
     pkg.dhall
+    lib.dhall
+    source.dhall
+    bench.dhall
     ats-src/*.dats
     .atspkg/contrib/ats-includes-0.3.11/ccomp/runtime/*.h
     .atspkg/contrib/ats-includes-0.3.11/ccomp/runtime/*.c
