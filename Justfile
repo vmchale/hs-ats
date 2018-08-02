@@ -15,7 +15,7 @@ ci:
     yamllint .travis.yml
 
 bench:
-    cd fast-arithmetic && bench "cdeps cbits/numerics.c -I .atspkg/contrib/ats-includes-0.3.10/ -I .atspkg/contrib/ats-includes-0.3.10/ccomp/runtime"
+    cd fast-arithmetic && bench "cdeps cbits/numerics.c -I .atspkg/contrib/ats-includes-0.3.11/ -I .atspkg/contrib/ats-includes-0.3.11/ccomp/runtime"
 
 dump:
-    @cd fast-arithmetic && cdeps cbits/numerics.c -I .atspkg/contrib/ats-includes-0.3.10/ -I .atspkg/contrib/ats-includes-0.3.10/ccomp/runtime
+    @cd fast-arithmetic && cdeps cbits/numerics.c -I .atspkg/contrib/ats-includes-0.3.11/ -I .atspkg/contrib/ats-includes-0.3.11/ccomp/runtime

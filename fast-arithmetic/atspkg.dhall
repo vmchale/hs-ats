@@ -79,3 +79,4 @@ in
         , dependencies = dependencies
         , cflags = if cfg.sourceBld then ([] : List Text) else [ "-DLIBRARY_BUILD" ]
         }
+
