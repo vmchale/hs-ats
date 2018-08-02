@@ -8,23 +8,20 @@ cache:
 addons:
   apt:
     packages:
-      - libgmp3-dev
-      - cabal-install-head
-    sources:
-      - hvr-ghc
+      libgmp3-dev
 matrix:
   include:
     - language: c
       addons:
         apt:
           packages:
+            - cabal-install-head
             - ghc-8.4.3
-          sources:
-            - hvr-ghc
     - language: c
       addons:
         apt:
           packages:
+            - cabal-install-head
             - ghc-8.2.2
           sources:
             - hvr-ghc
@@ -32,6 +29,7 @@ matrix:
       addons:
         apt:
           packages:
+            - cabal-install-head
             - ghc-8.0.2
           sources:
             - hvr-ghc
@@ -39,6 +37,7 @@ matrix:
       addons:
         apt:
           packages:
+            - cabal-install-head
             - ghc-7.10.3
           sources:
             - hvr-ghc
