@@ -19,21 +19,29 @@ matrix:
         apt:
           packages:
             - ghc-8.4.3
+          sources:
+            - hvr-ghc
     - language: c
       addons:
         apt:
           packages:
             - ghc-8.2.2
+          sources:
+            - hvr-ghc
     - language: c
       addons:
         apt:
           packages:
             - ghc-8.0.2
+          sources:
+            - hvr-ghc
     - language: c
       addons:
         apt:
           packages:
             - ghc-7.10.3
+          sources:
+            - hvr-ghc
     - language: c
       os: osx
 
