@@ -2,8 +2,6 @@ module Main (main) where
 
 import qualified Math.Combinat.Numbers                 as Ext
 import qualified Math.NumberTheory.ArithmeticFunctions as Ext
-{- import           Math.NumberTheory.Moduli.Jacobi       (JacobiSymbol (..)) -}
-{- import qualified Math.NumberTheory.Moduli.Jacobi       as Ext -}
 import           Numeric.Combinatorics
 import           Numeric.NumberTheory
 import           Test.Hspec
@@ -14,11 +12,6 @@ hsIsPrime :: (Integral a) => a -> Bool
 hsIsPrime 1 = False
 hsIsPrime x = all ((/=0) . (x `rem`)) [2..up]
     where up = floor (sqrt (fromIntegral x :: Float))
-
-{- toInt :: JacobiSymbol -> Int -}
-{- toInt MinusOne = -1 -}
-{- toInt Zero     = 0 -}
-{- toInt One      = 1 -}
 
 hsDerangement :: (Integral a) => Int -> a
 hsDerangement n = derangements !! n

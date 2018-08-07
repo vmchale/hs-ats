@@ -120,6 +120,7 @@ fun dfact {n:nat} .<n>. (k : int(n)) : Intinf =
 // Number of permutations on n objects using k at a time.
 fn permutations {n:nat}{ k : nat | k <= n }(n : int(n), k : int(k)) : Intinf =
   let
+    // n * (n - 1) * ... * (n - k + 1)
     var x = fact(n)
     var y = fact(n - k)
     var z = div_intinf0_intinf1(x, y)
