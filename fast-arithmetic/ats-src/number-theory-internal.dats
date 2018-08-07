@@ -112,8 +112,6 @@ fun jacobi(a : intGte(0), n : Odd) : int =
         in
           case+ i of
             | i when i % (p - 1) = 0 => ~1
-            // TODO why do I need this
-            | i when i % p = (p - 1) => ~1
             | i when i % p = 0 => 0
             | _ => 1
         end
@@ -139,12 +137,15 @@ fun jacobi(a : intGte(0), n : Odd) : int =
   end
 
 // this doesn't actually work but it should be faster once it's done
-fun jacobi2{m:int}{n:int}(a: int(m), n: int(n)) : int =
+fun jacobi2 {m:int}{n:int}(a : int(m), n : int(n)) : int =
   case+ a of
     | 0 => 0
     | 1 => 1
     | _ when a > n => jacobi2($UN.cast(a % n), n)
-    | _ when a % 2 = 0 => if n % 8 = 1 || n % 8 = ~1 then jacobi2(a/2, n) else ~jacobi2(a/2, n)
+    | _ when a % 2 = 0 => if n % 8 = 1 || n % 8 = ~1 then
+      jacobi2(a / 2, n)
+    else
+      ~jacobi2(a / 2, n)
     | _ when a % 4 = 3 && n % 4 = 3 => jacobi2(n, a)
     | _ => ~jacobi2(n, a)
 
@@ -201,7 +202,7 @@ fun rip { n : nat | n > 0 }{ p : nat | p > 0 } .<n>. (n : int(n), p : int(p)) :<
     else
       1
 
-fun prime_factors(n : intGte(1)) : stream_vt(int) =
+fn prime_factors(n : intGte(1)) : stream_vt(int) =
   let
     fun loop { k : nat | k > 0 }{ m : nat | m > 0 }(n : int(k), acc : int(m)) : stream_vt(int) =
       if acc >= n then
