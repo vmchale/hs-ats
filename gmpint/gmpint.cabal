@@ -12,6 +12,7 @@ description:
 category: C, FFI, Foreign
 build-type: Simple
 extra-doc-files: README.md
+                 CHANGELOG.md
 
 source-repository head
     type: git
