@@ -72,8 +72,6 @@ fun fact_v {n:nat} (n : int(n)) : [r:int] (fact_p(n, r) | intinf(r))
 extern
 fun imul {m:int}{n:int}{o:int} (x : int(m), y : int(m)) : (MUL(m, n, o) | int(o))
 
-// the fancy proof stuff isn't that useful, but it gets us a tail-recursive (?)
-// implementation which might be good (?)
 // TODO - imul_intinf0_int function
 // ALSO: try a call-by-reference version of the loop??
 fun fact {n:nat} .<n>. (k : int(n)) : intinfGte(1) =

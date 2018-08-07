@@ -17,4 +17,4 @@ convertBool = go . fromIntegral
         go :: Word8 -> Bool
         go 0 = False
         go 1 = True
-        go _ = False
+        go _ = error "converBool failed"
