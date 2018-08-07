@@ -18,16 +18,16 @@ typedef gprime(tk: tk, p: int) = { m, n : nat | m < 1 && m <= n && n < p && m*n 
 typedef prime(p: int) = gprime(int_kind, p)
 typedef Prime = [p:nat] prime(p)
 
-fn witness(n : int) :<> [m:nat] int(m) =
-  $UN.cast(n)
+extern
+castfn witness(n : int) :<> [m:nat] int(m)
 
 // Fast computation of Fibonacci numbers via GMP bindings.
-fun fib_gmp(n : intGte(0)) : Intinf =
+fn fib_gmp(n : intGte(0)) : Intinf =
   let
     var z = ptr_alloc()
     var x = g0int2uint(n + 1)
-    val _ = $GMP.mpz_init(!(z.2))
-    val _ = $GMP.mpz_fib_uint(!(z.2), x)
+    val () = $GMP.mpz_init(!(z.2))
+    val () = $GMP.mpz_fib_uint(!(z.2), x)
   in
     $UN.castvwtp0(z)
   end
@@ -79,7 +79,7 @@ fun big_exp {n:nat} .<n>. (x : Intinf, n : int(n)) : Intinf =
             var c0 = square_intinf1(x)
             var c1 = big_exp(c0, n2)
             var c = mul_intinf0_intinf1(c1, x)
-            val _ = intinf_free(x)
+            val () = intinf_free(x)
           in
             c
           end
@@ -91,7 +91,7 @@ fun big_exp {n:nat} .<n>. (x : Intinf, n : int(n)) : Intinf =
 // pretty sure this isn't side effecting idk.
 fn sqrt_int(k : intGt(0)) :<> [m:nat] int(m) =
   let
-    var bound: int = g0float2int(sqrt_float(g0int2float(k)))
+    var bound = g0float2int(sqrt_float(g0int2float(k)))
   in
     witness(bound)
   end
