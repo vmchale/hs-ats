@@ -26,8 +26,9 @@ flag development
 library
     exposed-modules:
         Data.GMP
+    other-modules: Control.Recursion
     hs-source-dirs: src
-    default-language: Haskell2010
+    default-language: Haskell98
     other-extensions: DeriveFunctor
     extra-libraries:
         gmp

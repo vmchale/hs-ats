@@ -1,5 +1,3 @@
-{-# LANGUAGE DeriveFunctor #-}
-
 {-|
 Module      : Data.GMP
 Copyright   : Copyright (c) 2018 Vanessa McHale
@@ -15,8 +13,8 @@ module Data.GMP ( GMPInt (..)
                 ) where
 
 import           Control.Applicative
-import           Control.Arrow       ((&&&))
 import           Control.Monad       ((<=<))
+import           Control.Recursion
 import           Data.Word
 import           Foreign
 import           Foreign.C
@@ -43,39 +41,14 @@ gmpToList (GMPInt _ s aptr) = peekArray (fromIntegral s) aptr
 base :: Integer
 base = 2 ^ (64 :: Int)
 
-wordListToInteger :: [Word64] -> Integer
-wordListToInteger []     = 0
-wordListToInteger (x:xs) = fromIntegral x + base * wordListToInteger xs
-
-coelgot :: Functor f => ((a, f b) -> b) -> (a -> f a) -> a -> b
-coelgot f g = h where h = f . (id &&& fmap h . g)
-
 integerToWordList :: Integer -> [Word64]
 integerToWordList = coelgot pa c where
     c i = Cons (fromIntegral (i `rem` base)) (i `quot` base)
     pa (i, ws) | i < base = [fromIntegral i]
                | otherwise = embed ws
 
-newtype Fix f = Fix { unFix :: f (Fix f) }
-
--- | Catamorphism or generic function fold.
-cata :: Functor f => (f a -> a) -> (Fix f -> a)
-cata a = go where go = a . fmap go . unFix
-
-data ListF a x = Cons a x
-               | Nil
-               deriving (Functor)
-
-project :: [a] -> Fix (ListF a)
-project []     = Fix Nil
-project (x:xs) = Fix (Cons x (project xs))
-
-embed :: Fix (ListF a) -> [a]
-embed (Fix Nil)         = []
-embed (Fix (Cons x xs)) = x : embed xs
-
-wordListToInteger' :: [Word64] -> Integer
-wordListToInteger' = cata a . project where
+wordListToInteger :: [Word64] -> Integer
+wordListToInteger = cata a . project where
     a Nil         = 0
     a (Cons x xs) = fromIntegral x + base * xs
 
