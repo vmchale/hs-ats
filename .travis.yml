@@ -1,5 +1,6 @@
 ---
 sudo: required
+language: c
 cache:
   directories:
     - $HOME/.ghc
@@ -11,36 +12,67 @@ addons:
       libgmp3-dev
 matrix:
   include:
-    - language: c
-      addons:
+    - addons:
         apt:
           packages:
-            - cabal-install-head
+            - cabal-install-2.2
             - ghc-8.4.3
           sources:
             - hvr-ghc
-    - language: c
-      addons:
+    - addons:
         apt:
           packages:
-            - cabal-install-head
+            - cabal-install-2.2
             - ghc-8.2.2
           sources:
             - hvr-ghc
-    - language: c
-      addons:
+    - addons:
         apt:
           packages:
-            - cabal-install-head
+            - cabal-install-2.2
             - ghc-8.0.2
           sources:
             - hvr-ghc
-    - language: c
-      addons:
+    - addons:
         apt:
           packages:
-            - cabal-install-head
+            - cabal-install-2.2
             - ghc-7.10.3
+          sources:
+            - hvr-ghc
+    - addons:
+        apt:
+          packages:
+            - cabal-install-2.2
+            - ghc-7.8.4
+          sources:
+            - hvr-ghc
+    - addons:
+        apt:
+          packages:
+            - cabal-install-2.2
+            - ghc-7.6.3
+          sources:
+            - hvr-ghc
+    - addons:
+        apt:
+          packages:
+            - cabal-install-2.2
+            - ghc-7.4.2
+          sources:
+            - hvr-ghc
+    - addons:
+        apt:
+          packages:
+            - cabal-install-2.2
+            - ghc-7.2.2
+          sources:
+            - hvr-ghc
+    - addons:
+        apt:
+          packages:
+            - cabal-install-2.2
+            - ghc-7.0.4
           sources:
             - hvr-ghc
     - language: c

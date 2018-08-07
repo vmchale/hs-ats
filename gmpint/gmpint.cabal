@@ -34,7 +34,7 @@ library
         gmp
     ghc-options: -Wall
     build-depends:
-        base >=4.5 && <5
+        base >=4.3 && <5
     
     if flag(development)
         ghc-options: -Werror
