@@ -124,7 +124,7 @@ benchmark fast-arithmetic-bench
         base -any,
         fast-arithmetic -any,
         criterion -any,
-        arithmoi -any
+        arithmoi >=0.6.0.0
     
     if impl(ghc >=8.4)
         build-depends:
