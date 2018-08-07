@@ -131,7 +131,7 @@ fn permutations {n:nat}{ k : nat | k <= n }(n : int(n), k : int(k)) : Intinf =
 // Catalan numbers, indexing starting at zero.
 fn catalan {n:nat}(n : int(n)) : Intinf =
   let
-    fun numerator_loop { i : nat | i > 1 } .<i>. (i : int(i)) : [ n : nat | n > 0 ] intinf(n) =
+    fun numerator_loop { i : nat | i > 1 } .<i>. (i : int(i)) : intinfGt(0) =
       case+ i of
         | 2 => int2intinf(n + 2)
         | i =>> let
@@ -157,7 +157,7 @@ fn catalan {n:nat}(n : int(n)) : Intinf =
 // Number of permutations on n objects using k at a time.
 fn choose {n:nat}{ m : nat | m <= n }(n : int(n), k : int(m)) : Intinf =
   let
-    fun numerator_loop { m : nat | m > 1 } .<m>. (i : int(m)) : [ n : nat | n > 0 ] intinf(n) =
+    fun numerator_loop { m : nat | m > 1 } .<m>. (i : int(m)) : intinfGt(0) =
       case+ i of
         | 1 => int2intinf(n)
         | 2 => $UN.castvwtp0(int2intinf((n - 1) * n))
@@ -181,24 +181,15 @@ fn choose {n:nat}{ m : nat | m <= n }(n : int(n), k : int(m)) : Intinf =
       end
   end
 
-// Sterling numbers of the second kind
-fn sterling {n:nat}{ k : nat | k <= n }(n : int(n), k : int(k)) : Intinf =
-  let
-    fun numerator_loop {j:nat}(j : int(j), acc : Intinf) : Intinf =
-      acc
-  in
-    int2intinf(0)
-  end
-
 // TODO stirling numbers of the second kind.
 // Bell numbers. These can't be called via the FFI because of the mutually
 // recursive functions, so we should probably think of something else.
-fun bell {n:nat}(n : int(n)) : [ n : nat | n > 0 ] intinf(n) =
+fun bell {n:nat}(n : int(n)) : intinfGt(0) =
   case- n of
     | 0 => int2intinf(1)
     | n when n >= 0 =>> sum_loop(n, n)
 
-and sum_loop {n:nat}{ m : nat | m >= 1 && m <= n } .<m>. (n : int(n), i : int(m)) : [ n : nat | n > 0 ] intinf(n) =
+and sum_loop {n:nat}{ m : nat | m >= 1 && m <= n } .<m>. (n : int(n), i : int(m)) : intinfGt(0) =
   case+ i of
     | 1 => int2intinf(1)
     | i =>> let
