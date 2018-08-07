@@ -1,23 +1,10 @@
-{-# OPTIONS_GHC -fno-warn-orphans #-}
-{-# LANGUAGE DeriveAnyClass     #-}
-{-# LANGUAGE DeriveGeneric      #-}
-{-# LANGUAGE StandaloneDeriving #-}
-
 module Main (main) where
 
-import           Control.DeepSeq
 import           Criterion.Main
-import           GHC.Generics
 import qualified Math.Combinat.Numbers                 as Ext
 import qualified Math.NumberTheory.ArithmeticFunctions as Ext
-import qualified Math.NumberTheory.Moduli.Jacobi       as Ext
 import           Numeric.Combinatorics
 import           Numeric.NumberTheory
-
-deriving instance Generic Ext.JacobiSymbol
-deriving instance NFData Ext.JacobiSymbol
-
-{-# SPECIALIZE hsIsPrime :: Int -> Bool #-}
 
 hsIsPrime :: (Integral a) => a -> Bool
 hsIsPrime 1 = False
@@ -61,9 +48,5 @@ main =
                 , bgroup "catalan"
                       [ bench "catalan" $ nf catalan 300
                       , bench "Ext.catalan" $ nf Ext.catalan (300 :: Int)
-                      ]
-                , bgroup "jacobi"
-                      [ bench "jacobi" $ nf (jacobi 5) 47
-                      , bench "Ext.jacobi" $ nf (Ext.jacobi 5) (47 :: Int)
                       ]
                 ]

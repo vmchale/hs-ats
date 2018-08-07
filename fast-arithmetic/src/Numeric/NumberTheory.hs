@@ -11,10 +11,8 @@ module Numeric.NumberTheory ( totient
                             , isPerfect
                             , sumDivisors
                             , isPrime
-                            , jacobi
                             ) where
 
-import           Control.Composition
 import           Foreign.C
 import           Numeric.Common
 
@@ -24,11 +22,6 @@ foreign import ccall unsafe sum_divisors_ats :: CInt -> CInt
 foreign import ccall unsafe little_omega_ats :: CInt -> CInt
 foreign import ccall unsafe is_perfect_ats :: CInt -> CUChar
 foreign import ccall unsafe is_prime_ats :: CInt -> CUChar
-foreign import ccall unsafe jacobi_ats :: CInt -> CInt -> CInt
-
--- | This is slow and also slightly broken.
-jacobi :: Int -> Int -> Int
-jacobi = fromIntegral .* on jacobi_ats fromIntegral
 
 -- | \( O(\sqrt(n)) \)
 isPrime :: Int -> Bool
