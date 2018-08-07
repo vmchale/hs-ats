@@ -72,13 +72,38 @@ fun fact_v {n:nat} (n : int(n)) : [r:int] (fact_p(n, r) | intinf(r))
 extern
 fun imul {m:int}{n:int}{o:int} (x : int(m), y : int(m)) : (MUL(m, n, o) | int(o))
 
-// TODO - imul_intinf0_int function
-// ALSO: try a call-by-reference version of the loop??
-fun fact {n:nat} .<n>. (k : int(n)) : intinfGte(1) =
+fun fact_ref {n:nat} .<n>. (k : int(n), ret : &intinfGte(1)? >> intinfGte(1)) : void =
   case+ k of
-    | 0 => int2intinf(1)
-    | 1 => int2intinf(1)
-    | k =>> $UN.castvwtp0(mul_intinf0_int(fact(k - 1), k))
+    | 0 => ret := int2intinf(1)
+    | 1 => ret := int2intinf(1)
+    | k =>> let
+      val () = fact_ref(k - 1, ret)
+    in
+      ret := $UN.castvwtp0(mul_intinf0_int(ret, k))
+    end
+
+// the fancy proof stuff isn't that useful, but it gets us a tail-recursive (?)
+// implementation which might be good (?)
+// TODO - imul_intinf0_int function
+fn fact {n:nat} .<n>. (k : int(n)) : intinfGte(1) =
+  let
+    var ret: intinfGte(1)
+    val () = fact_ref(k, ret)
+  in
+    ret
+  end
+
+// Double factorial http://mathworld.wolfram.com/DoubleFactorial.html
+fun dfact_ref {n:nat} .<n>. (k : int(n), ret : &Intinf? >> Intinf) : void =
+  case+ k of
+    | 0 => ret := int2intinf(1)
+    | 1 => ret := int2intinf(1)
+    | k =>> let
+      val () = dfact_ref(k - 2, ret)
+      var y = mul_intinf0_int(ret, k)
+    in
+      ret := y
+    end
 
 // Double factorial http://mathworld.wolfram.com/DoubleFactorial.html
 fun dfact {n:nat} .<n>. (k : int(n)) : Intinf =
@@ -168,10 +193,11 @@ fn sterling {n:nat}{ k : nat | k <= n }(n : int(n), k : int(k)) : Intinf =
 // TODO stirling numbers of the second kind.
 // Bell numbers. These can't be called via the FFI because of the mutually
 // recursive functions, so we should probably think of something else.
-fnx bell {n:nat}(n : int(n)) : [ n : nat | n > 0 ] intinf(n) =
+fun bell {n:nat}(n : int(n)) : [ n : nat | n > 0 ] intinf(n) =
   case- n of
     | 0 => int2intinf(1)
     | n when n >= 0 =>> sum_loop(n, n)
+
 and sum_loop {n:nat}{ m : nat | m >= 1 && m <= n } .<m>. (n : int(n), i : int(m)) : [ n : nat | n > 0 ] intinf(n) =
   case+ i of
     | 1 => int2intinf(1)
