@@ -19,7 +19,7 @@ data ListF a x = Cons a x
 coelgot :: Functor f => ((a, f b) -> b) -> (a -> f a) -> a -> b
 coelgot f g = h where h = f . (id &&& fmap h . g)
 
-cata :: Functor f => (f a -> a) -> (Fix f -> a)
+cata :: Functor f => (f a -> a) -> Fix f -> a
 cata a = g where g = a . fmap g . unFix
 
 project :: [a] -> Fix (ListF a)
