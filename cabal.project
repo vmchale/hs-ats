@@ -3,7 +3,6 @@ packages: fast-arithmetic
 
 constraints:
   gmpint -development,
-  fast-arithmetic +development,
-  recursion-schemes -template-haskell
+  fast-arithmetic +development
 
 optimization: 2
