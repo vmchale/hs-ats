@@ -12,35 +12,40 @@ addons:
       libgmp3-dev
 matrix:
   include:
-    - addons:
+    - env: TEST=1
+      addons:
         apt:
           packages:
             - cabal-install-2.2
             - ghc-8.4.3
           sources:
             - hvr-ghc
-    - addons:
+    - env: TEST=1
+      addons:
         apt:
           packages:
             - cabal-install-2.2
             - ghc-8.2.2
           sources:
             - hvr-ghc
-    - addons:
+    - env: TEST=1
+      addons:
         apt:
           packages:
             - cabal-install-2.2
             - ghc-8.0.2
           sources:
             - hvr-ghc
-    - addons:
+    - env: TEST=1
+      addons:
         apt:
           packages:
             - cabal-install-2.2
             - ghc-7.10.3
           sources:
             - hvr-ghc
-    - addons:
+    - env: TEST=1
+      addons:
         apt:
           packages:
             - cabal-install-2.2
@@ -99,4 +104,8 @@ script:
   - atspkg build --pkg-args "./bench.dhall" -vv
   - atspkg test --pkg-args "./bench.dhall" -vv
   - cabal new-build
-  - cabal new-test
+  - |
+    if [ `echo $TEST` = "1" ]
+      then
+        cabal new-test
+    fi
