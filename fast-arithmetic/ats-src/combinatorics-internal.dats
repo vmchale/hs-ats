@@ -85,11 +85,11 @@ fun fact_ref {n:nat} .<n>. (k : int(n), ret : &intinfGte(1)? >> intinfGte(1)) : 
 // the fancy proof stuff isn't that useful, but it gets us a tail-recursive (?)
 // implementation which might be good (?)
 // TODO - imul_intinf0_int function
-fn fact {n:nat} .<n>. (k : int(n)) : intinfGte(1) =
+fun fact {n:nat} .<n>. (k : int(n)) : intinfGte(1) =
   case+ k of
     | 0 => int2intinf(1)
     | 1 => int2intinf(1)
-    | k =>> $UN.castvwtp0(mul_intinf0_int(ret, k))
+    | k =>> $UN.castvwtp0(mul_intinf0_int(fact(k - 1), k))
 
 // TODO: figure out why this crashes clang on mac
 fn fact_fast {n:nat} .<n>. (k : int(n)) : intinfGte(1) =
