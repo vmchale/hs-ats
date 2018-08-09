@@ -1,2 +1,1 @@
-let pkg = { sourceBld = False, withBench = True }
-in pkg
+{ sourceBld = False, withBench = True }
