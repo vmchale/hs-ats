@@ -1,1 +1,2 @@
-{ sourceBld = False, withBench = True }
+λ(icc : Bool) →
+    { sourceBld = False, withBench = True, icc = icc }

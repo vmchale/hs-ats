@@ -30,7 +30,7 @@ let moduleNames =
 in
 
 {- Main -}
-λ(cfg : { sourceBld : Bool, withBench : Bool }) →
+λ(cfg : { sourceBld : Bool, withBench : Bool, icc : Bool }) →
 
     let test = if cfg.withBench
     then
@@ -72,11 +72,23 @@ in
             # (if cfg.withBench then [ "ats-bench" ] else [] : List Text))
     in
 
+    let libBuildFlag =
+        if cfg.sourceBld
+            then ([] : List Text)
+            else [ "-DLIBRARY_BUILD" ]
+    in
+
+    let iccFlag =
+        if cfg.icc
+            then [ "-D__PURE_INTEL_C99_HEADERS__" ]
+            else ([] : List Text)
+    in
+
     prelude.default ⫽
         { atsSource = atsSource
         , test = test
         , libraries = libraries
         , dependencies = dependencies
-        , cflags = if cfg.sourceBld then ([] : List Text) else [ "-DLIBRARY_BUILD" ]
+        , cflags = libBuildFlag # iccFlag
+        , ccompiler = if cfg.icc then "icc" else "cc"
         }
-
