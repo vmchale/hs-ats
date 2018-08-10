@@ -83,6 +83,9 @@ matrix:
     - language: c
       os: osx
 
+  allow_failures:
+    - os: osx
+
 install:
   - |
     if [ `uname` = "Darwin" ]

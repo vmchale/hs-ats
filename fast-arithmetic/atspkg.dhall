@@ -80,7 +80,7 @@ in
 
     let iccFlag =
         if cfg.icc
-            then [ "-D__PURE_INTEL_C99_HEADERS__" ]
+            then prelude.iccFlags
             else ([] : List Text)
     in
 

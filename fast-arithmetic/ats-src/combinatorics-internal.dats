@@ -72,7 +72,7 @@ fun fact_v {n:nat} (n : int(n)) : [r:int] (fact_p(n, r) | intinf(r))
 extern
 fun imul {m:int}{n:int}{o:int} (x : int(m), y : int(m)) : (MUL(m, n, o) | int(o))
 
-(*fun fact_ref {n:nat} .<n>. (k : int(n), ret : &intinfGte(1)? >> intinfGte(1)) : void =
+fun fact_ref {n:nat} .<n>. (k : int(n), ret : &intinfGte(1)? >> intinfGte(1)) : void =
   case+ k of
     | 0 => ret := int2intinf(1)
     | 1 => ret := int2intinf(1)
@@ -80,20 +80,16 @@ fun imul {m:int}{n:int}{o:int} (x : int(m), y : int(m)) : (MUL(m, n, o) | int(o)
       val () = fact_ref(k - 1, ret)
     in
       ret := $UN.castvwtp0(mul_intinf0_int(ret, k))
-    end*)
-fun fact {n:nat} .<n>. (k : int(n)) : intinfGte(1) =
-  case+ k of
-    | 0 => int2intinf(1)
-    | 1 => int2intinf(1)
-    | k =>> $UN.castvwtp0(mul_intinf0_int(fact(k - 1), k))
+    end
 
-(*fn fact_fast {n:nat} .<n>. (k : int(n)) : intinfGte(1) =
+fn fact {n:nat} .<n>. (k : int(n)) : intinfGte(1) =
   let
     var ret: intinfGte(1)
     val () = fact_ref(k, ret)
   in
     ret
-  end*)
+  end
+
 // Double factorial http://mathworld.wolfram.com/DoubleFactorial.html
 fun dfact_ref {n:nat} .<n>. (k : int(n), ret : &Intinf? >> Intinf) : void =
   case+ k of
