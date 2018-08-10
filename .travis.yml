@@ -80,7 +80,7 @@ matrix:
             - ghc-7.0.4
           sources:
             - hvr-ghc
-    - language: c
+    - env: TEST=1
       os: osx
 
   allow_failures:
