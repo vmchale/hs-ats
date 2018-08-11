@@ -78,10 +78,10 @@ in
             else [ "-DLIBRARY_BUILD" ]
     in
 
-    let iccFlag =
+    let cc =
         if cfg.icc
-            then prelude.iccFlags
-            else ([] : List Text)
+            then prelude.icc
+            else prelude.cc
     in
 
     prelude.default ⫽
@@ -89,6 +89,6 @@ in
         , test = test
         , libraries = libraries
         , dependencies = dependencies
-        , cflags = libBuildFlag # iccFlag
-        , ccompiler = if cfg.icc then "icc" else "cc"
+        , cflags = libBuildFlag # (prelude.ccFlags cc)
+        , ccompiler = prelude.printCompiler cc
         }
