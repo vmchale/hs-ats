@@ -5,10 +5,6 @@
 staload "$PATSHOMELOCS/atscntrb-hx-intinf/SATS/intinf_vt.sats"
 staload UN = "prelude/SATS/unsafe.sats"
 
-infixr (->) ->>
-
-stadef ->> (b1: bool, b2: bool) = ~b1 || b2
-
 // See [here](http://mathworld.wolfram.com/Derangement.html). I'm not sure how
 // fast this is, but it *seems* to be faster than the Haskell version so that's
 // good.
@@ -37,40 +33,6 @@ fn derangements {n:nat} .<n>. (n : int(n)) : Intinf =
       | 2 =>> int2intinf(1)
       | n =>> loop(n - 1, 2, int2intinf(1), int2intinf(0))
   end
-
-dataprop fact_p(int, int) =
-  | fact_p_base(0, 1) of ()
-  | {n:nat}{r:int}{rn:int} fact_p_ind(n + 1, rn) of (fact_p(n, r), MUL(r, n + 1, rn))
-
-stacst fact_b : (int, int) -> bool
-
-stacst mul_b : (int, int, int) -> bool
-
-extern
-praxi fact_b_base : [fact_b(0,1)] unit_p
-
-extern
-praxi mul_b_base0 {n:int} : [mul_b(n,1,n)] unit_p
-
-extern
-praxi mul_b_base1 {n:int} : [mul_b(1,n,n)] unit_p
-
-extern
-praxi mul_b_ind0 {n:int}{m:int}{nm:int} : [mul_b(n,m,nm) ->> mul_b(n+1,m,m+nm)] unit_p
-
-// I have no idea how to actually use this proof
-// I think I need a proof-level function??
-extern
-praxi mul_b_ind1 {n:int}{m:int}{nm:int} : [mul_b(n,m,nm) ->> mul_b(n,m+1,n+nm)] unit_p
-
-extern
-praxi fact_b_ind {n:nat}{r:int}{rn:int} : [fact_b(n,r) && mul_b(r,n+1,rn) ->> fact_b(n+1,rn)] unit_p
-
-extern
-fun fact_v {n:nat} (n : int(n)) : [r:int] (fact_p(n, r) | intinf(r))
-
-extern
-fun imul {m:int}{n:int}{o:int} (x : int(m), y : int(m)) : (MUL(m, n, o) | int(o))
 
 fun fact_ref {n:nat} .<n>. (k : int(n), ret : &intinfGte(1)? >> intinfGte(1)) : void =
   case+ k of

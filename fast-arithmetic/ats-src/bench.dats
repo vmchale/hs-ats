@@ -5,6 +5,7 @@
 #include "ats-src/combinatorics-internal.dats"
 #include "$PATSHOMELOCS/ats-bench-0.3.3/bench.dats"
 
+// TODO: bench dernangements
 fun factorial_bench() : void =
   {
     val x = fact(160)
