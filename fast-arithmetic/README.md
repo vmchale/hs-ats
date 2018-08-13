@@ -35,8 +35,8 @@ computation of basic combinatorial functions.
 | ``322 `choose` 16`` | Haskell | 996.3 ns |
 | `catalan 300` | ATS | 18.15 μs |
 | `catalan 300` | Haskell | 29.08 μs |
-| `permutations 20 10` | ATS | 206.2 ns |
-| `permutations 20 10` | Haskell | 392.6 ns |
+| `permutations 20 10` | ATS | 198.6 ns |
+| `permutations 20 10` | Haskell | 392.3 ns |
 
 ## Building
 

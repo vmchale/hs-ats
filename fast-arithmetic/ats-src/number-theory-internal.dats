@@ -10,7 +10,7 @@ staload "$PATSHOMELOCS/atscntrb-hx-intinf/SATS/intinf_vt.sats"
 #define ATS_MAINATSFLAG 1
 
 // m | n
-fn divides(m : int, n : int) :<> bool =
+fn divides(m : intGt(0), n : intGte(0)) :<> bool =
   n % m = 0
 
 // Euclid's algorithm

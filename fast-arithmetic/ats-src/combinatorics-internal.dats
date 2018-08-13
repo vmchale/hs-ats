@@ -66,32 +66,21 @@ fun dfact_ref {n:nat} .<n>. (k : int(n), ret : &Intinf? >> Intinf) : void =
 
 // Double factorial http://mathworld.wolfram.com/DoubleFactorial.html
 fun dfact {n:nat} .<n>. (k : int(n)) : Intinf =
-  case+ k of
-    | 0 => int2intinf(1)
-    | 1 => int2intinf(1)
-    | k =>> let
-      var x = dfact(k - 2)
-      var y = mul_intinf0_int(x, k)
-    in
-      y
-    end
+  let
+    var ret: intinfGte(1)
+    val () = dfact_ref(k, ret)
+  in
+    ret
+  end
 
 // Number of permutations on n objects using k at a time.
 fn permutations {n:nat}{ k : nat | k <= n && k > 0 }(n : int(n), k : int(k)) : Intinf =
   let
     fun loop { i : nat | i >= n-k+1 } .<i>. (i : int(i), ret : &Intinf? >> Intinf) : void =
-      if i >= n - k + 2 then
-        let
-          val () = loop(i - 1, ret)
-          var y = mul_intinf0_int(ret, g1ofg0(i))
-        in
-          (ret := y)
-        end
+      if i > n - k + 1 then
+        (loop(i - 1, ret) ; ret := mul_intinf0_int(ret, i))
       else
-        if i = n - k + 1 then
-          ret := int2intinf(n - k + 1)
-        else
-          ret := int2intinf(1)
+        ret := int2intinf(n - k + 1)
     
     var ret: Intinf
     val () = loop(n, ret)
@@ -125,7 +114,7 @@ fn catalan {n:nat}(n : int(n)) : Intinf =
       end
   end
 
-// Number of permutations on n objects using k at a time.
+// Number of combinations of n objects using k at a time.
 fn choose {n:nat}{ m : nat | m <= n }(n : int(n), k : int(m)) : Intinf =
   let
     fun numerator_loop { m : nat | m > 1 } .<m>. (i : int(m)) : intinfGt(0) =
