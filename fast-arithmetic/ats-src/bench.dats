@@ -29,10 +29,17 @@ fun catalan_bench() : void =
     val _ = intinf_free(x)
   }
 
+fun permutations_bench() : void =
+  {
+    val x = permutations(20, 10)
+    val _ = intinf_free(x)
+  }
+
 val factorial_delay: io = lam () => factorial_bench()
 val double_factorial_delay: io = lam () => double_factorial_bench()
 val choose_delay: io = lam () => double_factorial_bench()
 val catalan_delay: io = lam () => catalan_bench()
+val permutations_delay: io = lam () => permutations_bench()
 
 implement main0 () =
   {
@@ -40,4 +47,5 @@ implement main0 () =
     val _ = print_slope("double factorial", 12, double_factorial_delay)
     val _ = print_slope("choose", 13, choose_delay)
     val _ = print_slope("catalan", 9, catalan_delay)
+    val _ = print_slope("permutations", 13, permutations_delay)
   }

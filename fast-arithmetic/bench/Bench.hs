@@ -6,6 +6,9 @@ import qualified Math.NumberTheory.ArithmeticFunctions as Ext
 import           Numeric.Combinatorics
 import           Numeric.NumberTheory
 
+hsPermutations :: Integral a => a -> a -> a
+hsPermutations n k = product [(n-k+1)..n]
+
 hsIsPrime :: (Integral a) => a -> Bool
 hsIsPrime 1 = False
 hsIsPrime x = all ((/=0) . (x `rem`)) [2..up]
@@ -48,5 +51,9 @@ main =
                 , bgroup "catalan"
                       [ bench "catalan" $ nf catalan 300
                       , bench "Ext.catalan" $ nf Ext.catalan (300 :: Int)
+                      ]
+                , bgroup "permutations"
+                      [ bench "permutations" $ nf (permutations 10) 20
+                      , bench "hsPermutations" $ nf (hsPermutations 10) (20 :: Integer)
                       ]
                 ]

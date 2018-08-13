@@ -8,6 +8,9 @@ import           Test.Hspec
 import           Test.Hspec.QuickCheck
 import           Test.QuickCheck                       hiding (choose)
 
+hsPermutations :: Integral a => a -> a -> a
+hsPermutations n k = product [(n-k+1)..n]
+
 hsIsPrime :: (Integral a) => a -> Bool
 hsIsPrime 1 = False
 hsIsPrime x = all ((/=0) . (x `rem`)) [2..up]
@@ -76,3 +79,6 @@ main = hspec $ parallel $ do
     describe "derangement" $
         prop "should agree" $
             \a -> a < 1 || derangement a == hsDerangement a
+    describe "permutations" $
+        prop "should agree" $
+            \n k -> k < 1 || k > n || permutations n k == hsPermutations (fromIntegral n) (fromIntegral k)

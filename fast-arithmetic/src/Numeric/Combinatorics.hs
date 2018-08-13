@@ -11,6 +11,7 @@ module Numeric.Combinatorics ( choose
                              , catalan
                              , factorial
                              , derangement
+                             , permutations
                              ) where
 
 import           Control.Composition
@@ -26,6 +27,7 @@ foreign import ccall unsafe factorial_ats :: CInt -> Ptr GMPInt
 foreign import ccall unsafe choose_ats :: CInt -> CInt -> Ptr GMPInt
 foreign import ccall unsafe catalan_ats :: CInt -> Ptr GMPInt
 foreign import ccall unsafe derangements_ats :: CInt -> Ptr GMPInt
+foreign import ccall unsafe permutations_ats :: CInt -> CInt -> Ptr GMPInt
 
 -- | \\( !n \\)
 --
@@ -44,6 +46,9 @@ catalan = unsafePerformIO . conjugateGMP catalan_ats
 -- | \( \binom{n}{k} \)
 choose :: Int -> Int -> Integer
 choose = unsafePerformIO .* (gmpToInteger <=<) . (peek .* on choose_ats fromIntegral)
+
+permutations :: Int -> Int -> Integer
+permutations = unsafePerformIO .* (gmpToInteger <=<) . (peek .* on permutations_ats fromIntegral)
 
 factorial :: Int -> Integer
 factorial = unsafePerformIO . conjugateGMP factorial_ats

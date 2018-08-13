@@ -115,15 +115,26 @@ fun dfact {n:nat} .<n>. (k : int(n)) : Intinf =
     end
 
 // Number of permutations on n objects using k at a time.
-fn permutations {n:nat}{ k : nat | k <= n }(n : int(n), k : int(k)) : Intinf =
+fn permutations {n:nat}{ k : nat | k <= n && k > 0 }(n : int(n), k : int(k)) : Intinf =
   let
-    // n * (n - 1) * ... * (n - k + 1)
-    var x = fact(n)
-    var y = fact(n - k)
-    var z = div_intinf0_intinf1(x, y)
-    val _ = intinf_free(y)
+    fun loop { i : nat | i >= n-k+1 } .<i>. (i : int(i), ret : &Intinf? >> Intinf) : void =
+      if i >= n - k + 2 then
+        let
+          val () = loop(i - 1, ret)
+          var y = mul_intinf0_int(ret, g1ofg0(i))
+        in
+          (ret := y)
+        end
+      else
+        if i = n - k + 1 then
+          ret := int2intinf(n - k + 1)
+        else
+          ret := int2intinf(1)
+    
+    var ret: Intinf
+    val () = loop(n, ret)
   in
-    z
+    ret
   end
 
 // Catalan numbers, indexing starting at zero.
