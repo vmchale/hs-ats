@@ -14,7 +14,6 @@ module Data.GMP ( GMPInt (..)
 
 import           Control.Applicative
 import           Control.Monad       ((<=<))
-import           Control.Recursion
 import           Data.Word
 import           Foreign
 import           Foreign.C
@@ -42,15 +41,12 @@ base :: Integer
 base = 2 ^ (64 :: Int)
 
 integerToWordList :: Integer -> [Word64]
-integerToWordList = coelgot pa c where
-    c i = Cons (fromIntegral (i `rem` base)) (i `quot` base)
-    pa (i, ws) | i < base = [fromIntegral i]
-               | otherwise = embed ws
+integerToWordList i | i < base = [fromIntegral i]
+                    | otherwise = fromIntegral (i `rem` base) : integerToWordList (i `quot` base)
 
 wordListToInteger :: [Word64] -> Integer
-wordListToInteger = cata a . project where
-    a Nil         = 0
-    a (Cons x xs) = fromIntegral x + base * xs
+wordListToInteger []     = 0
+wordListToInteger (x:xs) = fromIntegral x + base * wordListToInteger xs
 
 integerToGMP :: Integer -> IO GMPInt
 integerToGMP i = GMPInt l l <$> newArray ls

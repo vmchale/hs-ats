@@ -1,6 +1,6 @@
 cabal-version: 1.18
 name: fast-arithmetic
-version: 0.6.0.8
+version: 0.6.0.9
 license: BSD3
 license-file: LICENSE
 copyright: Copyright: (c) 2018 Vanessa McHale
@@ -49,7 +49,6 @@ flag development
 library
     exposed-modules:
         Numeric.NumberTheory
-    cc-options: -mtune=native -flto -O3
     c-sources:
         cbits/number-theory.c
         cbits/numerics.c
@@ -63,6 +62,9 @@ library
     build-depends:
         base >=4.3 && <5,
         composition-prelude >=1.2.0.0
+    
+    if impl(ghc >=8.0)
+        cc-options: -mtune=native -flto -O3
     
     if os(windows)
         buildable: False
