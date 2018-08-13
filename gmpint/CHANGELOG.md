@@ -1,5 +1,9 @@
 # gmpint
 
+## 0.1.1.3
+
+  * Remove use of recursion schemes for faster builds
+
 ## 0.1.1.2
 
   * Remove dependency on `recursion-schemes`
