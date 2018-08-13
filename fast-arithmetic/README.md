@@ -17,22 +17,24 @@ computation of basic combinatorial functions.
 
 | Computation | Version (ATS/Haskell) | Time |
 | ----------- | --------------------- | ---- |
-| `isPrime 2017` | ATS | 118.9 ns |
-| `isPrime 2017` | Haskell | 497.3 ns |
-| `φ(2016)` | ATS | 230.1 ns |
-| `φ(2016)` | Haskell | 402.8 ns |
-| `τ(3018)` | ATS | 438.5 ns |
-| `τ(3018)` | Haskell | 726.4 ns |
-| `σ(115)` | ATS | 38.37 ns |
-| `σ(115)` | Haskell | 310.0 ns |
-| `ω(91)` | ATS | 66.59 ns |
-| `ω(91)` | Haskell | 338.6 ns |
-| `160!` | ATS | 4.081 μs |
-| `160!` | Haskell | 6.032 μs |
-| `79!!` | ATS | 813.8 ns ns |
-| `79!!` | Haskell | 1.395 μs |
-| ``322 `choose` 16`` | ATS | 629.8 ns |
-| ``322 `choose` 16`` | Haskell | 1.046 μs |
+| `isPrime 2017` | ATS | 117.1 ns |
+| `isPrime 2017` | Haskell | 426.4 ns |
+| `φ(2016)` | ATS | 190.9 ns |
+| `φ(2016)` | Haskell | 356.9 ns |
+| `τ(3018)` | ATS | 340.8 ns |
+| `τ(3018)` | Haskell | 659.0 ns |
+| `σ(115)` | ATS | 41.27 ns |
+| `σ(115)` | Haskell | 314.1 ns |
+| `ω(91)` | ATS | 64.67 ns |
+| `ω(91)` | Haskell | 332.0 ns |
+| `160!` | ATS | 4.303 μs |
+| `160!` | Haskell | 5.659 μs |
+| `79!!` | ATS | 941.2 ns |
+| `79!!` | Haskell | 1.267 μs |
+| ``322 `choose` 16`` | ATS | 557.5 ns |
+| ``322 `choose` 16`` | Haskell | 996.3 ns |
+| `catalan 300` | ATS | 18.15 μs |
+| `catalan 300` | Haskell | 29.08 μs |
 
 ## Building
 
