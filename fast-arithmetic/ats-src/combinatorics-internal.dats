@@ -117,22 +117,23 @@ fn catalan {n:nat}(n : int(n)) : Intinf =
 // Number of combinations of n objects using k at a time.
 fn choose {n:nat}{ m : nat | m <= n }(n : int(n), k : int(m)) : Intinf =
   let
-    fun numerator_loop { m : nat | m > 1 } .<m>. (i : int(m)) : intinfGt(0) =
+    fun numerator_loop { m : nat | m > 1 } .<m>. (i : int(m), ret : &intinfGt(0)? >> intinfGt(0)) : void =
       case+ i of
-        | 1 => int2intinf(n)
-        | 2 => $UN.castvwtp0(int2intinf((n - 1) * n))
+        | 1 => ret := int2intinf(n)
+        | 2 => ret := $UN.castvwtp0(int2intinf((n - 1) * n))
         | i =>> let
-          var x = numerator_loop(i - 1)
-          var y = mul_intinf0_int(x, n + 1 - i)
+          val () = numerator_loop(i - 1, ret)
+          var y = mul_intinf0_int(ret, n + 1 - i)
         in
-          $UN.castvwtp0(y)
+          ret := $UN.castvwtp0(y)
         end
   in
     case+ k of
       | 0 => int2intinf(1)
       | 1 => int2intinf(n)
       | k =>> let
-        var x = numerator_loop(k)
+        var x: intinfGt(0)
+        val () = numerator_loop(k, x)
         var y = fact(k)
         var z = div_intinf0_intinf1(x, y)
         val _ = intinf_free(y)
