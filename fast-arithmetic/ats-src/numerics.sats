@@ -12,10 +12,6 @@ typedef Prime = [p:nat] prime(p)
 
 castfn witness(n : int) :<> [m:nat] int(m)
 
-fn sqrt_int(k : intGt(0)) :<> [m:nat] int(m)
-
-fn is_prime(k : intGt(0)) :<> bool
-
 fun is_prime_ats { n : nat | n > 0 } : int(n) -> bool =
   "mac#"
 
