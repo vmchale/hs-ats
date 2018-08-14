@@ -21,6 +21,7 @@ extra-source-files:
     source.dhall
     bench.dhall
     ats-src/*.dats
+    ats-src/*.sats
     .atspkg/contrib/ats-includes-0.3.11/ccomp/runtime/*.h
     .atspkg/contrib/ats-includes-0.3.11/ccomp/runtime/*.c
     .atspkg/contrib/ats-includes-0.3.11/prelude/CATS/*.cats

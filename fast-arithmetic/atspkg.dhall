@@ -36,7 +36,7 @@ in
     then
         [ prelude.bin ⫽
             { src = "ats-src/bench.dats"
-            , target = "target/bench"
+            , target = "${prelude.atsProject}/bench"
             , libs = [ "gmp" ]
             , gcBin = True
             }
@@ -59,7 +59,7 @@ in
                 { name = "numbertheory"
                 , src = (map Text Text asDats moduleNames)
                 , includes = [ "include/fast_arithmetic.h" ]
-                , libTarget = "${prelude.cabalDir}/libnumbertheory.a"
+                , libTarget = "${prelude.atsProject}/libnumbertheory.a"
                 }
             ]
         else
@@ -91,4 +91,11 @@ in
         , dependencies = dependencies
         , cflags = libBuildFlag # (prelude.ccFlags cc)
         , ccompiler = prelude.printCompiler cc
+        , debPkg = prelude.mkDeb
+            (prelude.debian "fast-arithmetic" ⫽
+                { version = [0,6,1,0]
+                , maintainer = "Vanessa McHale <vamchale@gmail.com>"
+                , description = "Library for fast arithmetic in ATS"
+                , libraries = [ "${prelude.atsProject}/libnumbertheory.a" ]
+                })
         }
