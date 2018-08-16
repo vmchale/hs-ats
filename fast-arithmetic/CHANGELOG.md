@@ -5,6 +5,7 @@
   * Add `permutations` function
   * Minor performance improvements
   * Add debian package
+  * Improvements to the ATS library
 
 ## 0.6.0.9
 
