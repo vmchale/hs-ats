@@ -2,38 +2,38 @@
 #include "share/HATS/atspre_staload_prelude.hats"
 #include "share/HATS/atspre_staload_libats_ML.hats"
 #include "share/HATS/atslib_staload_libats_libc.hats"
-#include "ats-src/combinatorics-internal.dats"
+#include "ats-src/combinatorics.dats"
 #include "$PATSHOMELOCS/ats-bench-0.3.3/bench.dats"
 
 // TODO: bench dernangements
-fun factorial_bench() : void =
+fn factorial_bench() : void =
   {
     val x = fact(160)
-    val _ = intinf_free(x)
+    val () = intinf_free(x)
   }
 
-fun double_factorial_bench() : void =
+fn double_factorial_bench() : void =
   {
     val x = dfact(79)
-    val _ = intinf_free(x)
+    val () = intinf_free(x)
   }
 
-fun choose_bench() : void =
+fn choose_bench() : void =
   {
     val x = choose(322, 16)
-    val _ = intinf_free(x)
+    val () = intinf_free(x)
   }
 
-fun catalan_bench() : void =
+fn catalan_bench() : void =
   {
     val x = catalan(300)
-    val _ = intinf_free(x)
+    val () = intinf_free(x)
   }
 
-fun permutations_bench() : void =
+fn permutations_bench() : void =
   {
     val x = permutations(20, 10)
-    val _ = intinf_free(x)
+    val () = intinf_free(x)
   }
 
 val factorial_delay: io = lam () => factorial_bench()
@@ -44,9 +44,9 @@ val permutations_delay: io = lam () => permutations_bench()
 
 implement main0 () =
   {
-    val _ = print_slope("factorial", 12, factorial_delay)
-    val _ = print_slope("double factorial", 12, double_factorial_delay)
-    val _ = print_slope("choose", 13, choose_delay)
-    val _ = print_slope("catalan", 9, catalan_delay)
-    val _ = print_slope("permutations", 13, permutations_delay)
+    val () = print_slope("factorial", 12, factorial_delay)
+    val () = print_slope("double factorial", 12, double_factorial_delay)
+    val () = print_slope("choose", 13, choose_delay)
+    val () = print_slope("catalan", 9, catalan_delay)
+    val () = print_slope("permutations", 13, permutations_delay)
   }
