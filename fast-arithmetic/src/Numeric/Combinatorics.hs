@@ -12,6 +12,7 @@ module Numeric.Combinatorics ( choose
                              , factorial
                              , derangement
                              , permutations
+                             , maxRegions
                              ) where
 
 import           Control.Composition
@@ -28,6 +29,7 @@ foreign import ccall unsafe choose_ats :: CInt -> CInt -> Ptr GMPInt
 foreign import ccall unsafe catalan_ats :: CInt -> Ptr GMPInt
 foreign import ccall unsafe derangements_ats :: CInt -> Ptr GMPInt
 foreign import ccall unsafe permutations_ats :: CInt -> CInt -> Ptr GMPInt
+foreign import ccall unsafe max_regions_ats :: CInt -> Ptr GMPInt
 
 -- | \\( !n \\)
 --
@@ -56,3 +58,9 @@ factorial = unsafePerformIO . conjugateGMP factorial_ats
 -- | \( n!! \)
 doubleFactorial :: Int -> Integer
 doubleFactorial = unsafePerformIO . conjugateGMP double_factorial_ats
+
+-- | Compute the maximal number of regions obtained by joining \\( n \\) points
+-- about a circle by straight lines. See [here](https://oeis.org/A000127).
+maxRegions :: Int -- ^ \\( n \\)
+           -> Integer
+maxRegions = unsafePerformIO . conjugateGMP max_regions_ats

@@ -118,7 +118,8 @@ fn catalan {n:nat}(n : int(n)) : Intinf =
   end
 
 // Number of combinations of n objects using k at a time.
-fn choose {n:nat}{ m : nat | m <= n }(n : int(n), k : int(m)) : Intinf =
+// When k > n, this returns 0.
+fn choose {n:nat}{m:nat}(n : int(n), k : int(m)) : Intinf =
   let
     fun numerator_loop { m : nat | m > 1 } .<m>. (i : int(m), ret : &intinfGt(0)? >> intinfGt(0)) : void =
       case+ i of
@@ -134,6 +135,7 @@ fn choose {n:nat}{ m : nat | m <= n }(n : int(n), k : int(m)) : Intinf =
     case+ k of
       | 0 => int2intinf(1)
       | 1 => int2intinf(n)
+      | k when k > n => int2intinf(0)
       | k =>> let
         var x: intinfGt(0)
         val () = numerator_loop(k, x)
@@ -168,6 +170,25 @@ and sum_loop {n:nat}{ m : nat | m >= 1 && m <= n } .<m>. (n : int(n), i : int(m)
       $UN.castvwtp0(ret)
     end
 
+fn max_regions {n:nat}(n : int(n)) : Intinf =
+  let
+    fun loop {m:nat} .<m>. (m : int(m), ret : &Intinf? >> Intinf) : void =
+      if m = 0 then
+        ret := int2intinf(1)
+      else
+        let
+          val () = loop(m - 1, ret)
+          var c = choose(n, m)
+          val () = ret := add_intinf0_intinf1(ret, c)
+          val () = intinf_free(c)
+        in end
+    
+    var x: Intinf
+    val () = loop(4, x)
+  in
+    x
+  end
+
 implement choose_ats (n, k) =
   choose(n, k)
 
@@ -185,3 +206,6 @@ implement derangements_ats (n) =
 
 implement permutations_ats (n, k) =
   permutations(n, k)
+
+implement max_regions_ats (n) =
+  max_regions(n)

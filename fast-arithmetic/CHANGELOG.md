@@ -1,5 +1,9 @@
 # fast-arithmetic
 
+## 0.6.1.1
+  
+  * Add niche function for a problem of combinatorial geometry.
+
 ## 0.6.1.0
 
   * Add `permutations` function

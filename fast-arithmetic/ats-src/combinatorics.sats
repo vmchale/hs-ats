@@ -17,3 +17,6 @@ fun derangements_ats {n:nat} : int(n) -> Intinf =
 
 fun permutations_ats {n:nat}{ k : nat | k <= n && k > 0 } : (int(n), int(k)) -> Intinf =
   "mac#"
+
+fun max_regions_ats {n:nat} : int(n) -> Intinf =
+  "mac#"
