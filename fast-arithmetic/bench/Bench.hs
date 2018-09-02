@@ -14,6 +14,9 @@ hsIsPrime 1 = False
 hsIsPrime x = all ((/=0) . (x `rem`)) [2..up]
     where up = floor (sqrt (fromIntegral x :: Float))
 
+hsMaxRegions :: Int -> Integer
+hsMaxRegions n = sum $ fmap (n `choose`) [0..4]
+
 main :: IO ()
 main =
     defaultMain [ bgroup "primality check"
@@ -55,5 +58,9 @@ main =
                 , bgroup "permutations"
                       [ bench "permutations" $ nf (permutations 10) 20
                       , bench "hsPermutations" $ nf (hsPermutations 10) (20 :: Integer)
+                      ]
+                , bgroup "maxRegions"
+                      [ bench "maxRegions" $ nf maxRegions 45000
+                      , bench "hsMaxRegions" $ nf hsMaxRegions 45000
                       ]
                 ]
