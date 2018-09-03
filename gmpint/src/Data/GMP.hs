@@ -23,7 +23,7 @@ import           Foreign.C
 data GMPInt = GMPInt {
                        _mp_alloc :: !Word32 -- ^ Number of limbs allocated.
                      , _mp_size  :: !Word32 -- ^ Number of limbs used.
-                     , _mp_d     :: !(Ptr Word64) -- ^ Pointer to an array containing the limbs.
+                     , _mp_d     :: !(Ptr Word) -- ^ Pointer to an array containing the limbs.
                      }
 
 foreign import ccall "&__gmpz_clear" mpz_clear :: FunPtr (Ptr GMPInt -> IO ())
@@ -32,19 +32,19 @@ wordWidth :: Int
 wordWidth = sizeOf (undefined :: Word32)
 
 ptrWidth :: Int
-ptrWidth = sizeOf (undefined :: Ptr Word64)
+ptrWidth = sizeOf (undefined :: Ptr Word)
 
-gmpToList :: GMPInt -> IO [Word64]
+gmpToList :: GMPInt -> IO [Word]
 gmpToList (GMPInt _ s aptr) = peekArray (fromIntegral s) aptr
 
 base :: Integer
 base = 2 ^ (64 :: Int)
 
-integerToWordList :: Integer -> [Word64]
+integerToWordList :: Integer -> [Word]
 integerToWordList i | i < base = [fromIntegral i]
                     | otherwise = fromIntegral (i `rem` base) : integerToWordList (i `quot` base)
 
-wordListToInteger :: [Word64] -> Integer
+wordListToInteger :: [Word] -> Integer
 wordListToInteger []     = 0
 wordListToInteger (x:xs) = fromIntegral x + base * wordListToInteger xs
 

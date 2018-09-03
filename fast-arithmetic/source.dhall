@@ -1,1 +1,1 @@
-{ sourceBld = True, withBench = False, icc = False }
+{ sourceBld = True, withBench = False }

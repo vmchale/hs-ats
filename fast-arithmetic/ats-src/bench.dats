@@ -44,6 +44,10 @@ val permutations_delay: io = lam () => permutations_bench()
 
 implement main0 () =
   {
+    // FIXME - for some reason this is negative
+    // val k = max_regions(46342) 
+    // val () = println!(k)
+    // val () = intinf_free(k)
     val () = print_slope("factorial", 12, factorial_delay)
     val () = print_slope("double factorial", 12, double_factorial_delay)
     val () = print_slope("choose", 13, choose_delay)

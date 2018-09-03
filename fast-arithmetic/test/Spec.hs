@@ -29,7 +29,7 @@ tooBig :: Int -> Int -> Bool
 tooBig x y = go x y >= 2 ^ (16 :: Integer)
     where
         go :: Int -> Int -> Integer
-        go m n = fromIntegral m ^ (fromIntegral n :: Integer)
+        go m n = fromIntegral m ^ n
 
 agreeL :: (Eq a, Show b, Integral b, Arbitrary b) => b -> String -> (b -> a) -> (b -> a) -> SpecWith ()
 agreeL lower s f g = describe s $

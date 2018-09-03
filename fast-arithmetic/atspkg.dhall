@@ -30,7 +30,7 @@ let moduleNames =
 in
 
 {- Main -}
-λ(cfg : { sourceBld : Bool, withBench : Bool, icc : Bool }) →
+λ(cfg : { sourceBld : Bool, withBench : Bool }) →
 
     let test = if cfg.withBench
     then
@@ -78,10 +78,7 @@ in
             else [ "-DLIBRARY_BUILD" ]
     in
 
-    let cc =
-        if cfg.icc
-            then prelude.icc
-            else prelude.cc
+    let cc = prelude.cc
     in
 
     prelude.default ⫽
