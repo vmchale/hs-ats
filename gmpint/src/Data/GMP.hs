@@ -64,6 +64,8 @@ conjugateGMP f = gmpToInteger
 -- | Convert a GMP @mpz@ to Haskell's 'Integer' type.
 gmpToInteger :: GMPInt -> IO Integer
 gmpToInteger = fmap wordListToInteger . gmpToList
+-- FIXME: figure out SIGSEVs?
+-- particularly failure to open a REPL (which is occasional)
 
 instance Storable GMPInt where
     sizeOf _ = 2 * wordWidth + ptrWidth
