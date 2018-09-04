@@ -13,5 +13,5 @@ test_script:
 - refreshenv
 - cabal update
 - ps: Invoke-WebRequest https://github.com/vmchale/atspkg/releases/download/3.2.1.12/atspkg-x86_64-pc-windows.exe -OutFile c:\atspkg.exe
-- c:\atspkg.exe build --pkg-args 'source.dhall'
+- c:\atspkg.exe build --pkg-args './source.dhall'
 - cabal new-build all
