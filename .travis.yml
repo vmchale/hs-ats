@@ -112,8 +112,8 @@ script:
       curl -sL https://raw.githubusercontent.com/vmchale/tomlcheck/master/sh/check | sh -s fast-arithmetic/.atsfmt.toml
     fi
   - cd fast-arithmetic
-  - atspkg build --pkg-args "./bench.dhall False" -vv
-  - atspkg test --pkg-args "./bench.dhall False" -vv
+  - atspkg build --pkg-args "./bench.dhall" -vv
+  - atspkg test --pkg-args "./bench.dhall" -vv
   - cabal new-build
   - |
     if [ `echo $TEST` = "1" ]
