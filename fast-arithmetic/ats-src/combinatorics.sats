@@ -1,22 +1,22 @@
 staload "$PATSHOMELOCS/atscntrb-hx-intinf/SATS/intinf_vt.sats"
 
 fun choose_ats {n:nat}{ m : nat | m <= n } : (int(n), int(m)) -> Intinf =
-  "mac#"
+  "ext#"
 
 fun double_factorial_ats {n:nat} : int(n) -> Intinf =
-  "mac#"
+  "ext#"
 
 fun factorial_ats {n:nat} : int(n) -> Intinf =
-  "mac#"
+  "ext#"
 
 fun catalan_ats {n:nat} : int(n) -> Intinf =
-  "mac#"
+  "ext#"
 
 fun derangements_ats {n:nat} : int(n) -> Intinf =
-  "mac#"
+  "ext#"
 
 fun permutations_ats {n:nat}{ k : nat | k <= n && k > 0 } : (int(n), int(k)) -> Intinf =
-  "mac#"
+  "ext#"
 
 fun max_regions_ats {n:nat} : int(n) -> Intinf =
-  "mac#"
+  "ext#"
