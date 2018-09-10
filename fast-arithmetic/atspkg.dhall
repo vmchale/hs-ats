@@ -94,6 +94,6 @@ in
                 , maintainer = "Vanessa McHale <vamchale@gmail.com>"
                 , description = "Library for fast arithmetic in ATS"
                 , libraries = [ "${prelude.atsProject}/libnumbertheory.a" ]
-                , includes = [ "include/fast-arithmetic.h" ]
+                , headers = [ "include/fast_arithmetic.h" ]
                 })
         }
