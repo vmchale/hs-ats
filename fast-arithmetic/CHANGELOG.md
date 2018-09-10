@@ -1,5 +1,9 @@
 # fast-arithmetic
 
+## 0.6.1.2
+
+  * Add `fast_arithmetic.h` for those wanting to use the C library.
+
 ## 0.6.1.1
   
   * Add niche function for a problem of combinatorial geometry.
