@@ -1,5 +1,9 @@
 # fast-arithmetic
 
+## 0.6.2.0
+
+  * Add `radical` for computing radicals of integers
+
 ## 0.6.1.2
 
   * Add `fast_arithmetic.h` for those wanting to use the C library.

@@ -1,6 +1,9 @@
 staload "$PATSHOMELOCS/atscntrb-hx-intinf/SATS/intinf_vt.sats"
 staload "ats-src/numerics.sats"
 
+fun radical_ats { k : nat | k >= 1 }(int(k)) : int =
+  "ext#"
+
 fun totient_ats { k : nat | k >= 2 }(int(k)) : int =
   "ext#"
 

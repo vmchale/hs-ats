@@ -6,7 +6,7 @@ linguist:
     linguist
 
 ci:
-    cd fast-arithmetic && atspkg build
+    cd fast-arithmetic && atspkg build --pkg-args './source.dhall'
     cabal new-build all
     cabal new-test all
     hlint fast-arithmetic gmpint

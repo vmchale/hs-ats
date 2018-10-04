@@ -22,6 +22,11 @@ foreign import ccall unsafe sum_divisors_ats :: CInt -> CInt
 foreign import ccall unsafe little_omega_ats :: CInt -> CInt
 foreign import ccall unsafe is_perfect_ats :: CInt -> CUChar
 foreign import ccall unsafe is_prime_ats :: CInt -> CUChar
+foreign import ccall unsafe radical_ats :: CInt -> CInt
+
+-- | Radical of an integer
+radical :: Int -> Int
+radical = conjugate radical_ats
 
 -- | \( O(\sqrt(n)) \)
 isPrime :: Int -> Bool

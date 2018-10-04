@@ -5,7 +5,4 @@ constraints:
   gmpint -development,
   fast-arithmetic -development
 
-allow-newer:
-    base
-
 optimization: 2

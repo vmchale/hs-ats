@@ -245,6 +245,21 @@ fn little_omega(n : intGte(1)) : int =
     loop(n, 1)
   end
 
+// radical of an integer: https://oeis.org/A007947
+fn radical(n : intGte(1)) : int =
+  case+ n of
+    | 1 => 1
+    | n =>> let
+      var x: stream_vt(int) = prime_factors(n)
+      
+      fun product(ys : stream_vt(int)) : int =
+        case+ !ys of
+          | ~stream_vt_cons (z, zs) => z * product(zs)
+          | ~stream_vt_nil() => 1
+    in
+      product(x)
+    end
+
 // Euler's totient function.
 fn totient(n : intGte(1)) : int =
   case+ n of
@@ -278,6 +293,9 @@ fn totient_sum(n : intGte(1)) : Intinf =
   in
     loop(1, n)
   end
+
+implement radical_ats (n) =
+  radical(n)
 
 implement sum_divisors_ats (m) =
   sum_divisors(m)
