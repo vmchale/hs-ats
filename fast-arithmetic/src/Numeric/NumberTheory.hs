@@ -11,6 +11,7 @@ module Numeric.NumberTheory ( totient
                             , isPerfect
                             , sumDivisors
                             , isPrime
+                            , radical
                             ) where
 
 import           Foreign.C

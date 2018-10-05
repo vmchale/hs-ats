@@ -1,5 +1,9 @@
 # fast-arithmetic
 
+## 0.6.2.1
+
+  * Export `radical`
+
 ## 0.6.2.0
 
   * Add `radical` for computing radicals of integers
