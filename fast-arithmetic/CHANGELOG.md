@@ -1,5 +1,9 @@
 # fast-arithmetic
 
+## 0.6.3.0
+  
+  * Patch `isPrime`
+
 ## 0.6.2.1
 
   * Export `radical`
