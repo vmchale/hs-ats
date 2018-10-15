@@ -12,7 +12,7 @@ hsPermutations n k = product [(n-k+1)..n]
 hsIsPrime :: (Integral a) => a -> Bool
 hsIsPrime 1 = False
 hsIsPrime x = all ((/=0) . (x `rem`)) [2..up]
-    where up = floor (sqrt (fromIntegral x :: Float))
+    where up = floor (sqrt (fromIntegral x :: Double))
 
 hsMaxRegions :: Int -> Integer
 hsMaxRegions n = sum $ fmap (n `choose`) [0..4]

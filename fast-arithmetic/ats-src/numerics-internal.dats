@@ -77,7 +77,7 @@ fun big_exp {n:nat} .<n>. (x : Intinf, n : int(n)) : Intinf =
 // pretty sure this isn't side effecting idk.
 fn sqrt_int(k : intGt(0)) :<> [m:nat] int(m) =
   let
-    var bound = g0float2int(sqrt_float(g0int2float(k)))
+    var bound = g0float2int(sqrt_double(g0int2float_int_double(k)))
   in
     witness(bound)
   end
