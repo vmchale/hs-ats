@@ -2,10 +2,10 @@
 let prelude = http://hackage.haskell.org/package/ats-pkg/src/dhall/atspkg-prelude.dhall
 in
 
-let map = http://hackage.haskell.org/package/dhall/src/Prelude/List/map
+let map = https://raw.githubusercontent.com/dhall-lang/Prelude/master/List/map
 in
 
-let not = http://hackage.haskell.org/package/dhall/src/Prelude/Bool/not
+let not = https://github.com/dhall-lang/Prelude/blob/master/Bool/not
 in
 
 {- Types -}
