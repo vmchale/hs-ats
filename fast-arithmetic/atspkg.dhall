@@ -5,7 +5,7 @@ in
 let map = https://raw.githubusercontent.com/dhall-lang/Prelude/master/List/map
 in
 
-let not = https://github.com/dhall-lang/Prelude/blob/master/Bool/not
+let not = https://raw.githubusercontent.com/dhall-lang/Prelude/master/Bool/not
 in
 
 {- Types -}
