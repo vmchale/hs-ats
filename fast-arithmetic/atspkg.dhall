@@ -90,7 +90,7 @@ in
         , ccompiler = prelude.printCompiler cc
         , debPkg = prelude.mkDeb
             (prelude.debian "fast-arithmetic" ⫽
-                { version = [0,6,1,0]
+                { version = [0,6,3,0]
                 , maintainer = "Vanessa McHale <vamchale@gmail.com>"
                 , description = "Library for fast arithmetic in ATS"
                 , libraries = [ "${prelude.atsProject}/libnumbertheory.a" ]
