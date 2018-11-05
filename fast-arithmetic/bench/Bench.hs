@@ -63,4 +63,8 @@ main =
                       [ bench "maxRegions" $ nf maxRegions 45000
                       , bench "hsMaxRegions" $ nf hsMaxRegions 45000
                       ]
+                , bgroup "bell"
+                      [ bench "bell" $ nf bell 10
+                      , bench "bellNumber" $ nf Ext.bellNumber (10 :: Int)
+                      ]
                 ]

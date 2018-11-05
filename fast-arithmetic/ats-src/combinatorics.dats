@@ -147,28 +147,32 @@ fn choose {n:nat}{m:nat}(n : int(n), k : int(m)) : Intinf =
       end
   end
 
-// TODO stirling numbers of the second kind.
-// Bell numbers. These can't be called via the FFI because of the mutually
-// recursive functions, so we should probably think of something else.
-fun bell {n:nat}(n : int(n)) : intinfGt(0) =
-  case- n of
-    | 0 => int2intinf(1)
-    | n when n >= 0 =>> sum_loop(n, n)
-
-and sum_loop {n:nat}{ m : nat | m >= 1 && m <= n } .<m>. (n : int(n), i : int(m)) : intinfGt(0) =
-  case+ i of
-    | 1 => int2intinf(1)
-    | i =>> let
-      var p = sum_loop(n, i - 1)
-      var b = bell(i)
-      var c = choose(n, i)
-      var pre_ret = mul_intinf0_intinf1(c, b)
-      var ret = add_intinf0_intinf1(pre_ret, p)
-      val _ = intinf_free(b)
-      val _ = intinf_free(p)
-    in
-      $UN.castvwtp0(ret)
-    end
+fn bell {n:nat}(n : int(n)) : intinfGt(0) =
+  let
+    fun sum_loop { n : nat | n >= 1 }{ m : nat | m >= 1 && m <= n } .<m>. (n : int(n), i : int(m)) : intinfGt(0) =
+      case+ i of
+        | 0 => int2intinf(1)
+        | 1 => if n > 1 then
+          int2intinf(n)
+        else
+          int2intinf(1)
+        | i =>> let
+          var p = sum_loop(n, i - 1)
+          var b = sum_loop(i, i - 1)
+          var c = choose(n - 1, i)
+          var pre_ret = mul_intinf0_intinf1(c, b)
+          var ret = add_intinf0_intinf1(pre_ret, p)
+          val _ = intinf_free(b)
+          val _ = intinf_free(p)
+        in
+          $UN.castvwtp0(ret)
+        end
+  in
+    case+ n of
+      | 0 => int2intinf(1)
+      | 1 => int2intinf(1)
+      | m =>> sum_loop(m, m - 1)
+  end
 
 fn max_regions {n:nat}(n : int(n)) : Intinf =
   let
@@ -209,3 +213,6 @@ implement permutations_ats (n, k) =
 
 implement max_regions_ats (n) =
   max_regions(n)
+
+implement bell_ats (n) =
+  bell(n)

@@ -1,5 +1,9 @@
 # fast-arithmetic
 
+## 0.6.4.0
+
+  * Add `bell` for computing the Bell numbers.
+
 ## 0.6.3.0
   
   * Patch `isPrime`

@@ -1,5 +1,8 @@
 staload "$PATSHOMELOCS/atscntrb-hx-intinf/SATS/intinf_vt.sats"
 
+fun bell_ats {n:nat} : int(n) -> intinfGt(0) =
+  "ext#"
+
 fun choose_ats {n:nat}{ m : nat | m <= n } : (int(n), int(m)) -> Intinf =
   "ext#"
 

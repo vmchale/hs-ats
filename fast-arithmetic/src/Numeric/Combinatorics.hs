@@ -13,6 +13,7 @@ module Numeric.Combinatorics ( choose
                              , derangement
                              , permutations
                              , maxRegions
+                             , bell
                              ) where
 
 import           Control.Composition
@@ -30,6 +31,7 @@ foreign import ccall unsafe catalan_ats :: CInt -> Ptr GMPInt
 foreign import ccall unsafe derangements_ats :: CInt -> Ptr GMPInt
 foreign import ccall unsafe permutations_ats :: CInt -> CInt -> Ptr GMPInt
 foreign import ccall unsafe max_regions_ats :: CInt -> Ptr GMPInt
+foreign import ccall unsafe bell_ats :: CInt -> Ptr GMPInt
 
 -- | \\( !n \\)
 --
@@ -51,6 +53,10 @@ choose = unsafePerformIO .* (gmpToInteger <=<) . (peek .* on choose_ats fromInte
 
 permutations :: Int -> Int -> Integer
 permutations = unsafePerformIO .* (gmpToInteger <=<) . (peek .* on permutations_ats fromIntegral)
+
+-- | The [Bell numbers](http://mathworld.wolfram.com/BellNumber.html)
+bell :: Int -> Integer
+bell = unsafePerformIO . conjugateGMP bell_ats
 
 factorial :: Int -> Integer
 factorial = unsafePerformIO . conjugateGMP factorial_ats
