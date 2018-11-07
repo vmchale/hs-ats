@@ -52,8 +52,7 @@ matrix:
             - ghc-7.10.3
           sources:
             - hvr-ghc
-    - env: TEST=1
-      addons:
+    - addons:
         apt:
           packages:
             - cabal-install-2.2
