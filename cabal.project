@@ -1,5 +1,4 @@
 packages: fast-arithmetic
-        , gmpint
 
 max-backjumps: 400000
 

@@ -20,10 +20,10 @@ import           Control.Composition
 import           Control.Monad
 import           Foreign.C
 import           Foreign.Ptr
+import           Numeric.GMP.Raw.Unsafe (mpz_clear)
 import           Numeric.GMP.Types
 import           Numeric.GMP.Utils
-import           System.IO.Unsafe    (unsafePerformIO)
--- (peekInteger)
+import           System.IO.Unsafe       (unsafePerformIO)
 
 foreign import ccall unsafe double_factorial_ats :: CInt -> Ptr MPZ
 foreign import ccall unsafe factorial_ats :: CInt -> Ptr MPZ
@@ -35,10 +35,12 @@ foreign import ccall unsafe max_regions_ats :: CInt -> Ptr MPZ
 foreign import ccall unsafe stirling2_ats :: CInt -> CInt -> Ptr MPZ
 
 conjugateMPZ :: (CInt -> Ptr MPZ) -> Int -> Integer
-conjugateMPZ f = unsafePerformIO . peekInteger . f . fromIntegral
+conjugateMPZ f n = unsafePerformIO (peekInteger mPtr <* mpz_clear mPtr)
+    where mPtr = f (fromIntegral n)
 
 conjugateMPZ' :: (CInt -> CInt -> Ptr MPZ) -> Int -> Int -> Integer
-conjugateMPZ' f = unsafePerformIO .* peekInteger .* on f fromIntegral
+conjugateMPZ' f n k = unsafePerformIO (peekInteger mPtr <* mpz_clear mPtr)
+    where mPtr = f (fromIntegral n) (fromIntegral k)
 
 -- | \\( !n \\)
 --
