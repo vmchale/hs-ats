@@ -30,7 +30,7 @@ let moduleNames =
 in
 
 {- Main -}
-λ(cfg : { sourceBld : Bool, withBench : Bool }) →
+λ(cfg : { sourceBld : Bool, staticLib : Bool, withBench : Bool }) →
 
     let test = if cfg.withBench
     then
@@ -55,13 +55,23 @@ in
 
     let libraries = if not cfg.sourceBld
         then
-            [ prelude.staticLib ⫽
-                { name = "numbertheory"
-                , src = (map Text Text asDats moduleNames)
-                , includes = [ "include/fast_arithmetic.h" ]
-                , libTarget = "${prelude.atsProject}/libnumbertheory.a"
-                }
-            ]
+            if cfg.staticLib
+                then
+                    [ prelude.staticLib ⫽
+                        { name = "numbertheory"
+                        , src = (map Text Text asDats moduleNames)
+                        , includes = [ "include/fast_arithmetic.h" ]
+                        , libTarget = "${prelude.atsProject}/libnumbertheory.a"
+                        }
+                    ]
+                else
+                    [ prelude.lib ⫽
+                        { name = "numbertheory"
+                        , src = (map Text Text asDats moduleNames)
+                        , includes = [ "include/fast_arithmetic.h" ]
+                        , libTarget = "${prelude.atsProject}/libnumbertheory.so"
+                        }
+                    ]
         else
             prelude.emptyLib
     in

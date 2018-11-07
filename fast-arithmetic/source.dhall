@@ -1,1 +1,1 @@
-{ sourceBld = True, withBench = False }
+{ sourceBld = True, staticLib = False, withBench = False }
