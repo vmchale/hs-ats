@@ -7,12 +7,14 @@ This module defines a storable instance for GMP's @mpz@ integer type.
 
 module Data.GMP ( GMPInt (..)
                 , gmpToInteger
-                , conjugateGMP
                 , integerToGMP
                 , gmpForeignPtr
+                , conjugateGMP
+                , conjugateGMP'
                 ) where
 
 import           Control.Applicative
+import           Control.Composition
 import           Control.Monad       ((<=<))
 import           Data.Word
 import           Foreign
@@ -55,6 +57,10 @@ integerToGMP i = GMPInt l l <$> newArray ls
 
 gmpForeignPtr :: Ptr GMPInt -> IO (ForeignPtr GMPInt)
 gmpForeignPtr = newForeignPtr mpz_clear
+
+{-# INLINE conjugateGMP' #-}
+conjugateGMP' :: (CInt -> CInt -> Ptr GMPInt) -> Int -> Int -> IO Integer
+conjugateGMP' f = (gmpToInteger <=<) . (peek .* on f fromIntegral)
 
 conjugateGMP :: (CInt -> Ptr GMPInt) -> Int -> IO Integer
 conjugateGMP f = gmpToInteger

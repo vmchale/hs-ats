@@ -8,7 +8,7 @@ maintainer: vamchale@gmail.com
 author: Vanessa McHale
 tested-with: ghc ==7.0.4 ghc ==7.2.2 ghc ==7.4.2 ghc ==7.6.3
              ghc ==7.8.4 ghc ==7.10.3 ghc ==8.0.2 ghc ==8.2.2 ghc ==8.4.4
-             ghc ==8.6.1
+             ghc ==8.6.2
 bug-reports: https://github.com/vmchale/hs-ats/issues
 synopsis: Fast functions on integers.
 description:
@@ -81,7 +81,7 @@ library
 
     if !flag(no-integer-gmp)
         build-depends:
-            gmpint -any
+            hgmp -any
 
     if os(windows)
         buildable: False

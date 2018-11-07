@@ -1,13 +1,14 @@
 cabal-version: 1.18
 name: gmpint
-version: 0.1.1.3
+version: 0.1.2.0
 license: BSD3
 license-file: LICENSE
 copyright: Copyright: (c) 2018 Vanessa McHale
 maintainer: vamchale@gmail.com
 author: Vanessa McHale
 tested-with: ghc ==7.0.4 ghc ==7.2.2 ghc ==7.4.2 ghc ==7.6.3
-             ghc ==7.8.4 ghc ==7.10.3 ghc ==8.0.2 ghc ==8.2.2 ghc ==8.4.3
+             ghc ==7.8.4 ghc ==7.10.3 ghc ==8.0.2 ghc ==8.2.2 ghc ==8.4.4
+             ghc ==8.6.2
 synopsis: GMP integer conversions
 description:
     This defines a 'Storable' instance for GMP's @mpz@ type and provides functions for working with GMP integers.
@@ -36,11 +37,12 @@ library
         gmp
     ghc-options: -Wall
     build-depends:
-        base >=4.3 && <5
-    
+        base >=4.3 && <5,
+        composition-prelude -any
+
     if flag(development)
         ghc-options: -Werror
-    
+
     if impl(ghc >=8.0)
         ghc-options: -Wincomplete-uni-patterns -Wincomplete-record-updates
                      -Wcompat
