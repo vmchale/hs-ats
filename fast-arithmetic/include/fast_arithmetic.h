@@ -6,3 +6,4 @@ int little_omega_ats(int);
 int sum_divisors_ats(int);
 bool is_perfect_ats(int);
 bool coprime_ats(int, int);
+int radical(int);

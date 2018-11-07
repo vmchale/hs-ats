@@ -47,6 +47,11 @@ main = hspec $ parallel $ do
         [totient, tau, littleOmega, sumDivisors]
         [Ext.totient, Ext.tau, Ext.smallOmega, Ext.sigma 1]
 
+    sequence_ $ zipWith3 (agreeL 0)
+        ["catalan", "doubleFactorial", "factorial"]
+        [catalan, doubleFactorial, factorial]
+        [Ext.catalan, Ext.doubleFactorial, Ext.factorial]
+
     sequence_ $ zipWith3 agree
         ["isPrime"]
         [isPrime]
@@ -64,15 +69,9 @@ main = hspec $ parallel $ do
     describe "totient" $
         prop "should satisfy Fermat's little theorem" $
             \a m -> a < 1 || m < 2 || gcd a m /= 1 || tooBig a m || (a ^ totient m) `mod` m == 1
-    describe "doubleFactorial" $
+    describe "striling2" $
         prop "should agree" $
-            \a -> a < 0 || doubleFactorial a == Ext.doubleFactorial a
-    describe "catalan" $
-        prop "should agree" $
-            \a -> a < 0 || catalan a == Ext.catalan a
-    describe "factorial" $
-        prop "should agree" $
-            \a -> a < 0 || factorial a == Ext.factorial a
+            \n k -> n < 0 || k < 0 || stirling2 n k == Ext.stirling2nd n k
     describe "choose" $
         prop "should agree" $
             \a b -> a < 0 || b < 0 || choose b a == Ext.binomial b a

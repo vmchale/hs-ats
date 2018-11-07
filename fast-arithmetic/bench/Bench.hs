@@ -63,8 +63,8 @@ main =
                       [ bench "maxRegions" $ nf maxRegions 45000
                       , bench "hsMaxRegions" $ nf hsMaxRegions 45000
                       ]
-                , bgroup "bell"
-                      [ bench "bell" $ nf bell 10
-                      , bench "bellNumber" $ nf Ext.bellNumber (10 :: Int)
+                , bgroup "stirling"
+                      [ bench "striling2" $ nf (stirling2 25) 8
+                      , bench "Ext.stirling2nd" $ nf (Ext.stirling2nd (25 :: Int)) 8
                       ]
                 ]

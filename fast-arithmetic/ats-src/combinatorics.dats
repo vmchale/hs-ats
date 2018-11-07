@@ -147,31 +147,72 @@ fn choose {n:nat}{m:nat}(n : int(n), k : int(m)) : Intinf =
       end
   end
 
-fn bell {n:nat}(n : int(n)) : intinfGt(0) =
-  let
-    fun sum_loop { n : nat | n >= 1 }{ m : nat | m >= 1 && m <= n } .<m>. (n : int(n), i : int(m)) : intinfGt(0) =
-      case+ i of
-        | 0 => int2intinf(1)
-        | 1 => if n > 1 then
-          int2intinf(n)
+// Stirling numbers of the second kind. See
+// http://mathworld.wolfram.com/StirlingNumberoftheSecondKind.html
+//
+// approach taken from
+// http://hackage.haskell.org/package/combinat-0.2.9.0/docs/src/Math.Combinat.Numbers.Sequences.html#stirling2nd
+fn stirling2 { n, k : nat }(n : int(n), k : int(k)) : Intinf =
+  ifcase
+    | k = 0 && n = 0 => int2intinf(1)
+    | k > n => int2intinf(0)
+    | _ => let
+      var bot = fact(k)
+      
+      fn negate_if_odd(n : int, k : Intinf) : Intinf =
+        if n % 2 = 0 then
+          k
         else
-          int2intinf(1)
-        | i =>> let
-          var p = sum_loop(n, i - 1)
-          var b = sum_loop(i, i - 1)
-          var c = choose(n - 1, i)
-          var pre_ret = mul_intinf0_intinf1(c, b)
-          var ret = add_intinf0_intinf1(pre_ret, p)
-          val _ = intinf_free(b)
-          val _ = intinf_free(p)
-        in
-          $UN.castvwtp0(ret)
-        end
+          neg_intinf0(k)
+      
+      fun top_loop {i:nat} .<i>. (i : int(i), acc : &Intinf? >> Intinf) : void =
+        case+ i of
+          | 0 => acc := int2intinf(0)
+          | i =>> let
+            val () = top_loop(i - 1, acc)
+            var add = choose(k, i)
+            var factor = pow_int_int(i, n)
+            var multiplier = negate_if_odd(k - i, factor)
+            var factor_add = mul_intinf0_intinf1(add, multiplier)
+            val () = acc := add_intinf0_intinf1(acc, factor_add)
+            val () = intinf_free(multiplier)
+            val () = intinf_free(factor_add)
+          in
+            ()
+          end
+      
+      var top: Intinf
+      val () = top_loop(k, top)
+      var result = div_intinf0_intinf1(top, bot)
+      val () = intinf_free(bot)
+    in
+      result
+    end
+
+// Bell numbers. See http://mathworld.wolfram.com/BellNumber.html
+//
+// Approach taken from
+// http://hackage.haskell.org/package/combinat-0.2.9.0/docs/src/Math.Combinat.Numbers.Sequences.html#bellNumber
+fn bell {n:nat}(n : int(n)) : Intinf =
+  let
+    fun sum_loop { k : nat | k >= 1 } .<k>. (k : int(k), acc : &Intinf? >> Intinf) : void =
+      case+ k of
+        | 1 => acc := stirling2(n, 1)
+        | k =>> let
+          val () = sum_loop(k - 1, acc)
+          var add = stirling2(n, k)
+          val () = acc := add_intinf0_intinf1(acc, add)
+          val () = intinf_free(add)
+        in end
   in
     case+ n of
       | 0 => int2intinf(1)
-      | 1 => int2intinf(1)
-      | m =>> sum_loop(m, m - 1)
+      | n =>> let
+        var ret: Intinf
+        val () = sum_loop(n, ret)
+      in
+        ret
+      end
   end
 
 fn max_regions {n:nat}(n : int(n)) : Intinf =
@@ -210,6 +251,9 @@ implement derangements_ats (n) =
 
 implement permutations_ats (n, k) =
   permutations(n, k)
+
+implement stirling2_ats (n, k) =
+  stirling2(n, k)
 
 implement max_regions_ats (n) =
   max_regions(n)

@@ -13,7 +13,7 @@ module Numeric.Combinatorics ( choose
                              , derangement
                              , permutations
                              , maxRegions
-                             , bell
+                             , stirling2
                              ) where
 
 import           Control.Composition
@@ -31,7 +31,10 @@ foreign import ccall unsafe catalan_ats :: CInt -> Ptr GMPInt
 foreign import ccall unsafe derangements_ats :: CInt -> Ptr GMPInt
 foreign import ccall unsafe permutations_ats :: CInt -> CInt -> Ptr GMPInt
 foreign import ccall unsafe max_regions_ats :: CInt -> Ptr GMPInt
-foreign import ccall unsafe bell_ats :: CInt -> Ptr GMPInt
+foreign import ccall unsafe stirling2_ats :: CInt -> CInt -> Ptr GMPInt
+
+helper :: (CInt -> CInt -> Ptr GMPInt) -> Int -> Int -> Integer
+helper f = unsafePerformIO .* (gmpToInteger <=<) . (peek .* on f fromIntegral)
 
 -- | \\( !n \\)
 --
@@ -49,14 +52,14 @@ catalan = unsafePerformIO . conjugateGMP catalan_ats
 
 -- | \( \binom{n}{k} \)
 choose :: Int -> Int -> Integer
-choose = unsafePerformIO .* (gmpToInteger <=<) . (peek .* on choose_ats fromIntegral)
+choose = helper choose_ats
 
 permutations :: Int -> Int -> Integer
-permutations = unsafePerformIO .* (gmpToInteger <=<) . (peek .* on permutations_ats fromIntegral)
+permutations = helper permutations_ats
 
--- | The [Bell numbers](http://mathworld.wolfram.com/BellNumber.html)
-bell :: Int -> Integer
-bell = unsafePerformIO . conjugateGMP bell_ats
+-- | Stirling numbers of the second kind.
+stirling2 :: Int -> Int -> Integer
+stirling2 = helper stirling2_ats
 
 factorial :: Int -> Integer
 factorial = unsafePerformIO . conjugateGMP factorial_ats

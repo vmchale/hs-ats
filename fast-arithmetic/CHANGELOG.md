@@ -2,7 +2,8 @@
 
 ## 0.6.4.0
 
-  * Add `bell` for computing the Bell numbers.
+  * Add `bell` to the ATS library
+  * Add `stirling2` for computing Stirling numbers of the second kind.
 
 ## 0.6.3.0
   
