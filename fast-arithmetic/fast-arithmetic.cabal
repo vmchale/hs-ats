@@ -37,11 +37,6 @@ source-repository head
     type: git
     location: git@github.com:vmchale/hs-ats.git
 
-flag no-integer-gmp
-    description:
-        Disable functions relying on GMP
-    default: False
-
 flag development
     description:
         Enable `-Werror`.
@@ -51,9 +46,11 @@ flag development
 library
     exposed-modules:
         Numeric.NumberTheory
+        Numeric.Combinatorics
     c-sources:
         cbits/number-theory.c
         cbits/numerics.c
+        cbits/combinatorics.c
     hs-source-dirs: src
     other-modules:
         Numeric.Common
@@ -63,7 +60,8 @@ library
     ghc-options: -Wall
     build-depends:
         base >=4.3 && <5,
-        composition-prelude >=1.2.0.0
+        composition-prelude >=1.2.0.0,
+        hgmp
 
     if impl(ghc >=8.0)
         cc-options: -mtune=native -flto -O3
@@ -71,17 +69,6 @@ library
     if os(windows)
         buildable: False
 
-    if !flag(no-integer-gmp)
-        exposed-modules:
-            Numeric.Combinatorics
-
-    if !flag(no-integer-gmp)
-        c-sources:
-            cbits/combinatorics.c
-
-    if !flag(no-integer-gmp)
-        build-depends:
-            hgmp -any
 
     if os(windows)
         buildable: False
