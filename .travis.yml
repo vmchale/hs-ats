@@ -36,16 +36,14 @@ matrix:
             - ghc-8.2.2
           sources:
             - hvr-ghc
-    - env: TEST=1
-      addons:
+    - addons:
         apt:
           packages:
             - cabal-install-2.4
             - ghc-8.0.2
           sources:
             - hvr-ghc
-    - env: TEST=1
-      addons:
+    - addons:
         apt:
           packages:
             - cabal-install-2.4
