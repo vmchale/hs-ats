@@ -4,6 +4,7 @@
 
   * Add `bell` to the ATS library
   * Add `stirling2` for computing Stirling numbers of the second kind.
+  * Add `radical` to `fast_arithmetic.h`, for users of the C library
 
 ## 0.6.3.0
   

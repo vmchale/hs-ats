@@ -17,7 +17,7 @@ matrix:
         apt:
           packages:
             - cabal-install-2.4
-            - ghc-8.4.3
+            - ghc-8.4.4
           sources:
             - hvr-ghc
     - env: TEST=1

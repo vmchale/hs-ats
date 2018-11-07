@@ -150,25 +150,23 @@ fn choose {n:nat}{m:nat}(n : int(n), k : int(m)) : Intinf =
 // Stirling numbers of the second kind. See
 // http://mathworld.wolfram.com/StirlingNumberoftheSecondKind.html
 //
-// approach taken from
+// Approach taken from
 // http://hackage.haskell.org/package/combinat-0.2.9.0/docs/src/Math.Combinat.Numbers.Sequences.html#stirling2nd
 fn stirling2 { n, k : nat }(n : int(n), k : int(k)) : Intinf =
   ifcase
     | k = 0 && n = 0 => int2intinf(1)
     | k > n => int2intinf(0)
     | _ => let
-      var bot = fact(k)
-      
-      fn negate_if_odd(n : int, k : Intinf) : Intinf =
-        if n % 2 = 0 then
-          k
-        else
-          neg_intinf0(k)
-      
       fun top_loop {i:nat} .<i>. (i : int(i), acc : &Intinf? >> Intinf) : void =
         case+ i of
           | 0 => acc := int2intinf(0)
-          | i =>> let
+          | i =>> {
+            fn negate_if_odd(n : int, k : Intinf) : Intinf =
+              if n % 2 = 0 then
+                k
+              else
+                neg_intinf0(k)
+            
             val () = top_loop(i - 1, acc)
             var add = choose(k, i)
             var factor = pow_int_int(i, n)
@@ -177,12 +175,11 @@ fn stirling2 { n, k : nat }(n : int(n), k : int(k)) : Intinf =
             val () = acc := add_intinf0_intinf1(acc, factor_add)
             val () = intinf_free(multiplier)
             val () = intinf_free(factor_add)
-          in
-            ()
-          end
+          }
       
       var top: Intinf
       val () = top_loop(k, top)
+      var bot = fact(k)
       var result = div_intinf0_intinf1(top, bot)
       val () = intinf_free(bot)
     in
@@ -198,12 +195,12 @@ fn bell {n:nat}(n : int(n)) : Intinf =
     fun sum_loop { k : nat | k >= 1 } .<k>. (k : int(k), acc : &Intinf? >> Intinf) : void =
       case+ k of
         | 1 => acc := stirling2(n, 1)
-        | k =>> let
+        | k =>> {
           val () = sum_loop(k - 1, acc)
           var add = stirling2(n, k)
           val () = acc := add_intinf0_intinf1(acc, add)
           val () = intinf_free(add)
-        in end
+        }
   in
     case+ n of
       | 0 => int2intinf(1)
