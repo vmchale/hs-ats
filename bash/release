@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+set -e pipefail
+
+sn clean
+atspkg pack fast-arithmetic
+
+cabal="$(fd '\.cabal$' -d1 fast-arithmetic)"
+version="$(grep -P -o '\d+\.\d+\.\d+\.\d+' "$cabal" | head -n1 | awk -F. '{$NF+=1; print $0}' | sed 's/ /\./g')"
+token=$(cat "$HOME"/.git-token)
+
+cd fast-arithmetic
+atspkg build --pkg-args './lib.dhall' target/fast-arithmetic.deb
+
+github-release release -s "$token" -u vmchale -r atspkg -t "$version"
+github-release upload --replace -s "$token" -u vmchale -r hs-ats -n fast-arithmetic.tar.gz -f fast-arithmetic.tar.gz -t "$version"
+github-release upload --replace -s "$token" -u vmchale -r hs-ats -n fast-arithmetic.deb -f fast-arithmetic/target/fast-arithmetic.deb -t "$version"
+
+rm -f fast-arithmetic.tar.gz
