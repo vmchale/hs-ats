@@ -37,6 +37,10 @@ computation of basic combinatorial functions.
 | `catalan 300` | Haskell | 29.08 μs |
 | `permutations 20 10` | ATS | 198.6 ns |
 | `permutations 20 10` | Haskell | 392.3 ns |
+| `maxRegions 45000` | ATS | 787.9 ns |
+| `maxRegions 45000` | Haskell | 1.034 μs |
+| `stirling2 25 8` | ATS | 3.105 μs |
+| `stirling2nd 25 8` | Haskell | 9.300 μs |
 
 ## Building
 

@@ -15,7 +15,7 @@ hsIsPrime x = all ((/=0) . (x `rem`)) [2..up]
     where up = floor (sqrt (fromIntegral x :: Double))
 
 hsMaxRegions :: Int -> Integer
-hsMaxRegions n = sum $ fmap (n `choose`) [0..4]
+hsMaxRegions n = sum $ fmap (n `Ext.binomial`) [0..4]
 
 main :: IO ()
 main =
