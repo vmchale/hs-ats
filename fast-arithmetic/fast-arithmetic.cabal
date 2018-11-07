@@ -104,7 +104,7 @@ test-suite fast-arithmetic-test
         fast-arithmetic -any,
         hspec -any,
         QuickCheck -any,
-        arithmoi >=0.6.0.0,
+        arithmoi >=0.4.3.0,
         combinat -any
 
     if flag(development)
@@ -124,8 +124,8 @@ benchmark fast-arithmetic-bench
         base -any,
         fast-arithmetic -any,
         criterion -any,
-        arithmoi >=0.6.0.0,
-        combinat >=0.2.9.0
+        arithmoi >=0.4.3.0,
+        combinat -any
 
     if flag(development)
         ghc-options: -Werror
