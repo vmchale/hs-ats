@@ -81,3 +81,7 @@ main = hspec $ parallel $ do
     describe "permutations" $
         prop "should agree" $
             \n k -> k < 1 || k > n || permutations n k == hsPermutations (fromIntegral n) (fromIntegral k)
+
+    describe "stirling" $
+        prop "should obey the identity I found on Wolfram MathWorld" $
+            \n -> n <= 1 || sum [ ((-1) ^ m) * factorial (m-1) * stirling2 n m | m <- [1..n] ] == 0

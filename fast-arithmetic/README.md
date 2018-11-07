@@ -40,7 +40,7 @@ computation of basic combinatorial functions.
 | `maxRegions 45000` | ATS | 787.9 ns |
 | `maxRegions 45000` | Haskell | 1.034 μs |
 | `stirling2 25 8` | ATS | 3.105 μs |
-| `stirling2nd 25 8` | Haskell | 9.300 μs |
+| `stirling2 25 8` | Haskell | 9.300 μs |
 
 ## Building
 
