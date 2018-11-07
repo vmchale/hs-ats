@@ -26,7 +26,7 @@ let mapDatsSrc =
 in
 
 let moduleNames =
-  ["combinatorics", "number-theory", "numerics" ]
+  [ "combinatorics", "number-theory", "numerics" ]
 in
 
 {- Main -}
@@ -55,22 +55,23 @@ in
 
     let libraries = if not cfg.sourceBld
         then
+            let libCommon =
+                { name = "numbertheory"
+                , src = (map Text Text asDats moduleNames)
+                , includes = [ "include/fast_arithmetic.h" ]
+                }
+            in
+
             if cfg.staticLib
                 then
                     [ prelude.staticLib ⫽
-                        { name = "numbertheory"
-                        , src = (map Text Text asDats moduleNames)
-                        , includes = [ "include/fast_arithmetic.h" ]
-                        , libTarget = "${prelude.atsProject}/libnumbertheory.a"
-                        }
+                        libCommon ⫽
+                        { libTarget = "${prelude.atsProject}/libnumbertheory.a" }
                     ]
                 else
                     [ prelude.lib ⫽
-                        { name = "numbertheory"
-                        , src = (map Text Text asDats moduleNames)
-                        , includes = [ "include/fast_arithmetic.h" ]
-                        , libTarget = "${prelude.atsProject}/libnumbertheory.so"
-                        }
+                        libCommon ⫽
+                        { libTarget = "${prelude.atsProject}/libnumbertheory.so" }
                     ]
         else
             prelude.emptyLib
