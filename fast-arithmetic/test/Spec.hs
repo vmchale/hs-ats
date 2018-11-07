@@ -24,13 +24,6 @@ derangements = fmap snd g
     where g = (0, 1) : (1, 0) : zipWith step g (tail g)
           step (_, n) (i, m) = (i + 1, i * (n + m))
 
--- FIXME report bug in integer-gmp
-tooBig :: Int -> Int -> Bool
-tooBig x y = go x y >= 2 ^ (16 :: Integer)
-    where
-        go :: Int -> Int -> Integer
-        go m n = fromIntegral m ^ n
-
 agreeL :: (Eq a, Show b, Integral b, Arbitrary b) => b -> String -> (b -> a) -> (b -> a) -> SpecWith ()
 agreeL lower s f g = describe s $
     prop "should agree with the pure Haskell function" $
@@ -68,7 +61,7 @@ main = hspec $ parallel $ do
             \n -> n < 1 || n > 18 || (derangement n :: Integer) == floor ((fromIntegral (Ext.factorial (fromIntegral n :: Int) :: Integer) :: Double) / exp 1 + 0.5)
     describe "totient" $
         prop "should satisfy Fermat's little theorem" $
-            \a m -> a < 1 || m < 2 || gcd a m /= 1 || tooBig a m || (a ^ totient m) `mod` m == 1
+            \a m -> a < 1 || m < 2 || gcd a m /= 1 || ((a ^ totient (fromIntegral m)) `mod` m == (1 :: Integer))
     describe "striling2" $
         prop "should agree" $
             \n k -> n < 0 || k < 0 || stirling2 n k == Ext.stirling2nd n k

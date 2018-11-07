@@ -8,9 +8,7 @@ staload "$PATSHOMELOCS/atscntrb-hx-intinf/SATS/intinf_vt.sats"
 staload UN = "prelude/SATS/unsafe.sats"
 staload "ats-src/combinatorics.sats"
 
-// See [here](http://mathworld.wolfram.com/Derangement.html). I'm not sure how
-// fast this is, but it *seems* to be faster than the Haskell version so that's
-// good.
+// See [here](http://mathworld.wolfram.com/Derangement.html).
 fn derangements {n:nat} .<n>. (n : int(n)) : Intinf =
   let
     fun loop { n : nat | n > 1 }{ i : nat | i <= n } .<n-i>. (n : int(n), i : int(i), n1 : Intinf, n2 : Intinf) : Intinf =
@@ -113,7 +111,7 @@ fn catalan {n:nat}(n : int(n)) : Intinf =
         var z = div_intinf0_intinf1(x, y)
         val _ = intinf_free(y)
       in
-        $UN.castvwtp0(z)
+        z
       end
   end
 
@@ -143,7 +141,7 @@ fn choose {n:nat}{m:nat}(n : int(n), k : int(m)) : Intinf =
         var z = div_intinf0_intinf1(x, y)
         val _ = intinf_free(y)
       in
-        $UN.castvwtp0(z)
+        z
       end
   end
 
