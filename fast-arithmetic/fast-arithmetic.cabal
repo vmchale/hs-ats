@@ -61,14 +61,13 @@ library
     build-depends:
         base >=4.3 && <5,
         composition-prelude >=1.2.0.0,
-        hgmp
+        hgmp -any
 
     if impl(ghc >=8.0)
         cc-options: -mtune=native -flto -O3
 
     if os(windows)
         buildable: False
-
 
     if os(windows)
         buildable: False
