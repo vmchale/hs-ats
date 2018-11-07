@@ -1,3 +1,5 @@
+*.deb
+target
 .ghc.*
 .hspec-failures
 .atspkg

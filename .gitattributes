@@ -1,2 +1,3 @@
 fast-arithmetic/cbits/*.c linguist-generated=true
 .atspkg/contrib/* linguist-vendored=true
+fast-arithmetic/include/fast-arithmetic.h linguist-language=c
