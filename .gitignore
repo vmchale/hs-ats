@@ -1,4 +1,5 @@
 *.deb
+*.tar.gz
 target
 .ghc.*
 .hspec-failures
