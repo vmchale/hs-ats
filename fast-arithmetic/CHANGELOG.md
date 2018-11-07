@@ -1,5 +1,9 @@
 # fast-arithmetic
 
+## 0.6.4.1
+
+  * Use `hgmp` internally
+
 ## 0.6.4.0
 
   * Add `bell` to the ATS library

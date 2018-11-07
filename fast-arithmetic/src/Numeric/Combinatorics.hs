@@ -17,7 +17,6 @@ module Numeric.Combinatorics ( choose
                              ) where
 
 import           Control.Composition
-import           Control.Monad
 import           Foreign.C
 import           Foreign.Ptr
 import           Numeric.GMP.Raw.Unsafe (mpz_clear)
