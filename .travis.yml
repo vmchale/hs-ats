@@ -101,7 +101,7 @@ install:
     else
       export PATH=/opt/ghc/bin:$PATH
     fi
-  - cabal update
+  - cabal new-update
   - curl -sSl https://raw.githubusercontent.com/vmchale/atspkg/master/bash/install.sh | sh -s
 
 script:
