@@ -105,7 +105,7 @@ test-suite fast-arithmetic-test
         hspec -any,
         QuickCheck -any,
         arithmoi >=0.6.0.0,
-        combinat >=0.2.9.0
+        combinat -any
 
     if flag(development)
         ghc-options: -Werror
