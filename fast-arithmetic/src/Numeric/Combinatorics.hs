@@ -16,7 +16,6 @@ module Numeric.Combinatorics ( choose
                              , stirling2
                              ) where
 
-import           Control.Composition
 import           Foreign.C
 import           Foreign.Ptr
 import           Numeric.GMP.Raw.Unsafe (mpz_clear)
@@ -35,7 +34,7 @@ foreign import ccall unsafe stirling2_ats :: CInt -> CInt -> IO (Ptr MPZ)
 
 conjugateMPZ :: (CInt -> IO (Ptr MPZ)) -> Int -> Integer
 conjugateMPZ f n = unsafePerformIO $ do
-    mPtr <- f (fromIntegral n) -- TODO: does mPtr cause two things to be called tho?
+    mPtr <- f (fromIntegral n)
     peekInteger mPtr <* mpz_clear mPtr
 
 conjugateMPZ' :: (CInt -> CInt -> IO (Ptr MPZ)) -> Int -> Int -> Integer

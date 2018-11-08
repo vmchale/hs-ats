@@ -60,7 +60,6 @@ library
     ghc-options: -Wall
     build-depends:
         base >=4.3 && <5,
-        composition-prelude >=1.2.0.0,
         hgmp -any
 
     if impl(ghc >=8.0)
