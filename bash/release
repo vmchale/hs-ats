@@ -17,6 +17,7 @@ git tag -d "$version"
 
 cd fast-arithmetic
 atspkg build --pkg-args './lib.dhall' target/fast-arithmetic.deb
+cd ../
 
 github-release release -s "$token" -u vmchale -r atspkg -t "$version"
 github-release upload --replace -s "$token" -u vmchale -r hs-ats -n fast-arithmetic.tar.gz -f fast-arithmetic.tar.gz -t "$version"
