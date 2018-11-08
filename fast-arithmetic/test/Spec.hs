@@ -54,7 +54,7 @@ main = hspec $ parallel $ do
     describe "jacobi" $
         prop "should match the arithmoi function" $
             pendingWith "not yet" -- \p q -> p < 0 || not (isPrime q) || q <= 2 || jacobi p q == toInt (Ext.jacobi p q)
-    describe "striling2" $
+    describe "stirling2" $
         prop "should agree" $
             \n k -> n < 0 || k < 0 || stirling2 n k == Ext.stirling2nd n k
     describe "choose" $
