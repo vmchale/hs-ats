@@ -9,6 +9,12 @@ cabal="$(fd '\.cabal$' -d1 fast-arithmetic)"
 version="$(grep -P -o '\d+\.\d+\.\d+\.\d+' "$cabal" | head -n1 | awk -F. '{$NF+=1; print $0}' | sed 's/ /\./g')"
 token=$(cat "$HOME"/.git-token)
 
+git commit -am "release"
+git tag "$version"
+git push origin --tags
+git push origin master
+git tag -d "$version"
+
 cd fast-arithmetic
 atspkg build --pkg-args './lib.dhall' target/fast-arithmetic.deb
 
