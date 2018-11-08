@@ -1,3 +1,4 @@
+-- vim: filetype=hspec
 module Main (main) where
 
 import qualified Math.Combinat.Numbers                 as Ext
@@ -53,15 +54,6 @@ main = hspec $ parallel $ do
     describe "jacobi" $
         prop "should match the arithmoi function" $
             pendingWith "not yet" -- \p q -> p < 0 || not (isPrime q) || q <= 2 || jacobi p q == toInt (Ext.jacobi p q)
-    describe "totient" $
-        prop "should be equal to p-1 for p prime" $
-            \p -> p < 1 || not (isPrime p) || totient p == p - 1
-    describe "derangement" $
-        prop "should be equal to [n!/e]" $
-            \n -> n < 1 || n > 18 || (derangement n :: Integer) == floor ((fromIntegral (Ext.factorial (fromIntegral n :: Int) :: Integer) :: Double) / exp 1 + 0.5)
-    describe "totient" $
-        prop "should satisfy Fermat's little theorem" $
-            \a m -> a < 1 || m < 2 || gcd a m /= 1 || ((a ^ totient (fromIntegral m)) `mod` m == (1 :: Integer))
     describe "striling2" $
         prop "should agree" $
             \n k -> n < 0 || k < 0 || stirling2 n k == Ext.stirling2nd n k
@@ -75,6 +67,15 @@ main = hspec $ parallel $ do
         prop "should agree" $
             \n k -> k < 1 || k > n || permutations n k == hsPermutations (fromIntegral n) (fromIntegral k)
 
+    describe "derangement" $
+        prop "should be equal to [n!/e]" $
+            \n -> n < 1 || n > 18 || (derangement n :: Integer) == floor ((fromIntegral (Ext.factorial (fromIntegral n :: Int) :: Integer) :: Double) / exp 1 + 0.5)
+    describe "totient" $
+        prop "should satisfy Fermat's little theorem" $
+            \a m -> a < 1 || m < 2 || gcd a m /= 1 || ((a ^ totient (fromIntegral m)) `mod` m == (1 :: Integer))
+    describe "totient" $
+        prop "should be equal to p-1 for p prime" $
+            \p -> p < 1 || not (isPrime p) || totient p == p - 1
     describe "stirling" $
         prop "should obey the identity I found on Wolfram MathWorld" $
             \n -> n <= 1 || sum [ ((-1) ^ m) * factorial (m-1) * stirling2 n m | m <- [1..n] ] == 0

@@ -9,10 +9,11 @@ ci:
     cd fast-arithmetic && atspkg build --pkg-args './source.dhall'
     cabal new-build all
     cabal new-test all
-    hlint fast-arithmetic gmpint
+    hlint fast-arithmetic
     yamllint .stylish-haskell.yaml
     yamllint .hlint.yaml
     yamllint .travis.yml
+    yamllint appveyor.yml
 
 bench:
     cd fast-arithmetic && bench "cdeps cbits/numerics.c --no-recurse -I .atspkg/contrib/ats-includes-0.3.11/ -I .atspkg/contrib/ats-includes-0.3.11/ccomp/runtime"
