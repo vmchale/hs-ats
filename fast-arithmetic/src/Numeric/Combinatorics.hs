@@ -32,6 +32,9 @@ foreign import ccall unsafe permutations_ats :: CInt -> CInt -> IO (Ptr MPZ)
 foreign import ccall unsafe max_regions_ats :: CInt -> IO (Ptr MPZ)
 foreign import ccall unsafe stirling2_ats :: CInt -> CInt -> IO (Ptr MPZ)
 
+-- TODO: use withForeignPtr instead?
+-- foreign import ccall "&__gmpz_clear" mpz_clear :: FunPtr (Ptr GMPInt -> IO ())
+
 conjugateMPZ :: (CInt -> IO (Ptr MPZ)) -> Int -> Integer
 conjugateMPZ f n = unsafePerformIO $ do
     mPtr <- f (fromIntegral n)
