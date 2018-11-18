@@ -1,6 +1,14 @@
 staload "$PATSHOMELOCS/atscntrb-hx-intinf/SATS/intinf_vt.sats"
 staload "ats-src/numerics.sats"
 
+// m | n
+fn divides(m : intGt(0), n : intGte(0)) :<> bool
+
+// Euclid's algorithm
+fn gcd {k:nat}{l:nat} (m : int(l), n : int(k)) : int
+
+fn lcm {k:nat}{l:nat} (m : int(l), n : int(k)) : int
+
 // radical of an integer: https://oeis.org/A007947
 fn radical_ats { k : nat | k >= 1 }(int(k)) : int =
   "ext#"
@@ -27,10 +35,8 @@ fn is_perfect_ats : intGt(1) -> bool =
   "ext#"
 
 // The sum of all φ(m) for m between 1 and n. Note the use of refinement types
-// to prevent 0 from being passed as an argument. This function is actually
-// slower than the Haskell equivalent, as it uses a naïve algorithm.
-fn totient_sum_ats : intGte(1) -> Intinf =
-  "ext#"
+// to prevent 0 from being passed as an argument. This function is
+// slower than it should be, but is included for the sake of ATS programmers.
+fn totient_sum : intGte(1) -> Intinf
 
-fn coprime_ats {k:nat}{n:nat} : (int(k), int(n)) -> bool =
-  "ext#"
+fn coprime {k:nat}{n:nat} : (int(k), int(n)) -> bool

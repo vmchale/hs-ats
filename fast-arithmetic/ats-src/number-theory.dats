@@ -11,21 +11,19 @@ staload "$PATSHOMELOCS/atscntrb-hx-intinf/SATS/intinf_vt.sats"
 
 #define ATS_MAINATSFLAG 1
 
-// m | n
-fn divides(m : intGt(0), n : intGte(0)) :<> bool =
+implement divides (m, n) =
   n % m = 0
 
-// Euclid's algorithm
-fun gcd {k:nat}{l:nat}(m : int(l), n : int(k)) : int =
+implement gcd (m, n) =
   if n > 0 then
     gcd(n, witness(m % n))
   else
     m
 
-fn lcm {k:nat}{l:nat}(m : int(l), n : int(k)) : int =
+implement lcm (m, n) =
   (m / gcd(m, n)) * n
 
-implement coprime_ats (m, n) =
+implement coprime (m, n) =
   gcd(m, n) = 1
 
 // stream all divisors of an integer.
@@ -271,7 +269,7 @@ fn totient(n : intGte(1)) : int =
       g0int_div(g0int_mul(n, y.first), y.second)
     end
 
-implement totient_sum_ats (n) =
+implement totient_sum (n) =
   let
     fun loop { n : nat | n >= 1 }{ m : nat | m >= n } .<m-n>. (i : int(n), bound : int(m)) : Intinf =
       if i < bound then
