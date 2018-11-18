@@ -26,8 +26,7 @@ implement lcm (m, n) =
 implement coprime (m, n) =
   gcd(m, n) = 1
 
-// stream all divisors of an integer.
-fn divisors(n : intGte(1)) : stream_vt(int) =
+implement divisors (n) =
   case+ n of
     | 1 => $ldelay(stream_vt_cons(1, $ldelay(stream_vt_nil)))
     | _ => let
@@ -60,10 +59,6 @@ fn divisors(n : intGte(1)) : stream_vt(int) =
     in
       loop(n, 1)
     end
-
-// prime divisors of an integer
-fn prime_divisors(n : intGte(1)) : stream_vt(int) =
-  stream_vt_filter_cloptr(divisors(n), lam x => is_prime($UN.cast(x)))
 
 // if n >= 0, p > 1, then n/p >= 0
 fn div_gt_zero(n : intGte(0), p : intGt(1)) : intGte(0) =
@@ -152,8 +147,6 @@ fun jacobi2 {m:int}{n:int}(a : int(m), n : int(n)) : int =
 implement count_divisors_ats (n) =
   stream_vt_length(divisors(n))
 
-vtypedef pair = @{ first = int, second = int }
-
 implement sum_divisors_ats (n) =
   let
     fun loop { k : nat | k > 0 }{ m : nat | m > 0 }(n : int(k), acc : int(m)) : int =
@@ -201,7 +194,7 @@ fun rip { n : nat | n > 0 }{ p : nat | p > 0 } .<n>. (n : int(n), p : int(p)) :<
     else
       1
 
-fn prime_factors(n : intGte(1)) : stream_vt(int) =
+implement prime_factors (n) =
   let
     fun loop { k : nat | k > 0 }{ m : nat | m > 0 }(n : int(k), acc : int(m)) : stream_vt(int) =
       if acc >= n then
@@ -259,6 +252,8 @@ fn totient(n : intGte(1)) : int =
   case+ n of
     | 1 => 1
     | n =>> let
+      vtypedef pair = @{ first = int, second = int }
+      
       fn adjust_contents(x : pair, y : int) : pair =
         @{ first = g0int_mul(x.first, y - 1), second = g0int_mul(x.second, y) }
       
