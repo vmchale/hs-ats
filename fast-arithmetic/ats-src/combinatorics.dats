@@ -8,7 +8,6 @@ staload "$PATSHOMELOCS/atscntrb-hx-intinf/SATS/intinf_vt.sats"
 staload UN = "prelude/SATS/unsafe.sats"
 staload "ats-src/combinatorics.sats"
 
-// See [here](http://mathworld.wolfram.com/Derangement.html).
 fn derangements {n:nat} .<n>. (n : int(n)) : Intinf =
   let
     fun loop { n : nat | n > 1 }{ i : nat | i <= n } .<n-i>. (n : int(n), i : int(i), n1 : Intinf, n2 : Intinf) : Intinf =
@@ -45,7 +44,7 @@ fun fact_ref {n:nat} .<n>. (k : int(n), ret : &intinfGte(1)? >> intinfGte(1)) : 
       ret := $UN.castvwtp0(mul_intinf0_int(ret, k))
     end
 
-fn fact {n:nat} .<n>. (k : int(n)) : intinfGte(1) =
+fn fact {n:nat}(k : int(n)) : intinfGte(1) =
   let
     var ret: intinfGte(1)
     val () = fact_ref(k, ret)
@@ -53,7 +52,6 @@ fn fact {n:nat} .<n>. (k : int(n)) : intinfGte(1) =
     ret
   end
 
-// Double factorial http://mathworld.wolfram.com/DoubleFactorial.html
 fun dfact_ref {n:nat} .<n>. (k : int(n), ret : &Intinf? >> Intinf) : void =
   case+ k of
     | 0 => ret := int2intinf(1)
@@ -65,7 +63,6 @@ fun dfact_ref {n:nat} .<n>. (k : int(n), ret : &Intinf? >> Intinf) : void =
       ret := y
     end
 
-// Double factorial http://mathworld.wolfram.com/DoubleFactorial.html
 fun dfact {n:nat} .<n>. (k : int(n)) : Intinf =
   let
     var ret: intinfGte(1)
@@ -74,7 +71,6 @@ fun dfact {n:nat} .<n>. (k : int(n)) : Intinf =
     ret
   end
 
-// Number of permutations on n objects using k at a time.
 fn permutations {n:nat}{ k : nat | k <= n && k > 0 }(n : int(n), k : int(k)) : Intinf =
   let
     fun loop { i : nat | i >= n-k+1 } .<i>. (i : int(i), ret : &Intinf? >> Intinf) : void =
@@ -89,7 +85,6 @@ fn permutations {n:nat}{ k : nat | k <= n && k > 0 }(n : int(n), k : int(k)) : I
     ret
   end
 
-// Catalan numbers, indexing starting at zero.
 fn catalan {n:nat}(n : int(n)) : Intinf =
   let
     fun numerator_loop { i : nat | i > 1 } .<i>. (i : int(i)) : intinfGt(0) =
@@ -115,8 +110,6 @@ fn catalan {n:nat}(n : int(n)) : Intinf =
       end
   end
 
-// Number of combinations of n objects using k at a time.
-// When k > n, this returns 0.
 fn choose {n:nat}{m:nat}(n : int(n), k : int(m)) : Intinf =
   let
     fun numerator_loop { m : nat | m > 1 } .<m>. (i : int(m), ret : &intinfGt(0)? >> intinfGt(0)) : void =
@@ -145,9 +138,6 @@ fn choose {n:nat}{m:nat}(n : int(n), k : int(m)) : Intinf =
       end
   end
 
-// Stirling numbers of the second kind. See
-// http://mathworld.wolfram.com/StirlingNumberoftheSecondKind.html
-//
 // Approach taken from
 // http://hackage.haskell.org/package/combinat-0.2.9.0/docs/src/Math.Combinat.Numbers.Sequences.html#stirling2nd
 fn stirling2 { n, k : nat }(n : int(n), k : int(k)) : Intinf =
@@ -184,8 +174,6 @@ fn stirling2 { n, k : nat }(n : int(n), k : int(k)) : Intinf =
       result
     end
 
-// Bell numbers. See http://mathworld.wolfram.com/BellNumber.html
-//
 // Approach taken from
 // http://hackage.haskell.org/package/combinat-0.2.9.0/docs/src/Math.Combinat.Numbers.Sequences.html#bellNumber
 fn bell {n:nat}(n : int(n)) : Intinf =
@@ -213,15 +201,14 @@ fn bell {n:nat}(n : int(n)) : Intinf =
 fn max_regions {n:nat}(n : int(n)) : Intinf =
   let
     fun loop {m:nat} .<m>. (m : int(m), ret : &Intinf? >> Intinf) : void =
-      if m = 0 then
-        ret := int2intinf(1)
-      else
-        let
+      case+ m of
+        | 0 => ret := int2intinf(1)
+        | _ =>> {
           val () = loop(m - 1, ret)
           var c = choose(n, m)
           val () = ret := add_intinf0_intinf1(ret, c)
           val () = intinf_free(c)
-        in end
+        }
     
     var x: Intinf
     val () = loop(4, x)

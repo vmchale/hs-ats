@@ -25,7 +25,7 @@ fun gcd {k:nat}{l:nat}(m : int(l), n : int(k)) : int =
 fn lcm {k:nat}{l:nat}(m : int(l), n : int(k)) : int =
   (m / gcd(m, n)) * n
 
-implement corpime_ats (m, n) =
+implement coprime_ats (m, n) =
   gcd(m, n) = 1
 
 // stream all divisors of an integer.
@@ -151,7 +151,7 @@ fun jacobi2 {m:int}{n:int}(a : int(m), n : int(n)) : int =
     | _ when a % 4 = 3 && n % 4 = 3 => jacobi2(n, a)
     | _ => ~jacobi2(n, a)
 
-fn count_divisors(n : intGte(1)) : int =
+implement count_divisors_ats (n) =
   stream_vt_length(divisors(n))
 
 vtypedef pair = @{ first = int, second = int }
@@ -184,7 +184,7 @@ implement sum_divisors_ats (n) =
     loop(n, 1)
   end
 
-fn is_perfect(n : intGt(1)) : bool =
+implement is_perfect_ats (n) =
   sum_divisors_ats(n) = n
 
 fun rip { n : nat | n > 0 }{ p : nat | p > 0 } .<n>. (n : int(n), p : int(p)) :<> [ r : nat | r <= n && r > 0 ] int(r) =
@@ -287,17 +287,8 @@ implement totient_sum_ats (n) =
     loop(1, n)
   end
 
-implement count_divisors_ats (n) =
-  count_divisors(n)
-
 implement totient_ats (n) =
   totient(n)
 
-implement is_perfect_ats (n) =
-  is_perfect(n)
-
 implement jacobi_ats (m, n) =
   jacobi(m, $UN.cast(n))
-
-implement coprime_ats (m, n) =
-  is_coprime(m, n)
