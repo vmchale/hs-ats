@@ -2,9 +2,6 @@
 
 build: off
 
-cache:
-- C:\ProgramData\chocolatey\lib -> appveyor.yml
-
 before_test:
 - choco install ghc
 - choco install cabal
