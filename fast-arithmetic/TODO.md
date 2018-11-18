@@ -4,7 +4,8 @@
 - [ ] `catalan` fails for `n=0`, `n=9`?
 # ATS library
 - [ ] stack-allocated big integers?
-- [ ] Package debianization
+- [x] Package debianization
+  - [ ] Header files that actually work with GMP
 # Haskell library
 - [ ] Consider backpack and/or pure haskell library for when ATS fails?
 # Code maintenance
@@ -14,6 +15,7 @@
 - [ ] make `jacobi` faster
 - [ ] make `totientSum` use the right algorithm
 - [ ] Use factorial etc. for derangement formula?
+- [ ] `bell` is slow compared to haskell?
 # Functions
 - [ ] big omega
 - [ ] quadratic residues

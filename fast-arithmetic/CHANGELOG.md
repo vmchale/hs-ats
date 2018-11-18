@@ -1,5 +1,9 @@
 # fast-arithmetic
 
+## 0.6.4.2
+
+  * Fix bug in `include/fast_arithmetic.h`
+
 ## 0.6.4.1
 
   * Use `hgmp` internally

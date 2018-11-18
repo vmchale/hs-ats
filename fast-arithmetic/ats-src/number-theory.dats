@@ -71,36 +71,6 @@ fn prime_divisors(n : intGte(1)) : stream_vt(int) =
 fn div_gt_zero(n : intGte(0), p : intGt(1)) : intGte(0) =
   $UN.cast(n / p)
 
-// TODO require that p be prime
-fun exp_mod_prime(a : intGte(0), n : intGte(0), p : intGt(1)) : int =
-  let
-    var a1 = a % p
-    var n1 = n % (p - 1)
-  in
-    case+ a of
-      | 0 => 0
-      | x =>> 
-        begin
-          if n > 0 then
-            let
-              var n2: intGte(0) = $UN.cast(half(n1))
-              var i2 = n1 % 2
-              var sq_a: intGte(0) = $UN.cast(a * a % p)
-            in
-              if i2 = 0 then
-                exp_mod_prime(sq_a, n2, p)
-              else
-                let
-                  var y = a * exp_mod_prime(sq_a, n2, p)
-                in
-                  y
-                end
-            end
-          else
-            1
-        end
-  end
-
 // Jacobi symbol for positive integers. See here: http://mathworld.wolfram.com/JacobiSymbol.html
 // fails on 7 5
 fun jacobi(a : intGte(0), n : Odd) : int =
@@ -110,6 +80,36 @@ fun jacobi(a : intGte(0), n : Odd) : int =
       case+ p % a of
         | 0 => 0
         | _ => let
+          // TODO require that p be prime
+          fun exp_mod_prime(a : intGte(0), n : intGte(0), p : intGt(1)) : int =
+            let
+              var a1 = a % p
+              var n1 = n % (p - 1)
+            in
+              case+ a of
+                | 0 => 0
+                | x =>> 
+                  begin
+                    if n > 0 then
+                      let
+                        var n2: intGte(0) = $UN.cast(half(n1))
+                        var i2 = n1 % 2
+                        var sq_a: intGte(0) = $UN.cast(a * a % p)
+                      in
+                        if i2 = 0 then
+                          exp_mod_prime(sq_a, n2, p)
+                        else
+                          let
+                            var y = a * exp_mod_prime(sq_a, n2, p)
+                          in
+                            y
+                          end
+                      end
+                    else
+                      1
+                  end
+            end
+          
           var i = exp_mod_prime(a, (p - 1) / 2, p)
         in
           case+ i of
@@ -156,8 +156,7 @@ fn count_divisors(n : intGte(1)) : int =
 
 vtypedef pair = @{ first = int, second = int }
 
-// aka σ in number theory
-fn sum_divisors(n : intGte(1)) : int =
+implement sum_divisors_ats (n) =
   let
     fun loop { k : nat | k > 0 }{ m : nat | m > 0 }(n : int(k), acc : int(m)) : int =
       if acc >= sqrt_int(n) then
@@ -186,7 +185,7 @@ fn sum_divisors(n : intGte(1)) : int =
   end
 
 fn is_perfect(n : intGt(1)) : bool =
-  sum_divisors(n) = n
+  sum_divisors_ats(n) = n
 
 fun rip { n : nat | n > 0 }{ p : nat | p > 0 } .<n>. (n : int(n), p : int(p)) :<> [ r : nat | r <= n && r > 0 ] int(r) =
   if n % p != 0 then
@@ -224,8 +223,7 @@ fn prime_factors(n : intGte(1)) : stream_vt(int) =
     loop(n, 1)
   end
 
-// distinct prime divisors
-fn little_omega(n : intGte(1)) : int =
+implement little_omega_ats (n) =
   let
     fun loop { k : nat | k > 0 }{ m : nat | m > 0 }(n : int(k), acc : int(m)) :<!ntm> int =
       if acc >= n then
@@ -245,8 +243,7 @@ fn little_omega(n : intGte(1)) : int =
     loop(n, 1)
   end
 
-// radical of an integer: https://oeis.org/A007947
-fn radical(n : intGte(1)) : int =
+implement radical_ats (n) =
   case+ n of
     | 1 => 1
     | n =>> let
@@ -260,7 +257,6 @@ fn radical(n : intGte(1)) : int =
       product(x)
     end
 
-// Euler's totient function.
 fn totient(n : intGte(1)) : int =
   case+ n of
     | 1 => 1
@@ -275,10 +271,7 @@ fn totient(n : intGte(1)) : int =
       g0int_div(g0int_mul(n, y.first), y.second)
     end
 
-// The sum of all φ(m) for m between 1 and n. Note the use of refinement types
-// to prevent 0 from being passed as an argument. This function is actually
-// slower than the Haskell equivalent, as it uses a naïve algorithm.
-fn totient_sum(n : intGte(1)) : Intinf =
+implement totient_sum_ats (n) =
   let
     fun loop { n : nat | n >= 1 }{ m : nat | m >= n } .<m-n>. (i : int(n), bound : int(m)) : Intinf =
       if i < bound then
@@ -294,29 +287,17 @@ fn totient_sum(n : intGte(1)) : Intinf =
     loop(1, n)
   end
 
-implement radical_ats (n) =
-  radical(n)
-
-implement sum_divisors_ats (m) =
-  sum_divisors(m)
-
 implement count_divisors_ats (n) =
   count_divisors(n)
 
 implement totient_ats (n) =
   totient(n)
 
-implement little_omega_ats (n) =
-  little_omega(n)
-
 implement is_perfect_ats (n) =
   is_perfect(n)
 
 implement jacobi_ats (m, n) =
   jacobi(m, $UN.cast(n))
-
-implement totient_sum_ats (n) =
-  totient_sum(n)
 
 implement coprime_ats (m, n) =
   is_coprime(m, n)
