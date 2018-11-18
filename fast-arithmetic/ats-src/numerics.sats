@@ -10,7 +10,8 @@ typedef Prime = [p:nat] prime(p)
 
 castfn witness(n : int) :<> [m:nat] int(m)
 
-fn exp_ats {m:nat} : ([n:nat] int(n), int(m)) -> int
+fn exp_ats {m:nat} : ([n:nat] int(n), int(m)) -> int =
+  "ext#"
 
 fn is_prime_ats { n : nat | n > 0 } : int(n) -> bool =
   "ext#"
