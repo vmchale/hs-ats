@@ -74,7 +74,6 @@ fun big_exp {n:nat} .<n>. (x : Intinf, n : int(n)) : Intinf =
       (intinf_free(x) ; int2intinf(1))
 
 // square root is bounded for bounded k.
-// pretty sure this isn't side effecting idk.
 fn sqrt_int(k : intGt(0)) :<> [m:nat] int(m) =
   let
     var bound = g0float2int(sqrt_double(g0int2float_int_double(k)))
