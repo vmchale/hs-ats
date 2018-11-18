@@ -3,6 +3,7 @@
 ## 0.6.4.2
 
   * Fix bug in `include/fast_arithmetic.h`
+  * Put some documentation in `.sats` files rather than `.dats` files
 
 ## 0.6.4.1
 
