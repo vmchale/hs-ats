@@ -34,17 +34,17 @@ fn derangements {n:nat} .<n>. (n : int(n)) : Intinf =
       | n =>> loop(n - 1, 2, int2intinf(1), int2intinf(0))
   end
 
-fun fact_ref {n:nat} .<n>. (k : int(n), ret : &intinfGte(1)? >> intinfGte(1)) : void =
+fun fact_ref {n:nat} .<n>. (k : int(n), ret : &Intinf? >> Intinf) : void =
   case+ k of
     | 0 => ret := int2intinf(1)
     | 1 => ret := int2intinf(1)
     | k =>> let
       val () = fact_ref(k - 1, ret)
     in
-      ret := $UN.castvwtp0(mul_intinf0_int(ret, k))
+      ret := mul_intinf0_int(ret, k)
     end
 
-fn fact {n:nat}(k : int(n)) : intinfGte(1) =
+fn fact {n:nat}(k : int(n)) : Intinf =
   let
     var ret: intinfGte(1)
     val () = fact_ref(k, ret)
