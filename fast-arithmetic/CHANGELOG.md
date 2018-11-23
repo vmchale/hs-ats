@@ -4,6 +4,7 @@
 
   * Fix bug in `include/fast_arithmetic.h`
   * Put some documentation in `.sats` files rather than `.dats` files
+  * Fix `.dhall` files
 
 ## 0.6.4.1
 
