@@ -1,5 +1,9 @@
 # fast-arithmetic
 
+## 0.6.4.3
+
+  * Improved documentation
+
 ## 0.6.4.2
 
   * Fix bug in `include/fast_arithmetic.h`
