@@ -1,5 +1,9 @@
 # fast-arithmetic
 
+## 0.6.4.3
+
+  * Update for latest `ats-includes` package
+
 ## 0.6.4.2
 
   * Fix bug in `include/fast_arithmetic.h`
