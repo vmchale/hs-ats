@@ -3,6 +3,7 @@
 ## 0.6.4.3
 
   * Improved documentation
+  * Update for latest `ats-includes` package
 
 ## 0.6.4.2
 
