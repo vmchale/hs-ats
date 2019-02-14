@@ -22,7 +22,7 @@
   * Add `radical` to `fast_arithmetic.h`, for users of the C library
 
 ## 0.6.3.0
-  
+
   * Patch `isPrime`
 
 ## 0.6.2.1
@@ -38,7 +38,7 @@
   * Add `fast_arithmetic.h` for those wanting to use the C library.
 
 ## 0.6.1.1
-  
+
   * Add niche function for a problem of combinatorial geometry.
 
 ## 0.6.1.0
