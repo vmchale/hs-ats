@@ -187,7 +187,7 @@ fun rip { n : nat | n > 0 }{ p : nat | p > 0 } .<n>. (n : int(n), p : int(p)) :<
         var n1 = n / p
       in
         if n1 < n then
-          $UN.cast(rip(n1, p))
+          rip(n1, p)
         else
           1
       end
