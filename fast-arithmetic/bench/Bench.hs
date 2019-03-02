@@ -50,8 +50,8 @@ main =
                       , bench "hsPermutations" $ nf (hsPermutations 10) (20 :: Integer)
                       ]
                 , bgroup "maxRegions"
-                      [ bench "maxRegions" $ nf maxRegions 45000
-                      , bench "hsMaxRegions" $ nf hsMaxRegions 45000
+                      [ bench "maxRegions" $ nf maxRegions (45000 :: Int)
+                      , bench "hsMaxRegions" $ nf hsMaxRegions (45000 :: Int)
                       ]
                 , bgroup "stirling"
                       [ bench "stirling2" $ nf (stirling2 25) 8
