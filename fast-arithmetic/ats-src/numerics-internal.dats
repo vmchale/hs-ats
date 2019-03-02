@@ -8,12 +8,11 @@ staload UN = "prelude/SATS/unsafe.sats"
 staload "ats-src/numerics.sats"
 
 // Fast computation of Fibonacci numbers via GMP bindings.
-fn fib_gmp(n : intGte(0)) : Intinf =
+fn fib_gmp(n : uintGte(0)) : Intinf =
   let
     var z = ptr_alloc()
-    var x = g0int2uint(n + 1)
     val () = $GMP.mpz_init(!(z.2))
-    val () = $GMP.mpz_fib_uint(!(z.2), x)
+    val () = $GMP.mpz_fib_uint(!(z.2), n)
   in
     $UN.castvwtp0(z)
   end
