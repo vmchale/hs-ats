@@ -1,3 +1,5 @@
+-- | This module contains functions that are common to the benchmark and test
+-- suites.
 module Numeric.Haskell ( hsPermutations
                        , hsIsPrime
                        , hsMaxRegions

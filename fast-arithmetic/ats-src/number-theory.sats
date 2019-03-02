@@ -38,6 +38,7 @@ fn little_omega_ats { n : nat | n > 0 } : int(n) -> int =
   "ext#"
 
 // aka σ in number theory
+// technically this is unsafe because it might overflow
 fn sum_divisors_ats : { n : nat | n > 1 } int(n) -> int =
   "ext#"
 
