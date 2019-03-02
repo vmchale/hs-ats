@@ -3,6 +3,7 @@
 ## 0.6.4.3
 
   * Update for latest `ats-includes` package
+  * Remove unsafe casts and don't bother with `intinfGt(0)` types
 
 ## 0.6.4.2
 
