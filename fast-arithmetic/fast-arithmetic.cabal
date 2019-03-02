@@ -79,7 +79,7 @@ library pure-haskell
         Numeric.Haskell
     hs-source-dirs: common
     default-language: Haskell2010
-    ghc-options: -Wall
+    ghc-options: -Wall -O2
     build-depends:
         base >=4.3 && <5,
         combinat -any
@@ -118,7 +118,7 @@ benchmark fast-arithmetic-bench
     main-is: Bench.hs
     hs-source-dirs: bench
     default-language: Haskell2010
-    ghc-options: -Wall
+    ghc-options: -Wall -O2
     build-depends:
         base -any,
         fast-arithmetic -any,
