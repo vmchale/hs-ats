@@ -66,7 +66,6 @@ main = hspec $ parallel $ do
     describe "permutations" $
         prop "should agree" $
             \n k -> k < 1 || k > n || permutations n k == hsPermutations (fromIntegral n) (fromIntegral k)
-
     describe "derangement" $
         prop "should be equal to [n!/e]" $
             \n -> n < 1 || n > 18 || (derangement n :: Integer) == floor ((fromIntegral (Ext.factorial (fromIntegral n :: Int) :: Integer) :: Double) / exp 1 + 0.5)

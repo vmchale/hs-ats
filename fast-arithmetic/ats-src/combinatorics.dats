@@ -8,7 +8,7 @@ staload "$PATSHOMELOCS/atscntrb-hx-intinf/SATS/intinf_vt.sats"
 staload UN = "prelude/SATS/unsafe.sats"
 staload "ats-src/combinatorics.sats"
 
-fn derangements {n:nat} .<n>. (n : int(n)) : Intinf =
+fn derangements {n:nat}(n : int(n)) : Intinf =
   let
     fun loop { n : nat | n > 1 }{ i : nat | i <= n } .<n-i>. (n : int(n), i : int(i), n1 : Intinf, n2 : Intinf) : Intinf =
       if i < n then
