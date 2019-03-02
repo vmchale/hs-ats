@@ -4,26 +4,11 @@ module Main (main) where
 import qualified Math.Combinat.Numbers                 as Ext
 import qualified Math.NumberTheory.ArithmeticFunctions as Ext
 import           Numeric.Combinatorics
+import           Numeric.Haskell
 import           Numeric.NumberTheory
 import           Test.Hspec
 import           Test.Hspec.QuickCheck
 import           Test.QuickCheck                       hiding (choose)
-
-hsPermutations :: Integral a => a -> a -> a
-hsPermutations n k = product [(n-k+1)..n]
-
-hsIsPrime :: (Integral a) => a -> Bool
-hsIsPrime 1 = False
-hsIsPrime x = all ((/=0) . (x `rem`)) [2..up]
-    where up = floor (sqrt (fromIntegral x :: Float))
-
-hsDerangement :: (Integral a) => Int -> a
-hsDerangement n = derangements !! n
-
-derangements :: (Integral a) => [a]
-derangements = fmap snd g
-    where g = (0, 1) : (1, 0) : zipWith step g (tail g)
-          step (_, n) (i, m) = (i + 1, i * (n + m))
 
 agreeL :: (Eq a, Show b, Integral b, Arbitrary b) => b -> String -> (b -> a) -> (b -> a) -> SpecWith ()
 agreeL lower s f g = describe s $
