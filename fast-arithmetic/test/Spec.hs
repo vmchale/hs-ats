@@ -4,26 +4,11 @@ module Main (main) where
 import qualified Math.Combinat.Numbers                 as Ext
 import qualified Math.NumberTheory.ArithmeticFunctions as Ext
 import           Numeric.Combinatorics
+import           Numeric.Haskell
 import           Numeric.NumberTheory
 import           Test.Hspec
 import           Test.Hspec.QuickCheck
 import           Test.QuickCheck                       hiding (choose)
-
-hsPermutations :: Integral a => a -> a -> a
-hsPermutations n k = product [(n-k+1)..n]
-
-hsIsPrime :: (Integral a) => a -> Bool
-hsIsPrime 1 = False
-hsIsPrime x = all ((/=0) . (x `rem`)) [2..up]
-    where up = floor (sqrt (fromIntegral x :: Float))
-
-hsDerangement :: (Integral a) => Int -> a
-hsDerangement n = derangements !! n
-
-derangements :: (Integral a) => [a]
-derangements = fmap snd g
-    where g = (0, 1) : (1, 0) : zipWith step g (tail g)
-          step (_, n) (i, m) = (i + 1, i * (n + m))
 
 agreeL :: (Eq a, Show b, Integral b, Arbitrary b) => b -> String -> (b -> a) -> (b -> a) -> SpecWith ()
 agreeL lower s f g = describe s $
@@ -42,9 +27,9 @@ main = hspec $ parallel $ do
         [Ext.totient, Ext.tau, Ext.smallOmega, Ext.sigma 1]
 
     sequence_ $ zipWith3 (agreeL 0)
-        ["catalan", "doubleFactorial", "factorial"]
-        [catalan, doubleFactorial, factorial]
-        [Ext.catalan, Ext.doubleFactorial, Ext.factorial]
+        ["catalan", "doubleFactorial", "factorial", "maxRegions"]
+        [catalan, doubleFactorial, factorial, maxRegions]
+        [Ext.catalan, Ext.doubleFactorial, Ext.factorial, hsMaxRegions]
 
     sequence_ $ zipWith3 agree
         ["isPrime"]
@@ -66,7 +51,6 @@ main = hspec $ parallel $ do
     describe "permutations" $
         prop "should agree" $
             \n k -> k < 1 || k > n || permutations n k == hsPermutations (fromIntegral n) (fromIntegral k)
-
     describe "derangement" $
         prop "should be equal to [n!/e]" $
             \n -> n < 1 || n > 18 || (derangement n :: Integer) == floor ((fromIntegral (Ext.factorial (fromIntegral n :: Int) :: Integer) :: Double) / exp 1 + 0.5)

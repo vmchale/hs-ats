@@ -4,18 +4,8 @@ import           Criterion.Main
 import qualified Math.Combinat.Numbers                 as Ext
 import qualified Math.NumberTheory.ArithmeticFunctions as Ext
 import           Numeric.Combinatorics
+import           Numeric.Haskell
 import           Numeric.NumberTheory
-
-hsPermutations :: Integral a => a -> a -> a
-hsPermutations n k = product [(n-k+1)..n]
-
-hsIsPrime :: (Integral a) => a -> Bool
-hsIsPrime 1 = False
-hsIsPrime x = all ((/=0) . (x `rem`)) [2..up]
-    where up = floor (sqrt (fromIntegral x :: Double))
-
-hsMaxRegions :: Int -> Integer
-hsMaxRegions n = sum $ fmap (n `Ext.binomial`) [0..4]
 
 main :: IO ()
 main =
@@ -60,8 +50,8 @@ main =
                       , bench "hsPermutations" $ nf (hsPermutations 10) (20 :: Integer)
                       ]
                 , bgroup "maxRegions"
-                      [ bench "maxRegions" $ nf maxRegions 45000
-                      , bench "hsMaxRegions" $ nf hsMaxRegions 45000
+                      [ bench "maxRegions" $ nf maxRegions (45000 :: Int)
+                      , bench "hsMaxRegions" $ nf hsMaxRegions (45000 :: Int)
                       ]
                 , bgroup "stirling"
                       [ bench "stirling2" $ nf (stirling2 25) 8

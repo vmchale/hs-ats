@@ -8,7 +8,7 @@ staload "$PATSHOMELOCS/atscntrb-hx-intinf/SATS/intinf_vt.sats"
 staload UN = "prelude/SATS/unsafe.sats"
 staload "ats-src/combinatorics.sats"
 
-fn derangements {n:nat} .<n>. (n : int(n)) : Intinf =
+fn derangements {n:nat}(n : int(n)) : Intinf =
   let
     fun loop { n : nat | n > 1 }{ i : nat | i <= n } .<n-i>. (n : int(n), i : int(i), n1 : Intinf, n2 : Intinf) : Intinf =
       if i < n then
@@ -87,14 +87,14 @@ fn permutations {n:nat}{ k : nat | k <= n && k > 0 }(n : int(n), k : int(k)) : I
 
 fn catalan {n:nat}(n : int(n)) : Intinf =
   let
-    fun numerator_loop { i : nat | i > 1 } .<i>. (i : int(i)) : intinfGt(0) =
+    fun numerator_loop { i : nat | i > 1 } .<i>. (i : int(i)) : Intinf =
       case+ i of
         | 2 => int2intinf(n + 2)
         | i =>> let
           var x = numerator_loop(i - 1)
           var y = mul_intinf0_int(x, n + i)
         in
-          $UN.castvwtp0(y)
+          y
         end
   in
     case+ n of
@@ -112,15 +112,15 @@ fn catalan {n:nat}(n : int(n)) : Intinf =
 
 fn choose {n:nat}{m:nat}(n : int(n), k : int(m)) : Intinf =
   let
-    fun numerator_loop { m : nat | m > 1 } .<m>. (i : int(m), ret : &intinfGt(0)? >> intinfGt(0)) : void =
+    fun numerator_loop { m : nat | m > 1 } .<m>. (i : int(m), ret : &Intinf? >> Intinf) : void =
       case+ i of
         | 1 => ret := int2intinf(n)
-        | 2 => ret := $UN.castvwtp0(int2intinf((n - 1) * n))
+        | 2 => ret := int2intinf((n - 1) * n)
         | i =>> let
           val () = numerator_loop(i - 1, ret)
           var y = mul_intinf0_int(ret, n + 1 - i)
         in
-          ret := $UN.castvwtp0(y)
+          ret := y
         end
   in
     case+ k of
@@ -128,7 +128,7 @@ fn choose {n:nat}{m:nat}(n : int(n), k : int(m)) : Intinf =
       | 1 => int2intinf(n)
       | k when k > n => int2intinf(0)
       | k =>> let
-        var x: intinfGt(0)
+        var x: Intinf
         val () = numerator_loop(k, x)
         var y = fact(k)
         var z = div_intinf0_intinf1(x, y)

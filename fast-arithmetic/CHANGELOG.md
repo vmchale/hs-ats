@@ -4,6 +4,8 @@
 
   * Improved documentation
   * Update for latest `ats-includes` package
+  * Remove unsafe casts and don't bother with `intinfGt(0)` types
+  * Use internal library `pure-haskell` for benchmarks/test suite
 
 ## 0.6.4.2
 
