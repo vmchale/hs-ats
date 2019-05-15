@@ -2,6 +2,7 @@
 
 ## 0.6.4.3
 
+  * Improved documentation
   * Update for latest `ats-includes` package
   * Remove unsafe casts and don't bother with `intinfGt(0)` types
   * Use internal library `pure-haskell` for benchmarks/test suite
@@ -23,7 +24,7 @@
   * Add `radical` to `fast_arithmetic.h`, for users of the C library
 
 ## 0.6.3.0
-  
+
   * Patch `isPrime`
 
 ## 0.6.2.1
@@ -39,7 +40,7 @@
   * Add `fast_arithmetic.h` for those wanting to use the C library.
 
 ## 0.6.1.1
-  
+
   * Add niche function for a problem of combinatorial geometry.
 
 ## 0.6.1.0

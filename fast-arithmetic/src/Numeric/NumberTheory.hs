@@ -26,6 +26,8 @@ foreign import ccall unsafe is_prime_ats :: CInt -> CUChar
 foreign import ccall unsafe radical_ats :: CInt -> CInt
 
 -- | Radical of an integer
+--
+-- \( \text{rad}(n) = \displaystyle\prod_{p | n} p \)
 radical :: Int -> Int
 radical = conjugate radical_ats
 

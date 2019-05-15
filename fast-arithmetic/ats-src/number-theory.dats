@@ -15,7 +15,7 @@ implement divides (m, n) =
   n % m = 0
 
 implement gcd (m, n) =
-  if n > 0 then
+  if n != 0 then
     gcd(n, witness(m % n))
   else
     m
