@@ -1,5 +1,5 @@
 {- Imports -}
-let prelude = http://hackage.haskell.org/package/ats-pkg/src/dhall/atspkg-prelude.dhall
+let prelude = https://raw.githubusercontent.com/vmchale/atspkg/master/ats-pkg/dhall/atspkg-prelude.dhall
 in
 
 let map = https://raw.githubusercontent.com/dhall-lang/dhall-lang/master/Prelude/List/map
