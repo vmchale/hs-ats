@@ -9,8 +9,6 @@
 - error: {lhs: "fromIntegral . f . fromIntegral", rhs: "conjugate f", name: "Use conjugate"}
 - error: {lhs: "hylo embed", rhs: "ana", name: "Use anamorphism"}
 - error: {lhs: "hylo f project", rhs: "cata f", name: "Use catamorphism"}
-- error: {lhs: "concat", rhs: "join", name: "Generalize concat"}
-- error: {lhs: "concatMap", rhs: "(=<<)", name: "Generalize concatMap"}
 - error: {lhs: "f >> pure ()", rhs: "void f", name: "Use void"}
 - error: {lhs: "gmpToInteger <=< (peek . f . fromIntegral)", rhs: "conjugateGMP f", name: "Use conjugateGMP"}
 - error: {lhs: "fromIntegral (f (fromIntegral i) (fromIntegral j))", rhs: "conjugateTwo f", name: "Use conjugateTwo"}
