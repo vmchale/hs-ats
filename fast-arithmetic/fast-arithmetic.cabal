@@ -7,7 +7,7 @@ copyright: Copyright: (c) 2018-2019 Vanessa McHale
 maintainer: vamchale@gmail.com
 author: Vanessa McHale
 tested-with: ghc ==7.10.3 ghc ==8.0.2 ghc ==8.2.2 ghc ==8.4.4
-             ghc ==8.6.3
+             ghc ==8.6.5
 bug-reports: https://github.com/vmchale/hs-ats/issues
 synopsis: Fast functions on integers.
 description:
@@ -60,9 +60,6 @@ library
     build-depends:
         base >=4.3 && <5,
         hgmp -any
-
-    if impl(ghc >=8.0)
-        cc-options: -mtune=native -flto -O3
 
     if os(windows)
         buildable: False
