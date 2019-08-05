@@ -2,10 +2,10 @@
 let prelude = https://raw.githubusercontent.com/vmchale/atspkg/master/ats-pkg/dhall/atspkg-prelude.dhall
 in
 
-let map = https://raw.githubusercontent.com/dhall-lang/dhall-lang/master/Prelude/List/map
+let map = https://raw.githubusercontent.com/dhall-lang/dhall-lang/9f259cd68870b912fbf2f2a08cd63dc3ccba9dc3/Prelude/List/map
 in
 
-let not = https://raw.githubusercontent.com/dhall-lang/dhall-lang/master/Prelude/Bool/not
+let not = https://raw.githubusercontent.com/dhall-lang/dhall-lang/9f259cd68870b912fbf2f2a08cd63dc3ccba9dc3/Prelude/Bool/not
 in
 
 {- Types -}
