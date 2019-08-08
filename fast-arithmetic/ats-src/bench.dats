@@ -37,7 +37,7 @@ fn permutations_bench() : void =
 
 fn bell_bench() : void =
   {
-    val x = bell(10)
+    val x = bell(30)
     val () = intinf_free(x)
   }
 
