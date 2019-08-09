@@ -41,6 +41,12 @@ fn bell_bench() : void =
     val () = intinf_free(x)
   }
 
+fn stirling2_bench() : void =
+  {
+    val x = stirling2(25, 8)
+    val () = intinf_free(x)
+  }
+
 fn derangement_bench() : void =
   {
     val x = derangements(35)
@@ -54,6 +60,7 @@ val catalan_delay: io = lam () => catalan_bench()
 val permutations_delay: io = lam () => permutations_bench()
 val bell_delay: io = lam () => bell_bench()
 val derangement_delay: io = lam () => derangement_bench()
+val stirling2_delay: io = lam () => stirling2_bench()
 
 implement main0 () =
   {
@@ -66,6 +73,7 @@ implement main0 () =
     val () = print_slope("choose", 13, choose_delay)
     val () = print_slope("catalan", 9, catalan_delay)
     val () = print_slope("permutations", 13, permutations_delay)
+    val () = print_slope("stirling2", 10, stirling2_delay)
     val () = print_slope("bell", 8, bell_delay)
     val () = print_slope("derangements", 12, derangement_delay)
   }

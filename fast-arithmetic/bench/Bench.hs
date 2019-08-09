@@ -57,4 +57,6 @@ main =
                       [ bench "stirling2" $ nf (stirling2 25) 8
                       , bench "Ext.stirling2nd" $ nf (Ext.stirling2nd (25 :: Int)) 8
                       ]
+                , bgroup "bell"
+                      [ bench "Ext.bell" $ nf Ext.bellNumber (30 :: Int) ]
                 ]
