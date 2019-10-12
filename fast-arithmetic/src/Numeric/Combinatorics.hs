@@ -21,7 +21,7 @@ import           Foreign.Ptr
 import           Numeric.GMP.Raw.Unsafe (mpz_clear)
 import           Numeric.GMP.Types
 import           Numeric.GMP.Utils
-import           System.IO.Unsafe       (unsafePerformIO)
+import           System.IO.Unsafe       (unsafeDupablePerformIO)
 
 foreign import ccall unsafe double_factorial_ats :: CInt -> IO (Ptr MPZ)
 foreign import ccall unsafe factorial_ats :: CInt -> IO (Ptr MPZ)
@@ -36,12 +36,12 @@ foreign import ccall unsafe stirling2_ats :: CInt -> CInt -> IO (Ptr MPZ)
 -- foreign import ccall "&__gmpz_clear" mpz_clear :: FunPtr (Ptr GMPInt -> IO ())
 
 conjugateMPZ :: (CInt -> IO (Ptr MPZ)) -> Int -> Integer
-conjugateMPZ f n = unsafePerformIO $ do
+conjugateMPZ f n = unsafeDupablePerformIO $ do
     mPtr <- f (fromIntegral n)
     peekInteger mPtr <* mpz_clear mPtr
 
 conjugateMPZ' :: (CInt -> CInt -> IO (Ptr MPZ)) -> Int -> Int -> Integer
-conjugateMPZ' f n k = unsafePerformIO $ do
+conjugateMPZ' f n k = unsafeDupablePerformIO $ do
     mPtr <- f (fromIntegral n) (fromIntegral k)
     peekInteger mPtr <* mpz_clear mPtr
 
