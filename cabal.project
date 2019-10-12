@@ -3,5 +3,4 @@ packages: fast-arithmetic
 max-backjumps: 400000
 
 constraints:
-  gmpint -development,
   fast-arithmetic -development
