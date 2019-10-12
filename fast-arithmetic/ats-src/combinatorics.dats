@@ -138,8 +138,6 @@ fn choose {n:nat}{m:nat}(n : int(n), k : int(m)) : Intinf =
       end
   end
 
-// Approach taken from
-// http://hackage.haskell.org/package/combinat-0.2.9.0/docs/src/Math.Combinat.Numbers.Sequences.html#stirling2nd
 fn stirling2 { n, k : nat }(n : int(n), k : int(k)) : Intinf =
   ifcase
     | k = 0 && n = 0 => int2intinf(1)
@@ -174,8 +172,6 @@ fn stirling2 { n, k : nat }(n : int(n), k : int(k)) : Intinf =
       result
     end
 
-// Approach taken from
-// http://hackage.haskell.org/package/combinat-0.2.9.0/docs/src/Math.Combinat.Numbers.Sequences.html#bellNumber
 fn bell {n:nat}(n : int(n)) : Intinf =
   let
     fun sum_loop { k : nat | k >= 1 } .<k>. (k : int(k), acc : &Intinf? >> Intinf) : void =

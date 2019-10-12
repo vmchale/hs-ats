@@ -1,5 +1,4 @@
-// Existential types for even and odd numbers. These are only usable with the
-// ATS library.
+// Existential types for even and odd numbers.
 typedef Even = [n:nat] int(2*n)
 typedef Odd = [n:nat] int(2*n+1)
 
