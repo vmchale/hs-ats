@@ -8,7 +8,7 @@ staload "ats-src/numerics.sats"
 
 %{^
 #ifndef LIBRARY_BUILD
-#define ATS_MEMALLOC_LIBC *)
+#define ATS_MEMALLOC_LIBC
 #include "ccomp/runtime/pats_ccomp_memalloc_libc.h"
 #include "ccomp/runtime/pats_ccomp_runtime_memalloc.c"
 #endif
