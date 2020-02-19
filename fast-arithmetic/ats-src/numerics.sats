@@ -14,3 +14,6 @@ fn exp_ats {m:nat} : ([n:nat] int(n), int(m)) -> int =
 
 fn is_prime_ats { n : nat | n > 0 } : int(n) -> bool =
   "ext#"
+
+fn is_semiprime { n : nat | n > 0 } : int(n) -> bool =
+  "ext#"
