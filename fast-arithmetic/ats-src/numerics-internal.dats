@@ -116,13 +116,19 @@ fn is_semiprime(k : intGt(0)) :<> bool =
           fun loop { n : nat | n > 0 }{m:nat} .<max(0,m-n)>. (i : int(n), bound : int(m)) :<> bool =
             if i < bound then
               if k % i = 0 then
-                is_prime(i) && is_prime($UN.cast(k / i))
+                if is_prime(i) then
+                  is_prime($UN.cast(k / i))
+                else
+                  false
               else
                 loop(i + 1, bound)
             else
               if i = bound then
                 if k % i = 0 then
-                  is_prime(i)
+                  if is_prime(i) then
+                    is_prime($UN.cast(k / i))
+                  else
+                    false
                 else
                   false
               else
