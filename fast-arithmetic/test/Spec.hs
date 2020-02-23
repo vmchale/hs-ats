@@ -32,9 +32,9 @@ main = hspec $ parallel $ do
         [Ext.catalan, Ext.doubleFactorial, Ext.factorial, hsMaxRegions]
 
     sequence_ $ zipWith3 agree
-        ["isPrime"]
-        [isPrime]
-        [hsIsPrime]
+        ["isPrime", "isSemiprime"]
+        [isPrime, isSemiprime]
+        [hsIsPrime, hsIsSemiprime]
 
     describe "jacobi" $
         prop "should match the arithmoi function" $

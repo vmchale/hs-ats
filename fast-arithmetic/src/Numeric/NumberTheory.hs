@@ -12,6 +12,7 @@ module Numeric.NumberTheory ( totient
                             , sumDivisors
                             , isPrime
                             , radical
+                            , isSemiprime
                             ) where
 
 import           Foreign.C
@@ -23,6 +24,7 @@ foreign import ccall unsafe sum_divisors_ats :: CInt -> CInt
 foreign import ccall unsafe little_omega_ats :: CInt -> CInt
 foreign import ccall unsafe is_perfect_ats :: CInt -> CBool
 foreign import ccall unsafe is_prime_ats :: CInt -> CBool
+foreign import ccall unsafe is_semiprime_ats :: CInt -> CBool
 foreign import ccall unsafe radical_ats :: CInt -> CInt
 
 -- | Radical of an integer
@@ -34,6 +36,9 @@ radical = conjugate radical_ats
 -- | \( O(\sqrt(n)) \)
 isPrime :: Int -> Bool
 isPrime = asTest is_prime_ats
+
+isSemiprime :: Int -> Bool
+isSemiprime = asTest is_semiprime_ats
 
 -- | See [here](http://mathworld.wolfram.com/PerfectNumber.html)
 isPerfect :: Int -> Bool

@@ -17,5 +17,8 @@ staload "ats-src/numerics.sats"
 implement is_prime_ats (n) =
   is_prime(n)
 
+implement is_semiprime_ats (n) =
+  is_semiprime(n)
+
 implement exp_ats (m, n) =
   exp(m, n)

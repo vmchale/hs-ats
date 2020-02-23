@@ -4,9 +4,19 @@ module Numeric.Haskell ( hsPermutations
                        , hsIsPrime
                        , hsMaxRegions
                        , hsDerangement
+                       , hsIsSemiprime
                        ) where
 
 import qualified Math.Combinat.Numbers as Ext
+
+{-# SPECIALIZE hsIsSemiprime :: Int -> Bool #-}
+hsIsSemiprime :: Integral a => a -> Bool
+hsIsSemiprime 1 = False
+hsIsSemiprime x = case filter ((== 0) . (x `rem`)) [2..up] of
+    []  -> False
+    [y] -> hsIsPrime (x `quot` y)
+    _   -> False
+    where up = floor (sqrt (fromIntegral x :: Double))
 
 {-# SPECIALIZE hsPermutations :: Integer -> Integer -> Integer #-}
 hsPermutations :: Integral a => a -> a -> a

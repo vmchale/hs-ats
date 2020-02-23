@@ -7,6 +7,7 @@ staload "libats/libc/SATS/math.sats"
 staload UN = "prelude/SATS/unsafe.sats"
 staload "ats-src/numerics.sats"
 
+// TODO: lucas numbers?
 // Fast computation of Fibonacci numbers via GMP bindings.
 fn fib_gmp(n : uintGte(0)) : Intinf =
   let
@@ -101,6 +102,31 @@ fn is_prime(k : intGt(0)) :<> bool =
                   true
               else
                 true
+        in
+          loop(2, sqrt_int(k))
+        end
+      end
+
+fn is_semiprime(k : intGt(0)) :<> bool =
+  case+ k of
+    | 1 => false
+    | k => 
+      begin
+        let
+          fun loop { n : nat | n > 0 }{m:nat} .<max(0,m-n)>. (i : int(n), bound : int(m)) :<> bool =
+            if i < bound then
+              if k % i = 0 then
+                is_prime(i) && is_prime($UN.cast(k / i))
+              else
+                loop(i + 1, bound)
+            else
+              if i = bound then
+                if k % i = 0 then
+                  is_prime(i)
+                else
+                  false
+              else
+                false
         in
           loop(2, sqrt_int(k))
         end

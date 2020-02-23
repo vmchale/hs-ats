@@ -2,6 +2,7 @@
 // documentation
 
 bool is_prime_ats(int);
+bool is_semiprime_ats(int);
 bool is_perfect_ats(int);
 int exp_ats(int, int);
 int totient_ats(int);
