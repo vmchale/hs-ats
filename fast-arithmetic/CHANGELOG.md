@@ -1,5 +1,7 @@
 # fast-arithmetic
 
+  * Add `isSemiprime`
+
 ## 0.6.4.3
 
   * Improved documentation

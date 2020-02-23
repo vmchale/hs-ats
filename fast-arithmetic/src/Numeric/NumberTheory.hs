@@ -37,6 +37,7 @@ radical = conjugate radical_ats
 isPrime :: Int -> Bool
 isPrime = asTest is_prime_ats
 
+-- | @since 0.6.5.0)
 isSemiprime :: Int -> Bool
 isSemiprime = asTest is_semiprime_ats
 
