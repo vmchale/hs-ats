@@ -42,7 +42,7 @@ conjugateMPZ' f n k = unsafeDupablePerformIO $ do
     mPtr <- f (fromIntegral n) (fromIntegral k)
     peekInteger mPtr <* mpz_clear mPtr
 
--- | \\( !n \\)
+-- | \( !n \)
 --
 -- > λ:> derangement <$> [0..10]
 -- > [1,0,1,2,9,44,265,1854,14833,133496,1334961]
@@ -74,8 +74,8 @@ factorial = conjugateMPZ factorial_ats
 doubleFactorial :: Int -> Integer
 doubleFactorial = conjugateMPZ double_factorial_ats
 
--- | Compute the maximal number of regions obtained by joining \\( n \\) points
+-- | Compute the maximal number of regions obtained by joining \( n \) points
 -- about a circle by straight lines. See [here](https://oeis.org/A000127).
-maxRegions :: Int -- ^ \\( n \\)
+maxRegions :: Int -- ^ \( n \)
            -> Integer
 maxRegions = conjugateMPZ max_regions_ats
