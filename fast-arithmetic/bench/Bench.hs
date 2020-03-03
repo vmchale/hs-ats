@@ -13,6 +13,10 @@ main =
                       [ bench "isPrime" $ nf isPrime 2017
                       , bench "hsIsPrime" $ nf hsIsPrime (2017 :: Int)
                       ]
+                , bgroup "semiprimality check"
+                      [ bench "isSemiprime" $ nf isSemiprime 57
+                      , bench "hsIsSemiprime" $ nf hsIsSemiprime (57 :: Int)
+                      ]
                 , bgroup "factorial"
                       [ bench "factorial" $ nf factorial 160
                       , bench "Ext.factorial" $ nf Ext.factorial (160 :: Integer)
