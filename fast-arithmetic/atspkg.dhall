@@ -79,12 +79,14 @@ in    λ(cfg : { sourceBld : Bool, staticLib : Bool, withBench : Bool })
       let cc = prelude.cc
 
       in    prelude.default
-          ⫽ { atsSource = atsSource
-            , test = test
-            , libraries = libraries
-            , dependencies = dependencies
+          ⫽ { atsSource
+            , test
+            , libraries
+            , dependencies
             , cflags = libBuildFlag # prelude.ccFlags cc
             , ccompiler = prelude.printCompiler cc
+            , compiler = [ 0, 4, 0 ]
+            , version = [ 0, 3, 13 ]
             , debPkg =
                 prelude.mkDeb
                   (   prelude.debian "fast-arithmetic"
@@ -92,7 +94,7 @@ in    λ(cfg : { sourceBld : Bool, staticLib : Bool, withBench : Bool })
                       , maintainer = "Vanessa McHale <vamchale@gmail.com>"
                       , description = "Library for fast arithmetic in ATS"
                       , libraries =
-                          [ "${prelude.atsProject}/libnumbertheory.a" ]
+                        [ "${prelude.atsProject}/libnumbertheory.a" ]
                       , headers = [ "include/fast_arithmetic.h" ]
                       }
                   )
