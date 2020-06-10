@@ -18,10 +18,9 @@ let mapDatsSrc = λ(x : List Text) → map Text PreSrc hsDatsSrc x
 
 let moduleNames = [ "combinatorics", "number-theory", "numerics" ]
 
-in    λ(cfg : { sourceBld : Bool, staticLib : Bool, withBench : Bool })
-    → let test =
-                  if cfg.withBench
-
+in  λ(cfg : { sourceBld : Bool, staticLib : Bool, withBench : Bool }) →
+      let test =
+            if    cfg.withBench
             then  [   prelude.bin
                     ⫽ { src = "ats-src/bench.dats"
                       , target = "${prelude.atsProject}/bench"
@@ -29,41 +28,34 @@ in    λ(cfg : { sourceBld : Bool, staticLib : Bool, withBench : Bool })
                       , gcBin = True
                       }
                   ]
-
             else  prelude.emptyBin
 
       let atsSource =
-                  if cfg.sourceBld
-
+            if    cfg.sourceBld
             then  prelude.mapSrc (mapDatsSrc moduleNames)
-
             else  prelude.emptySrc
 
       let libraries =
-                  if not cfg.sourceBld
-
+            if    not cfg.sourceBld
             then  let libCommon =
                         { name = "numbertheory"
                         , src = map Text Text asDats moduleNames
                         , includes = [ "include/fast_arithmetic.h" ]
                         }
 
-                  in        if cfg.staticLib
-
+                  in  if    cfg.staticLib
                       then  [   prelude.staticLib
                               ⫽ libCommon
                               ⫽ { libTarget =
                                     "${prelude.atsProject}/libnumbertheory.a"
                                 }
                             ]
-
                       else  [   prelude.lib
                               ⫽ libCommon
                               ⫽ { libTarget =
                                     "${prelude.atsProject}/libnumbertheory.so"
                                 }
                             ]
-
             else  prelude.emptyLib
 
       let dependencies =
