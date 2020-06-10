@@ -35,7 +35,7 @@ main =
                       ]
                 , bgroup "σ"
                       [ bench "sumDivisors" $ nf sumDivisors 115
-                      , bench "Ext.sigma" $ nf (Ext.sigma 1) (115 :: Int)
+                      , bench "Ext.sigma" $ nf ((Ext.sigma :: Word -> Int -> Int) 1) (115 :: Int)
                       ]
                 , bgroup "doubleFactorial"
                       [ bench "doubleFactorial" $ nf doubleFactorial 79
