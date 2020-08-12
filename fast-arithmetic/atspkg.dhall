@@ -77,8 +77,8 @@ in  λ(cfg : { sourceBld : Bool, staticLib : Bool, withBench : Bool }) →
             , dependencies
             , cflags = libBuildFlag # prelude.ccFlags cc
             , ccompiler = prelude.printCompiler cc
-            , compiler = [ 0, 4, 0 ]
-            , version = [ 0, 3, 13 ]
+            , compiler = [ 0, 4, 2 ]
+            , version = [ 0, 4, 2 ]
             , debPkg =
                 prelude.mkDeb
                   (   prelude.debian "fast-arithmetic"
