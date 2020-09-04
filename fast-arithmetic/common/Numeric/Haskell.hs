@@ -5,9 +5,11 @@ module Numeric.Haskell ( hsPermutations
                        , hsMaxRegions
                        , hsDerangement
                        , hsIsSemiprime
+                       , hsPrimorial
                        ) where
 
-import qualified Math.Combinat.Numbers as Ext
+import qualified Math.Combinat.Numbers    as Ext
+import           Math.NumberTheory.Primes (primes, unPrime)
 
 {-# SPECIALIZE hsIsSemiprime :: Int -> Bool #-}
 hsIsSemiprime :: Integral a => a -> Bool
@@ -40,3 +42,7 @@ derangements :: (Integral a) => [a]
 derangements = fmap snd g
     where g = (0, 1) : (1, 0) : zipWith step g (tail g)
           step (_, n) (i, m) = (i + 1, i * (n + m))
+
+{-# SPECIALIZE hsPrimorial :: Int -> Integer #-}
+hsPrimorial :: Integral a => Int -> a
+hsPrimorial n = product (unPrime <$> take n primes)

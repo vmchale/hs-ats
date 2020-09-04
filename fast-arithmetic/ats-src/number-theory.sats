@@ -1,6 +1,9 @@
 staload "$PATSHOMELOCS/atscntrb-hx-intinf/SATS/intinf_vt.sats"
 staload "ats-src/numerics.sats"
 
+// GMP wrapper but this is for the ATS library
+fn primorial(k : [ k : nat | k >= 1 ] ullint(k)) : Intinf
+
 // m | n
 fn divides(m : intGt(0), n : intGte(0)) :<> bool
 

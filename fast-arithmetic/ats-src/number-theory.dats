@@ -60,6 +60,19 @@ implement divisors (n) =
       loop(n, 1)
     end
 
+extern
+fn mpz_primorial_ui(x : &$GMP.mpz >> _, n : ullint) : void =
+  "mac#"
+
+fn primorial_gmp(k : [ k : nat | k >= 1 ] ullint(k)) : Intinf =
+  let
+    var z = ptr_alloc()
+    val () = $GMP.mpz_init(!(z.2))
+    val () = mpz_primorial_ui(!(z.2), k)
+  in
+    $UN.castvwtp0(z)
+  end
+
 // if n >= 0, p > 1, then n/p >= 0
 fn div_gt_zero(n : intGte(0), p : intGt(1)) : intGte(0) =
   $UN.cast(n / p)
@@ -285,3 +298,6 @@ implement totient_ats (n) =
 
 implement jacobi_ats (m, n) =
   jacobi(m, $UN.cast(n))
+
+implement primorial (k) =
+  primorial_gmp(k)

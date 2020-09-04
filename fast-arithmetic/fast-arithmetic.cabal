@@ -84,7 +84,8 @@ library pure-haskell
     ghc-options:      -Wall -O2
     build-depends:
         base >=4.3 && <5,
-        combinat -any
+        combinat -any,
+        arithmoi >= 0.9.0.0
 
     if impl(ghc >=8.0)
         ghc-options:

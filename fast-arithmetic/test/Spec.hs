@@ -1,4 +1,3 @@
--- vim: filetype=hspec
 module Main (main) where
 
 import qualified Math.Combinat.Numbers                 as Ext
