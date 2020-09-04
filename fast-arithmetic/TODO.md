@@ -22,3 +22,5 @@
   - [ ] https://en.wikipedia.org/wiki/Stirling_numbers_of_the_first_kind#Recurrence_relation
 - [ ] quadratic residues
 - [ ] modular exponentiation
+- [ ] https://en.wikipedia.org/wiki/Pieri's_formula
+- [ ] https://snappy.math.uic.edu/
