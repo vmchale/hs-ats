@@ -12,6 +12,7 @@
 - [ ] `bell` is slow compared to haskell?
 # Functions
 - [ ] big omega
+- [ ] Primorials (\*/ p:) in J)
 - [ ] quadratic residues
 - [ ] Jacobi symbol
 - [ ] Chinese remainder theorem
