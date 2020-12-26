@@ -158,7 +158,24 @@ fun jacobi2 {m:int}{n:int}(a : int(m), n : int(n)) : int =
     | _ => ~jacobi2(n, a)
 
 implement count_divisors_ats (n) =
-  stream_vt_length(divisors(n))
+  let
+    fun loop { k : nat | k > 0 }(k : int(k)) : int =
+      if k >= sqrt_int(n) then
+        if n % k = 0 then
+          if n / k != k then
+            2
+          else
+            1
+        else
+          0
+      else
+        if n % k = 0 then
+          2 + loop(k + 1)
+        else
+          loop(k + 1)
+  in
+    loop(1)
+  end
 
 implement sum_divisors_ats (n) =
   let

@@ -1,6 +1,8 @@
 # fast-arithmetic
 
   * Documentation fixes
+  * Fix performance of `tau`; it now beats Haskell implementation from arithmoi
+    again.
 
 # 0.6.5.0
 
