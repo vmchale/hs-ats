@@ -2,6 +2,8 @@ module Main (main) where
 
 import           Criterion.Main
 import qualified Math.Combinat.Numbers                 as Ext
+import qualified Math.Combinatorics.Exact.Binomial     as Exact
+import qualified Math.Combinatorics.Exact.Factorial    as Exact
 import qualified Math.NumberTheory.ArithmeticFunctions as Ext
 import           Numeric.Combinatorics
 import           Numeric.Haskell
@@ -20,6 +22,7 @@ main =
                 , bgroup "factorial"
                       [ bench "factorial" $ nf factorial 160
                       , bench "Ext.factorial" $ nf Ext.factorial (160 :: Integer)
+                      , bench "Exact.factorial" $ nf (Exact.factorial :: Int -> Integer) 160
                       ]
                 , bgroup "φ"
                       [ bench "totient" $ nf totient 2016
@@ -44,6 +47,7 @@ main =
                 , bgroup "choose"
                       [ bench "choose" $ nf (choose 322) 16
                       , bench "Ext.binomial" $ nf (Ext.binomial 322) (16 :: Int)
+                      , bench "Exact.choose" $ nf (Exact.choose 322) (16 :: Integer)
                       ]
                 , bgroup "catalan"
                       [ bench "catalan" $ nf catalan 300

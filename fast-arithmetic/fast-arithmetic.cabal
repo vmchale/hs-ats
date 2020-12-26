@@ -85,7 +85,7 @@ library pure-haskell
     build-depends:
         base >=4.3 && <5,
         combinat -any,
-        arithmoi >= 0.9.0.0
+        arithmoi >=0.9.0.0
 
     if impl(ghc >=8.0)
         ghc-options:
@@ -128,6 +128,7 @@ benchmark fast-arithmetic-bench
         criterion -any,
         arithmoi >=0.4.3.0,
         combinat -any,
+        exact-combinatorics -any,
         pure-haskell -any
 
     if flag(development)
