@@ -50,7 +50,7 @@ source if you are hacking on the library. To that end, you can install
 
 ```bash
 atspkg build --pkg-args "./source.dhall"
-cabal new-build
+cabal build
 ```
 
 ## Documentation
