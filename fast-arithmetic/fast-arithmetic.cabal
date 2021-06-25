@@ -1,12 +1,12 @@
 cabal-version:      2.0
 name:               fast-arithmetic
-version:            0.6.5.1
+version:            0.6.6.0
 license:            BSD3
 license-file:       LICENSE
 copyright:          Copyright: (c) 2018-2020 Vanessa McHale
 maintainer:         vamchale@gmail.com
 author:             Vanessa McHale
-tested-with:        ghc ==8.2.2 ghc ==8.4.4 ghc ==8.6.5 ghc ==8.8.4
+tested-with:        ghc ==8.2.2 ghc ==8.4.4 ghc ==8.6.5 ghc ==8.8.4 ghc ==8.10.5 ghc ==9.0.1
 bug-reports:        https://github.com/vmchale/hs-ats/issues
 synopsis:           Fast functions on integers.
 description:

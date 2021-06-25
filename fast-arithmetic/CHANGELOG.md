@@ -1,5 +1,9 @@
 # fast-arithmetic
 
+## 0.6.6.0
+
+  * Export `bell` function
+
 ## 0.6.5.1
 
   * Documentation fixes
