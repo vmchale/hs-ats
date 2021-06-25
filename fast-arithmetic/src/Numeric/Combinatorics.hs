@@ -14,6 +14,7 @@ module Numeric.Combinatorics ( choose
                              , permutations
                              , maxRegions
                              , stirling2
+                             , bell
                              ) where
 
 import           Foreign.C
@@ -31,6 +32,7 @@ foreign import ccall unsafe derangements_ats :: CInt -> IO (Ptr MPZ)
 foreign import ccall unsafe permutations_ats :: CInt -> CInt -> IO (Ptr MPZ)
 foreign import ccall unsafe max_regions_ats :: CInt -> IO (Ptr MPZ)
 foreign import ccall unsafe stirling2_ats :: CInt -> CInt -> IO (Ptr MPZ)
+foreign import ccall unsafe bell_ats :: CInt -> IO (Ptr MPZ)
 
 conjugateMPZ :: (CInt -> IO (Ptr MPZ)) -> Int -> Integer
 conjugateMPZ f n = unsafeDupablePerformIO $ do
@@ -79,3 +81,6 @@ doubleFactorial = conjugateMPZ double_factorial_ats
 maxRegions :: Int -- ^ \( n \)
            -> Integer
 maxRegions = conjugateMPZ max_regions_ats
+
+bell :: Int -> Integer
+bell = conjugateMPZ bell_ats

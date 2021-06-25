@@ -26,9 +26,9 @@ main = hspec $ parallel $ do
         [Ext.totient, Ext.tau, Ext.smallOmega, Ext.sigma 1]
 
     sequence_ $ zipWith3 (agreeL 0)
-        ["catalan", "doubleFactorial", "factorial", "maxRegions"]
-        [catalan, doubleFactorial, factorial, maxRegions]
-        [Ext.catalan, Ext.doubleFactorial, Ext.factorial, hsMaxRegions]
+        ["catalan", "doubleFactorial", "factorial", "maxRegions", "bell"]
+        [catalan, doubleFactorial, factorial, maxRegions, bell]
+        [Ext.catalan, Ext.doubleFactorial, Ext.factorial, hsMaxRegions, Ext.bellNumber]
 
     sequence_ $ zipWith3 agree
         ["isPrime", "isSemiprime"]
