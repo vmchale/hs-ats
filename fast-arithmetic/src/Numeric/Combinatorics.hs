@@ -48,6 +48,8 @@ conjugateMPZ' f n k = unsafeDupablePerformIO $ do
 
 -- | Rising factorial/Pochammer symbol
 --
+-- \( a^{(n)} = a(a+1)\cdots(a+n-1) \)
+--
 -- @since 0.6.7.0
 risingFac :: Int -> Int -> Integer
 risingFac = conjugateMPZ' rising_fac_ats

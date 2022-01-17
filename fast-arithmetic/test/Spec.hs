@@ -40,7 +40,7 @@ main = hspec $ parallel $ do
             pendingWith "not yet" -- \p q -> p < 0 || not (isPrime q) || q <= 2 || jacobi p q == toInt (Ext.jacobi p q)
     describe "risingFac" $
         prop "should agree" $
-            \n a -> n <= 0 || a <= 0 || risingFac a n == hsRisingFac (fromIntegral a) (fromIntegral n)
+            \n a -> n <= 0 || a <= 0 || risingFac a n == hsRisingFac (fromIntegral a) (fromIntegral n :: Int)
     describe "stirling2" $
         prop "should agree" $
             \n k -> n < 0 || k < 0 || stirling2 n k == Ext.stirling2nd n k
