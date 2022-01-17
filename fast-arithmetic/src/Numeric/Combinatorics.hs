@@ -47,6 +47,8 @@ conjugateMPZ' f n k = unsafeDupablePerformIO $ do
     peekInteger mPtr <* mpz_clear mPtr
 
 -- | Rising factorial/Pochammer symbol
+--
+-- @since 0.6.7.0
 risingFac :: Int -> Int -> Integer
 risingFac = conjugateMPZ' rising_fac_ats
 

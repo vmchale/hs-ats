@@ -1,5 +1,9 @@
 # fast-arithmetic
 
+## 0.6.7.0
+
+  * Add `risingFac` function
+
 ## 0.6.6.0
 
   * Export `bell` function
