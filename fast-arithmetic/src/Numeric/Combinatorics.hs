@@ -15,6 +15,7 @@ module Numeric.Combinatorics ( choose
                              , maxRegions
                              , stirling2
                              , bell
+                             , risingFac
                              ) where
 
 import           Foreign.C
@@ -33,6 +34,7 @@ foreign import ccall unsafe permutations_ats :: CInt -> CInt -> IO (Ptr MPZ)
 foreign import ccall unsafe max_regions_ats :: CInt -> IO (Ptr MPZ)
 foreign import ccall unsafe stirling2_ats :: CInt -> CInt -> IO (Ptr MPZ)
 foreign import ccall unsafe bell_ats :: CInt -> IO (Ptr MPZ)
+foreign import ccall unsafe rising_fac_ats :: CInt -> CInt -> IO (Ptr MPZ)
 
 conjugateMPZ :: (CInt -> IO (Ptr MPZ)) -> Int -> Integer
 conjugateMPZ f n = unsafeDupablePerformIO $ do
@@ -43,6 +45,10 @@ conjugateMPZ' :: (CInt -> CInt -> IO (Ptr MPZ)) -> Int -> Int -> Integer
 conjugateMPZ' f n k = unsafeDupablePerformIO $ do
     mPtr <- f (fromIntegral n) (fromIntegral k)
     peekInteger mPtr <* mpz_clear mPtr
+
+-- | Rising factorial/Pochammer symbol
+risingFac :: Int -> Int -> Integer
+risingFac = conjugateMPZ' rising_fac_ats
 
 -- | \( !n \)
 --

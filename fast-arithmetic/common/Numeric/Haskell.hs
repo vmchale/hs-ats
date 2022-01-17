@@ -6,10 +6,14 @@ module Numeric.Haskell ( hsPermutations
                        , hsDerangement
                        , hsIsSemiprime
                        , hsPrimorial
+                       , hsRisingFac
                        ) where
 
 import qualified Math.Combinat.Numbers    as Ext
 import           Math.NumberTheory.Primes (primes, unPrime)
+
+hsRisingFac :: Integral a => a -> a -> a
+hsRisingFac a n = product [a..(a+n-1)]
 
 {-# SPECIALIZE hsIsSemiprime :: Int -> Bool #-}
 hsIsSemiprime :: Integral a => a -> Bool

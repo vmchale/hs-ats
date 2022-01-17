@@ -1,3 +1,5 @@
+staload "$PATSHOMELOCS/atscntrb-hx-intinf/SATS/intinf_vt.sats"
+
 // Existential types for even and odd numbers.
 typedef Even = [n:nat] int(2*n)
 typedef Odd = [n:nat] int(2*n+1)
@@ -8,6 +10,9 @@ typedef prime(p: int) = gprime(int_kind, p)
 typedef Prime = [p:nat] prime(p)
 
 castfn witness(n : int) :<> [m:nat] int(m)
+
+fn rising_fac_ats {a:nat}{n:nat} : (int(a), int(n)) -> Intinf =
+  "ext#"
 
 fn exp_ats {m:nat} : ([n:nat] int(n), int(m)) -> int =
   "ext#"

@@ -18,6 +18,25 @@ fn fib_gmp(n : uintGte(0)) : Intinf =
     $UN.castvwtp0(z)
   end
 
+// rising pochammer symbol
+fun rising_fac_ref {a:nat}{n:nat}(a : int(a), n : int(n), ret : &Intinf? >> Intinf) : void =
+  case+ n of
+    | 0 => ret := int2intinf(1)
+    | 1 => ret := int2intinf(a)
+    | k =>> let
+      val () = rising_fac_ref(a + 1, n - 1, ret)
+    in
+      ret := mul_intinf0_int(ret, a)
+    end
+
+fn rising_fac {a:nat}{n:nat}(a : int(a), n : int(n)) : Intinf =
+  let
+    var ret: intinfGte(0)
+    val () = rising_fac_ref(a, n, ret)
+  in
+    ret
+  end
+
 // Fast integer exponentiation. This performs O(log n) multiplications. This
 // function is mostly useful for exponentiation in modular arithmetic, as
 // it can overflow.

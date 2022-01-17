@@ -17,6 +17,9 @@ staload "ats-src/numerics.sats"
 implement is_prime_ats (n) =
   is_prime(n)
 
+implement rising_fac_ats (a, n) =
+  rising_fac(a, n)
+
 implement is_semiprime_ats (n) =
   is_semiprime(n)
 
