@@ -1,5 +1,5 @@
 let prelude =
-      https://hackage.haskell.org/package/ats-pkg/src/dhall/atspkg-prelude.dhall
+      https://raw.githubusercontent.com/vmchale/atspkg/master/ats-pkg/dhall/atspkg-prelude.dhall
 
 in  λ(x : List Natural) →
         prelude.makeHsPkg { x, name = "fast-arithmetic" }
